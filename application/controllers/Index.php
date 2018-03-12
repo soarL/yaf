@@ -2,7 +2,7 @@
 use Yaf\Controller_Abstract;
 class IndexController extends Controller_Abstract {
    public function indexAction() {//默认Action
-       $this->getView()->assign("content", "Hello Worssssadasdaslsssd");
+       $this->getView()->assign("content", "Hello Worssssadasdasasdasdlsssd");
    }
 }
 
