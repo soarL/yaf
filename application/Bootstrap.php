@@ -16,6 +16,7 @@ class Bootstrap extends Bootstrap_Abstract{
         public function _initConfig() {
                 $config = Application::app()->getConfig();
                 Registry::set("config", $config);
+                Dispatcher::getInstance()->autoRender(FALSE);
         }
         public function _initDefaultName(Dispatcher $dispatcher) {
                 $dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
