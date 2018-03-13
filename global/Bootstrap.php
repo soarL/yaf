@@ -24,6 +24,10 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 		Dispatcher::getInstance()->autoRender(FALSE);
 	}
 
+	public function _initDefine(){
+		define('WEB_MAIN',$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']);
+	}
+	
 	public function _initDefaultName(Dispatcher $dispatcher) {
 		$dispatcher->setDefaultModule("Index")->setDefaultController("Index")->setDefaultAction("index");
 	}

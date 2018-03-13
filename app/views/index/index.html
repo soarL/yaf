@@ -1,3 +1,23 @@
 <?php 
-
+$this->display('header.html');
+?>
+<table width="100%">
+	<tr>
+		<th>id</th>
+		<th>username</th>
+		<th>password</th>
+	</tr>
+	<?php foreach($users as $key =>$value){?>
+	<tr width='100%' align='center'>
+		<td><?=$value['id']?></td>
+		<td><?=$value['username']?></td>
+		<td><?=$value['password']?></td>
+	</tr>
+	<?php }?>
+</table>
+<div>
+	<a href="<?=WEB_MAIN?>/about">走你去关于我们</a>
+</div>
+<?php 
+$this->display('footer.html');
 ?>
