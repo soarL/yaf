@@ -1,0 +1,50 @@
+<div id="invest2"  class="pt15"> 
+  <table class="tablecomponent">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>转让项目</th>
+        <th>债权总价</th>
+        <th>转让金额</th>
+        <th>待收本息</th>
+        <th>最终还款日</th>
+        <th>转让状态</th>
+        <!-- <th>标的编号</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach($oddClaims as $oddClaim):?>
+      <tr>
+        <td>
+        <a href="<?=Url::to('/odd/view', ['num'=>$oddClaim->oddNumber])?>">
+            <?php $oddImages = $oddClaim->odd->getImages('oddExteriorPhotos');?>
+            <img  src="<?=$oddImages[0]['min']?>" class="itemimg"/>
+        </a>
+        </td>
+        <td class="gray3">
+          <span class="pledgeico" title="债权转让">转</span>
+          <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)])?>" target="_blank">
+              <?='转让项目'.(90000000+$oddClaim->id).'号';?>
+          </a>
+        </td>
+        <td><?=$oddClaim->oddMoney->money?><i>元</i></td>
+        <td><?=$oddClaim->claimsMoney?><i>元</i></td>
+        <td><?=$oddClaim->getStayMoney()?><i>元</i></td>
+        <td class="f16"><?=date('Y-m-d',strtotime($oddClaim->getEndTime()))?><i></i></td>
+        <td>
+          <?php if($oddClaim['status']==0):?>
+          <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)])?>" class="status">认购</a>
+          <?php elseif($oddClaim['status']==-1):?>
+          <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)])?>" class="status status3">已转让</a>
+          <?php endif;?>
+        </td>
+      </tr>
+      <?php endforeach;?>
+    </tbody>
+    <tfoot>
+      <tr>
+      <td colspan="9"><a href="<?=Url::to('/odd/transferList')?>">查看更多项目</a></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

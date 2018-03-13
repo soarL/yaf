@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs">
+    <li <?php if($type=='today'):?>class="active"<?php endif;?>>
+        <a href="/admin/repayment/list" data-toggle="link">今日还款</a>
+    </li>
+    <li <?php if($type=='delay'):?>class="active"<?php endif;?>>
+        <a href="/admin/repayment/advanceList" data-toggle="link">逾期还款</a>
+    </li>
+    <li <?php if($type=='advance'):?>class="active"<?php endif;?>>
+        <a href="/admin/repayment/advanceList" data-toggle="link">提前还款</a>
+    </li>
+    <li <?php if($type=='stay'||$type=='over'||$type=='ing'):?>class="active"<?php endif;?>>
+        <a href="/admin/repayment/list?type=stay" data-toggle="link">全部还款</a>
+    </li>
+</ul>

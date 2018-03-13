@@ -1,0 +1,92 @@
+<?php $this->display('header.html');?>
+<style type="text/css">.ilbl {display: inline-block!important;}</style>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">站岗资金</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-1">
+							<tr>
+                                <?php $queries->getUrl(['excel'=>0]);?>
+								<th>编号</th>
+								<th class="visible-lg">日期<?=$queries->sort('time')?></th>
+								<th class="visible-lg" >有效站岗人数<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时平台有效排名人数"><i class="fa fa-question"></i></a><?=$queries->sort('validCount')?></th>
+								<th class="visible-lg">有效站岗资金<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时平台无效排名人数"><i class="fa fa-question"></i></a><?=$queries->sort('validMoney')?></th>
+								<th class="visible-lg">无效站岗人数<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时平台所有用户有效站岗资金"><i class="fa fa-question"></i></a><?=$queries->sort('invalidCount')?></th>
+								<th class="visible-lg">无效站岗资金<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时平台所有用户无效站岗资金"><i class="fa fa-question"></i></a><?=$queries->sort('invalidMoney')?></th>
+                                <th class="visible-lg">站岗总人数<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时有效站岗人数+无效站岗人数"><i class="fa fa-question"></i><?=$queries->sort('sumCount')?></a></th>
+								<th class="visible-lg" >站岗总额<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天3:59:59时有效站岗总额+无效站岗总额"><i class="fa fa-question"></i><?=$queries->sort('sumMoney')?></a></th>
+							</tr>
+							<?php foreach ($data as $value):?>
+							<tr>
+								<td><?=$value->id?></td>
+								<td><?=$value->addtime?></td>
+								<td><?=$value->validCount?></td>
+								<td><?=number_format($value->validMoney, 2)?></td>
+								<td><?=$value->invalidCount?></td>
+								<td><?=number_format($value->invalidMoney, 2)?></td>
+                                <td><?=$value->sumCount?></td>
+                                <td><?=number_format($value->sumMoney, 2)?></td>
+                            </tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$data->render()?><br/><br/>
+				<h5 class="box-title">搜索结果总计：</h5>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th></th>
+								<th class="visible-lg">有效站岗总人数</th>
+								<th class="visible-lg">有效站岗总额</th>
+								<th class="visible-lg">无效站岗总人数</th>
+								<th class="visible-lg">无效站岗总额</th>
+								<th class="visible-lg">站岗总人数</th>
+								<th class="visible-lg">站岗总额</th>
+							</tr>
+							<tr>
+								<td>总计</td>
+								<td><?=$sum->sumValidCount?$sum->sumValidCount:0;?></td>
+								<td><?=number_format($sum->sumVaildMoney?$sum->sumVaildMoney:0, 2);?></td>
+								<td><?=$sum->sumInvalidCount?$sum->sumInvalidCount:0;?></td>
+								<td><?=number_format($sum->sumInvalidMoney?$sum->sumInvalidMoney:0, 2);?></td>
+								<td><?php echo $sum->sumValidCount+$sum->sumInvalidCount?></td>
+								<td><?php echo $sum->sumVaildMoney+$sum->sumInvalidMoney?></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

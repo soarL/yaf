@@ -1,0 +1,70 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('account/common/tab-money.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">充值记录</div>
+           <!--  <h3>
+                邀请记录
+                <a href="#" class="more cBlue no_unl">查看明细</a>
+            </h3> -->
+            <div class="data-search-form">
+	            <form action="/account/rechargeRecord" method="get">
+					<!--<div class="form-group">
+                        <label>充值渠道</label>
+                        <select name="type" class="select" style="width:90px;">
+                            <?php _options(array_merge(['all'=>'全部'], $payTypes), $queries->type);?>
+                        </select>
+                    </div>-->
+                    <div class="form-group">
+                        <label>充值方式</label>
+                        <select name="way" class="select" style="width:110px;">
+                            <?php _options(array_merge(['all'=>'全部'], $payWays), $queries->way);?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>充值金额</th>
+                        <th>充值渠道</th>
+                        <th>充值方式</th>
+                        <th>充值时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rechargeList as $recharge):?>
+                    <tr>
+                        <td><?=$recharge->serialNumber?></td>
+                        <td><?=$recharge->money?>元</td>
+                        <td><?=_key($recharge->payType, $payTypes, 'yemadai');?></td>
+                        <td><?=$payWays[$recharge->payWay]?></td>
+                        <td><?=$recharge->time?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$rechargeList->render()?>
+            </div>
+            <div class="statistics clearfix">
+                <div class="item">
+                    <span>共计笔数：</span><em><?=$totalResult->totalCount?>笔</em>
+                </div>
+                <div class="item">
+                    <span>共计金额：</span><em><?=floatval($totalResult->totalMoney)?>元</em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

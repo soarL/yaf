@@ -1,0 +1,120 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('odd/common/menu.html');?>
+    <div class=" main condition">
+        <?php 
+            $type = $queries->type;
+            $money = $queries->money;
+            $time = $queries->time;
+        ?>
+    	<p>借款类型：
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>'','money'=>$money,'time'=>$time])?>" <?php if($type==''):?>class="sel"<?php endif;?>>不限制</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>1,'money'=>$money,'time'=>$time])?>" <?php if($type==1):?>class="sel"<?php endif;?>>抵押标</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>2,'money'=>$money,'time'=>$time])?>" <?php if($type==2):?>class="sel"<?php endif;?>>质押标</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>3,'money'=>$money,'time'=>$time])?>" <?php if($type==3):?>class="sel"<?php endif;?>>融资租赁标</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>4,'money'=>$money,'time'=>$time])?>" <?php if($type==4):?>class="sel"<?php endif;?>>新手标</a>
+        <!-- <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>6,'money'=>$money,'time'=>$time])?>" <?php if($type==6):?>class="sel"<?php endif;?>>个人信贷标</a> -->
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>7,'money'=>$money,'time'=>$time])?>" <?php if($type==7):?>class="sel"<?php endif;?>>自动标</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>8,'money'=>$money,'time'=>$time])?>" <?php if($type==8):?>class="sel"<?php endif;?>>手动标</a>
+        </p>
+        <p>借款金额：
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>'','time'=>$time])?>" <?php if($money==''):?>class="sel"<?php endif;?>>不限制</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>1,'time'=>$time])?>" <?php if($money==1):?>class="sel"<?php endif;?>>5万以下</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>2,'time'=>$time])?>" <?php if($money==2):?>class="sel"<?php endif;?>>5万-10万</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>3,'time'=>$time])?>" <?php if($money==3):?>class="sel"<?php endif;?>>10万-20万</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>4,'time'=>$time])?>" <?php if($money==4):?>class="sel"<?php endif;?>>20万-30万</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>5,'time'=>$time])?>" <?php if($money==5):?>class="sel"<?php endif;?>>30万-50万</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>6,'time'=>$time])?>" <?php if($money==6):?>class="sel"<?php endif;?>>50万以上</a>
+        </p>
+        <p>借款期限：
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>$money,'time'=>'']);?>" <?php if($time==''):?>class="sel"<?php endif;?>>不限制</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>$money,'time'=>1]);?>" <?php if($time==1):?>class="sel"<?php endif;?>>3个月以内</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>$money,'time'=>2]);?>" <?php if($time==2):?>class="sel"<?php endif;?>>3-6个月</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>$money,'time'=>3]);?>" <?php if($time==3):?>class="sel"<?php endif;?>>6-12个月</a>
+        <a href="<?=Url::addParams(Url::to('/odd/list'),['type'=>$type,'money'=>$money,'time'=>4]);?>" <?php if($time==4):?>class="sel"<?php endif;?>>12-24个月</a>
+        </p>
+    </div>
+    <div class="main">
+        <div class="content-wrap">
+            <div class="pr">
+                <h3 class="m-title">投资列表<a href="javascript:;" class="mathbtn calculate-btn">理财计算器</a></h3>
+                <p class="aside-wrap">
+                    <span class="pledgeico">抵</span>抵押&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span class="guaranteeico">质</span>质押&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span class="rongziico">融</span>融资租赁&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <span class="newhandico">新</span>新手
+                </p>
+            </div>
+            <table class="tablecomponent">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>标的名称</th>
+                    <!-- <th>信用等级</th> -->
+                    <th>借款金额</th>
+                    <th>进度</th>
+                    <th width="100">年化利率</th>
+                    <th>投资周期</th>
+                    <th>发标时间</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($odds as $odd):?>
+                    <tr>
+                        <td>
+                            <a href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber])?>" target="_blank" class="odd-ico">
+                                <?php if($odd->investType=='1'):?><span title="手动标" class="invest-type invest-type-1">手</span><?php endif;?>
+                                <?php if($odd->oddType=='xiaojin'):?>
+                                <img  src="<?=WEB_ASSET?>/common/images/xj.jpg" class="itemimg"/>
+                                <?php else:?>
+                                <?php if($odd->firstFigure==''):?>
+                                <img alt="<?=$odd->oddTitle?>" src="<?=WEB_ASSET?>/common/images/hold-img.jpg" class="itemimg"/>
+                                <?php else:?>
+                                <img alt="<?=$odd->oddTitle?>" src="<?=strpos($odd->firstFigure, 'http')===false?WEB_ASSET:''?><?=$odd->firstFigure?>" class="itemimg"/>
+                                <?php endif;?>
+                                <?php endif;?>
+                            </a>
+                        </td>
+                        <td class="gray3 tx-left">
+                            <?php if($odd->oddStyle=='newhand'):?>
+                                <span class="newhandico" title="新手标">新</span>
+                            <?php else:?>
+                                <?php if($odd->oddType=='diya'):?>
+                                <span class="pledgeico" title="抵押标">抵</span>
+                                <?php elseif($odd->oddType=='xingyong'):?>
+                                <span class="guaranteeico" title="质押标">质</span>
+                                <?php elseif($odd->oddType=='danbao'):?>
+                                <span class="rongziico" title="融资租赁标">融</span>
+                                <?php elseif($odd->oddType=='special'):?>
+                                <span class="specialico" title="专享标">专</span>
+                                <?php elseif($odd->oddType=='xiaojin'):?>
+                                <span class="specialico" title="信用标">信</span>
+                                <?php endif;?>
+                            <?php endif;?>
+                            <a class="odd-title" href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber]);?>" target="_blank" title="<?=$odd->oddTitle;?>"><?=_title($odd->oddTitle);?></a>
+                        </td>
+                        <!-- <td><span class="ui-creditlevel AA bc">AA</span></td> -->
+                        <td><?=$odd->oddMoney;?><i>元</i></td>
+                        <?php $per = $odd->getPercent();?>
+                        <td><strong class="ui-progressbar-mid ui-progressbar-mid-<?=$per;?> bc"><em><?=$per;?></em>%</strong></td>
+                        <td class="pr reward-row">
+                            <?=$odd->oddYearRate*100;?><i>%</i>
+                            <?php if($odd->oddReward>0):?>
+                            <em class="reward">+<?=$odd->oddReward*100;?>%</em>
+                            <?php endif;?>
+                        </td>
+                        <td><?=$odd->getPeriod()?></td>
+                        <td><?=date('Y-m-d', strtotime($odd->openTime));?></td>
+                        <td><?=$odd->getButton()?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+            <?=$odds->render();?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

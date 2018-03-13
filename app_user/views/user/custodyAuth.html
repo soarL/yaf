@@ -1,0 +1,60 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20 mb20">
+    <?php $this->display('user/common/tab-invest.html');?>
+    <div class="content-wrap clearfix mb20">
+      <div class="sign-mark">自动投标签约后，您可以设置自动投标！</div>
+      <?php if($bidAuth==''):?>
+      <a class="sign-btn active" href="/user/doCustodyAuth/mode/bid">自动投标签约</a>
+      <?php else:?>
+      <a class="sign-btn disabled" href="javascript:;">自动投标已签约</a>
+      <?php endif;?>
+      <!-- 
+      <?php if($creditAuth==''):?>
+      <a class="sign-btn active" href="/user/doCustodyAuth/mode/credit">自动债转签约</a>
+      <?php else:?>
+      <a class="sign-btn disabled" href="javascript:;">自动债转已签约</a>
+      <?php endif;?>
+       -->
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .sign-mark {
+    width: 500px;
+    margin: 0 auto;
+    height: 30px;
+    margin-top: 20px;
+    background: #f39c12;
+    border-radius: 3px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  .sign-btn {
+    padding: 0 45px;
+    height: 40px;
+    font-size: 18px;
+    border: 0;
+    cursor: pointer;
+    z-index: 100;
+    position: relative;
+    line-height: 40px;
+    background-color: #2ea7e0;
+    border-radius: 3px;
+    display: block;
+    margin: 0px auto;
+    width: 100px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
+  .sign-btn.active {background-color: #2ea7e0;}
+  .sign-btn.disabled {background-color: #ccc;}
+</style>
+<?php $this->display('footer.html');?>

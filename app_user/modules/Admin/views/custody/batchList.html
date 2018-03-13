@@ -1,0 +1,131 @@
+<?php use custody\Type;?>
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div id="batch-list-box" class="box">
+            <div class="box-header">
+                <h3 class="box-title">批次列表</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                    <i class="fa fa-file-excel-o text-red"></i></a>
+                </div>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">查询</label>
+                                <?php $searchType = $queries->searchType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="searchType">
+                                        <option value="batchNo" <?php if($searchType=='batchNo'):?>selected<?php endif;?>>批次号</option>
+                                        <option value="refNum" <?php if($searchType=='refNum'):?>selected<?php endif;?>>标的/债权</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">批次类型</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="type">
+                                        <option value="all">全部</option>
+                                        <?php foreach($types as $key => $name):?>
+                                        <option value="<?=$key?>" <?php if($key==$queries->type):?>selected<?php endif;?>><?=$name?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label time-label">交易时间</label>
+                                <div class="input-group time-group">
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm">至</button>
+                                    </div>
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>批次号</th>
+                                <th>标的/债权</th>
+                                <th>批次类型</th>
+                                <th class="visible-lg">发送</th>
+                                <th class="visible-lg">合法性</th>
+                                <th class="visible-lg">结果</th>
+                                <th class="visible-lg">状态</th>
+                                <th>操作</th>
+                            </tr>
+                            <?php foreach ($records as $record):?>
+                            <tr data-num="<?=$record->batchNo?>">
+                                <td><?=$record->batchNo?></td>
+                                <td><?=$record->refNum?></td>
+                                <td><?=$record->getTypeName()?></td>
+                                <td class="visible-lg">
+                                    <span class="label label-primary" data-toggle="tooltip" data-original-title="<?=$record->getWord('send')?>">
+                                        <?=_date('n/j H:i:s', $record->sendTime)?>
+                                    </span>
+                                </td>
+                                <td class="visible-lg">
+                                    <span class="label label-primary" data-toggle="tooltip" data-original-title="<?=$record->getWord('check')?>">
+                                        <?=_date('n/j H:i:s', $record->checkTime)?>
+                                    </span>
+                                </td>
+                                <td class="visible-lg">
+                                    <span class="label label-primary" data-toggle="tooltip" data-original-title="<?=$record->getWord('return')?>">
+                                        <?=_date('n/j H:i:s', $record->returnTime)?>
+                                    </span>
+                                </td>
+                                <td class="visible-lg">
+                                    <?php if($record->status==1):?>
+                                    <span class="label label-success">处理成功</span>
+                                    <?php elseif($record->status==-1):?>
+                                    <span class="label label-danger">处理失败</span>
+                                    <?php else:?>
+                                    <span class="label label-warning">未处理</span>
+                                    <?php endif;?>
+                                </td>
+                                <td>
+                                    <?php if($record->type=='batchVoucherPay'):?>
+                                    <a class="btn btn-ssm btn-info" href="/admin/custody/batchVouchers?batchTxDate=<?=$record->getBNDate()?>&batchNo=<?=$record->getBNQ()?>" target="_blank"> <i class="fa fa-eye icon-white"></i>
+                                        明细
+                                    </a>
+                                    <?php else:?>
+                                    <a class="btn btn-ssm btn-info" href="/admin/custody/batchDetails?batchTxDate=<?=$record->getBNDate()?>&batchNo=<?=$record->getBNQ()?>" target="_blank"> <i class="fa fa-eye icon-white"></i>
+                                        明细
+                                    </a>
+                                    <?php endif;?>
+                                    <?php if($record->status==0):?>
+                                    <a class="btn btn-ssm btn-warning btn-pack" href="javascrip:;"> <i class="fa fa-eye icon-white"></i>
+                                        补单
+                                    </a>
+                                    <?php endif;?>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <div class="col-sm-7">
+                  <div class="table-info" style="line-height: 30px;">
+                    <span class="text-success">银行处理时间：6:00、8:00、9:00、10:00、11:00、12:00、13:00、14:00、16:00、18:00、19:00、20:00、21:00、22:00, 需提前15分钟提交。</span>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <?=$records->render()?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

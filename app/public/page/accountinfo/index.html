@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人账户</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<style>
+		body{
+			background-color: #f3f3f3;
+		}
+		.title{
+			border-bottom: 1px solid #a0a0a0;
+		}
+		.title_c{
+			width: 80%;
+			margin: 0 auto;
+			padding: 15px 0
+		}
+		.title_c ul li{
+			float: left;
+			box-sizing: border-box;
+			border-top:1px solid #4196e9;
+			border-bottom:1px solid #4196e9;
+			color: #4196e9;
+			font-size: 15px;
+			padding: 8px 0px;
+			width: calc(100% / 3);
+			text-align: center;
+			cursor: pointer;
+		}
+		.title_c ul li:nth-child(1){
+			border-left: 1px solid #4196e9;
+			border-top-left-radius: 30px;
+			border-bottom-left-radius: 30px;
+		}
+		.title_c ul li:nth-child(2){
+			border-left: 1px solid #4196e9;
+			border-right: 1px solid #4196e9;
+		}
+		.title_c ul li:nth-child(3){
+			border-right: 1px solid #4196e9;
+			border-top-right-radius: 30px;
+			border-bottom-right-radius: 30px;
+		}
+		.active{
+			background-color: #4196e9;
+			color: #fff !important;
+		}
+		.userinfo{
+			padding-top: 10px;
+			padding-bottom: 30px;
+			background-color: #fff;
+		}
+		.userinfo table tr td{
+			border-top: none;
+			border-bottom: 1px solid #d0d0d0;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.userinfo div[data-uss='userinfo']{
+			width: 85%;
+			margin: 0 auto;
+		}
+		.container-box{
+			background-color: #fff;
+			margin-bottom: 20px;
+		}
+		.container-wi{
+			width: 85%;
+			margin: 0 auto;
+			padding: 10px 0;
+		}
+		.detail{
+			display: none;
+		}
+		.detail span[data-detail="i1"]{
+			font-size: 16px;
+			display: inline-block;
+			margin-right: 10px;
+		}
+		.detail span[data-detail="i2"]{
+			font-size: 18px;
+			display: inline-block;
+			margin-right: 20px;
+			color: #4196e9;
+		}
+		.detail button[data-detail="i3"],button[data-detail="i4"]{
+			font-size: 15px;
+			border:none;
+			padding: 3px 15px;
+			color: #fff;
+			background-color: #4196e9;
+			outline: none;
+			border-radius: 6px;
+		}
+		.detail button[data-detail="i3"]:active,button[data-detail="i4"]:active{
+			background-color: #398cde;
+		}
+		.jie-list{
+			margin-bottom: 0;
+		}
+		.jie-list li{
+			width: 50%;
+		}
+		.jie-list li h3{
+			font-size: 16px;
+			margin-bottom: 0;
+		}
+		.jie-list li p{
+			font-size: 16px;
+			color: #b2b2b2;
+			padding-top: 17px;
+			bottom: 0;
+		}
+		.jie-list .jie-list-right{
+			text-indent: 50px;
+		}
+		.jie-list .jie-list-right p{
+			border-left: 1px solid #e5e5e5;
+		}
+		.lately{
+			font-size: 18px;
+			border-bottom: 1px solid #eee;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.repay{
+			font-size: 15px;
+			border:none;
+			padding: 3px 15px;
+			color: #fff;
+			background-color: #4196e9;
+			outline: none;
+			border-radius: 6px;
+			position: absolute;
+			top: 50%;
+			margin-top: -8px;
+			right: 10px;
+		}
+		.jie-list-left{
+			position: relative;
+		}
+		span[data-detail="i6"]{
+			font-size: 12px;
+			color: #4196e9;
+			border-radius: 4px;
+			border:1px solid #4196e9;
+			padding:3px 6px;
+			margin-left: 5px;
+		}
+		.detailed thead tr th{
+			border-bottom: none;
+		}
+		.detailed thead tr th,.detailed tbody tr td{
+			padding: 10px 0;
+			text-align: center;
+		}
+		.detailed tbody tr td{
+			color: #afafaf;
+			border-top: none;
+			border-bottom:1px solid #eaeaea;
+		}
+		.detailed .not{
+			color: #fc6262;
+		}
+		#repay{
+			display: none;
+		}
+		.ajax-rechge{
+			padding: 10px 20px;
+			display: none;
+		}
+		.alert-msg{
+		    padding: 15px 0 15px 15px;
+		    width: 250px;
+		}
+	</style>
+</head>
+<body>
+	<div class="title">
+		<div class="title_c">
+			<ul class="list-unstyled">
+				<li class="active">我的账户</li>
+				<li>账户明细</li>
+				<li>还款明细</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+	</div>
+	<!-- 我的账户 -->
+	<div class="userinfo" id="userinfo">
+		<div data-uss='userinfo'>
+			<table class="table">
+				<tr>
+					<td align="left">户名</td>
+					<td align="right" data-name></td>
+				</tr>
+				<tr style="display: none;">
+					<td align="left">法人名称</td>
+					<td align="right" data-legal></td>
+				</tr>
+				<tr>
+					<td align="left">身份证号</td>
+					<td align="right" data-card_num></td>
+				</tr>
+				<tr>
+					<td align="left">银行卡</td>
+					<td align="right" data-bank_name></td>
+				</tr>
+				<tr>
+					<td align="left">银行卡号</td>
+					<td align="right" data-bank_num></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 账户明细 -->
+	<div class="detail" id="detail">
+		<div class="container-box">
+			<div class="container-wi" data-detail="con1">
+				<span data-detail="i1">账户余额</span>
+				<span data-detail="i2">￥<span data-fundMoney></span></span> 
+				<button data-detail="i3">充值</button>
+			</div>
+		</div>
+		<div class="container-box">
+			<div class="container-wi">
+				<ul class="list-unstyled jie-list">
+					<li class="pull-left">
+						<h3>借款本金</h3>
+						<p>￥<span data-loanBenJin></span></p>
+					</li>
+					<li class="pull-left jie-list-right">
+						<h3>待还本金</h3>
+						<p>￥<span data-waitBenJin></span></p>
+					</li>
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+		</div>
+		<div class="container-box">
+			<div class="container-wi">
+				<h1 class="lately">最近一期还款</h1>
+				<ul class="list-unstyled jie-list">
+					<li class="pull-left jie-list-left">
+						<h3>近期还款金额</h3>
+						<p>￥ <span id="repay-money" data-nearRepay></span></p>
+						<span style="display: none;" data-nextId></span>
+						<button class="repay">还款</button>
+					</li>
+					<li class="pull-left jie-list-right">
+						<h3>最近一期还款</h3>
+						<p><span data-nextRepay></span></p>
+					</li>
+					<div class="clearfix"></div>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 还款明细 -->
+	<div id="repay">
+
+	</div>
+	<!-- 充值 -->
+	<div id="ajax-rechge" class="ajax-rechge">
+		<input type="text" class="form-control" placeholder="请输入金额" style="margin-bottom: 10px;" name="money">
+		<input type="button" value="提交" class="btn btn-primary" id="ajaxTop">	
+	</div>
+	<!-- 充值短信验证 -->
+	<div id="ajax-rechge-sms" class="ajax-rechge">
+		<input type="text" style="display: none;" value="" name="business_no">
+		<input type="text" class="form-control" placeholder="请输入短信验证码" style="margin-bottom: 10px;" name="sms_code">
+		<input type="button" value="提交" class="btn btn-primary" id="ajaxTop-sms">	
+	</div>
+	<!-- 还款 -->
+	<div id="ajax-repay" class="ajax-rechge">
+		<form action="">
+			<span>还款金额：<span class="jine">111</span></span>
+			<input type="button" value="确定" class="btn btn-primary" id="ajax-reapy">	
+		</form>
+	</div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./layer/layer.js"></script>
+<script>
+	$(".title_c ul li").click(function(){
+		$(".title_c ul li").removeClass("active")
+		$(this).addClass("active")
+		var index = $(this).index();
+		switch (index) {
+			case 0:
+				$("#userinfo").show();
+				$("#detail").hide();
+				$("#repay").hide();
+				break;
+			case 1:
+				$("#detail").show();
+				$("#userinfo").hide();
+				$("#repay").hide();
+				break;
+			case 2:
+				$("#repay").show();
+				$("#userinfo").hide();
+				$("#detail").hide();
+				break;
+			default:
+				layer.msg('错误')
+				break;
+		}
+	})
+	$("button[data-detail='i3']").click(function(){
+		layer.open({
+			 type: 1,
+			  shade: false,
+			  title: '充值', //不显示标题
+			  content: $('#ajax-rechge'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+		})
+	})
+	$("button.repay").click(function(){
+		var money = parseFloat($("#repay-money").text())
+		$(".jine").text(money)
+		layer.open({
+			 type: 1,
+			  shade: false,
+			  title: '还款', //不显示标题
+			  content: $('#ajax-repay'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+		})
+	})
+	$("#ajaxTop").click(function(){
+		var money = $("input[name='money']").val()
+		if(money.length==0){
+			layer.msg('请输入金额');
+			return
+		}
+		var data = {
+			money:money,
+			payWay:"SWIFT"
+		}
+		$.post('/loaner/doRecharge',data,function(e){
+			e = JSON.parse(e);
+			if(e.status==1){
+				$("input[name='business_no']").val(e.business_no)
+				layer.closeAll();
+				layer.open({
+					type:1,
+					shade:false,
+					title:'请输入短信验证码',
+					content:$("#ajax-rechge-sms")
+				})
+			}else{
+				layer.closeAll();
+				layer.msg(e.info)
+			}
+		})
+	})
+	$("#ajaxTop-sms").click(function(){
+		var sms_code = $("input[name='sms_code']").val();
+		var business_no = $("input[name='business_no']").val();
+		var data = {
+			sms_code:sms_code,
+			business_no:business_no
+		}
+		$.post('/loaner/confirmBFRecharge',data,function(e){
+			e = JSON.parse(e);
+			if(e.status==1){
+				layer.closeAll();
+				layer.msg(e.info);
+				loanerData();
+			}else {
+				layer.closeAll();
+				layer.msg(e.info);
+			}
+		})
+	})
+	$("#ajax-reapy").click(function(){
+		var data = {
+			nearRepay:$("span[data-nearRepay]").text(),
+			id:$("span[data-nextId]").text()
+		}
+		$.post("/loaner/repay",data,function(e){
+			e = JSON.parse(e);
+			if(e.status==1){
+				layer.closeAll();
+				layer.msg('还款成功');
+				loanerData();
+			}else{
+				layer.closeAll();
+				layer.msg(e.info)
+			}
+		})
+	})
+	// 数据
+	function loanerData(){
+		$.getJSON("/loaner/loanerData",function(e){
+			if(e.status==0){
+				window.location = window.location.origin + '/page/accountinfo/login.html';
+				return
+			}
+			// 借款明细
+			var userType = "个人";
+			if(e.userType==3){
+				userType="企业";
+				$("td[data-legal]").text(e.legal).parent().show()
+			}
+			$("td[data-name]").text(e.name)
+			$("td[data-card_num]").text(e.card_num)
+			$("td[data-bank_name]").text(e.bank_name)
+			$("td[data-bank_num]").text(e.bank_num)
+			$("span[data-fundMoney]").text(e.fundMoney)
+			$("span[data-loanBenJin]").text(e.loanBenJin || '暂无')
+			$("span[data-waitBenJin]").text(e.waitBenJin || '暂无')
+			$("span[data-nearRepay]").text(e.nearRepay || '暂无')
+			if(e.nextId){
+				$("span[data-nextId]").text(e.nextId)
+			}else{
+				$(".repay").attr("disabled",true).css("backgroundColor","#ccc")
+			}
+			$("span[data-nextRepay]").text(e.nextRepay.split(" ")[0] || '暂无')
+
+			var data = e.interestData;
+			var htmled="";
+			if(!data){
+				htmled = "<p style='color:red;text-align:center;margin-top:20px;'>暂无记录</p>";
+			}else{
+				for(var i=0;i<data.length;i++){
+
+				   htmled  += '<div class="container-box">'
+							+ '<div class="container-wi" data-detail="con1">'
+							+ '<span data-detail="i1">'+data[i].oddTitle+'--'+data[i].oddNumber+'</span>'
+							+ '<span data-detail="i6">'+userType+'</span>'
+							+ '<button data-detail="i4" style="margin-left: 8px;">'
+							+ '<a href="'+function(){if(data[i].recordUrl){return data[i].recordUrl}else{return "javascript:layer.msg('合同正在生成中！请稍后再查看...')"}}()+'" style="color: #fff;text-decoration:none;">查看合同</a></button>'
+							+ '</div></div>'
+							+ '<div class="container-box" style="margin-bottom: 10px;">'
+							+ '<div class="container-wi" style="padding: 0">'
+							+ '<table class="table detailed" style="margin-bottom: 0">'
+							+ '<thead>'
+							+ '<tr>'
+							+ '<th>期数</th>'
+							+ '<th>还款时间</th>'
+							+ '<th>还款本金</th>'
+							+ '<th>还款利息</th>'
+							+ '<th>还款情况</th>'
+							+ '</tr>'
+							+ '</thead></table></div></div>'
+							+ '<div class="container-box">'
+							+ '<div class="container-wi">'
+							+ '<table class="table detailed">'
+							+ '<tbody>';
+
+					for(var k=0;k<data[i].list.length;k++){
+						htmled += '<tr>'
+								+ '<td>'+data[i].list[k].qishu+'</td>'
+								+ '<td>'+data[i].list[k].endtime.split(" ")[0]+'</td>'
+								+ '<td>￥'+data[i].list[k].benJin+'</td>'
+								+ '<td>￥'+data[i].list[k].interest+'</td>';
+						if(data[i].list[k].status=='未还'){
+							htmled+= '<td class="not">未还款</td>'
+						}else {
+							htmled+= '<td>已还款</td>'
+						}
+							htmled+= '</tr>';
+					}
+					htmled += '</tbody>'
+							+ '</table>'
+							+ '</div>'
+							+ '</div>';
+				}
+			}
+			$("#repay").html(htmled)					
+		})
+	}
+	loanerData();
+</script>
+</html>

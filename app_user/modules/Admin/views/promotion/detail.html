@@ -1,0 +1,79 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<!--<h3 class="box-title"><?=$promotion->channelName?>【<?=$promotion->channelCode?>】渠道详情</h3>-->
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/promotion/list">
+		          <i class="glyphicon glyphicon-edit"></i>
+					<!-- <a type="button"  class="btn btn-xs btn-success">导出excel</a> -->
+                      <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a href="<?=$excelUrl?>" class="btn btn-success btn-xs ">导出excel</a>
+		          </a>
+		        </div>
+			</div>
+
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">渠道编号</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="channel" placeholder="渠道编号" value="<?=$queries->channel?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label time-label">时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+							<tr>
+								<th class="visible-lg">注册时间</th>
+								<th class="visible-lg">手机号</th>
+								<th class="visible-lg">项目编号</th>
+								<th class="visible-lg">投资时间</th>
+								<th class="visible-lg">投资金额</th>
+								<th class="visible-lg">借款期限</th>
+								<th class="visible-lg">是否首投</th>
+
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr>
+								<td class="visible-lg"><?=$record->user->addtime?></td>
+								<td class="visible-lg"><?=$record->user->phone?></td>
+								<td class="visible-lg"><?=$record->oddNumber?></td>
+								<td class="visible-lg"><?=$record->time?></td>
+								<td class="visible-lg"><?=$record->money?></td>
+								<td class="visible-lg"><?=$record->odd->oddBorrowPeriod?>个月</td>
+								<td class="visible-lg"><?=$record->isFirstInvest?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<div class="col-sm-12">
+					<?=$records->render()?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php $this->display('footer.html');?>

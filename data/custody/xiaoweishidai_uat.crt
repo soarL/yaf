@@ -1,0 +1,111 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 58 (0x3a)
+        Signature Algorithm: md5WithRSAEncryption
+        Issuer: emailAddress=certadmin@credit2go.cn, C=CN, O=Jixin, Inc., OU=Infomation Security, OU=credit2go.cn, CN=CreditGo Trust Network
+        Validity
+            Not Before: Jun 16 14:44:46 2017 GMT
+            Not After : Jun 16 14:44:46 2020 GMT
+        Subject: C=CN, ST=SH, L=Shanghai, O=credit2go.cn, OU=CloudService, CN=xiaoweishidai_uat/emailAddress=service@credit2go.cn
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:d0:24:c2:81:be:9d:c9:ee:83:64:26:7e:40:b6:
+                    fe:ac:f0:97:00:04:d6:7a:aa:39:51:4b:78:5a:d0:
+                    a2:f6:7f:64:30:b7:ad:7a:a7:01:55:43:1f:69:d0:
+                    8f:35:75:d4:a2:66:91:36:2a:a5:73:2f:e8:72:c2:
+                    0a:a5:b4:b7:0c:99:a4:c6:e5:08:4d:cd:d5:94:1b:
+                    68:23:4e:60:35:03:84:8d:f3:d9:83:6b:96:08:a0:
+                    28:96:3a:97:3d:65:e3:e0:f6:d8:46:b4:f1:00:9e:
+                    42:04:a9:e5:7e:4f:bc:94:b7:09:b5:77:49:86:70:
+                    69:69:c0:a8:69:27:54:01:96:2f:1c:78:8a:bb:92:
+                    ae:19:84:b1:df:8c:da:f2:83:7c:f3:61:97:68:5e:
+                    ae:9f:1a:61:9b:3a:6e:c2:c6:21:43:9a:fb:76:3d:
+                    de:fd:34:89:00:bc:c1:96:f6:47:28:6d:7b:aa:3b:
+                    ed:8a:1a:26:60:33:fb:a4:24:6c:f3:3b:9e:87:a1:
+                    51:7a:71:7f:6d:15:4e:27:28:3c:8c:6e:73:26:4c:
+                    99:6b:46:81:09:20:d7:dc:93:a4:bf:4f:66:b7:3d:
+                    ae:aa:85:6a:0b:50:10:78:c5:f4:5f:e1:fd:02:e9:
+                    46:c7:35:d7:a7:88:fb:5d:ff:bc:c7:f4:79:d5:8c:
+                    7c:f3
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Cert Type: 
+                Object Signing
+            X509v3 Key Usage: 
+                Digital Signature, Non Repudiation, Key Encipherment
+            X509v3 Subject Key Identifier: 
+                99:1F:36:6C:E6:06:D9:4E:BD:0F:81:4E:A9:C4:E4:F8:B8:6A:92:D3
+            X509v3 Authority Key Identifier: 
+                keyid:F1:C7:B5:81:EF:55:36:BD:62:6E:45:6C:15:EB:FF:B5:A3:37:CF:E1
+                DirName:/emailAddress=certadmin@credit2go.cn/C=CN/O=Jixin, Inc./OU=Infomation Security/OU=credit2go.cn/CN=CreditGo Trust Network
+                serial:9A:B7:C6:45:9A:EA:9A:98
+
+    Signature Algorithm: md5WithRSAEncryption
+        0c:69:81:96:31:ee:8e:56:78:50:25:05:59:c0:d6:6c:b9:1c:
+        46:78:c2:62:c8:6b:43:96:39:74:e8:ef:27:29:e6:5f:18:4a:
+        b5:d6:be:82:77:00:85:c9:b7:fe:fc:11:7d:6e:a9:d0:61:28:
+        75:e6:9b:99:77:ca:42:d0:2e:85:1a:b9:62:93:3c:c2:67:75:
+        dc:d6:31:2f:9d:13:54:23:af:ae:9b:a7:b6:e7:92:4d:d2:b3:
+        e5:5d:b5:31:06:e6:e5:c9:1d:a2:7a:17:e0:d0:99:7f:f9:78:
+        93:26:99:6d:6a:24:d0:e8:88:64:1a:79:98:7c:33:d4:61:8b:
+        91:9a:e8:74:5e:d0:97:fc:18:85:b2:33:0c:e5:82:08:b7:19:
+        ac:08:83:f1:e0:d2:9c:f8:ca:fb:d6:7c:39:05:fd:6c:31:db:
+        d5:6c:8d:a8:15:be:4e:bc:bd:0c:bd:ae:a0:ac:84:76:ac:fd:
+        f4:a8:48:8d:7b:40:60:9c:d0:f7:9e:72:fd:48:05:e1:f5:e5:
+        86:4a:53:f2:0b:89:bd:36:ec:9d:61:e7:86:29:98:9c:88:7e:
+        36:40:b4:7d:34:e9:03:45:30:b6:b7:0e:08:2a:d8:61:30:18:
+        8a:5f:20:9d:ed:b7:68:aa:6a:8d:90:32:94:8f:80:07:c6:f8:
+        a6:1f:46:28:f5:bd:06:9c:c6:eb:ce:9c:f5:05:e3:ed:4f:4d:
+        31:1a:b4:64:02:a9:d6:68:12:1f:b1:5a:dc:ce:6a:66:cc:2b:
+        96:d0:ce:f5:aa:ff:72:3f:ea:34:0f:36:69:f5:4a:0e:c9:30:
+        ad:c4:58:9b:4b:22:e5:ad:1f:dd:8f:06:46:aa:54:c2:8f:20:
+        c9:06:01:74:00:bf:69:62:d9:a1:c0:13:cc:91:fb:93:d6:a5:
+        d1:1a:f7:1e:4e:35:89:ce:4f:3b:8b:44:ea:3a:be:80:03:4b:
+        c7:62:a3:e6:b3:56:a2:a3:62:72:e3:62:bd:3c:f9:02:6b:b1:
+        93:65:79:f0:c3:33:83:3b:bb:72:dd:01:54:1e:36:4f:02:53:
+        88:c8:3b:15:ad:37:6d:0a:22:c6:cb:34:f4:79:51:4c:82:de:
+        db:eb:cc:2b:a5:9e:29:9c:40:5b:ef:2d:a4:05:f7:8f:89:33:
+        1b:01:a7:38:b7:70:62:ad:98:28:c3:d9:4e:26:72:bb:23:d4:
+        3f:94:43:ae:a7:20:cb:3d:d9:06:7f:d8:e9:5d:18:8c:bc:1c:
+        3b:eb:3a:5d:13:27:31:d3:c6:5c:65:e2:ba:4e:0e:53:3b:5d:
+        19:e4:43:a7:51:a6:54:f1:a2:59:71:61:b0:e2:fa:84:e0:cd:
+        49:58:72:20:df:fc:11:9b
+-----BEGIN CERTIFICATE-----
+MIIF4TCCA8mgAwIBAgIBOjANBgkqhkiG9w0BAQQFADCBoDElMCMGCSqGSIb3DQEJ
+ARYWY2VydGFkbWluQGNyZWRpdDJnby5jbjELMAkGA1UEBhMCQ04xFDASBgNVBAoT
+C0ppeGluLCBJbmMuMRwwGgYDVQQLExNJbmZvbWF0aW9uIFNlY3VyaXR5MRUwEwYD
+VQQLEwxjcmVkaXQyZ28uY24xHzAdBgNVBAMTFkNyZWRpdEdvIFRydXN0IE5ldHdv
+cmswHhcNMTcwNjE2MTQ0NDQ2WhcNMjAwNjE2MTQ0NDQ2WjCBnDELMAkGA1UEBhMC
+Q04xCzAJBgNVBAgTAlNIMREwDwYDVQQHEwhTaGFuZ2hhaTEVMBMGA1UEChMMY3Jl
+ZGl0MmdvLmNuMRUwEwYDVQQLEwxDbG91ZFNlcnZpY2UxGjAYBgNVBAMUEXhpYW93
+ZWlzaGlkYWlfdWF0MSMwIQYJKoZIhvcNAQkBFhRzZXJ2aWNlQGNyZWRpdDJnby5j
+bjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANAkwoG+ncnug2QmfkC2
+/qzwlwAE1nqqOVFLeFrQovZ/ZDC3rXqnAVVDH2nQjzV11KJmkTYqpXMv6HLCCqW0
+twyZpMblCE3N1ZQbaCNOYDUDhI3z2YNrlgigKJY6lz1l4+D22Ea08QCeQgSp5X5P
+vJS3CbV3SYZwaWnAqGknVAGWLxx4iruSrhmEsd+M2vKDfPNhl2herp8aYZs6bsLG
+IUOa+3Y93v00iQC8wZb2Ryhte6o77YoaJmAz+6QkbPM7noehUXpxf20VTicoPIxu
+cyZMmWtGgQkg19yTpL9PZrc9rqqFagtQEHjF9F/h/QLpRsc116eI+13/vMf0edWM
+fPMCAwEAAaOCASYwggEiMAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgQQMAsG
+A1UdDwQEAwIF4DAdBgNVHQ4EFgQUmR82bOYG2U69D4FOqcTk+LhqktMwgdUGA1Ud
+IwSBzTCByoAU8ce1ge9VNr1ibkVsFev/taM3z+GhgaakgaMwgaAxJTAjBgkqhkiG
+9w0BCQEWFmNlcnRhZG1pbkBjcmVkaXQyZ28uY24xCzAJBgNVBAYTAkNOMRQwEgYD
+VQQKEwtKaXhpbiwgSW5jLjEcMBoGA1UECxMTSW5mb21hdGlvbiBTZWN1cml0eTEV
+MBMGA1UECxMMY3JlZGl0MmdvLmNuMR8wHQYDVQQDExZDcmVkaXRHbyBUcnVzdCBO
+ZXR3b3JrggkAmrfGRZrqmpgwDQYJKoZIhvcNAQEEBQADggIBAAxpgZYx7o5WeFAl
+BVnA1my5HEZ4wmLIa0OWOXTo7ycp5l8YSrXWvoJ3AIXJt/78EX1uqdBhKHXmm5l3
+ykLQLoUauWKTPMJnddzWMS+dE1Qjr66bp7bnkk3Ss+VdtTEG5uXJHaJ6F+DQmX/5
+eJMmmW1qJNDoiGQaeZh8M9Rhi5Ga6HRe0Jf8GIWyMwzlggi3GawIg/Hg0pz4yvvW
+fDkF/Wwx29VsjagVvk68vQy9rqCshHas/fSoSI17QGCc0Peecv1IBeH15YZKU/IL
+ib027J1h54YpmJyIfjZAtH006QNFMLa3Dggq2GEwGIpfIJ3tt2iqao2QMpSPgAfG
++KYfRij1vQacxuvOnPUF4+1PTTEatGQCqdZoEh+xWtzOambMK5bQzvWq/3I/6jQP
+Nmn1Sg7JMK3EWJtLIuWtH92PBkaqVMKPIMkGAXQAv2li2aHAE8yR+5PWpdEa9x5O
+NYnOTzuLROo6voADS8dio+azVqKjYnLjYr08+QJrsZNlefDDM4M7u3LdAVQeNk8C
+U4jIOxWtN20KIsbLNPR5UUyC3tvrzCulnimcQFvvLaQF94+JMxsBpzi3cGKtmCjD
+2U4mcrsj1D+UQ66nIMs92QZ/2OldGIy8HDvrOl0TJzHTxlxl4rpODlM7XRnkQ6dR
+plTxollxYbDi+oTgzUlYciDf/BGb
+-----END CERTIFICATE-----

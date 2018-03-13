@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>收费标准</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <base href="assets/fee/">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/zepto.min.js"></script>
+</head>
+
+<body>
+    <div class="fee-img">
+        <a href="feeimg.html">
+            <p>点击查看大图</p>
+            <img src="images/feedata.jpg" alt="">
+        </a>
+    </div>
+    <div class="fee-items">
+        <ul>
+            <li>
+                <div class="item-title"><span>如何获得积分</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>投资者投标后每期回款即可获得积分，积分按投标贷收本金计算获取，获取比率如下：</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>标的类型</th>
+                                <th>积分获取比率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>一月标</td><td>（待收本金）100元=1积分</td></tr>
+                            <tr><td>二月标</td><td>（待收本金）100元=1.2积分</td></tr>
+                            <tr><td>三月标</td><td>（待收本金）100元=1.4积分</td></tr>
+                            <tr><td>六月标</td><td>（待收本金）100元=1.6积分</td></tr>
+                            <tr><td>十二月标</td><td>（待收本金）100元=2积分</td></tr>
+                            <tr><td>二十四月标</td><td>（待收本金）100元=3积分</td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>注释：</strong>等额本息项目获取的积分随待收本金逐月递减。</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+            <li>
+                <div class="item-title"><span>提前还款计息方式</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p><strong>按月付息项目</strong>如出现提前还款，则按投资用户在该项目的上一次结息日后的投资天数（含提前还款当日）结算利息，返还本金。</p>
+                    <p><strong>等额本息项目</strong>如出现提前还款，则按投资用户在该项目的上一次结息日后的投资天数（含提前还款当日）结算利息，并将待还本金的3‰作为利息补贴投资用户，同时返还待还本金。</p>
+                    <p><strong>备注：</strong>若项目无上一次结息日，则按投资用户在该项目的投资天数（含提前还款当日）结算利息。</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+            <li>
+                <div class="item-title"><span>债权转让服务费</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>如果投资用户在转让所投项目债权时，该投资用户在该项目的投标天数<30天则收取0.5%的手续费用，投标天数≥30天则不收取任何费用。 （注：债权转让当日不计入投标天数，手续费用为该投资用户在该项目所投金额的0.5%，在提现时收取）</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+
+<li>
+                <div class="item-title"><span>债权购买服务费</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>不收服务费</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+
+<li>
+                <div class="item-title"><span>充值手续费</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>不收服务费</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+
+<li>
+                <div class="item-title"><span>提现手续费</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>客户每月均有3次免费提现机会，单月超出免费次数提现每笔提现收取2元</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+
+<li>
+                <div class="item-title"><span>拓展奖励</span><i></i><em></em></div>
+                <div class="item-cont">
+                    <!--内容部分-->
+                    <p>投资用户每日获得推荐奖励=（A的待收本金×0.3%+B的待收本金×0.2%+C的待收本金×0.1%）÷360</p>
+                    <p><strong>备注：</strong>投资用户直接推荐的新人是A（一级），A推荐的新人是B（二级），B推荐的新人是C（三级）</p>
+                    <!--内容部分:over-->
+                    <div class="item-hide"></div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <script>
+        (function($){
+            $('.item-title').on('click',function(){
+                $(this).siblings().toggle();
+            });
+            $('.item-hide').on('click',function(){
+                $(this).parent().hide();
+            });
+        })(Zepto)
+    </script>
+</body>
+
+</html>

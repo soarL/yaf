@@ -1,0 +1,11 @@
+<?php $activeMenu = Yaf\Registry::get('asset')->params['activeMenu']; ?>
+<section class="content-header">
+  <h1>
+    <?=$activeMenu['name']?>
+    <!-- <small>版本 2.3.0</small> -->
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/admin/index/index"><i class="fa fa-dashboard"></i> 主页</a></li>
+    <li class="active"><?=$activeMenu['name']?></li>
+  </ol>
+</section>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>充值</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="./css/recharge.css">
+</head>
+<body>
+	<div class="body_div_s">
+		<div class="topbox">
+			<div class="kjzfBank">
+                <img src="http://asset.eph.com/src/images/user/bank/CCB.png" alt="" id="ImgUrl">
+                <span class="strBank" id="strBank">6879</span>
+            </div>
+            <p class="explain">
+            	单笔充值限额<span>50万元</span>，单日充值限额<span>200万元</span>
+            </p>
+		</div>
+		<label for="" class="rechargemoney">
+			<span class="pull-left">充值金额</span><input type="number" placeholder="请输入金额" class="pull-right" name='money'>
+			<div class="clearfix"></div>
+		</label>
+	</div>
+	<div class="body_div">
+		<p class="explain">最低充值金额为<span>100元</span></p>
+		<button class="button_s" id="submit">确认支付</button>
+	</div>
+	<div id="ajax-sms" class="ajax-sms">
+		<input type="text" class="form-control" name="sms" placeholder="请输入6位数短信验证码">
+		<button class="button_s" id="sms-submit">确认</button>
+	</div>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="./layer/layer.js"></script>
+	<script>
+		$("#submit").on("click",function(){
+			var money = $("input[name='money']").val();
+			if(money.length==0){
+				layer.msg('请输入金额');
+				return
+			}
+			data = {
+				money
+			}
+			// $.post("/",data,function(){
+				layer.open({
+					type:1,
+					title:'请输入短信验证码',
+					content:$("#ajax-sms")
+				})
+			// })
+		})
+		$("#sms-submit").on("click",function(){
+			var code = $("input[name='sms']").val();
+			if(code.length==0){
+				layer.msg('请输入短信验证码！');
+				return
+			}
+			layer.closeAll()
+			layer.msg("充值成功！")
+		})
+	</script>
+</body>
+</html>

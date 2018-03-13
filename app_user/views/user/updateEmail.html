@@ -1,0 +1,67 @@
+<?php $this->display('header.html');?>
+<?php use helpers\StringHelper;?>
+<?php if($step=='send'):?>
+<div class="common-form-wrap mt50">
+  <div class="title">修改邮箱</div>
+    <div class="input-wrap mt30">
+      <label class="label">原有邮箱</label>
+      <input type="hidden" value="<?php echo $email;?>" id="email">
+      <div class="static-input"><?php echo StringHelper::getHideEmail($email);?></div>
+      <span class="icon icon-head"></span> </div>
+    <div class="clearfix mt30">
+      <div class="input-wrap fl" style="width:200px">
+        <label class="label">验证码</label>
+        <input id="captcha" class="ui-input input-icon" type="text" name="captcha" style="width:110px" placeholder="验证码">
+        <span class="icon icon-key"></span>
+      </div>
+      <a class="code-wrap fl" href="javascript:;">
+        <img id="captcha-img" onclick="this.src+='?'+Math.random()" src="<?php echo WEB_CAPTCHA;?>">
+      </a>
+    </div>
+    <div class="tc mt30">
+      <input id="send-email-btn" type="submit" value="发送验证邮件" class="btn-blue loginbtn"/>
+    </div>
+    <div class="warn-wrap">
+      <div class="warn-title">注意：</div>
+      <div class="warn-content">
+        <p>1. 如果您未收到邮件，请在一分钟后重新发送！</p>
+      </div>
+    </div>
+</div>
+<?php elseif($step=='validate'):?>
+<div class="common-form-wrap mt50">
+  <div class="title">修改邮箱</div>
+  <form action="/user/updateEmail" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">新邮箱</label>
+        <input class="ui-input input-icon" type="text" name="email" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">确认邮箱</label>
+        <input class="ui-input input-icon" type="text" name="emailSure" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="clearfix mt30">
+        <div class="input-wrap fl" style="width:200px">
+          <label class="label">验证码</label>
+          <input class="ui-input input-icon" type="text" name="captcha" style="width:110px" placeholder="验证码">
+          <span class="icon icon-key"></span>
+        </div>
+        <a class="code-wrap fl" href="javascript:;">
+          <img id="captcha-img" onclick="this.src+='?'+Math.random()" src="<?php echo WEB_CAPTCHA;?>">
+        </a>
+      </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php elseif($step=='finish'):?>
+<div class="main">
+  <div class="center-info">
+    <h4>邮件发送成功！</h4>
+    <div class="info">请到邮箱查收确认邮件，单击相应链接完成验证（1小时内有效）！</div>
+    <div class="warning">如果您没有收到邮件，请先检查是否在垃圾邮件中。如果没有请 <button id="resend-email-btn" href="javascript:;">重新发送验证码</button> 。</div>
+  </div>
+</div>
+<?php endif;?>
+<?php $this->display('footer.html');?>

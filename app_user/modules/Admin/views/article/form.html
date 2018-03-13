@@ -1,0 +1,100 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">添加新闻</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/article/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/article/save" class="form-horizontal" method="post" onsubmit="abc()" enctype="multipart/form-data">
+      <div class="box-body">
+        <input type="hidden" name="id" value="<?=$news->id?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">标题</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_title" value="<?=$news->news_title?>" placeholder="输入标题">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">关键字</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_keywords" value="<?=$news->news_keywords?>" placeholder="输入关键字">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">描述</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_abstract" value="<?=$news->news_abstract?>" placeholder="输入描述">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">类型</label>
+          <div class="col-sm-11">
+            <select name="news_type" class="form-control">
+              <option value="">请选择...</option>
+              <?php foreach($types as $type):?>
+              <option value="<?=$type->type_key?>" <?php if($type->type_key==$news->news_type):?>selected<?php endif;?>><?=$type->type_name?></option>
+              <?php endforeach;?>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">排序</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_order" value="<?=$news->news_order?>" placeholder="输入排序">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">发布时间</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_time" value="<?=$news->news_time?>" placeholder="输入排序">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">点击量</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="news_num" value="<?=$news->news_num?>" placeholder="输入点击量">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">主图</label>
+          <div class="col-sm-11">
+            <div class="input-group">
+              <input type="text" class="form-control" id="imageUrl" name="imageUrl" value="<?=$news->news_image?>">
+              <span class="btn btn-success fileinput-button input-group-btn">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择图片</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input class="fileupload" type="file" name="files[]" data-input="#imageUrl" multiple>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">内容</label>
+          <div class="col-sm-11">
+          <script id="editor" type="text/plain" url="<?=WEB_ASSET.'/src/js/3rd-lib/ueditor/'?>" style="width:100%;height:500px;"><?=htmlspecialchars_decode($news->news_body)?></script>
+          <input type="hidden" name="news_body" id="editor_value" value=''>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>
+<script type="text/javascript">
+  function abc(){
+    $('#editor_value').val(UE.getEditor('editor').getContent());
+  }
+
+</script>

@@ -1,0 +1,55 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap common-form-big mt50">
+  <div class="title">单位资料</div>
+  <form action="/user/infoCompany" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">单位名称</label>
+        <input class="ui-input input-icon" type="text" name="officename" value="<?php echo $info['officename'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">联系电话</label>
+        <input class="ui-input input-icon" type="text" name="officephone" value="<?php echo $info['officephone'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">地区</label>
+        <input autocomplete="off" type="text" class="ui-input input-icon city_input  inputFocus proCityQueryAll proCitySelAll" ov="请选择/输入城市名称" name="officecity"  value="<?php echo $info['officecity'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">具体地址</label>
+        <input class="ui-input input-icon" type="text" name="officeadder" value="<?php echo $info['officeadder'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label label-1">工作年限</label>
+        <div class="radio-item-list clearfix">
+          <div class="radio-item">
+            <label><input type="radio" name="officeyear" value="1" <?php if($info['officeyear']=='1'){echo 'checked';}?>>1年以下</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="officeyear" value="2" <?php if($info['officeyear']=='2'){echo 'checked';}?>>1-3年</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="officeyear" value="3" <?php if($info['officeyear']=='3'){echo 'checked';}?>>3-5年</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="officeyear" value="4" <?php if($info['officeyear']=='4'){echo 'checked';}?>>5-10年</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="officeyear" value="5" <?php if($info['officeyear']=='5'){echo 'checked';}?>>10年以上</label>
+          </div>
+        </div>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">证明人</label>
+        <input class="ui-input input-icon" type="text" name="officeproof" value="<?php echo $info['officeproof'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">证明人手机</label>
+        <input class="ui-input input-icon" type="text" name="officeprooftel" value="<?php echo $info['officeprooftel'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="确定" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('city.html');?>
+<?php $this->display('footer.html');?>

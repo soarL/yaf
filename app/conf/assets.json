@@ -1,0 +1,56 @@
+{
+	"rsrc": "/src",
+	"modules": {
+		"Index" : {
+			"config" : {"ac": true},
+			"actions": {
+				"global": {
+					"css": [
+					    "/css/common.css", 
+					    "/css/box.css", 
+					    "/css/layer/skin/default/layer.css"
+					], 
+					"beginJs": ["/js/require.js", "/js/config.js"],
+					"metas":[{"name":"viewport","content":"width=device-width, initial-scale=0"}]
+				},
+				"index.index": {"gm": true, "css": ["/css/index.css","https://lib.f2ex.cn/cdn/swiper/3.3.1/css/swiper.min.css"]},
+				"about.index": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.info": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.develop": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.custody": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.contact": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.supervise": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.clause": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.risk": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.cz": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.opendata": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.report": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.rates": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.spreads": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.promise": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.honor": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.events": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.audit": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.lagel": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.houseloan": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.carloan": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.riskmanage": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.riskassess": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.overdue": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.preloan": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.centerloan": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.afterloan": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.borrownotice": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.ctr": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"about.loanCompanyself": {"css": ["/css/disclosure.css"], "mod":"about/common"},
+				"crtr.view": {"gm": true, "css": ["/css/odd.css"]},
+				"odd.list": {"gm": true, "css": ["/css/odd.css"]},
+				"odd.new": {"gm": true, "css": ["/css/odd.css"]},
+				"odd.view": {"gm": true, "css": ["/css/odd.css","/css/fancybox2/jquery.fancybox.css"]},
+				"crtr.list": {"gm": true, "css": ["/css/odd.css"]},
+				"news.list": {"css": ["/css/newslist.css"]},
+				"news.show": {"css": ["/css/newslist.css"]}
+			}
+		}
+	}
+}

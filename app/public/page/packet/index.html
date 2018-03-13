@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>领红包</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<style>
+		*{
+			font-family: "微软雅黑"
+		}
+		body{
+			width: 100%;
+			height: 100%;
+			background-image: url(./img/bg.png);
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-color: #ce211c;
+			font-size: 
+		}
+		.alerts{
+			width: 260px;
+			height: 70px;
+			background-color: rgba(0,0,0,0.45);
+			border-radius: 10px;
+			color: #fff;
+			line-height: 70px;
+			text-align: center;
+			position: fixed;
+			top: 50%;
+			margin-top: -60px;
+			left: 50%;
+			margin-left: -125px;
+			font-size: 1.6rem;
+			display: none;
+			z-index: 88
+		}
+		.footer{
+			position: fixed;
+			bottom: 10px;
+			left: 0;
+			width: 100%;
+		}
+		.footer p{
+			color: #ffcc99;
+			margin-bottom: 0px;
+			text-indent: 20px;
+			line-height: 22px;
+			text-align: center;
+		}
+		.footer p:nth-child(2){
+			margin-top: 5px;
+		}
+		.footer p:nth-child(3){
+			color: #ff9933;
+			margin-bottom: 5px;
+		}
+		.btn-groups{
+			text-align: center;
+		}
+		.btn-groups button:nth-child(1),.btn-groups button:nth-child(3){
+			border-radius: 21px;
+			background-color: rgb(229, 0, 79);
+			box-shadow: 0px 1px 2.85px 0.15px rgba(253, 110, 26, 0.26);
+			border-width: 4px;
+			border-color: rgb(255, 255, 255);
+			border-style: solid;
+			outline: none;
+			border:none;
+			color: #ffcc99;
+			font-size: 14px;
+			width: 20%;
+			padding: 6px 0;
+			display: inline-block;
+		}
+		.btn-groups button:nth-child(2){
+			border-radius: 20px;
+			background-image: -moz-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			background-image: -webkit-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			background-image: -ms-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			box-shadow: 0px 3px 2.85px 1.15px rgba(253, 110, 26, 0.26);
+			box-sizing: border-box;
+			border: 2px solid rgb(248,238,173);
+			outline: none;
+			color: #ffcc99;
+			font-size: 18px;
+			width: 50%;
+			padding: 12px 0;
+			display: inline-block;
+			margin: 0 6px;
+		}
+		.btn-groups button.btn-active{
+			background-image: -moz-linear-gradient( -90deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+			background-image: -webkit-linear-gradient( -90deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+			background-image: -ms-linear-gradient( -90deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+		}
+		.reg-box{
+			width: 100%;
+			height:100%;
+			background-color: rgba(0,0,0,0.8);
+			position: fixed;
+			top:0;
+			left: 0;
+			display: -webkit-flex; /* Safari */
+			display: flex;
+			justify-content: center;
+			align-items:center;
+		}
+		.lindang{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 30%;
+			z-index: 999;
+		}
+		.reg-f,.rule-f{
+			background-color: #fff;
+			width: 88%;
+			height:60%;
+			border-radius: 10px;
+			position: relative;
+			padding-top:69px; 
+		}
+		.reg-f img:nth-child(1),.rule-f img:nth-child(1){
+			top: -51px;
+			width: 18%;
+			position: absolute;
+			left: 8px;
+			z-index: 9999;
+		}
+		.reg-f img:nth-child(2){
+			top: -68px;
+		    width: 44%;
+		    position: absolute;
+		    left: 50%;
+		    margin-left: -21%;
+		}
+		.reg-f img:nth-child(3){
+			top: -74px;
+			width: 62%;
+			position: absolute;
+			left: 50%;
+			margin-left: -31%;
+		}
+		.reg_form_box{
+			width: 88%;
+			margin: 0 auto;
+		}
+		.reg_form_box ul{
+			margin-bottom: 30px;
+		}
+		.reg_form_box ul li{
+			width: 50%;
+			float: left;
+		}
+		.reg_form_box ul li:nth-child(1){
+			text-align: center;
+			color: #ff8423;
+			border-bottom:2px solid #ff8423; 
+			font-size: 18px;
+			line-height: 28px;
+		}
+		.reg_form_box ul li:nth-child(2){
+			text-align: right;
+			color: #777;
+			border-bottom:2px solid #e5e5e5;
+			font-size: 16px;
+			line-height: 28px;
+		}
+
+		.reg_form_box p.input-s input{
+			border: 1px solid #aaa;
+			padding-top:18px; 
+			padding-bottom:18px;
+			margin-bottom: 15px; 
+		}
+		.reg_form_box p button{
+			background-color: #ff6633;
+			color: #fff;
+			line-height: 34px;
+			text-align: center;
+			outline: none;
+			border: none;
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+			padding-left: 15px;
+			padding-right: 15px;
+			position: absolute;
+			top: 1px;
+			right: 1px;
+		}
+		.btn-organ{
+			background-image: -moz-linear-gradient( 169deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+			background-image: -webkit-linear-gradient( 169deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+			background-image: -ms-linear-gradient( 169deg, rgb(253,106,27) 0%, rgb(254,140,19) 51%, rgb(254,153,16) 80%, rgb(254,165,13) 97%);
+			color: #fff;
+			width: 100%;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			font-size: 20px;
+			line-height: 40px;
+			border-top-right-radius: 0;
+			border-top-left-radius:0 ;
+			border-bottom-left-radius:10px;
+			border-bottom-right-radius:10px;
+		}
+
+
+		.log_form_box h1{
+			color: #ff721f;
+			font-size: 26px;
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 28px;
+		}
+		.log_form_box p span{
+			color: #ff721f;
+			text-align: right;
+			float: right;
+		}
+		.log-f{
+			height: 55%
+		}
+		.regSuc_form_box h1{
+			color: #ff721f;
+			font-size: 26px;
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 28px;
+		}
+		.regSuc_form_box h2{
+			color: #ffcc99;
+			font-size: 20px;
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.regSuc-f{
+			height: 50%;
+		}
+		.hongbao{
+			width: 10%;
+			transition: 0.8s;
+		}
+		.zhongjian_box{
+			width: 100%;
+		}
+		.zhongjian-btn-box button{
+			border-radius: 20px;
+			background-image: -moz-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			background-image: -webkit-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			background-image: -ms-linear-gradient( 90deg, rgb(206,33,28) 0%, rgb(238,86,5) 54%, rgb(246,110,24) 81%, rgb(254,133,43) 97%);
+			box-shadow: 0px 1px 2.85px 0.15px rgba(253, 110, 26, 0.26);
+			display: inline-block;
+			width: 35%;
+			outline: none;
+			border: none;
+			color: #fff;
+			font-weight: bold;
+			padding: 10px 0;
+		}
+		.zhongjian-btn-box button:nth-child(1){
+			margin-right: 10px;
+		}
+		.zhongjian-btn-box button:nth-child(2){
+			margin-left: 10px;
+		}
+		.zhongjian_box .zhongjian{
+			text-align: center;
+			position: relative;
+		}
+		.zhongjian-btn-box{
+			text-align: center;
+			margin-top: 20px;
+		}
+		.zhongjian-info{
+			position: absolute;
+			bottom:16px;
+			width: 100%;
+		}
+		.xingxi{
+			position: absolute;
+			left: 50%;
+			top: 15px;
+			margin-left: -150px;
+		}
+		.huaban{
+			position: fixed;
+			left: 0;
+			top: 0;
+		}
+		.zhongjian h1{
+			color: #ffcc99;
+			font-weight: bold;
+			font-size: 26px;
+		}
+		.zhongjian h1 b{
+			color: #ffff00;
+			font-size: 36px;
+		}
+		.zhongjian p{
+			color: #ffcc99;
+			font-size: 16px;
+		}
+		.jinpiao img{
+			display: none
+		}
+
+		.rule-f{
+			padding-top: 33px;
+		}
+		.rule-f img.tuichu{
+			position: absolute;
+			right: -9px;
+			top: -12px;
+			width: 10%;
+			z-index: 2;
+		}
+		.rule-f img.ruleZs{
+			position: absolute;
+			top: -161px;
+			left: -15px;
+			width: 110%;
+			z-index: 1;
+		}
+
+		.ruleCTX{
+			text-align: center;
+		}
+		.ruleCTX h1{
+			color: #ff721f;
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		.ruleCTX p{
+			padding-left: 20px;
+			padding-right: 20px;
+			color: #000;
+			font-size: 13px;
+			margin-bottom: 0px;
+			text-align: left;
+			line-height: 24px;
+		}
+		.ruleCTXBox{
+			height: 220px;
+			overflow-x: hidden;
+			position: relative;
+			z-index: 99;
+		}
+		.panel-f{
+			padding-top: 14px;
+		}
+		.panel_table{
+			margin-bottom: 0px;
+		}
+		.panel_table tr th{
+			text-align: center;
+			color: #fff;
+			font-weight: normal;
+			font-size: 18px;
+		}
+		.panel_table thead tr {
+			background-color: #f84747;
+		}
+		.table>thead>tr>th {
+		    border-bottom:none;
+		}
+		.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+		    border-top: none;
+		}
+		.panel_table tbody tr td{
+			border-bottom:1px solid #ddd;
+		}
+		.panel_table_box{
+			height: 220px;
+			overflow: hidden;
+			position: relative;
+			z-index: 99;
+		}
+		#panel_table{
+			position: relative;
+		}
+		.fenxiang_boxs{
+			width:100%;
+			height: 100%;
+			position: fixed;
+			z-index: 99999;
+			background-color: rgba(0,0,0,0.9);
+			background-repeat: no-repeat;
+			background-position: right 10px top 20px;
+			background-image: url(./img/guide1.png);
+			background-size: 60%;
+		}
+	</style>
+</head>
+<body>
+	<img src="https://www.91hc.com/page/packet/img/icon.jpg" style="display: none">
+	<div class="footer">
+		<div class="btn-groups">
+			<button onclick="rule()">活动规则</button>
+			<button onclick="start()" id="startBtn">领红包</button>
+			<button onclick="panel()">兑奖名单</button>
+		</div>		
+		<p>剩余领取次数：<span id="count">3</span>次</p>		
+		<p>（分享给好友可增加1次领取机会）</p>
+	</div>
+
+	<div class="reg-box" id="reg" style="display: none;">
+		<img src="./img/reg1.png" alt="" class="lindang">
+		<div class="reg-f" onclick="maopao()">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/logo.png" alt="logo">
+			<img src="./img/star.png" alt="">
+			<div class="reg_form_box">
+				<ul class="list-unstyled">
+					<li>注册账号</li>
+					<li>已有账号，<span style="color:#ff8423;" onclick="logEvent()">登录</span></li>
+					<div class="clearfix"></div>
+				</ul>
+				<p class="input-s">
+					<input type="text" class="form-control" id="reg-phone" placeholder="请输入手机号码">				
+				</p>
+				<p class="input-s">
+					<input type="password" class="form-control" id="reg-pass" placeholder="密码为8~16位数字、字母和符合的组合">
+				</p>
+				<p class="input-s" style="position: relative;">
+					<input type="text" class="form-control" id="reg-sms" placeholder="短信验证码">
+					<button class="reg-hqdx">点击获取</button>			
+				</p>
+			</div>
+			<input type="button" class="btn btn-organ" value="注册领红包" onclick="register()">
+		</div>
+	</div>
+	
+	<div class="reg-box" id="log" style="display: none;">
+		<img src="./img/reg1.png" alt="" class="lindang">
+		<div class="reg-f log-f" onclick="maopao()">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/logo.png" alt="logo">
+			<img src="./img/star.png" alt="">
+			<div class="reg_form_box log_form_box">
+				<h1>欢迎登录</h1>
+				<p class="input-s">
+					<input type="text" class="form-control" id="log-phone" placeholder="请输入手机号码">				
+				</p>
+				<p class="input-s">
+					<input type="password" class="form-control" id="log-pass" placeholder="密码为8~16位数字、字母和符合的组合">
+				</p>
+				<p>
+					<span onclick="regEvent()">免费注册</span>
+				</p>
+			</div>
+			<input type="button" class="btn btn-organ" value="登录领红包" onclick="login()">
+		</div>
+	</div>
+	
+	<div class="reg-box" id="reg-suc" style="display: none;">
+		<img src="./img/reg1.png" alt="" class="lindang">
+		<div class="reg-f regSuc-f">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/logo.png" alt="logo">
+			<img src="./img/star.png" alt="">
+			<div class="reg_form_box regSuc_form_box">
+				<h1>恭喜您注册成功</h1>
+				<h2>可获得2次领红包机会</h2>
+				<h2>分享给好友多一次获奖机会</h2>
+			</div>
+			<input type="button" class="btn btn-organ" value="快去领红包" onclick="regSucEvent()">
+		</div>
+	</div>
+
+	<div class="reg-box" id="log-suc" style="display: none;">
+		<img src="./img/reg1.png" alt="" class="lindang">
+		<div class="reg-f regSuc-f">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/logo.png" alt="logo">
+			<img src="./img/star.png" alt="">
+			<div class="reg_form_box regSuc_form_box">
+				<h1>登录成功</h1>
+				<h2>可获得2次领红包机会</h2>
+				<h2>分享给好友多一次获奖机会</h2>
+			</div>
+			<input type="button" class="btn btn-organ" value="快去领红包" onclick="logSucEvent()">
+		</div>
+	</div>
+
+	<div class="reg-box" id="hongbao" style="display: none;">
+		<img src="./img/weikaifen.png" alt="" class="hongbao" onclick="beginHB()">
+		<div class="zhongjian_box" style="display: none;">
+			<div class="jinpiao">
+				<img src="./img/jinpiao1.png" alt="">
+			</div>
+			<div class="zhongjian">
+				<img src="./img/zhongjian.png" alt="">
+				<img src="./img/xingxin.png" alt="" class="xingxi">
+				<img src="./img/huaban.png" alt="" class="huaban">
+				<div class="zhongjian-info">
+					<h1>恭喜您中奖&nbsp;<b id="money">50</b>&nbsp;元!</h1>
+					<p>红包可在汇诚普惠</p>
+					<p>网站兑换提现至银行卡</p>
+				</div>
+			</div>
+			<div class="zhongjian-btn-box">
+				<button onclick="jweixin()">分享</button>
+				<button oncilck="sub()">确定</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- <div class="reg-box" id="hongbao" style="display: none;">
+		<div class="zhongjian_box" style="display: none;">
+			<div class="jinpiao">
+				<img src="./img/jinpiao1.png" alt="">
+			</div>
+			<div class="zhongjian">
+				<img src="./img/zhongjian.png" alt="">
+				<img src="./img/xingxin.png" alt="" class="xingxi">
+				<img src="./img/huaban.png" alt="" class="huaban">
+				<div class="zhongjian-info">
+					<h1>恭喜您中奖&nbsp;<b>50</b>&nbsp;元!</h1>
+					<p>红包可在汇诚普惠</p>
+					<p>网站兑换提现至银行卡</p>
+				</div>
+			</div>
+			<div class="zhongjian-btn-box">
+				<button onclick="jweixin()">分享</button>
+				<button>确定</button>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="reg-box" id="rule" style="display: none;">
+		<div class="rule-f">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/ruleZs.png" alt="" class="ruleZs">
+			<img src="./img/tuichu.png" alt="" class="tuichu" onclick="tuichu()">
+			<div class="ruleCTX">
+				<h1>活动规则</h1>
+				<div class="ruleCTXBox">
+					<p>1. 本次活动时间为：2018年2月13日-2月22日；</p>
+					<p>2. 活动期间，凡登录/注册客户即可获得两次领取红包机会，通过微信分享活动可额外获得一个红包；（仅第一次分享获得）；</p>
+					<p>3. 客户打开红包可随机获得1.5-5元现金红包；（现金红包可直接在“汇诚普惠”平台中提现至银行卡）；</p>
+					<p>4. 领取红包用户可直接登录<a href="https://www.91hc.com" >“汇诚普惠”</a>官网，点击“我的账户”进入身份认证后即可将现金红包提现；</p>
+					<p>5. 本次活动预计发放现金红包8888元，活动送完即止；</p>
+					<p>6. 现金红包发放截止时间为2018年2月28日，到期前未认证客户将无法获得现金红包；</p>
+					<p>7. 凡通过不法手段或活动漏洞获得现金红包客户，平台将不予兑现；</p>
+					<p>8. 活动相关疑问可关注“汇诚普惠”公众号或拨打400-080-8885咨询客服人员；</p>
+					<p>9. 汇诚普惠保留法律范围内允许的对活动的解释权。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="reg-box" id="panel" style="display: none;">
+		<div class="rule-f panel-f" style="min-height: 400px;">
+			<img src="./img/bianpao.png" alt="">
+			<img src="./img/ruleZs.png" alt="" class="ruleZs">
+			<img src="./img/tuichu.png" alt="" class="tuichu" onclick="tuichu()">
+			<div class="ruleCTX">
+				<h1>兑奖名单</h1>
+				<table class="table panel_table">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>电话</th>
+							<th>金额</th>
+							<th>状态</th>
+						</tr>
+					</thead>
+				</table>
+				<div class="panel_table_box">
+					<table class="table panel_table" id ="panel_table" >
+						
+					</table>
+				</div>
+				<p style="text-align: center;color: #ff721f;font-size: 14px;padding-top: 10px;">剩余奖金：<span id="total"></span>元</p>
+				<p style="text-align: center;color: #ff721f;font-size: 14px;">已获红包：<span id="get"></span>元</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="fenxiang_boxs" style="display: none;">
+		
+	</div>
+
+	<audio loop="loop" id="bg-music" autoplay> 
+	       <source  src="./bgsound.mp3">
+	</audio>
+	<div class="alerts" ></div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	var cmpRegs = {
+	    password: /(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^&*-+]))|((?=.*[0-9])((?=.*[a-z])|(?=.*[!@#$%^&*-+]))).{6,12}/,
+	    phone:/^1[2345789]\d{9}$/,
+	    verify: /^\d{6}$/
+	}
+
+	function sub(){
+		$(".hongbao").show();
+		$(".zhongjian_box").hide();
+	}
+
+	function register(){
+		var phone = $('#reg-phone').val();
+        var smsCode = $('#reg-sms').val();
+        var password = $('#reg-pass').val();
+
+        if(phone=='') {
+            alert('请输入手机号');
+            return false;
+        }
+        if(!cmpRegs.phone.test(phone)) {
+            alert('手机号格式错误');
+            return false;
+        }
+
+        if(smsCode=='') {
+            alert('请输入手机验证码');
+            return false;
+        }
+        if(!cmpRegs.verify.test(smsCode)) {
+            alert('手机验证码错误');
+            return false;
+        }
+        if(password=='') {
+            alert('请输入密码');
+            return false;
+        }
+        if(!cmpRegs.password.test(password)) {
+            alert('密码格式错误');
+            return false;
+        }
+        var spreadUser = getSpreadUser();
+
+        $.ajax({
+          url: '/help/register',
+          type: 'POST',
+          dataType: 'json',
+          data: {phone:phone, password:password, smsCode:smsCode, spreadUser:spreadUser},
+          success: function(result){
+            if (result.status==1){
+            	$.post('/common/login',{phone:phone,password:password},function(){
+            		initData();
+            	});
+            	
+                regSucEvent();
+            } else {
+                alert(result.msg);
+            }
+          }
+        })
+	}
+
+
+	function getSpreadUser() {
+        var code = getQueryParam('spreadCode');
+        if(!code){
+            code = getCookie('spreadCode');
+        }
+        var spreadUser = '';
+        $.ajax({
+          url: '/common/getSpreadUser',
+          type: 'POST',
+          dataType: 'json',
+          async: false,
+          data: {code:code},
+          success: function(result){
+            if (result.status==1){
+                spreadUser = result.data.spreadUser;
+            }
+          }
+        })
+        return spreadUser;
+    }
+
+    function sendCode() {
+        var phone = $('#reg-phone').val();
+        if(phone=='') {
+            alert('请输入手机号');
+            return false;
+        }
+        if(!cmpRegs.phone.test(phone)) {
+            alert('手机号格式错误');
+            return false;
+        }
+
+        $.ajax({
+            url: '/common/ajaxSendSms',
+            type: 'POST',
+            dataType: 'json',
+            data: {phone:phone, msgType:'register'},
+            success: function(result){
+              if (result.status==1){
+                daojishi();
+              } else {
+                alert(result.info)
+              }
+            }
+        })
+    }
+    
+    function daojishi(){
+        var timer =60;
+        function Countdown() {
+            if (timer >= 1) {
+                timer -= 1;
+                setTimeout(function() {
+                    Countdown();
+                }, 1000);
+            }
+            if (timer<60) {
+                 $(".reg-hqdx").text("短信已发送 "+timer+"s")
+                 $('.reg-hqdx').attr("disabled",true); 
+            }
+            if(timer==0){
+                $(".reg-hqdx").text("重新获取验证码")
+                $('.reg-hqdx').attr("disabled",false); 
+            }
+        }
+        Countdown()
+    }
+    $(".reg-hqdx").click(sendCode);
+
+	function start(){
+		sub();
+		$.get('/common/isLogin',null,function(e){
+			if(e.status){
+				$("#hongbao").fadeIn(300)
+				$("#hongbao img").css("transform","rotate(1080deg)")
+				$("#hongbao img").css("width","80%")
+			}else{
+				regEvent();
+			}
+		},'json');
+	}
+
+	function maopao(e){
+		e = e || window.event;  
+	     if(e.stopPropagation) { //W3C阻止冒泡方法  
+	         e.stopPropagation();  
+	     } else {  
+	         e.cancelBubble = true; //IE阻止冒泡方法  
+	     }  
+	}
+
+	function beginHB(e){
+	     e = e || window.event;  
+	     if(e.stopPropagation) { //W3C阻止冒泡方法  
+	         e.stopPropagation();  
+	     } else {  
+	         e.cancelBubble = true; //IE阻止冒泡方法  
+	     }  
+
+		$.get('/activity/newyear2018?m=lotteryDraw',{},function(e){
+			if(e.status){
+				$('#money').text(e.money);
+				$(".hongbao").hide();
+				$(".zhongjian_box").show();
+				initData();
+			}else{
+				alert(e.info);
+			}
+		},'json')
+
+	}
+
+	function regEvent(){
+		$("#log").hide()
+		$("#reg-suc").hide()
+		$("#reg").fadeIn(300)
+	}
+
+	function logEvent(){
+		$("#reg").hide()
+		$("#reg-suc").hide()
+		$("#log").fadeIn(300)
+	}
+
+	function regSucEvent(){
+		$("#reg").hide()
+		$("#log").hide()
+		$("#reg-suc").fadeIn(300)
+	}
+
+	function logSucEvent(){
+		$("#reg").hide()
+		$("#log").hide()
+		$("#log-suc").fadeIn(300)
+	}
+
+	function login(){
+		var phone = $('#log-phone').val();
+		var pass = $('#log-pass').val();
+		$.post('/common/login',{phone:phone,password:pass},function(e){
+			if(e.status){
+				logSucEvent();
+				initData();
+			}else{
+				alert(e.info);
+			}
+		},'json')
+	}
+
+	function rule(){
+		$("#rule").fadeIn(300)
+	}
+
+	function panel(){
+		$("#panel").fadeIn(300)
+		
+	}
+
+	function tuichu(){
+		$("#rule").hide()
+		$("#panel").hide()
+	}
+	// 分享朋友圈
+	function jweixin(){
+		$(".fenxiang_boxs").show()
+		setTimeout(function(){
+			$(".fenxiang_boxs").hide()
+		},2000)
+	}
+	// 点击黑屏的地方退出弹出层
+	$(".reg-box").click(function(e){
+		$(this).hide()
+	})
+
+	function alert(x){
+		$('.alerts').text(x);
+		$('.alerts').show(200,function(){
+			setTimeout(function(){
+				$('.alerts').fadeOut(200);
+			},1000)
+		})
+	}
+
+	var time;
+	// 表单滚动
+	function runTable(){
+		var tableHeight = $("#panel_table td").length / 4 * 37
+		var canHeight   = tableHeight - 220;
+		var a = 0;
+		clearInterval(time);
+		time = setInterval(function(){
+			if(a > canHeight){
+				$("#panel_table").css("top",0)
+				a = 0
+			}
+			$("#panel_table").css("top",-a)
+			a++;
+		},30)
+	}
+	runTable()
+
+	function initData(){
+		var url = encodeURIComponent(location.href.split('#')[0]);
+		console.log(url);
+		$.get('/activity/newyear2018?m=actData',{url:url},function(e){
+			$('#panel_table').html(e.html);
+			$('#total').text(e.total);
+			$('#get').text(e.get);
+			$('#count').text(e.count);
+			wxfenxiang(e.params);
+			runTable();
+		},'json');
+	}
+	initData();
+	// 飘落物体
+	$(function(){
+        var minSize;
+        var maxSize;
+	    if(navigator.userAgent.match(/mobile/i)) { 
+	        minSize = 18;    // 飘落物最小尺寸18
+	        maxSize = 28;   // 飘落物最大尺寸28
+	    }else {
+	        minSize = 18;    // 飘落物最小尺寸18
+	        maxSize = 28;   // 飘落物最大尺寸28
+	    }  
+	    var showRate = 1000  // 飘落物出现的时间频率
+	    var snowLayer = $('.jinpiao img').css({ 'position': 'absolute', 'top': '-50px' });// 飘落物显示的层
+	    var winHeight = $(document).height();   // 获取页面高度
+	    var winWidth = $(document).width(); // 获取页面的宽度
+	    setInterval(function () {
+	        var a = Math.random();
+	        var startPositionLeft = Math.random() * winWidth - 100;    // 飘落物下落时随机位置
+	        var startOpacity = 0.7 + Math.random(); // 获取随机的透明度
+	        var sizeWidth = minSize + Math.random() * maxSize;  // 获取飘落物随机大小
+	        var endPositionTop = winHeight - 80;    // 飘落物距离窗体上端距离
+	        var endPositionLeft = (startPositionLeft + Math.random() * 500) >= winWidth ? winWidth - 50 : (startPositionLeft + Math.random() * 500); // 飘落物距离窗体左端距离
+	        if (endPositionLeft > winWidth) {
+	            endPositionLeft = winWidth - 100;
+	        }
+	        var durationFall = winHeight * 10 + Math.random() * 3000;   // 获取飘落物下落的随机速度
+	        var imgSrc = "./img/jinpiao"+Math.floor(Math.random()*7 + 1)+".png";//获取随机图片
+	        snowLayer.clone().appendTo('body').css({
+	            left: startPositionLeft,
+	            opacity: startOpacity,
+	            width: sizeWidth
+	        }).attr('src',imgSrc).animate({
+	            top: endPositionTop,
+	            left: endPositionLeft,
+	            opacity: 0.5
+	        }, durationFall, function () {
+	            $(this).remove();
+	        });
+	    }, showRate);	
+	})
+
+	setInterval(function(){
+		$("#startBtn").toggleClass("btn-active")
+	},1000)
+
+	var winHeight = $(document).height();
+
+	$(".reg-box").css("min-height",winHeight)
+
+	function audioAutoPlay(id){
+
+	var audio = document.getElementById(id);
+
+	play = function(){
+
+			audio.play();
+
+			document.removeEventListener("touchstart",play,false);
+		};
+
+		audio.play();
+
+		document.addEventListener("WeixinJSBridgeReady",function() {
+			play();
+		},false);
+
+		document.addEventListener('YixinJSBridgeReady',function() {
+			play();
+		},false);
+		document.addEventListener("touchstart",play,false);
+	}
+
+	audioAutoPlay('bg-music');
+	var audio = document.getElementById("bg-music");
+	$("html").click(function(event) {
+		audio.play()
+	});
+</script>
+<!-- 处理登录注册 -->
+<script>
+	function getQueryParam(name) { 
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+	    var result = window.location.search.substr(1).match(reg); 
+	    if (result != null) {
+	        return unescape(result[2]); 
+	    } else {
+	        return null;
+	    }
+	}
+	
+	function getCookie(c_name){
+        if (document.cookie.length>0){　　//先查询cookie是否为空，为空就return ""
+            c_start=document.cookie.indexOf(c_name + "=")　　//通过String对象的indexOf()来检查这个cookie是否存在，不存在就为 -1　　
+            if (c_start!=-1){ 
+                c_start=c_start + c_name.length+1　　//最后这个+1其实就是表示"="号啦，这样就获取到了cookie值的开始位置
+                c_end=document.cookie.indexOf(";",c_start)　　//其实我刚看见indexOf()第二个参数的时候猛然有点晕，后来想起来表示指定的开始索引的位置...这句是为了得到值的结束位置。因为需要考虑是否是最后一项，所以通过";"号是否存在来判断
+                if (c_end==-1) c_end=document.cookie.length　　
+                return unescape(document.cookie.substring(c_start,c_end))　　//通过substring()得到了值。想了解unescape()得先知道escape()是做什么的，都是很重要的基础，想了解的可以搜索下，在文章结尾处也会进行讲解cookie编码细节
+            } 
+        }
+        return "";
+    }
+
+    function setCookie(c_name, value, expiredays){
+        expiredays = expiredays ? expiredays : '9999';
+ 　　　　  var exdate=new Date();
+　　　　   exdate.setDate(exdate.getDate() + expiredays);
+ 　　　　  document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()+";path=/;domain=.91hc.com");
+　　  }
+
+	function iniSpreadCode(){
+	    var code = getQueryParam('spreadCode');
+	    if(code){
+	        setCookie('spreadCode',code);
+	    }
+	}
+
+	iniSpreadCode()
+</script>
+<!-- 微信接口 -->
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+	function wxfenxiang(data){
+
+		wx.config({
+		    debug: false,////生产环境需要关闭debug模式
+		    appId: 'wx2973416012c3598e',//appId通过微信服务号后台查看
+		    timestamp: data.timestamp,//生成签名的时间戳
+		    nonceStr: data.noncestr,//生成签名的随机字符串
+		    signature: data.signature,//签名
+		    jsApiList: [//需要调用的JS接口列表
+		        'onMenuShareTimeline',//分享给好友
+		        'onMenuShareAppMessage'//分享到朋友圈
+		    ]
+		});
+		wx.ready(function () {
+	        var link = window.location.href;
+	        var protocol = window.location.protocol;
+	        var host = window.location.host;
+	        //分享朋友圈
+	        wx.onMenuShareTimeline({
+	            title: '送您5~15元现金，那都不是事儿~~',
+	            link: link,
+	            imgUrl:  protocol+'//'+host+'/page/packet/img/icon.jpg',// 自定义图标
+	            trigger: function (res) {
+	                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
+	                //alert('click shared');
+	            },
+	            success: function (res) {
+	            	$.get('/activity/newyear2018?m=share');
+	            	initData();
+	            },
+	            cancel: function (res) {
+	                //alert('shared cancle');
+	            },
+	            fail: function (res) {
+	                //alert(JSON.stringify(res));
+	            }
+	        });
+
+	        //分享给好友
+	        wx.onMenuShareAppMessage({
+	            title: '狗年福利大派送', // 分享标题
+	            desc: '送您5~15元现金，那都不是事儿~~', // 分享描述
+	            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	            imgUrl: protocol+'//'+host+'/page/packet/img/icon.jpg', // 自定义图标
+	            type: 'link', // 分享类型,music、video或link，不填默认为link
+	            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	            success: function () {
+	            	$.get('/activity/newyear2018?m=share');
+	            	initData();
+	                // 用户确认分享后执行的回调函数
+	            },
+	            cancel: function () {
+	                // 用户取消分享后执行的回调函数
+	            }
+	        });
+	        wx.error(function (res) {
+	            alert(res.errMsg);
+	        });
+	    });
+	}
+</script>
+</html>

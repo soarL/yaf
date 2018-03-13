@@ -1,0 +1,126 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">合伙人列表</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+				    <a class="btn btn-box-tool selectdate" data-date="<?=date('Y-m-d')?>" data-href="<?=$excelUrl;?>&date=" data-toggle="tooltip" data-original-title="Excel下载"  href="javascript:">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+										<option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+										<option value="comments" <?php if($searchType=='comments'):?>selected<?php endif;?>>备注</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">排序</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="order">
+										<option value="">全部</option>
+										<option value="fundMoney" <?php if($queries->order=='fundMoney'):?>selected<?php endif;?>>余额</option>
+										<option value="level" <?php if($queries->order=='level'):?>selected<?php endif;?>>客户等级</option>
+										<option value="duein" <?php if($queries->order=='duein'):?>selected<?php endif;?>>待收</option>
+										<option value="sex" <?php if($queries->order=='sex'):?>selected<?php endif;?>>性别</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+								<div class="form-group" style="float: right">
+									<span class="label label-success">上月佣金：<?=$emonth?></span>
+								</div>
+								<div class="form-group" style="float: right">
+									<span class="label label-danger">本月佣金：<?=$tmonth?></span>
+								</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th class="visible-lg">姓名</th>
+								<th class="visible-lg">手机</th>
+								<th>推荐人数</th>
+								<th class="visible-lg">待收</th>
+								<!-- <th class="visible-lg">积分</th> -->
+								<!-- <th class="visible-lg">存管账号</th> -->
+								<th class="visible-lg">地区</th>
+								<th class="visible-lg">年龄</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($users as $key => $user):?>
+							<tr data-userId='<?=$user->userId?>'>
+								<td class="visible-lg">
+									<?php if($user->cardstatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->name?>
+								</td>
+								<td class="visible-lg">
+									<?php if($user->phonestatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->phone?>
+								</td>
+								<td ><?=$user->tuijians->count()?></td>
+								<td class="visible-lg"><?=empty($user->tuistay)?'0':$user->tuistay;?>元</td>
+								<!-- <td class="visible-lg"><?=intval($user->integral/100)?></td> -->
+								<!-- td class="visible-lg">
+									<?php if($user->custody_id):?>
+									<span class="label label-success"><?=$user->custody_id?></span>
+									<?php endif;?>
+								</td> -->
+								<td class="visible-lg">
+									<?=$cityList[$user->userId]?>
+								</td>
+								<td class="visible-lg">
+									<?=$user->getAge()?>
+								</td>
+								<td>
+								<div class="links dropdown">
+							        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							          选择操作 <span class="caret"></span>
+							        </a>
+							        <ul class="dropdown-menu">
+						        	<?php if($user->hcparter == 0){ ?>
+									    <li><a href="/admin/user/setPartner?userId=<?=$user->userId?>&hcparter=1"> 转为合伙人 </a></li>
+								    <?php }else{ ?>
+								    	<li><a href="/admin/user/setPartner?userId=<?=$user->userId?>&hcparter=0"> 取消合伙人 </a></li>
+								    <?php }?>
+								    <li><a href="javascript:" class="selectdate" data-href="/admin/user/recommended?excel=1&userId=<?=$user->userId?>&date=">佣金详情</a></li>
+							        </ul>
+							    </div>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$users->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="ajax-date-box" style="display: none;width: 300px;min-height: 130px;padding:0 20px">
+	选择月份 : <input type="text" class="form-control input-sm timepicker flatpickr-input" data-allow-input="true" name="beginTime" value="<?=date('Y-m-d')?>" id="dateInput">
+	<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="" id="ajax-data-down">下载</a>
+</div>
+<?php $this->display('footer.html');?>

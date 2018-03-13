@@ -1,0 +1,10 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="content-nav">
+	<ul class="clearfix">
+		<li><a href="/activity/list" class="content-nav-a <?php if($submenu=='list'):?>sel<?php endif;?>">线上活动<i class="tri">&nbsp;</i></a></li>
+		<li><a href="/activity/offline" class="content-nav-a <?php if($submenu=='offline'):?>sel<?php endif;?>">线下活动<i class="tri">&nbsp;</i></a></li>
+	</ul>
+</div>

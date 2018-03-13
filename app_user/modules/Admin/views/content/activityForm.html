@@ -1,0 +1,90 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">添加活动</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/content/activities">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/content/saveActivity" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <input type="hidden" name="id" value="<?=$activity->id?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">活动名称</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="title" value="<?=$activity->title?>" placeholder="输入名称">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">活动内容</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="content" value="<?=$activity->content?>" placeholder="输入活动内容">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">活动链接</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="linkUrl" value="<?=$activity->linkUrl?>" placeholder="输入活动链接">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">类型</label>
+          <div class="col-sm-11">
+            <select name="type" class="form-control">
+              <option value="online" <?php if('online'==$activity->type):?>selected<?php endif;?>>线上活动</option>
+              <option value="offline" <?php if('offline'==$activity->type):?>selected<?php endif;?>>线下活动</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">状态</label>
+          <div class="col-sm-11">
+            <select name="lookStatus" class="form-control">
+              <option value="y" <?php if('y'==$activity->lookStatus):?>selected<?php endif;?>>正常</option>
+              <option value="n" <?php if('n'==$activity->lookStatus):?>selected<?php endif;?>>失效</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">开始时间</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control timepicker" data-allow-input="true" name="startDate" value="<?=$activity->startDate?>" placeholder="输入开始时间">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">结束时间</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control timepicker" data-allow-input="true" name="endDate" value="<?=$activity->endDate?>" placeholder="输入结束时间">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">主图</label>
+          <div class="col-sm-11">
+            <div class="input-group">
+              <input type="text" class="form-control" id="imageUrl" name="imageUrl" value="<?=$activity->imageUrl?>">
+              <span class="btn btn-success fileinput-button input-group-btn">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择图片</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input class="fileupload" type="file" name="files[]" data-input="#imageUrl" multiple>
+              </span>
+            </div>
+          </div>
+        </div>
+        <?php $this->display('blocks/uploadImages.html', ['param'=>'photos', 'name'=>'图片', 'images'=>$activity->photos]);?>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('blocks/uploadTemplate.html');?>
+<?php $this->display('footer.html');?>

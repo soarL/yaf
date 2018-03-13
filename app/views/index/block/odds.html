@@ -1,0 +1,70 @@
+<div id="invest1" class="pt15">
+  <table class="tablecomponent">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>标的名称</th>
+        <th>借款金额</th>
+        <th>投资进度</th>
+        <th width="100">年化利率</th>
+        <th>投资周期</th>
+        <th>发标时间</th>
+        <th>发标状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($oddList as $odd):?>
+      <tr>
+        <td>
+          <a href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber]);?>" class="odd-ico">
+            <?php if($odd->investType=='1'):?><span title="手动标" class="invest-type invest-type-1">手</span><?php endif;?>
+            <?php if($odd->oddType=='xiaojin'):?>
+            <img  src="<?=WEB_ASSET?>/common/images/xj.jpg" class="itemimg"/>
+            <?php else:?>
+            <?php $oddImages = $odd->getImages('oddExteriorPhotos');?>
+            <img  src="<?=$oddImages[0]['min']?>" class="itemimg"/>
+            <?php endif;?>
+          </a>
+        </td>
+        <td class="gray3 tx-left">
+          <?php if($odd->oddStyle=='newhand'):?>
+            <span class="newhandico" title="新手标">新</span>
+          <?php else:?>
+            <?php if($odd->oddType=='diya'):?>
+            <span class="pledgeico" title="抵押标">抵</span>
+            <?php elseif($odd->oddType=='xingyong'):?>
+            <span class="guaranteeico" title="质押标">质</span>
+            <?php elseif($odd->oddType=='danbao'):?>
+            <span class="rongziico" title="融资租赁标">融</span>
+            <?php elseif($odd->oddType=='special'):?>
+            <span class="specialico" title="专享标">专</span>
+            <?php elseif($odd->oddType=='xiaojin'):?>
+            <span class="specialico" title="信用标">信</span>
+            <?php endif;?>
+          <?php endif;?>
+          <a class="odd-title" href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber]);?>"><?=$odd->oddTitle?></a>
+        </td>
+        <td><?=$odd->oddMoney?><i>元</i></td>
+        <?php $per = $odd->getPercent();?>
+        <td><strong class="ui-progressbar-mid ui-progressbar-mid-<?php echo $per;?>">
+        <em><?php echo $per;?></em>%</strong>
+        </td>
+        <td class="pr reward-row">
+          <?=$odd->oddYearRate*100?><i>%</i>
+          <?php if($odd->oddReward>0):?>
+          <em class="reward">+<?=$odd->oddReward*100;?>%</em>
+          <?php endif;?>
+        </td>
+        <td><?=$odd->getPeriod()?></td>
+        <td><?=date('Y-m-d', strtotime($odd->openTime));?></td>
+        <td><?=$odd->getButton()?></td>
+      </tr>
+      <?php endforeach;?>
+    </tbody>
+    <tfoot>
+      <tr>
+      <td colspan="9"><a href="<?=Url::to('/odd/list')?>">查看更多项目</a></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

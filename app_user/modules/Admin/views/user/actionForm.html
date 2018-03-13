@@ -1,0 +1,100 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title"><?php if($action):?>修改<?php else:?>添加<?php endif;?>行为</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/user/actions">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/user/saveAct" class="form-horizontal" method="post">
+      <div class="box-body">
+        <input type="hidden" name="id" value="<?=$action->id?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">名称</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="name" value="<?=$action->name?>" placeholder="输入名称">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">标识符</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="identifier" value="<?=$action->identifier?>" placeholder="输入标识符">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">Icon</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="icon" value="<?=$action->icon?>" placeholder="输入Icon">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">描述</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="description" value="<?=$action->description?>" placeholder="输入描述">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">是否菜单</label>
+          <div class="col-sm-11">
+            <select name="is_menu" class="form-control">
+              <option value="y" <?php if('y'==$action->is_menu):?>selected<?php endif;?>>是</option>
+              <option value="n" <?php if('n'==$action->is_menu):?>selected<?php endif;?>>否</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">上级行为</label>
+          <div class="col-sm-11">
+            <select name="parent_id" class="form-control">
+              <option value="0" <?php if(0==$action->parent_id):?>selected<?php endif;?>>顶级行为</option>
+              <?php foreach($topActions as $topAction):?>
+              <option value="<?=$topAction->id?>" <?php if($topAction->id==$action->parent_id):?>selected<?php endif;?>><?=$topAction->name?></option>
+              <?php endforeach;?>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">域</label>
+          <div class="col-sm-11">
+            <select name="domain" class="form-control">
+              <option value="user" <?php if('user'==$action->domain):?>selected<?php endif;?>>user</option>
+              <option value="www" <?php if('www'==$action->domain):?>selected<?php endif;?>>www</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">模块</label>
+          <div class="col-sm-11">
+            <select name="module" class="form-control">
+              <option value="Admin" <?php if('Admin'==$action->module):?>selected<?php endif;?>>Admin</option>
+              <option value="Index" <?php if('Index'==$action->module):?>selected<?php endif;?>>Index</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">链接</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="link" value="<?=$action->link?>" placeholder="输入链接">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">排序</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="rank" value="<?=$action->rank?>" placeholder="输入排序">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

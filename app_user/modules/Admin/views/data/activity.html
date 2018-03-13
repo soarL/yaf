@@ -1,0 +1,78 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">运营数据调取</h3>
+
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+
+							<div class="form-group">
+								<label class="control-label">调取类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<!--<option value="registerInvest" <?php if($queries->searchType=='registInvest'):?>selected<?php endif;?>>每日活动注册用户投资数据</option>-->
+										<!--<option value="registerCount" <?php if($queries->searchType=='registCount'):?>selected<?php endif;?>>每日活动用户注册量</option>-->
+										<option value="dafoA" <?php if($queries->searchType=='dafoA'):?>selected<?php endif;?>>大佛A级用户注册数据</option>
+										<option value="dafoB" <?php if($queries->searchType=='dafoB'):?>selected<?php endif;?>>大佛B级用户注册数据</option>
+                                        <option value="dafoAmonth" <?php if($queries->searchType=='dafoAmonth'):?>selected<?php endif;?>>大佛A级用户月底待收</option>
+                                        <option value="dafoBmonth" <?php if($queries->searchType=='dafoBmonth'):?>selected<?php endif;?>>大佛B级用户月底待收</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">导出</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="remark-bespokes-modal" tabindex="-1" role="dialog" aria-labelledby="remark-bespokes-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h5 class="modal-title" id="remark-bespokes-label">添加备注</h5>
+			</div>
+			<div class="modal-body">
+				<div id="bespokes-modal-from" class="form-horizontal">
+					<div class="form-group hidden-vars hide">
+						<input type="hidden" name="id" value="">
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">备注</label>
+						<div class="col-sm-10">
+							<textarea name="remark" class="form-control" style="height: 60px" placeholder=""></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary btn-sm" id="remark-bespokes-btn">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

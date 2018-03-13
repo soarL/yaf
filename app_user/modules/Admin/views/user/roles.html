@@ -1,0 +1,92 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">角色列表</h3>
+				<div class="box-tools">
+					<a class="btn btn-box-tool" href="/admin/user/addRole" data-toggle="tooltip" data-widget="chat-pane-toggle" data-original-title="添加角色"> <i class="fa fa-file-o"></i>
+					</a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">标题</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="title" placeholder="标题"></div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="">全部</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="active">正常</option>
+										<option value="pending">预览</option>
+										<option value="invalid">失效</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime"></div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/user/deleteRole">
+							<tr>
+								<th>标识符</th>
+								<th>名称</th>
+								<th class="visible-lg">描述</th>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">修改时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($roles as $role):?>
+							<tr data-id="<?=$role->id?>">
+								<td><?=$role->name?></td>
+								<td><?=$role->display_name?></td>
+								<td class="visible-lg"><?=$role->description?></td>
+								<td class="visible-lg"><?=$role->created_at?></td>
+								<td class="visible-lg"><?=$role->updated_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/user/updateRole?id=<?=$role->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$roles->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,78 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">个人信息</h3>
+      </div>
+      <form action="/admin/index/saveProfile" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <input type="hidden" name="userId" value="<?php echo $user['userId'];?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">用户名</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?php echo $user['username'];?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">头像</label>
+          <div class="col-sm-11">
+            <div class="input-group">
+              <input type="text" class="form-control" id="photo" name="photo" value="<?php echo $user['userimg'];?>">
+              <span class="btn btn-success fileinput-button input-group-btn">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择图片</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input class="fileupload" type="file" name="files[]" data-input="#photo" multiple>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">邮箱</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?php echo $user['email'];?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">手机</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?php echo $user['phone'];?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">登录密码</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="loginpass" value="" placeholder="输入登录密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">支付密码</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="paypass" value="" placeholder="输入支付密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">姓名</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?php echo $user['name'];?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">身份证</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?php echo $user['cardnum'];?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">修改</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

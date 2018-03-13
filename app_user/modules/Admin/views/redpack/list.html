@@ -1,0 +1,184 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">红包列表</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                    <i class="fa fa-file-excel-o text-red"></i></a>
+                    <a id="send-redpack" class="btn btn-box-tool" href="javascript:;" data-toggle="tooltip" data-widget="chat-pane-toggle" data-original-title="发放红包"> <i class="fa fa-file-o text-danger"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">查询</label>
+                                <?php $searchType = $queries->searchType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="searchType">
+                                        <option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+                                        <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                                        <option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+                                        <option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label">类型</label>
+                              <div class="select-wrap">
+                                <select class="form-control input-sm" name="type">
+                                  <option value="all">全部</option>
+                                  <?php foreach($types as $key => $name):?>
+                                  <option value="<?=$key?>" <?php if($key==$queries->type):?>selected<?php endif;?>><?=$name?></option>
+                                  <?php endforeach;?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">红包状态</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="status">
+                                        <option value="all">全部</option>
+                                        <option value="1">已发放</option>
+                                        <option value="2">已撤销</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label time-label">发放时间</label>
+                                <div class="input-group time-group">
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm">至</button>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>用户</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th class="visible-lg">发放时间</th>
+                                <th class="visible-lg">备注</th>
+                                <th>操作</th>
+                            </tr>
+                            <?php foreach ($redpacks as $redpack):?>
+                            <tr data-id='<?=$redpack->id?>' data-name="<?=$redpack->user->username?>" data-money="<?=$redpack->money?>">
+                                <td>
+                                    <a class="label label-primary" href="/admin/user/show?userId=<?=$redpack->user->userId?>">
+                                    <?=$redpack->user->userId?>
+                                    </a>  <?=$redpack->user->username?>
+                                </td>
+                                <td ><?=$redpack->money?></td>
+                                <td >
+                                    <?php if($redpack->status==1):?>
+                                    <span class="label label-success">已发放</span>
+                                    <?php elseif($redpack->status==2):?>
+                                    <span class="label label-danger">已撤销</span>
+                                    <?php endif;?>
+                                </td>
+                                <td class="visible-lg"><?=$redpack->addtime?></td>
+                                <td class="visible-lg"><?=$redpack->remark?></td>
+                                <td>
+                                    <a class="btn btn-ssm btn-danger btn-cancel">
+                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                        撤销
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach;?></table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <div class="col-sm-7">
+                  <div class="table-info" style="line-height: 30px">
+                    <span>笔数：<em><?=$totalCount?></em>笔</span>
+                    <span>金额：<em><?=$totalMoney?></em>元</span>
+                </div>
+                </div>
+                <div class="col-sm-5">
+                    <?=$redpacks->render()?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="send-redpack-modal" tabindex="-1" role="dialog" aria-labelledby="send-redpack-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="send-redpack-label">发放红包</h5>
+      </div>
+      <div class="modal-body">
+        <div id="send-redpack-form" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户ID</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="userId" value="" placeholder="输入用户ID">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">金额</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="money" value="" placeholder="输入新手机号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">备注</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="remark" value="" placeholder="输入备注（可不填）">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" id="send-redpack-btn">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="cancel-redpack-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-redpack-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="cancel-redpack-label">撤销红包</h5>
+      </div>
+      <div class="modal-body">
+        <div id="cancel-redpack-form" class="form-horizontal">
+          <div class="form-group hidden-vars hide">
+            <input id="repack-id" type="hidden" name="id" value="">
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">备注</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="remark" value="" placeholder="输入备注（可不填）">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" id="cancel-redpack-btn">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

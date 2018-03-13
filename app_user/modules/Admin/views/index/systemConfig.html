@@ -1,0 +1,27 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">系统配置</h3>
+      </div>
+      <form class="form-horizontal">
+        <div class="box-body">
+          <?php foreach($configs as $config):?>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><?=$config->display_name?></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="<?=$config->display_name?>" name="<?=$config->name?>" value="<?=$config->value?>">
+            </div>
+          </div>
+          <?php endforeach;?>
+        </div>
+        <div class="box-footer">
+          <button type="button" class="btn btn-default">添加属性</button>
+          <button type="submit" class="btn btn-info pull-right">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

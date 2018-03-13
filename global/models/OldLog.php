@@ -1,0 +1,107 @@
+<?php
+namespace models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * OldLog|model类
+ * 
+ * @author elf <360197197@qq.com>
+ * @version 1.0
+ */
+class OldLog extends Model {
+
+	protected $table = 'user_oldlog';
+
+	public $timestamps = false;
+
+	public static $types = [
+        'recharge'=>'充值',
+        'cash_frost'=>'提现冻结',
+        'tender_success'=>'投资成功',
+        'borrow_success'=>'借款成功',
+        'tender_success_frost'=>'投资成功待收增加',
+        'tender_recover_yes'=>'投资收到还款',
+        'vip_success'=>'Vip会员费',
+        'borrow_repay'=>'还款',
+        'tender'=>'投标冻结',
+        'cash_fee'=>'提现手续费',
+        'recharge_fee'=>'充值手续费',
+        'cash'=>'申请提现',
+        'system_repayment'=>'网站垫付',
+        'tender_late_repay_yes'=>'客户逾期还款罚息收入',
+        'tender_false'=>'所投资借款标复审失败',
+        'realname_approve'=>'实名认证费',
+        'cash_success'=>'提现成功',
+        'cash_false'=>'提现失败',
+        'tender_user_cancel'=>'投资撤回',
+        'online_recharge'=>'在线充值',
+        'tender_recover_fee_service'=>'利息服务费',
+        'change'=>'后台增减',
+        'house_approve'=>'房产认证费',
+        'tender_recover_fee_service'=>'投资利息服务费',
+        'edu_approve'=>'学历认证费',
+        'borrow_fxj'=>'借款风险金',
+        'cash_cancel'=>'取消提现',
+        'tender_late_repay_yes'=>'逾期罚息收入',
+        'tender_recover_advance_fee_success_tian'=>'收到提前还款日息',
+        'tender_recover_advance_yes'=>'提前全额还款',
+        'borrow_fee'=>'借款成交费',
+        'borrow_success_frost'=>'冻结保证金',
+        'borrow_repay_frost'=>'解冻保证金',
+        'friend_vip_success'=>'邀请的好友成为VIP',
+        'xianchang_approve'=>'现场认证',
+        'borrow_fee_credit'=>'信用管理费',
+        'tender_recover_advance_fee_advance'=>'收到提前还款罚息',
+        'tender_recover_advance_frost_yes'=>'提前还款损失利息',
+        'borrow_repay_advance_fee_advance'=>'扣除提前还款罚息',
+        'borrow_repay_fee_manage'=>'借款管理费',
+        'borrow_repay_advance'=>'剩余本金还款',
+        'borrow_fee_success_tian'=>'借款成交费（天）',
+        'borrow_award_lower'=>'扣除奖励',
+        'borrow_repay_late_fee_manage'=>'借款管理费',
+        'borrow_repay_late_fee_lates'=>'逾期罚金',
+        'borrow_change_sell'=>'成功出售债权',
+        'borrow_change_buy'=>'成功购买债权',
+        'borrow_change_sell_fee'=>'债权出售手续费',
+        'borrow_change_buy_fee'=>'债权购买手续费',
+        'recharge_fee'=>'充值手续费',
+        'tender_award_add'=>'投资奖励',
+        'qita_approve'=>'其他费用',
+        'tender_recover_late'=>'收到逾期还款',
+        'borrow_repay_late_fee_reminder'=>'逾期管理费',
+        'borrow_fee_danbao'=>'担保管理费',
+        'borrow_fee_success'=>'借款成交费',
+        'tender_recover_late_fee_lates'=>'获得逾期还款罚金',
+        'borrow_roam'=>'流转成功借款',
+        'tender_over'=>'投资失败资金返还',
+        'borrow_roam_fee_credit'=>'流转信用管理费',
+        'tender_roam'=>'流转认购成功',
+        'tender_recover_web'=>'网站垫付',
+        'user_vip_frost'=>'VIP会员费申请冻结',
+        'tender_roam_frost'=>'认购成功待收增加',
+        'vip_false'=>'VIP申请失败解冻',
+        'borrow_second_cancel'=>'秒标撤标解冻',
+        'borrow_second_frost'=>'发起秒标冻结',
+        'borrow_second_success'=>'秒标复审通过解冻',
+        'borrow_second_false'=>'秒标复审不通过解冻',
+        'borrow_change_web_fee'=>'债权转让网站手续费',
+        'borrow_change_web'=>'出售债权（网站购买）',
+        'borrow_spreads_tender'=>'投资推广提成',
+        'borrow_spreads_borrow'=>'还款推广提成',
+        'video_approve'=>'视频认证费用',
+        'tender_roam_award_add'=>'投资奖励（流转标）',
+        'borrow_roam_award_lower'=>'扣除奖励（流转标）',
+        'borrow_roam_fee_success'=>'借款成交费（流转标）',
+        'tender_recover_advance_fee_tiqian'=>'提前还款借款管理费',
+        'borrow_repay_advance_fee_tiqian'=>'提前还款借款管理费',
+        'borrowactivity'=>'活动奖励',
+        'borrow_change_web_wait'=>'待收金额增加',
+        'tender_recover_web_await'=>'网站垫付待收金额',
+        'borrow_change_buy_wait'=>'购买债权待收增加',
+        'borrow_change_sell_wait'=>'出售债权待收金额',
+        'borrow_xutou'=>'续投奖励',
+        'borrow_fee_manage'=>'借款成功扣除费用',
+        'borrow_repay_advance_fee_success_tian'=>'提前还款利息',
+    ];
+}

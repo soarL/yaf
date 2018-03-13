@@ -1,0 +1,24 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">设置邮箱</div>
+  <form action="/user/setEmail" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">常用邮箱</label>
+        <input class="ui-input input-icon" type="text" name="email" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="clearfix mt30">
+        <div class="input-wrap fl" style="width:200px">
+          <label class="label">验证码</label>
+          <input class="ui-input input-icon" type="text" name="captcha" style="width:110px" placeholder="验证码">
+          <span class="icon icon-key"></span>
+        </div>
+        <a class="code-wrap fl" href="javascript:;">
+          <img id="captcha-img" onclick="this.src+='?'+Math.random()" src="<?php echo WEB_CAPTCHA;?>">
+        </a>
+      </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

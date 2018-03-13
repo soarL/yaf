@@ -1,0 +1,9 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<div class="tab-s">
+    <a href="/user/info" <?php if($mode=='info'):?>class="sel"<?php endif;?>>个人资料</a>
+    <a href="/user/safe" <?php if($mode=='safe'):?>class="sel"<?php endif;?>>安全中心</a>
+    <a href="/user/setting" <?php if($mode=='setting'):?>class="sel"<?php endif;?>>其他设置</a>
+</div>

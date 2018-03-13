@@ -1,0 +1,49 @@
+body { margin:0; }
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+.pageAgreement {
+	font-size: 14px;
+	line-height: 1.5em;
+}
+
+.pageAgreement p {
+	padding:2px 5px;
+}
+
+.pageAgreement .title {
+	border-bottom: 1px dashed #999999;
+	height: 40px;
+	line-height: 40px;
+	color: #F00;
+	font-size: 18px;
+	text-align: center;
+}
+
+.pageAbout {
+	padding:0;
+	color:#000;
+}
+
+.pageHelp .title {
+	font-size: 15px;
+    padding:20px 15px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.pageHelp .title span {
+	color: #ff9100;
+}
+
+.pageHelp-askItem img {
+	width: 24px;
+	margin-right: 5px;
+}
+
+.redInfo {
+	color:#f00;
+}

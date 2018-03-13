@@ -1,0 +1,95 @@
+<?php 
+    use helpers\NumberHelper;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main mb20 mt20">
+        <?php $this->display('look/common/tab.html');?>
+        <div class="clearfix">
+            <div class="statictable-wrap fl" style="width:550px;height:465px;margin-top:0px;">
+                <h3>
+                    标的列表
+                </h3>
+                <table id="odd-records" class="statictable" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>标名</th>
+                            <th>票数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+                <div class="pagination-wrapper">
+                
+                </div>
+            </div>
+        <?php $this->display('look/common/lookDate.html', ['repaymentDays'=>[]]);?>
+        </div>
+        <div class="clearfix mt15">
+            <div class="statictable-wrap fl" style="width:550px;height:465px;">
+                <h3>
+                    往期查标
+                    <a href="/look/history" class="more cBlue no_unl">更多</a>
+                </h3>
+                <table class="statictable" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>期数</th>
+                            <th>标名</th>
+                            <th>票数</th>
+                            <th>日期</th>
+                            <th>查标</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lookOdds as $lookOdd):?>
+                        <tr>
+                            <td><?=$lookOdd->period?></td>
+                            <td>
+                                <a class="link" href="<?=WEB_MAIN.'/odd/'.$lookOdd->odd->oddNumber?>" target="_blank">
+                                <?=$lookOdd->odd->oddTitle?>
+                                </a>
+                            </td>
+                            <td><?=$lookOdd->num?></td>
+                            <td><?=_date('Y-m-d', $lookOdd->created_at)?></td>
+                            <td><a target="_blank" href="<?=$lookOdd->link?>" class="btn-small mr10">查标</a></td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="statictable-wrap fr" style="width:335px;height:465px;">
+                <h3>
+                    今日排名
+                </h3>
+                <table class="statictable" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>标名</th>
+                            <th>票数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($ranks as $key => $rank):?>
+                        <tr>
+                            <td><?=$key+1?></td>
+                            <td>
+                                <a class="link" href="<?=WEB_MAIN.'/odd/'.$rank->odd->oddNumber?>" target="_blank">
+                                <?=_title($rank->odd->oddTitle, 17)?>
+                                </a>
+                            </td>
+                            <td><?=$rank->voteNum?></td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

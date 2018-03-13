@@ -1,0 +1,62 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        
+        <div class="admin_right_body">
+		<div ui-view="" class="ng-scope">
+			<div class="userAwarpHead ng-scope">
+				<ul class="list-unstyled userAwarpnav">
+					<li class="userAwarpNLi"><a href="/user/spread">推荐方式</a></li>
+					<li class=""><a href="/user/friends">我的推荐</a></li>
+					<div class="clearfix"></div>
+				</ul>
+				<div class="recommendFS" style="display: block;">
+				<h4 class="title">如何成功进行推荐？</h4>
+				<ul class="list-unstyled">
+					<li>
+						<h5 class="li-1"></h5>
+						<h3>通过以下方式</h3>
+						<h2>将推荐链接发送给好友</h2>
+						<span class="span-1"></span>
+					</li>
+					<li>
+						<h5 class="li-2"></h5>
+						<h3>好友通过您的专属推荐链接</h3>
+						<h2>注册平台的账号</h2>
+						<span class="span-1"></span>
+					</li>
+					<li>
+						<h5 class="li-3"></h5>
+						<h3>专业的客服对接服务您的好友</h3>
+						<h2>好友进行投资 您即享受抽成</h2>
+					</li>
+					<div class="clearfix"></div>
+				</ul>
+				<div class="recommendFSFoot">
+					<h1 class="title-1">推荐方式一：将您的专属链接发送给您的好友</h1>
+					<input value="<?=$spreadUrl?>" class="input-1" type="text">
+					<button type="button" class="buttton-1">复制链接</button>
+					<h1 class="title-1">推荐方式二：用户微信扫描二维码分享给好友</h1>
+					<img src="<?=$imgUrl?>">
+					<!-- <div class="erweima-1" style="background-image:url(<?=$imgUrl?>);background-position:0;"></div> -->
+					<h1 class="title-1">新年推广 —拜年版（注：扫描二维码后直接分享）</h1>
+					<img src="<?=$imgUrl2?>">
+					<!-- <div class="erweima-1" style="background-image:url(<?=$imgUrl2?>);background-position:0;"></div> -->
+					<h1 class="title-1">新年推广 —红包版（注：扫描二维码后直接分享）</h1>
+					<img src="<?=$imgUrl3?>">
+					<!-- <div class="erweima-1" style="background-image:url(<?=$imgUrl3?>);background-position:0;"></div> -->
+				</div>
+				</div>
+			</div>
+			<div class="fixd ng-scope">
+				复制成功
+			</div>
+
+		</div>
+		</div>      
+	</div>
+</div>
+<?php $this->display('footer.html');?>

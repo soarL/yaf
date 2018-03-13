@@ -1,0 +1,81 @@
+<?php use tools\MSBank;?>
+<div class="ui-tab rechargeWay">
+  <div class="idTabs recharge-title">
+    <ul id="pay-way-ms-choose" class="clearfix">
+      <li>
+        <a href="javascript:;" class="selected" data-ref="#j-banks" data-value="1">借记卡</a>
+      </li>
+      <!-- <li>
+        <a href="javascript:;"  data-ref="#x-banks" data-value="2">信用卡</a>
+      </li>
+      <li>
+        <a href="javascript:;"  data-ref="#h-banks" data-value="3">混合通道</a>
+      </li> -->
+    </ul>
+  </div>
+  <div class="recharge-banks banks-ms">
+    <div class="pay-banks-list j-banks-list open mb20" id="j-banks">
+      <div class="title">点击选择银行 ：</div>
+      <ul class="bank-list-ul banks-only-icon clearfix">
+        <?php foreach (MSBank::$debitCard as $key => $bankCode):?>
+        <?php if($key!=9):?>
+        <li  class="bank-item <?php if($key>9):?>fn-hide<?php endif;?>" data-value="<?php echo MSBank::$banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php else:?>
+        <li class="J_show_more_banks">
+          <a href="javascript:">更多银行</a>
+        </li>
+        <li class="bank-item fn-hide" data-value="<?php echo MSBank::$banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php endif;?>
+        <?php endforeach;?>
+      </ul>
+    </div>
+    <div class="pay-banks-list x-banks-list mb20" id="x-banks">
+      <div class="title">点击选择银行 ：</div>
+      <ul class="bank-list-ul banks-only-icon clearfix">
+        <?php foreach (MSBank::$creditCard as $key => $bankCode):?>
+        <?php if($key!=9):?>
+        <li  class="bank-item <?php if($key>9):?>fn-hide<?php endif;?>" data-value="<?php echo MSBank::$banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php else:?>
+        <li class="J_show_more_banks">
+          <a href="javascript:">更多银行</a>
+        </li>
+        <li class="bank-item fn-hide" data-value="<?php echo $banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php endif;?>
+        <?php endforeach;?>
+      </ul>
+    </div>
+    <div class="pay-banks-list h-banks-list mb20" id="h-banks">
+      <div class="title">点击选择银行 ：</div>
+      <ul class="bank-list-ul banks-only-icon clearfix">
+        <?php foreach (MSBank::$blendCard as $key => $bankCode):?>
+        <?php if($key!=9):?>
+        <li  class="bank-item <?php if($key>9):?>fn-hide<?php endif;?>" data-value="<?php echo MSBank::$banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php else:?>
+        <li class="J_show_more_banks">
+          <a href="javascript:">更多银行</a>
+        </li>
+        <li class="bank-item fn-hide" data-value="<?php echo $banks[$bankCode]['ichar'];?>" data-code="<?php echo $bankCode;?>">
+          <img alt="<?php echo MSBank::$banks[$bankCode]['name'];?>" src="<?php echo WEB_ASSET;?>/images/bank/<?php echo MSBank::$banks[$bankCode]['ichar'];?>.png">
+          <a title="<?php echo MSBank::$banks[$bankCode]['name'];?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php endif;?>
+        <?php endforeach;?>
+      </ul>
+    </div>
+  </div>
+</div>

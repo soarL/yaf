@@ -1,0 +1,63 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">满标情况</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-1">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>投资周期<?=$queries->sort('period')?></th>
+								<th class="visible-lg">发标金额<?=$queries->sort('oddMoney')?></th>
+								<th class="visible-lg">目前完成情况<?=$queries->sort('oddRate')?></th>
+								<th class="visible-lg">10%</th>
+								<th class="visible-lg">40%</th>
+								<th class="visible-lg">70%</th>
+								<th class="visible-lg">90%</th>
+								<th class="visible-lg">100%</th>
+							</tr>
+							<?php foreach ($oddrate as $key => $value):?>
+							<tr>
+								<td><?=$value['period']?></td>
+								<td><?=$value['oddMoney']?></td>
+								<td><?=$value['nowPercent']?></td>
+								<td><?=$value['oddRate']['percent10']?></td>
+								<td><?=$value['oddRate']['percent40']?></td>
+								<td><?=$value['oddRate']['percent70']?></td>
+								<td><?=$value['oddRate']['percent90']?></td>
+								<td><?=$value['oddRate']['percent100']?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

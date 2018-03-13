@@ -1,0 +1,48 @@
+<?php 
+  use Yaf\Registry;
+  $asset = Registry::get('asset');
+  $menus = $asset->params['menus'];
+  $m = $asset->params['menu'];
+  $sm = $asset->params['submenu'];
+  $user = Registry::get('user');
+?>
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="<?=$user->getPhoto()?>" class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info">
+        <p><?=$user->username?></p>
+        <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+      </div>
+    </div>
+    <form action="#" method="get" class="sidebar-form">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="搜索...">
+        <span class="input-group-btn">
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+        </span>
+      </div>
+    </form>
+    <ul class="sidebar-menu">
+      <li class="header">主导航</li>
+      <?php foreach($menus as $menu):?>
+      <li class="treeview <?php if($m==$menu['key']):?>active<?php endif;?>">
+        <a href="#">
+          <i class="fa fa-<?=$menu['icon']?> text-light-blue"></i> 
+          <span><?=$menu['name']?></span> 
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <?php foreach($menu['subs'] as $sub):?>
+          <li <?php if($sm==$sub['key']):?>class="active"<?php endif;?>>
+            <a href="<?=$sub['link']?>"><i class="fa fa-circle-o text-green"></i><?=$sub['name']?></a>
+          </li>
+          <?php endforeach;?>
+        </ul>
+      </li>
+      <?php endforeach;?>
+    </ul>
+  </section>
+</aside>

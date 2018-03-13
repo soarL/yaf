@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>汇诚普惠-迎财神</title>
+
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<style>
+		body{
+			width: 100%;
+		}
+		.header{
+			width: 100%;
+		}
+		.audio_box img{
+			width: 17.49%;
+			margin-top: -1px;
+		}
+		.center{
+			width: 100%;
+			margin-top: -2px;
+		}
+		.ruletop{
+			width: 100%;
+			margin-top: -1px;
+		}
+
+		.footer_box{
+			background-image: url(./img/footerbg.png);
+			background-position: bottom left 0;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-color: #c80d05;
+			margin-top: -1px;
+		}
+		.footer_box p:nth-child(1){
+			padding-top: 10px;
+		}
+		.footer_box p{
+			color: #fed49f;
+			padding-left:22px;
+			font-size: 14px;
+			margin-bottom: 5px; 
+		}
+		.ewm_box{
+			margin-top: -1px;
+		}
+		.footer_box p.footer{
+			text-align: center;
+			padding-left: 0;
+			color: #fff;
+			margin-top: 30px;
+			font-size: 12px;
+			padding-bottom: 30px;
+		}
+		.myewm{
+			background-color: red;
+		}
+		.myewm img{
+			width: 100%;
+			height: 100%;
+		}
+		.audio{
+			background-color: #fff;
+		}
+		#video{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+<body>
+	<img src="https://www.91hc.com/page/packet/img/icon.jpg" style="display: none">
+	<img src="./img/header.jpg" alt="" class="header">
+	<div class="audio_box">
+		<img src="./img/audio-left.png" alt="" class="pull-left" style="width: 19.01%;">
+		<div class="pull-left audio">
+			<video id="video" controls="controls" autoplay="autoplay"
+			 webkit-playsinline="true" 
+			  playsinline="true"
+			  preload="auto"
+			 style="width= 100%; height=100%; object-fit: fill" src="https://ugcws.video.gtimg.com/o05525cylqm.mp4?sdtfrom=v1010&guid=5fda202a3bdcedc3d0b68a762fbcaff3&vkey=CA66D4C439648BFFC8C2A7B8E894D68DC65EDB68F9A4241DE29B270D44B4433E891141515AA12B03ABD7D133D3B1C4283436C6987FD45D4F6E4329599E2A1D0153BE956D65588E0139D6BE7D806016F0F26B71717E945DB465415198358D4E6F53987711232D6F31B37B3FA05C3FCF817BC7E4718073E10C">
+			             您的浏览器不支持视频播放，推荐使用最新浏览器。
+			 </video>
+		</div>
+		<img src="./img/audio-right.png" alt="" class="pull-right">
+		<div class="clearfix"  style="background-color: #d10905"></div>
+	</div>
+	<img src="./img/center.png" alt="" class="center">
+	<div class="ewm_box">
+		<img src="./img/ewm-left.png" alt="" class="pull-left" style="width: 36.4%;">
+		<div class="myewm pull-left" style="margin-left: -1px;">
+			<img src="" alt="" id="wma">
+		</div>
+		<img src="./img/ewm-right.png" alt="" class="pull-right" style="width: 34.3%;">
+		<div class="clearfix"></div>
+	</div>
+	<img src="./img/ruletop.jpg" alt="" class="ruletop">
+	<div class="footer_box">
+		<p>1. 本次活动时间为：2018年2月13日-2月22日；</p>
+		<p>2. 活动期间，凡登录/注册客户即可获得两次领取红包机会，通过微信分享活动可额外获得一个红包；（仅第一次分享获得）；</p>
+		<p>3. 客户打开红包可随机获得1.5-5元现金红包；（现金红包可直接在“汇诚普惠”平台中提现至银行卡）；</p>
+		<p>4. 领取红包用户可直接登录<a href="https://www.91hc.com" >“汇诚普惠”</a>官网，点击“我的账户”进入身份认证后即可将现金红包提现；</p>
+		<p>5. 本次活动预计发放现金红包8888元，活动送完即止；</p>
+		<p>6. 现金红包发放截止时间为2018年2月28日，到期前未认证客户将无法获得现金红包；</p>
+		<p>7. 凡通过不法手段或活动漏洞获得现金红包客户，平台将不予兑现；</p>
+		<p>8. 活动相关疑问可关注“汇诚普惠”公众号或拨打400-080-8885咨询客服人员；</p>
+		<p>9. 汇诚普惠保留法律范围内允许的对活动的解释权。</p>
+		<p class="footer">福州汇诚金融外包服务有限公司&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;联系电话：400-080-8885</p>
+	</div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	window.onload = function(){
+		$(function(){
+			var imgheight = $(".ewm_box img[class='pull-left']").height()
+			var documentWidth = $(document).width()
+			var imgwidth1 = $(".ewm_box img[class='pull-left']").width()
+			var imgwidth2 = $(".ewm_box img[class='pull-right']").width()
+			$(".myewm").height(imgheight-1)
+			$(".myewm").width(documentWidth - imgwidth1 -imgwidth2)
+		})
+
+		$(function(){
+			var imgheight = $(".audio_box img[class='pull-left']").height()
+			var documentWidth = $(document).width()
+			var imgwidth1 = $(".audio_box img[class='pull-left']").width()
+			var imgwidth2 = $(".audio_box img[class='pull-right']").width()
+			$(".audio").height(imgheight-1)
+			$(".audio").width(documentWidth - imgwidth1 -imgwidth2 -0.5)
+		})
+	}
+</script>
+<!--设置cookie  -->
+<script>
+	function getQueryParam(name) { 
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+	    var result = window.location.search.substr(1).match(reg); 
+	    if (result != null) {
+	        return unescape(result[2]); 
+	    } else {
+	        return null;
+	    }
+	}
+
+    function setCookie(c_name, value, expiredays){
+        expiredays = expiredays ? expiredays : '9999';
+ 　　　　  var exdate=new Date();
+　　　　   exdate.setDate(exdate.getDate() + expiredays);
+ 　　　　  document.cookie=c_name+ "=" + escape(value) + ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()+";path=/;domain=.91hc.com");
+　　  }
+
+	function iniSpreadCode(){
+	    var code = getQueryParam('spreadCode');
+	    var host = window.location.host;
+	    var protocolStr = document.location.protocol;  
+	    host = host.split('.',2);
+	    var img = protocolStr + "//user." + host[1] + ".com/qrcode/i" + code + ".png";
+	    $("#wma").attr('src',img);
+	    if(code){
+	        setCookie('spreadCode',code);
+	    }
+	}
+
+	iniSpreadCode()
+</script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+	document.getElementById('video').play(); 
+    //必须在微信Weixin JSAPI的WeixinJSBridgeReady才能生效 
+    document.addEventListener("WeixinJSBridgeReady", function () { 
+        document.getElementById('video').play(); 
+        document.getElementById('video').play(); 
+    }, false); 
+
+	function wxfenxiang(data){
+
+		wx.config({
+		    debug: false,////生产环境需要关闭debug模式
+		    appId: 'wx2973416012c3598e',//appId通过微信服务号后台查看
+		    timestamp: data.timestamp,//生成签名的时间戳
+		    nonceStr: data.noncestr,//生成签名的随机字符串
+		    signature: data.signature,//签名
+		    jsApiList: [//需要调用的JS接口列表
+		        'onMenuShareTimeline',//分享给好友
+		        'onMenuShareAppMessage'//分享到朋友圈
+		    ]
+		});
+		wx.ready(function () {
+	        var link = window.location.href;
+	        var protocol = window.location.protocol;
+	        var host = window.location.host;
+	        //分享朋友圈
+	        wx.onMenuShareTimeline({
+	            title: '汇诚大拜年！动动手共享8888元现金！',
+	            link: link,
+	            imgUrl:  protocol+'//'+host+'/page/packet/img/icon.jpg',// 自定义图标
+	            trigger: function (res) {
+	                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回.
+	                //alert('click shared');
+	            },
+	            success: function (res) {
+	            	$.get('/activity/newyear2018?m=share');
+	            	initData();
+	            },
+	            cancel: function (res) {
+	                //alert('shared cancle');
+	            },
+	            fail: function (res) {
+	                //alert(JSON.stringify(res));
+	            }
+	        });
+
+	        //分享给好友
+	        wx.onMenuShareAppMessage({
+	            title: '汇诚普惠祝您新年快乐', // 分享标题
+	            desc: '汇诚大拜年！动动手共享8888元现金！', // 分享描述
+	            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+	            imgUrl: protocol+'//'+host+'/page/packet/img/icon.jpg', // 自定义图标
+	            type: 'link', // 分享类型,music、video或link，不填默认为link
+	            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	            success: function () {
+	            	$.get('/activity/newyear2018?m=share');
+	            	initData();
+	                // 用户确认分享后执行的回调函数
+	            },
+	            cancel: function () {
+	                // 用户取消分享后执行的回调函数
+	            }
+	        });
+	        wx.error(function (res) {
+	            alert(res.errMsg);
+	        });
+	    });
+	}
+
+	function initData(){
+		var url = encodeURIComponent(location.href.split('#')[0]);
+		$.get('/activity/newyear2018?m=actData',{url:url},function(e){
+			// $('#panel_table').html(e.html);
+			// $('#total').text(e.total);
+			// $('#get').text(e.get);
+			// $('#count').text(e.count);
+			wxfenxiang(e.params);
+			// runTable();
+		},'json');
+	}
+	initData();
+	
+</script>
+</html>

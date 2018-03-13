@@ -1,0 +1,175 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">修改用户</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/user/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/user/save" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <input type="hidden" name="userId" value="<?=$user->userId?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">用户ID</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?=$user->userId?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">用户名</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="username" value="<?=$user->username?>" placeholder="用户名">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">用户等级</label>
+          <div class="col-sm-11">
+            <select class="form-control" name="level">
+              <option value="A" <?=$user->level='A'?'selected':''?> >A</option>
+              <option value="B" <?=$user->level='B'?'selected':''?> >B</option>
+              <option value="C" <?=$user->level='C'?'selected':''?> >C</option>
+              <option value="D" <?=$user->level='D'?'selected':''?> >D</option>
+              <option value="H" <?=$user->level='H'?'selected':''?> >H</option>
+              <option value="" <?=$user->level=''?'selected':''?> >未联系</option>
+            </select>
+          <!-- <input type="text" class="form-control" name="level" value="<?=$user->level?>" placeholder="用户等级"> -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-1 control-label">头像</label>
+          <div class="col-sm-11">
+            <div class="input-group">
+              <input type="text" class="form-control" id="photo" name="photo" value="<?=$user->userimg?>">
+              <span class="btn btn-success fileinput-button input-group-btn">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>选择图片</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input class="fileupload" type="file" name="files[]" data-input="#photo" multiple>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">邮箱</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?=$user->email?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">手机</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?=$user->phone?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">登录密码</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="loginpass" value="" placeholder="输入登录密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">支付密码</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="paypass" value="" placeholder="输入支付密码">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">姓名</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?=$user->name?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">身份证</label>
+          <div class="col-sm-11">
+            <p class="form-control-static"><?=$user->cardnum?></p>
+          </div>
+        </div>
+          <div class="form-group">
+              <label class="col-sm-1 control-label">渠道</label>
+              <div class="col-sm-11">
+                  <select class="form-control input-sm" name="channel">
+                      <option value="0" <?php if($user->channel_id=='0'):?>selected<?php endif;?>>未知</option>
+                      <option value="2" <?php if($user->channel_id=='2'):?>selected<?php endif;?>>多赚</option>
+                      <option value="3" <?php if($user->channel_id=='3'):?>selected<?php endif;?>>头条</option>
+                      <option value="4" <?php if($user->channel_id=='4'):?>selected<?php endif;?>>76676</option>
+                      <option value="77" <?php if($user->channel_id=='77'):?>selected<?php endif;?>>小微用户</option>
+                      <option value="78" <?php if($user->channel_id=='78'):?>selected<?php endif;?>>小微用户（推荐）</option>
+                      <option value="79" <?php if($user->channel_id=='79'):?>selected<?php endif;?>>亲友用户</option>
+                      <option value="80" <?php if($user->channel_id=='80'):?>selected<?php endif;?>>亲友用户（推荐）</option>
+                      <option value="81" <?php if($user->channel_id=='81'):?>selected<?php endif;?>>公司用户</option>
+                      <option value="82" <?php if($user->channel_id=='82'):?>selected<?php endif;?>>公司用户（推荐）</option>
+                  </select>
+              </div>
+          </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">角色</label>
+          <div class="col-sm-11">
+            <div class="checkbox icheck">
+              <?php foreach ($roles as $role): ?>
+              <label>
+              <input type="checkbox" name="roles[]" value="<?=$role->id?>" <?php if(in_array($role->id, $hasRoles)):?>checked<?php endif;?>>
+              <?=$role->display_name?>
+              </label>
+              <?php endforeach ?>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">黑名单</label>
+          <div class="col-sm-11">
+            <div class="checkbox icheck">
+              <label>
+              <input type="radio" name="blackstatus" value="1" <?php if($user->blackstatus):?>checked<?php endif;?>>
+              是
+              </label>
+              <input type="radio" name="blackstatus" value="0" <?php if(!$user->blackstatus):?>checked<?php endif;?>>
+              否
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">汇成合伙人</label>
+          <div class="col-sm-11">
+            <div class="checkbox icheck">
+              <label>
+              <input type="radio" name="hcparter" value="1" <?php if($user->hcparter):?>checked<?php endif;?>>
+              是
+              </label>
+              <input type="radio" name="hcparter" value="0" <?php if(!$user->hcparter):?>checked<?php endif;?>>
+              否
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">招募人</label>
+          <div class="col-sm-11">
+            <div class="checkbox icheck">
+              <label>
+              <input type="radio" name="recruit" value="1" <?php if($user->recruit):?>checked<?php endif;?>>
+              是
+              </label>
+              <input type="radio" name="recruit" value="0" <?php if(!$user->recruit):?>checked<?php endif;?>>
+              否
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

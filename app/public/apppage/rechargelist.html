@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>充值记录</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="./css/rechargelist.css">
+</head>
+<body>
+
+	<ul class="list-unstyled menu">
+		<li data-page="1" class="menuLi"><span>充值记录</span></li>
+		<li data-page="2">提现记录</li>
+		<div class="clearfix"></div>
+	</ul>
+
+	<div data-page="1" class="detail">
+		<table class="table">
+			<tr>
+				<td>
+					<p class="money">￥<span>100</span></p>
+					<p class="timer">2017-12-20 09:49:52</p>
+				</td>
+				<td>
+					<p class="info" style="background-image: url(./img/failed.png);">充值失败</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="money">￥<span>100</span></p>
+					<p class="timer">2017-12-20 09:49:52</p>
+				</td>
+				<td>
+					<p class="info" style="background-image: url(./img/suc.png);">充值成功</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div data-page="2" class="detail">
+		<table class="table">
+			<tr>
+				<td>
+					<p class="money">￥<span>100</span></p>
+					<p class="timer">2017-12-20 09:49:52</p>
+				</td>
+				<td>
+					<p class="info" style="background-image: url(./img/suc.png);">提现成功</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<ul class="list-unstyled footer">
+		<li>
+			<h4>共计笔数</h4>
+			<h4><span>4</span>笔</h4>
+		</li>
+		<li>
+			<h4>共计金额</h4>
+			<h4><span>600.00</span>元</h4>
+		</li>
+		<div class="clearfix"></div>
+	</ul>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		$("div[data-page]").hide();
+		$("div[data-page]").eq(0).show();
+		$("li[data-page]").on("click",function(){
+			$("li[data-page]").removeClass("menuLi");
+			$(this).addClass("menuLi");
+			var index = $(this).data("page")
+			$("div[data-page]").hide();
+			$("div[data-page]").eq(index-1).show();
+		})
+	</script>
+</body>
+</html>

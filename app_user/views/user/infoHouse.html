@@ -1,0 +1,61 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">房产资料</div>
+  <form action="/user/infoHouse" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">房产地址</label>
+        <input class="ui-input input-icon" type="text" name="houseradder" value="<?php echo $info['houseradder'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">建筑面积</label>
+        <input class="ui-input input-icon" type="text" name="houserarea" value="<?php echo $info['houserarea'];?>">
+        <span class="add-word">平米</span>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">建筑年份</label>
+        <input class="ui-input input-icon" type="text" name="houseryear" value="<?php echo $info['houseryear'];?>">
+        <span class="add-word">年</span>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">所有权人</label>
+        <input class="ui-input input-icon" type="text" name="housername1" value="<?php echo $info['housername1'];?>">
+        <span class="icon icon-head"></span> </div>
+      <div id="house-pay" class="input-wrap mt30">
+        <label class="label label-1">供款情况</label>
+        <div class="radio-item-list clearfix">
+          <div class="radio-item">
+            <label><input id="house-pay-1" type="radio" name="houserpay" value="n" <?php if($info['houserpay']=='n'):?>checked class="cur"<?php endif;?>>按揭中</label>
+          </div>
+          <div class="radio-item">
+            <label><input id="house-pay-2" type="radio" name="houserpay" value="y" <?php if($info['houserpay']=='y'):?>checked class="cur"<?php endif;?>>已供完房</label>
+          </div>
+        </div>
+        <span class="icon icon-head"></span> </div>
+      <div id="house-pay-hide" class="input-hide">
+        <div class="hr mt20"></div>
+        <div class="input-wrap mt30">
+          <label class="label">贷款年限</label>
+          <input class="ui-input input-icon" type="text" name="houserage" value="<?php echo $info['houserage'];?>">
+          <span class="add-word">年</span>
+          <span class="icon icon-head"></span> </div>
+        <div class="input-wrap mt30">
+          <label class="label">月供</label>
+          <input class="ui-input input-icon" type="text" name="housermonth" value="<?php echo $info['housermonth'];?>">
+          <span class="add-word">元</span>
+          <span class="icon icon-head"></span> </div>
+        <div class="input-wrap mt30">
+          <label class="label">贷款余额</label>
+          <input class="ui-input input-icon" type="text" name="houserbalance" value="<?php echo $info['houserbalance'];?>">
+          <span class="add-word">元</span>
+          <span class="icon icon-head"></span> </div>
+        <div class="input-wrap mt30">
+          <label class="label">按揭银行</label>
+          <input class="ui-input input-icon" type="text" name="houserbank" value="<?php echo $info['houserbank'];?>">
+          <span class="icon icon-head"></span> </div>  
+      </div>
+      <div class="tc mt30">
+        <input  type="submit" value="确定" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

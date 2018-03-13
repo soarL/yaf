@@ -1,0 +1,64 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20 mb20">
+    <?php if(!$userVip):?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>VIP服务</h3>
+        <div class="content">汇诚普惠VIP，享受更加贴心的服务。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="alert alert-warning">您还不是VIP会员！</div>
+        <div class="btn-wrap">
+          <a id="box-vip-btn" href="javascript:;" class="btn-blue">立刻申请</a>
+        </div>
+      </div>
+    </div>
+    <?php else:?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>VIP服务</h3>
+        <div class="content">汇诚普惠VIP，享受更加贴心的服务。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="info-account info-item">您的专属客服：<span><?=$customService->user_name?></span></div>
+        <div class="info-account info-item">VIP到期时间：<span><?=$userVip->endTime?></span></div>
+        <div class="info-account info-item" style="color: #F00;">VIP正在规划中，敬请期待 ！</div>
+      </div>
+    </div>
+    <?php endif;?>
+  </div>
+</div>
+
+<!-- 隐藏弹窗 -->
+<div id="ajax-vip-box" class="hide-box box modal">
+    <div class="form-wrap form-huge">
+        <div class="form-group clearfix">
+            <label>开通时长：</label>
+            <div class="radio-item-list clearfix">
+                <div class="radio-item"><label><input type="radio" name="time" value="5" >1年<span class="little-warning">(365天)</span></label></div>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label>专属客服：</label>
+            <div class="select-box">
+                <select name="customService" id="customService" style="width:90px;">
+                  <?php foreach ($customServices as $cs):?>
+                  <option value="<?=$cs->uid?>"><?=$cs->user_name?></option>
+                  <?php endforeach;?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-vip-btn" class="btn btn-primary ml110">提交申请</button>
+        </div>
+    </div>
+    <div class="box-remark-box huge-remark">
+        <div class="remark-title">温馨提示</div>
+        <div class="remark-content">
+            <p>1、自动借出时，只有满足上述您选择的条件时系统才会为您进行自动借出！ </p>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

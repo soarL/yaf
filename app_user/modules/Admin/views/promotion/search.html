@@ -1,0 +1,141 @@
+<?php $this->display('header.html');?>
+<!-- 渠道查询 -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">渠道分类</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加渠道" href="/admin/promotion/addList">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		          <button class="btn btn-warning btn-xs ">返回上一页</button>
+		        </div>
+			</div>
+			<div class="col-sm-4">
+				<form action="/admin/promotion/add" class="table-search-form clearfix" method="post">
+					<div class="form-group">
+						<div class="input-wrap">
+							<input type="text" class="form-control input-sm" name="channel_name" placeholder="添加渠道名称" value=""></div>
+						<div class="input-wrap">
+							<input type="text" class="form-control input-sm" name="channel_code" placeholder="添加渠道简称" value=""></div>
+						<button type="submit" class="btn btn-sm btn-info">新增</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-2">
+				<div class="form-group">
+					<select class="form-control input-sm condition_select" name="condition_select">
+						<option value="dis" disabled="" selected="selected">==筛选==</option>
+						<option value="user">用户名</option>
+						<option value="qd">渠道名称</option>
+						<option value="datatime">注册日期</option>
+					</select>
+				</div>
+			</div>	
+			<div class="col-sm-6">
+				<div class="user_select">
+					<form class="control-label time-label"  method="post" action="/admin/promotion/search">
+						<input type="hidden" value="user" name="type">
+						<input type="text" class="user_text" name="user_text" placeholder="用户名搜索">
+						<button type="submit" class="btn btn-sm btn-info">搜索</button>
+					</form>
+				</div>
+
+				<div class="qd_select">
+					<form class="control-label time-label "  method="post" action="/admin/promotion/search">
+						<input type="hidden" value="qd" name="type">
+						<input type="text" class="qd_text" name="qd_text"  placeholder="渠道搜索">
+						<button type="submit" class="btn btn-sm btn-info">搜索</button>
+					</form>
+				</div>
+
+				<div class="input-group time-group date_select">
+					<form class="control-label time-label " method="post" action="/admin/promotion/search" >
+						<input type="hidden" value="datetime" name="type">
+						<input type="text" class="form-control input-sm timepicker date_text1" data-allow-input="true" name="beginTime" value="">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-sm">至</button>
+						</div>
+						<input type="text" class="form-control input-sm timepicker date_text2" data-allow-input="true" name="endTime" value="">
+						<button type="submit" class="btn btn-sm btn-info">搜索</button>
+					</form>
+				</div>
+
+			</div>		
+					
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+									<tr>
+										<th class="visible-lg">编号ID</th>
+										<th>渠道名称</th>
+										<th>渠道代码</th>
+										<!-- <th class="visible-lg">访问人数</th> -->
+										<th class="visible-lg">注册人数</th>
+										<th class="visible-lg">充值人数</th>
+										<th class="visible-lg">充值金额</th>
+										<th class="visible-lg">投资人数</th>
+										<th class="visible-lg">投资金额</th>
+										<th class="visible-lg">提现人数</th>
+										<th class="visible-lg">提现金额</th>
+										<th>详情</th>
+									</tr>
+									<?php foreach ($channelList as $channel):?>
+									<tr data-id="<?=$channel['id'] ?>">
+										<td class="visible-lg"><?=$channel['id']?></td>
+										<td><?=$channel['channelName']?></td>
+										<td><?=$channel['channelCode']?></td>
+										<!-- <td class="visible-lg">xxxx</td> -->
+										<td class="visible-lg"><?=$channel['reg_sum']?></td>
+										<td class="visible-lg"><?=$channel['charge_num']?></td>
+										<td class="visible-lg"><?=$channel['charge_money']?></td>
+										<td class="visible-lg"><?=$channel['invest_num']?></td>
+										<td class="visible-lg"><?=$channel['invest_money']?></td>
+										<td class="visible-lg"><?=$channel['draw_num']?></td>
+										<td class="visible-lg"><?=$channel['draw_money']?></td>
+										<td>
+										<button type="button" class="btn btn-success btn-sm editCate" data-toggle="modal" data-target="#myModal">
+										  编辑
+										</button>
+										<!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										  <div class="modal-dialog" role="document">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										        <h4 class="modal-title" id="myModalLabel">修改分类</h4>
+										      </div>
+										      <div class="modal-body">
+										      	<form method="post" action="/admin/promotion/update">
+										      		<input type="hidden" name="hidden_id" id="hidden_id" value="">
+										      	  <div class="form-group">
+										      	    <label for="exampleInputEmail1">分类名称</label>
+										      	    <input type="text" name="channelName" class="form-control" id="channelName" >
+										      	  </div>
+										      	  <div class="form-group">
+										      	    <label for="exampleInputPassword1">分类代号</label>
+										      	    <input type="text" class="form-control" name="channelCode" id="channelCode" placeholder="">
+										      	  </div>
+										      	  <button type="submit" class="btn btn-danger">保存</button>
+										      	</form>
+										      </div>
+										     <!--  <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+										        <button type="button" class="btn btn-primary">保存</button>
+										      </div> -->
+										    </div>
+										  </div>
+										</div>
+										<a class="btn btn-ssm btn-info" href="<?=WEB_USER;?>/admin/promotion/detail?id=<?=$channel['id']?>" target="_blank"> <i class="glyphicon glyphicon-edit icon-white"></i>
+											查看详情
+										</a>
+									</td>
+								</tr>
+						<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>风险评估</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="<?=WEB_MAIN?>/apppage/css/estimate.css">
+</head>
+<body>
+<div class="body_div">
+	<div class="container_div">
+		<p>说明：我们将对您进行风险承受能力评估，根据评估结果，您的风险承受能力将属于以下五种类型中的一种：保守型、稳健型、平衡型、积极型、进取型。</p>
+		<p>为了给您提供更好的资产选择，请您认真作答，感觉您的配合！</p>
+	</div>
+	<form action="" id="form">
+		<div class="num">
+			<h3>1、您的年龄是?</h3>
+			<div class="com">
+				<label><input type="radio" name="age" value="-2">18-25岁</label>
+				<label><input type="radio" name="age" value="0">25-50岁</label>
+				<label><input type="radio" name="age" value="-2">51-60岁</label>
+				<label><input type="radio" name="age" value="-3">61-65岁</label>
+				<label><input type="radio" name="age" value="-10">高于65岁</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>2、您的家庭总资产净值为（折合人民币）？不包括自用住宅和私营企业等实业投资，包括储蓄、保险、金融投资、实物投资、并需扣除未结清贷款，信用卡账单等债务</h3>
+			<div class="com">
+				<label><input type="radio" name="income" value="0">15万元及以下</label>
+				<label><input type="radio" name="income" value="2">15万元（不含）-50万元（含）</label>
+				<label><input type="radio" name="income" value="6">50万元（不含）-100万元（含）</label>
+				<label><input type="radio" name="income" value="8">100万元（不含）-1000万元（含）</label>
+				<label><input type="radio" name="income" value="10">1000万元（不含）以上</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>3、您每年的家庭收入中，可用于作金融投资（储蓄存款除外）的比例为？</h3>
+			<div class="com">
+				<label><input type="radio" name="proportion" value="2">小于10%</label>
+				<label><input type="radio" name="proportion" value="4">10%至25%</label>
+				<label><input type="radio" name="proportion" value="8">25%至50%</label>
+				<label><input type="radio" name="proportion" value="10">大于50%</label>
+			</div>
+		</div>	
+		<div class="num">
+			<h3>4、以下哪项最能说明您的投资经验？</h3>
+			<div class="com">
+				<label><input type="radio" name="experience" value="0">除存款、国债外，我几乎不投资其他金融产品</label>
+				<label><input type="radio" name="experience" value="2">大部分投资于存款、国债等，较少投资于股票、基金、P2P等风险产品</label>
+				<label><input type="radio" name="experience" value="6">资产均衡地分布于存款、国债、银行投资产品、信托产品、股票、基金、P2P等</label>
+				<label><input type="radio" name="experience" value="10">大部分投资于股票、基金、P2P等风险产品，较少投资于存款、国债</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>5、您有多少年投资股票、基金、外汇，金融衍生产品、P2P等风险投资品的经验？</h3>
+			<div class="com">
+				<label><input type="radio" name="seniority" value="0">没有经验</label>
+				<label><input type="radio" name="seniority" value="2">少于2年</label>
+				<label><input type="radio" name="seniority" value="6">2至5年</label>
+				<label><input type="radio" name="seniority" value="8">5至8年</label>
+				<label><input type="radio" name="seniority" value="10">8年以上</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>6、以下哪项描述最符合您的投资态度？</h3>
+			<div class="com">
+				<label><input type="radio" name="attitude" value="0">厌恶风险，不希望本金损失，希望获得稳定回报</label>
+				<label><input type="radio" name="attitude" value="4">保守投资，不希望本金损失，愿意承担一定幅度的收益波动</label>
+				<label><input type="radio" name="attitude" value="8">寻求资金的较高收益和成长性，愿意为此承担有限本金损失</label>
+				<label><input type="radio" name="attitude" value="10">希望赚取高回报，愿意为此承担较大本金损失</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>7、本金100万元，不提供保本承诺的情况下，您会选择哪一种投资机会？</h3>
+			<div class="com">
+				<label><input type="radio" name="opportunity" value="0">有100%的机会赢取1000元现金，并保证归还</label>
+				<label><input type="radio" name="opportunity" value="4">有50%的机会赢取5万元现金，并有较高可能性归还本金</label>
+				<label><input type="radio" name="opportunity" value="6">有25%的机会赢取50万元现金，并有一定的可能性损失本金</label>
+				<label><input type="radio" name="opportunity" value="10">有10%的机会赢取100万元现金，并有较高可能性损失本金</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>8、投资于股票、基金、P2P等金融投资品（不含存款和国债）时，您可接受的最长借款期限是多久？</h3>
+			<div class="com">
+				<label><input type="radio" name="term" value="4">1年以下</label>
+				<label><input type="radio" name="term" value="6">1—3年</label>
+				<label><input type="radio" name="term" value="8">3—5年</label>
+				<label><input type="radio" name="term" value="10">5年以上</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>9、您的投资目的是？</h3>
+			<div class="com">
+				<label><input type="radio" name="purpose" value="2">资产保值</label>
+				<label><input type="radio" name="purpose" value="6">资产稳健增长</label>
+				<label><input type="radio" name="purpose" value="10">资产迅速增长</label>
+			</div>
+		</div>
+		<div class="num">
+			<h3>10、您投资产品的价值出现何种程度的波动时，您会呈现明显的焦虑？</h3>
+			<div class="com">
+				<label><input type="radio" name="anxious" value="-5">本金无损失，但收益未达预期</label>
+				<label><input type="radio" name="anxious" value="5">出现轻微本金损失</label>
+				<label><input type="radio" name="anxious" value="10">本金10%以内的损失</label>
+				<label><input type="radio" name="anxious" value="15">本金20%-50%的损失</label>
+				<label><input type="radio" name="anxious" value="20">本金50%以上的损失</label>
+			</div>
+		</div>
+	</form>
+	<button class="button_s" id="submit">提交结果</button>
+</div>
+<div id="result">
+	<div class="result_bg">
+		<div class="result">
+			<h3>评估结果</h3>
+			<div class="content">
+				<h2>您的风险评估结果：<span data-content id="info">积极型</span></h2>
+			</div>
+			<div>
+				<button class="button_s button_b" id="again">重新测试</button>
+				<button class="button_s button_c" id="yes">确定</button>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="<?=WEB_MAIN?>/apppage/layer/layer.js"></script>
+<script>
+    function SubmitEstimate() {
+        var age = $('input[name="age"]:checked ').val();
+        var income = $('input[name="income"]:checked ').val();
+        var proportion = $('input[name="proportion"]:checked ').val();
+        var experience = $('input[name="experience"]:checked ').val();
+        var seniority = $('input[name="seniority"]:checked ').val();
+        var attitude = $('input[name="attitude"]:checked ').val();
+        var opportunity = $('input[name="opportunity"]:checked ').val();
+        var term = $('input[name="term"]:checked ').val();
+        var purpose = $('input[name="purpose"]:checked ').val();
+        var anxious = $('input[name="anxious"]:checked ').val();
+
+        if (age == null || income == null || proportion == null || experience == null || seniority == null || attitude == null || opportunity == null || term == null || purpose == null || anxious == null) {
+            layer.confirm('资料不完整', {
+                btn: ['确定'],
+            });
+            return false;
+        }
+
+        var score = Number(age) + Number(income) + Number(proportion) + Number(experience) + Number(seniority) + Number(attitude) + Number(opportunity) + Number(term) + Number(purpose) + Number(anxious);
+        //提交结果
+        $.ajax({
+            url: '/api/submitEstimate',
+            data: { score: score },
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                $("span[data-content]").text(data.info);
+				$("#result").show();
+            }
+        });
+
+
+        return false;
+    }
+
+	$("#submit").on("click",function(){
+		SubmitEstimate();
+	})
+	$("#yes").on("click",function(){
+		$("#result").hide()
+	})
+	$("#again").on("click",function(){
+		window.location.reload();
+		$("#result").hide()
+	})
+</script>
+</body>
+</html>

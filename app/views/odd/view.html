@@ -1,0 +1,486 @@
+<?php $this->display('header.html');?>
+<?php $remain = $odd->getRemain();?>
+<input id="oddNumber" type="hidden" name="oddNumber" value="<?=$odd->oddNumber?>">
+<div class="biaoxqmain">
+<!-- 标的详情页的头 -->
+  <div class="container">
+    <div class="bdtleft pull-left bgfff">
+      <h1 class="tLtitle"><?=$odd->oddTitle?><span><?=$borrower->userType==3?'企业':'个人'?></span><a href="<?=WEB_MAIN?>/about/borrow" style="color: #36adf7" target="_blank">借款协议范本</a></h1>
+      <ul class="tLxmxinxi list-unstyled">
+        <li>
+          <h2><?=$odd->oddMoney?> <span>元</span></h2>
+          <p>借款金额</p>
+        </li>
+        <li>
+          <h2><?=$odd->oddBorrowPeriod?> <span>月</span></h2>
+          <p>借款期限</p>
+        </li>
+        <li>
+          <h2 class="tLxmxinxiH2"><?=$odd->oddYearRate*100?> <span>% <?=$odd->oddReward?'+'.(($odd->oddReward*100).'%'):''?></span></h2>
+          <p>年化利率</p>
+        </li>
+        <div class="clearfix"></div>
+      </ul>
+      <h3 class="tLjindu">投资进度 <div class="progress-bar orange shine"><span style="width:<?=$odd->getPercent($remain)?>%;"></span></div>  <?=$odd->getPercent($remain)?>% 
+        <span>募集时间：  
+          <em id="act-day" class="value">0</em>天
+          <em id="act-hour" class="value">00</em>时
+          <em id="act-minute" class="value">00</em>分
+          <em id="act-second" class="value">00</em>秒
+        </span>
+        <span id="act-end" style="display:none;">
+          <?php if($odd->progress == 'start'){ ?>
+          <?=date('Y/m/d H:i:s',strtotime($odd->oddTrialTime)+$odd->oddBorrowValidTime*24*60*60)?>
+          <?php }?>
+        </span>
+      </h3>
+      <ul class="tLleixing list-unstyled">
+        <li>资产类型：<?=$odd->getTypeName()?></li>
+        <li>还款方式：<?=$odd->getRepayType()?></li>
+        <li>起息时间：复审成功当日</li>
+        <div class="clearfix"></div>
+      </ul>
+      <ul class="list-unstyled zhaiquan-msg" >
+        <li>
+          <span style="width: auto;">安全等级参考：</span>
+          <?php $level = [0=>'',1=>'低风险',2=>'中低风险',3=>'中等风险',4=>'中高风险',5=>'高风险']; $html = [0=>'',1=>'<span>AA级&nbsp;&nbsp;低风险</span>',2=>'<span>A级&nbsp;&nbsp;中低风险</span>',3=>'<span>B级&nbsp;&nbsp;中等风险</span>',4=>'<span>C级&nbsp;&nbsp;中高风险</span>',5=>'<span>D级&nbsp;&nbsp;高风险</span>']; echo $html[$odd->riskLevel] ?>
+          <a style="width: auto">（内部评级，仅供参考）</a>
+        </li>
+        <li style="padding: 0px 0;">
+          <span style="width: auto;">投资人条件：</span><a style="width: auto">1.身份：非护照注册会员；</a><a style="width: auto">2.风险承受能力：“<?=$odd->getRisk()?>”及以上</a>
+        </li>
+      </ul>
+
+    </div>
+    <?php if($user):?>
+    <div class="bdtright pull-right bgfff">
+      <h1 class="tRtitle">剩余可投：<span><?=$remain?></span>元</h1>
+      <dl class="tRtouzi">
+        <input type="hidden" name="oddNumber" value="<?=$odd->oddNumber?>">
+        <dd class="tRtouzi1">可用余额：<s><?=$user->fundMoney?></s> 元 <span class='allLay' >全部投入</span> <a href="<?=WEB_USER?>/account/recharge" target="_blank">充值</a></dd>
+        <dd class="tRtouzi2"><img src="<?=RSRC?>/images/index/jian.png" alt="" class="img1"><input id="bmoney" type="text" name="money" value="0"><img src="<?=RSRC?>/images/index/jia.png" alt="" class="img2"></dd>
+        <dd class="tRtouzi3">
+          <a href="javascript:;" class="calculate-btn"><img src="<?=RSRC?>/images/index/jisuanqi.png" alt=""></a>
+          <?=$odd->getDetailButton($user,$odd)?>
+          <div class="clearfix"></div>
+          <p>温馨提示：市场有风险，投资需谨慎</p>
+        </dd>
+      </dl>
+    </div>
+    <?php else:?>
+    <div class="bdtright pull-right bgfff">
+      <dl class="tRtouzi" style="margin-top: 92px; margin-bottom: 95px;">
+        <dd class="tRtouzi3">
+          <button style="width: 250px;" class="link-to" data-ref="<?=WEB_USER?>/login?login">立即登录</button>
+          <div class="clearfix"></div>
+          <p>温馨提示：市场有风险，投资需谨慎</p>
+        </dd>
+      </dl>
+    </div>
+    <?php endif;?>
+    <div class="clearfix"></div>
+  </div>
+  <div class="bgfff container biaoxqbody">
+    <ul class="list-unstyled detailNav">
+      <li class="detailNavLi" data-ref="#project-detail-content">项目介绍</li>
+      <li data-ref="#tender-records-content">投标记录</li>
+      <li data-ref="#repay-records-content">还款记录</li>
+      <li data-ref="#later-records-content">贷后追踪</li>
+      <?php if($odd->progress == 'xxxx'){ ?>
+      <li data-ref="#ing-records-content">投标支付中</li>
+      <?php }?>
+      <?php if($odd->gps->url){ ?>
+      <li data-ref="#gps-records-content">GPS定位</li>
+      <?php }?>
+      <div class="clearfix"></div>
+    </ul>
+  <!-- 项目详情 -->
+    <div id="project-detail-content" class="detail-content-item biaoxmxq" data-type="detail">
+      <dl>
+      <?php if($borrower->userType==3){ ?>
+        <dd>
+          <img src="<?=RSRC?>/images/index/xinxi.png" alt="">
+          <h3>借款公司信息</h3>
+          <ul class="list-unstyled">
+            <li>
+              <h4>公司名称：<?=$borrower->hidename?></h4>
+              <h4>法人姓名：<?=_hide_name($borrower->userbank->legal)?></h4>
+            </li>
+            <li>
+              <h4>信用代码：<?=_hide_phone($borrower->userbank->USCI)?></h4>
+              <h4>身份证：<?=_hide_cardnum($borrower->userbank->legalIdCardNo)?></h4>
+            </li>
+            <li>
+              <h4>企业类型： <?=$borrower->companyType?></h4>
+              <h4>所属行业： <?=$borrower->credit?></h4>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </dd>
+      <?php }else{ ?>
+        <dd>
+          <img src="<?=RSRC?>/images/index/xinxi.png" alt="">
+          <h3>借款人信息</h3>
+          <ul class="list-unstyled">
+            <li>
+              <h4>姓名：<?=_hide_name($borrower->name)?></h4>
+              <h4>身份证号：<?=_hide_cardnum($borrower->cardnum)?></h4>
+            </li>
+            <li>
+              <h4>性别：<?=$borrower->sex=='man'?'男':'女'?></h4>
+              <h4>籍贯：<?=$borrower->city?></h4>
+            </li>
+            <li>
+              <h4>婚姻状况： <?=$borrower->maritalstatus=='y'?'已婚':'未婚'?></h4>
+              <h4>所属行业： <?=$borrower->credit?></h4>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </dd>
+      <?php }?>
+
+        <?php if($info->oddLoanRemark):?>
+        <dd>
+          <img src="<?=RSRC?>/images/index/yuanying.png" alt="">
+          <h3>借款原因</h3>
+          <p><?=_decode($info->oddLoanRemark)?></p>
+        </dd>
+        <?php endif;?>
+        <?php if($info->repaySource):?>
+        <dd>
+          <img src="<?=RSRC?>/images/index/laiyuan.png" alt="">
+          <h3>还款来源</h3>
+          <p><?=$info->repaySource?></p>
+        </dd>
+        <?php endif;?>
+        <?php if($info->overdueTreat):?>
+        <dd>
+          <img src="<?=RSRC?>/images/index/chuli.png" alt="">
+          <h3>还款保障措施</h3>
+          <p><?=$info->overdueTreat?></p>
+        </dd>
+        <?php endif;?>
+      </dl>
+
+      
+    </div>
+    <!-- 投资记录 -->
+    <div id="tender-records-content" class="detail-content-item hide" data-type="tender">
+      <table id="tender-records" class="table">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>投标客户</th>
+            <th>投资金额</th>
+            <th>投标方式</th>
+            <th>投标时间</th>
+          </tr>
+        </thead>
+    		<tbody>
+    		</tbody>
+      </table>
+      <div id="tender-records-pager" class="pagination-wrapper dy-pagination" data-action="/odd/oddTenders" data-table="#tender-records" data-var="#tender-records-var" style="display:table;margin: 0 auto;">
+      </div>
+
+      <div id="tender-records-var" style="display:none;">
+      <div class="item-var" data-var="num"><?=$odd->oddNumber?></div>
+      </div>
+    </div>
+    <!-- 还款记录 -->
+    <div id="repay-records-content" class="detail-content-item hide" data-type="repay">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>期数</th>
+            <th>还款时间</th>
+            <th>还款总额（元）</th>
+            <th>还款本金（元）</th>
+            <th>还款利息</th>
+            <th>还款状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($repayments as $repayment):?>
+          <tr>
+            <td><?=$repayment->qishu?></td>
+            <td><?=_date('Y-m-d', $repayment->endtime);?></td>
+            <td>￥<?=$repayment->realAmount?></td>
+            <td>￥<?=$repayment->benJin?></td>
+            <td class="lixi">￥<?=$repayment->interest?></td>
+            <td class="weihai"><a style="background-color:<?php if($repayment->status==1):?>#ccc<?php endif;?>"><?php if($repayment->status==0):?>待还款<?php elseif($repayment->status==1):?>已还款<?php endif;?></a></td>
+          </tr>
+          <?php endforeach;?>
+        </tbody>
+      </table>
+    </div>
+    <!-- 贷后追踪 -->
+    <div id="later-records-content" class="detail-content-item hide" data-type="later">
+
+      <div class="courseContainer pull-left">
+        <h3>借款人重大信息</h3>
+        <table class="table table-bordered">
+            <tr>
+              <td width=60%>资金运用情况</td>
+              <td width=40%><?=$oddTraceInfo->money?></td>
+            </tr>
+            <tr>
+              <td>经营情况</td>
+              <td><?=$oddTraceInfo->management?></td>
+            </tr>
+            <tr>
+              <td>财务状况</td>
+              <td><?=$oddTraceInfo->finance?></td>
+            </tr>
+            <tr>
+              <td>还款能力变化情况</td>
+              <td><?=$oddTraceInfo->ability?></td>
+            </tr>
+            <tr>
+              <td>借款人逾期情况</td>
+              <td><?=$oddTraceInfo->delay?></td>
+            </tr>
+            <tr>
+              <td>涉拆情况</td>
+              <td><?=$oddTraceInfo->appeal?></td>
+            </tr>
+            <tr>
+              <td>受行政处罚情况</td>
+              <td><?=$oddTraceInfo->penalty?></td>
+            </tr>
+        </table>
+      </div>
+      <div class="courseContainer pull-right" style="width: 57%;height: 461px;">
+          <h3>款项追踪</h3>
+          <div class="overhidden">
+            <?php foreach($oddTraces as $oddtrace){ ?>
+            <div class="courseBox">
+                <div class="leftTitle pull-left">●<span></span></div>
+                <dl class="pull-left">
+                    <dd><a><?=date('Y-m-d',strtotime($oddtrace->addtime))?></a><span><?=$oddtrace->info?></span></dd>
+                </dl>
+                <div class="clearfix"></div>
+            </div>
+            <?php }?>
+
+          </div>
+      </div>
+      <div class="clearfix"></div>
+
+    </div>
+    <div id="ing-records-content" class="detail-content-item hide" data-type="ing">
+      <table id="ing-records" class="table">
+        <thead>
+          <tr>
+            <th>期数</th>
+            <th>投标客户</th>
+            <th>投资金额</th>
+            <th>投标时间</th>
+            <th>支付倒计时</th>
+          </tr>
+        </thead>
+      <tbody>
+        
+      </tbody>
+      </table>
+      <div id="ing-records-pager" class="pagination-wrapper dy-pagination" data-action="/odd/ingRecords" data-table="#ing-records" data-var="#ing-records-var" style="display:table;margin: 0 auto;">
+      </div>
+      <div id="ing-records-var" style="display:none;">
+        <div class="item-var" data-var="num"><?=$odd->oddNumber?></div>
+      </div>
+    </div>
+    <div id="gps-records-content" class="detail-content-item hide" data-type="ing">
+      <div id="gps-records-var">
+        <iframe src="<?=$odd->gps->url?>" boder="0" style="width: 100%;height: 360px;border: 0;"></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- 贷款人照片展示 -->
+  <?php $idPhotos = $info->getImages('idPhotos');?>
+  <?php $oddPropertyPhotos = $info->getImages('oddPropertyPhotos');?>
+  <?php $oddExteriorPhotos = $info->getImages('oddExteriorPhotos');?>
+  <?php $otherPhotos = $info->getImages('otherPhotos');?>
+
+  <div class="bgfff container borrowerZiLiao">
+    <h1>项目相关图片资料</h1>
+    <ul class="list-unstyled borrowerNav">
+
+      <li style="display: <?= $idPhotos ? 'block':'none'?>;">身份产权证件</li>
+      <li style="display: <?= $oddExteriorPhotos ? 'block':'none'?>;">抵押物照片</li>
+      <li style="display: <?= $oddPropertyPhotos? 'block':'none'?>;">合同协议</li>
+      <li style="display: <?= $otherPhotos ? 'block':'none'?>;">征信流水</li>
+
+      <div class="clearfix"></div>
+    </ul>
+    <div class="ziLiaoLunBo">
+      <div class="ziLiaoLunMove">
+        <ul class="list-unstyled clearfix imgViewer slider-img">
+
+          <li class="id" >
+            <?php foreach ($idPhotos as $photo):?>
+              <a rel="validate" href="<?=$photo['normal']?>"><img src="<?=$photo['normal']?>" alt=""></a>
+            <?php endforeach;?>
+          </li>
+
+          <li class="shiwu">
+            <?php foreach ($oddExteriorPhotos as $photo):?>
+            <a rel="validate" href="<?=$photo['normal']?>"><img src="<?=$photo['normal']?>" alt=""></a>
+            <?php endforeach;?>
+          </li>
+
+          <li class="shiwuId">   
+            <?php foreach ($oddPropertyPhotos as $photo):?>
+            <a rel="validate" href="<?=$photo['normal']?>"><img src="<?=$photo['normal']?>" alt=""></a>
+            <?php endforeach;?>
+          </li>
+
+          <li class="other">   
+            <?php foreach ($otherPhotos as $photo):?>
+            <a rel="validate" href="<?=$photo['normal']?>"><img src="<?=$photo['normal']?>" alt=""></a>
+            <?php endforeach;?>  
+          </li>
+          
+          <div class="clearfix"></div>
+        </ul>
+      </div>
+      <a id="zlLbtn">&lt;</a>
+      <a id="zlRbtn">&gt;</a>
+    </div>
+  </div>
+</div>
+
+<div id="ImgBig">
+  <a class="ImgExit">&times;</a>
+  <a class="jia">+</a>
+  <a class="jian">-</a>
+  <a class="ImgBigL">&lt;</a>
+  <a class="ImgBigR">&gt;</a>
+</div>
+<!-- 隐藏弹窗 -->
+<form method="post" action="/odd/bid" onsubmit="return checkProtocol()">  
+
+  <div id="ajax-bid-box" class="hide-box box modal">
+    <input id="odd-period" type="hidden" value="<?=$odd->getPeriod()?>">
+      <div class="form-wrap form-huge">
+          <div class="form-group clearfix">
+              <label>标号：</label>
+              <div class="static-input"><?=$odd->oddNumber?></div>
+              <input type="hidden" name="oddNumber" value="<?=$odd->oddNumber?>">
+          </div>
+          <div class="form-group clearfix">
+              <label>标名：</label>
+              <div class="static-input"><?=$odd->oddTitle?></div>
+          </div>
+          <div class="form-group clearfix">
+              <label>可投金额：</label>
+              <div class="static-input"><?=$remain?>元</div>
+          </div>
+          <div class="form-group clearfix">
+              <?php if($odd->oddType!='special'):?>
+              <label>投资金额：</label>
+              <?php else:?>
+              <label>投资虚拟金额：</label>
+              <?php endif;?>
+              <input id="money" class="number-input" type="text" autocomplete="username" name="money">
+          </div>
+          <div class="form-group clearfix">
+              <label>可使用奖券：</label>
+              <select id="lottery-list" class="select" name="lotteryID">
+                  <option value="0">不使用</option>
+              </select>
+          </div>
+          <?php if($user):?>
+          <!-- <div class="form-group clearfix">
+              <label>支付密码：</label>
+              <?php if($user->paypass==''):?>
+              <div class="static-input">
+                您未设置支付密码！<a href="<?=WEB_USER?>/user/safe" target="_blank">立即设置</a>
+              </div>
+              <?php else:?>
+              <input id="bid-paypass" type="password" name="paypass">
+              <?php endif;?>
+          </div> -->
+          <?php endif;?>
+          <input type="hidden" id="oddNumber" value="<?=$odd->oddNumber;?>">
+          <div class="form-group clearfix">
+              <label><input type="checkbox" name="protocol" id="protocol"> </label>
+              <div class="static-input">我已阅读并同意 <a href="<?=WEB_MAIN?>/about/borrow" target="_blank" style="color: #666">《借款协议》</a><span onclick="jieshi();">《风险揭示书》</span><a href="<?=WEB_MAIN?>/about/loanCompanyself" target="_blank" style="color: #666">《委托协议书》</a></div>
+          </div>
+          <div class="form-group clearfix">
+              <div id="ajax-bid-btn" class="btn btn-primary" style="margin-left: 105px;" onclick="paypassC();">立即抢购</div>
+          </div>
+
+      </div>
+      <div class="box-remark-box huge-remark">
+          <div class="remark-title">温馨提示</div>
+          <div class="remark-content">
+              <p>1、借款项目计息由项目复审成功之日起计；</p>
+              <p>2、平台收投资人每期回款利息的6%作为利息管理费；</p>
+              <p>3、客户在投资过程中有相关问题，可咨询客服人员：400-080-8885；</p>
+          </div>
+          <!-- <?php if($odd->oddType!='special'):?>    
+          <div class="remark-content">
+              <p>新手标额外奖励年化收益率<span class="red" style="font-size:12px;">0.8%</span>，新手标的利息根据奖励后的年化收益率进行计息，结息日获得。</p>
+          </div>
+          <?php else:?>
+          <div class="remark-content">
+              <p>1. 该标为现金券专享标，只能使用现金券进行投资</p>
+              <p>2. 该标为虚拟标的，不支持债权转让，投资能获得收益，但是无法获得积分，无法累计投资金额</p>
+          </div>
+          <?php endif;?> -->
+      </div>
+  </div>
+
+  <!-- 交易密码 -->
+  <div style="display: none;padding: 0px 20px 26px;" id="paypass">
+      <input type="password" autocomplete="current-password" name='paypass' class="form-control" placeholder="请输入交易密码" style="width: 200px;display: inline-block;height: 22px;">
+      <input type="submit" value="确认" class="DepositTrue" style="outline: none;color: #fff;font-size: 20px;padding: 12px 23px;background-color: #03a2ff;border-radius: 4px;border: none;line-height: 20px;cursor: pointer;margin-top: 26px;display: inline-block;padding: 7px 14px;font-size: 15px;">
+  </div>
+
+</form>
+
+<?php if($user){ ?>
+<div id="not" style="display: none">您好！经风险承受能力测验评估您为“<?=$user->getEstimateResult()?>”投资人，该借款项目信用等级为“<?=$level[$odd->riskLevel]?>”，已经大大超出您的风险承受范围，您无法对该笔项目进行出借！</div>
+<div id="reluctantly" style="display: none">您好！经风险承受能力测验评估您为“<?=$user->getEstimateResult()?>”投资人，该借款项目信用等级为“<?=$level[$odd->riskLevel]?>”，可能超出您的风险承受范围。是否继续执行投资操作？</div>
+<?php }?>
+
+<!-- 借款协议 -->
+<div id="ajax-jiekuan" class="hide-box box modal">
+  <div class="user-content"> 
+    借款协议
+  </div>
+</div>
+<!-- 风险揭示书 -->
+<div id="ajax-jieshi" class="hide-box box modal">
+  <div class="user-content">
+    <h3 style="text-indent: 0;font-weight: bold;">一、网络借贷风险提示：</h3>
+    <p> 在您通过汇诚普惠平台进行资金出借的过程中，也许会面临以下可能导致您出借资金及收益受损的各种风险，这些风险须由您自行承担。请您在进行资金出借前仔细阅读以下内容，了解借款项目信贷风险，确保自身具备相应的投资风险意识、风险认知能力、风险识别能力和风险承受能力，拥有非保本类金融产品投资的经历并熟悉互联网，并请您根据自身的风险承受能力选择是否出借资金及出借资金的数额。</p>
+    <p>1. 法律及监管风险：因许多法律和法规相对较新且可能发生变化，相关官方解释和执行可能存在较大不确定性等因素引起的风险。有些新制定的法律、法规或修正案的生效可能被延迟；有些新颁布或生效的法律法规可能具有追溯力从而对您的投资利益造成不利影响。</p>
+    <p> 2. 政策风险：因国家宏观政策、财政政策、货币政策、监管导向、行业政策、地区发展政策等因素引起的风险。</p>
+    <p>3. 市场风险：因市场资金面紧张或利率波动、行业不景气、企业效益下滑等因素引起的风险。</p>
+    <p> 4. 借款人信用风险：针对平台上的债权，汇诚普惠仅在债权形成前对借款人的借款需求及相关信息进行必要审核，但是汇诚普惠不对借款人的还款能力做出任何明示或默示的担保或保证，并且如果发生债权转让，汇诚普惠不会在债权转让时再次对借款人进行信用审核，您受让的债权可能在其受让前已经存在逾期情况。当借款人因收入情况、财产状况发生变化、人身出现意外、发生疾病、死亡等情况，短期或者长期丧失还款能力，或者借款人的还款意愿发生变化时，您的出借资金可能无法按时回收甚至无法回收。汇诚普惠会积极配合出借人行使追讨债权的相关权利。</p>
+    <p>5. 资金流动性风险：针对您的出借本金或者回款再出借资金，汇诚普惠会根据网络借贷相关协议约定积极协助您寻找、推荐借款人，以完成资金出借、获取收益之目的，但汇诚普惠寻找、推荐借款人的时间存在一定不确定性。同时，汇诚普惠将根据网络借贷相关协议约定在您提出需要时，努力帮助您寻找、向您推荐愿意受让债权的第三方，以完成您的债权转让，但汇诚普惠不对债权转让的实现以及实现时间做出任何承诺和保证。</p>
+    <p>6. 技术风险：由于无法控制和不可预测的系统故障、设备故障、通讯故障、电力故障、网络故障、黑客或计算机病毒攻击、以及其它因素，可能导致平台出现非正常运行或者瘫痪，由此导致您无法及时进行查询、充值、出借、提现等操作。</p>
+    <p>7. 不可抗力风险：由于战争、动乱、自然灾害等不可抗力因素的出现而可能导致您出借资金损失的风险。</p>
+    <h3 style="text-indent: 0;font-weight: bold;">二、网络借贷禁止性行为提示：</h3>
+    <p>汇诚普惠平台作为网络借贷信息中介平台，将严格依据《网络借贷信息中介机构业务活动管理暂行办法》的规定，不予从事或者接受委托从事下列活动，请您知悉并共同进行监督：</p>
+    <p>1. 为自身或变相为自身融资；</p>
+    <p>2. 直接或间接接受、归集出借人的资金；</p>
+    <p>3. 直接或变相向出借人提供担保或者承诺保本保息；</p>
+    <p>4. 自行或委托、授权第三方在互联网、固定电话、移动电话等电子渠道以外的物理场所进行宣传或推介融资项目；</p>
+    <p>5. 发放贷款，但法律法规另有规定的除外；</p>
+    <p>6. 将融资项目的期限进行拆分；</p>
+    <p>7. 自行发售理财等金融产品募集资金，代销银行理财、券商资管、基金、保险或信托产品等金融产品；</p>
+    <p>8. 开展类资产证券化业务或实现以打包资产、证券化资产、信托资产、基金份额等形式的债权转让行为；</p>
+    <p>9. 除法律法规和网络借贷有关监管规定允许外，与其他机构投资、代理销售、经纪等业务进行任何形式的混合、捆绑、代理；</p>
+    <p>10. 虚构、夸大融资项目的真实性、收益前景，隐瞒融资项目的瑕疵及风险，以歧义性语言或其他欺骗性手段等进行虚假片面宣传或促销等，捏造、散布虚假信息或不完整信息损害他人商业信誉，误导出借人或借款人；</p>
+    <p>11. 向借款用途为投资股票、场外配资、期货合约、结构化产品及其他衍生品等高风险的融资提供信息中介服务；</p>
+    <p>12. 从事股权众筹等业务。</p>
+  </div>
+</div>
+<!-- 借款协议范本 -->
+<div id="ajax-jiekuanfangben" class="hide-box box modal">
+  <div class="user-content">
+    借款协议范本
+  </div>
+</div>
+<?php $this->display('footer.html');?>

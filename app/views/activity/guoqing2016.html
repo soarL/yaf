@@ -1,0 +1,183 @@
+<?php $this->display('header.html');?>
+<style type="text/css">
+  .infoMoney {position: relative;}
+  .infoMoney .no-open {position: absolute; display: block; color: #ffe5ac; top: 0px; left: 240px; line-height: 32px;}
+  .infoCard {position: relative;}
+</style>
+<!-- 活动页面内容 -->
+<div id="event0930">
+  <div class="banner"></div>
+  <div class="notice">
+    <a href="#">献礼华诞——汇诚普惠国庆线上活动公告</a>
+  </div>
+  <div class="event-bg event-one">
+    <div class="header">
+      <p>活动时间：2016.9.27~2016.10.15</p>
+      <p>兑换时间：2016.10.16~2016.10.18</p>
+      <p>活动内容：国庆期间在平台投资不仅能得到抽取IPhone 7等好礼，根据投资金额还能兑换加息劵哦！</p>
+      <p>兑换规则：</p>
+    </div>
+    <div class="infoArea">
+      <p class="infoCard">
+        <a target="_blank" href="<?=WEB_USER?>/account/lotteries">我的卡卷</a>
+      </p>
+      <p class="infoMoney">我的投资金额：
+        <em id="cashMoney-show"><?=$user?$user->cashMoney:0?></em>
+        <span class="no-open">
+          <?php if(time()<strtotime('2016-10-16 00:00:00')):?>
+            16日零时发放
+          <?php endif;?>
+        </span>
+      </p>
+      <div class="chargeList">
+        <ul>
+          <li>
+            <button class="lottery-btn" data-type="1" data-money="10000" data-name="0.1%加息券">兑换</button>
+          </li>
+          <li>
+            <button class="lottery-btn" data-type="2" data-money="20000" data-name="0.2%加息券">兑换</button>
+          </li>
+          <li>
+            <button class="lottery-btn" data-type="3" data-money="40000" data-name="0.4%加息券">兑换</button>
+          </li>
+          <li>
+            <button class="lottery-btn" data-type="4" data-money="60000" data-name="0.6%加息券">兑换</button>
+          </li>
+          <li>
+            <button class="lottery-btn" data-type="5" data-money="80000" data-name="0.8%加息券">兑换</button>
+          </li>
+          <li>
+            <button class="lottery-btn" data-type="6" data-money="100000" data-name="1%加息券">兑换</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="infoDetail">
+      <p>活动规则：</p>
+      <p class="doubleLine">
+        （1）系统将统计客户在活动期间的投标金额，统计时间截止于2016年10月15日24:00，并于次日将审核结果显示是于您的兑奖页面。
+      </p>
+
+      <p>
+        （计算投资金额时不乘以标的月数，承接2016年9月27日前发布的项目的债权转让不计算在内，活动期间投资人投标后再对该笔债权进行债权转让则投资金额归承接人所有。）
+      </p>
+
+      <p class="doubleLine">
+        （2）兑奖界面于2016年10月16日、17日、18日开放加息劵兑换，客户可在兑奖界面自行选择兑换加息劵。（若时间未手动兑换，系统将以降序方式自动进行兑换）
+      </p>
+      <p>（3）活动加息劵的使用说明：</p>
+      <p>A、本活动加息劵使用有效期至2017年1月27日24:00；</p>
+      <p>B、活动加息劵使用金额上限为30000元，每笔投资仅限使用一张加息劵；</p>
+      <p>
+        C、若使用加息劵后项目发生债权转让，则该笔投资加息效果不继承给承接人；若使用加息劵后发生提前还款，则按加息后利息正常结息。
+      </p>
+      <p>D、加息劵具体使用规则可在官网“活动优惠—我的卡劵”页面进行查看；</p>
+      <p>E、本活动可与新手红包活动同时参与。</p>
+    </div>
+  </div>
+  <div class="event-bg event-two">
+    <div class="header">
+      <p>活动时间：2016.9.27~2016.10.15</p>
+      <p>兑换时间：2016.10.16~2016.10.17</p>
+      <p>开奖时间：2016.10.18</p>
+      <p>
+        活动内容：投资活动期间发标项目可获得一定数量的幸运币，用户可使用幸运币兑换抽奖号码抽取IPhone 7 、IPad、跑步机、现金红包等奖品，拥有抽奖号码数量越多则获奖概率越高！
+      </p>
+    </div>
+  </div>
+  <div class="event-bg event-detail">
+    <div class="header">
+      <p>活动规则：</p>
+    </div>
+    <div class="infoDetail">
+      <p>
+        （1）系统将根据客户在活动期间的投标金额获取幸运币，幸运币将于2016年10月15日24:00截止计算，次日将审核结算至您的账户，幸运币获得规则如下：
+      </p>
+      <p class="text-center">
+        <img src="<?=RSRC?>/images/guoqing2016/table1.png" alt="" style="width:822px; height:177px;" />
+      </p>
+      <p class="small">
+        （承接2016年9月27日前发布的项目的债权转让无法获得幸运币，活动期间投资人投标后再对该笔债权进行债权转让则幸运币归承接人所有。）
+      </p>
+
+      <p>
+        （2）该活动共设一、二、三等奖，用户可使用幸运币兑换相应类型的抽奖号码，客户须于2016年10月的16、17日在兑奖界面兑换抽奖号码（若未手动兑换，系统将以降序方式自动进行兑换），抽奖号码的兑换次数不限，抽奖号码兑换比率如下：
+      </p>
+      <p class="text-center">
+        <img src="<?=RSRC?>/images/guoqing2016/table2.png" alt="" style="width:822px; height:146px;" />
+      </p>
+      <p class="doubleLine">
+        （3）一、二、三等奖奖品数量由相应抽奖号码被兑换数量而定，抽奖号码每被兑换150次则该等级奖品数量就增加1个（不满150按150计），抽奖号码由客户兑换的顺序而定；
+      </p>
+
+      <p>
+        （4）中奖号码由2016年10月18日福利彩票开奖号码计算所得，一等奖号码由福建36选7红球号码计算所得，二等奖号码由福建22选5红球号码计算所得，三等奖号码由全国福彩双色球红球号码计算获得，抽奖方式公开公正，奖品会在抽奖结束后10个工作日之内联系并发放至客户手中。中奖号码算法如下 &nbsp;
+        <a target="_blank" href="http://www.hcjrfw.com/news/show/id/3913">
+          <img src="<?=RSRC?>/images/guoqing2016/link.png" alt="更多" style="width:11px;height:22px;" />
+        </a>
+      </p>
+    </div>
+    <div class="lottery">
+      <p class="infoMoney">我的幸运币：
+        <em id="imiMoney-show"><?=$user?$user->imiMoney:0?></em>
+        <span class="no-open">
+        <?php if(time()<strtotime('2016-10-16 00:00:00')):?>
+          16日零时发放
+        <?php endif;?>
+        </span>
+      </p>
+      <ul class="clearfix">
+        <li>
+          <p>
+            <img src="<?=RSRC?>/images/guoqing2016/iphone.png" /></p>
+          <p>被兑换次数：<?=$counts['A']?></p>
+          <p>
+            <button class="gq-lottery-btn" data-type="A" data-money="50000" data-name="一等奖抽奖卷">一等奖抽奖卷</button>
+          </p>
+        </li>
+        <li>
+          <p>
+            <img src="<?=RSRC?>/images/guoqing2016/ipad.png" /></p>
+          <p>被兑换次数：<?=$counts['B']?></p>
+          <p>
+            <button class="gq-lottery-btn" data-type="B" data-money="20000" data-name="二等奖抽奖卷">二等奖抽奖卷</button>
+          </p>
+        </li>
+        <li>
+          <p>
+            <img src="<?=RSRC?>/images/guoqing2016/money.png" /></p>
+          <p>被兑换次数：<?=$counts['C']?></p>
+          <p>
+            <button class="gq-lottery-btn" data-type="C" data-money="10000" data-name="三等奖抽奖卷">三等奖抽奖卷</button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="event-ticket">
+    <div class="header">
+      <div class="inner">
+        <p class="infoCard">
+          <a target="_blank" href="http://bbs.hcjrfw.com/forum.php?mod=viewthread&tid=61968&page=1&extra=#pid66424">中奖号码</a>
+        </p>
+        <p>我的抽奖卷：<?php if($user):?><em id="gq-lottery-count"><?=count($gqLotteries)?></em>张<?php else:?><button class="to-login-btn user-login-btn">登录后可查看</button><?php endif;?></p>
+      </div>
+    </div>
+    <!-- 登录后显示 -->
+    <?php if($user):?>
+    <div class="detailArea">
+      <ul id="gq-lottery-list" class="detailList">
+        <?php foreach($gqLotteries as $gqLottery):?>
+        <li class="ticket-<?php if($gqLottery->type=='A'):?>one<?php elseif($gqLottery->type=='B'):?>two<?php else:?>three<?php endif;?>">
+          <?=$gqLottery->num?>
+        </li>
+        <?php endforeach;?>
+      </ul>
+    </div>
+    <?php endif;?>
+    <!-- 登录后显示 end -->
+  </div>
+</div>
+<!-- 活动页面内容 end -->
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

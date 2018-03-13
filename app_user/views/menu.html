@@ -1,0 +1,70 @@
+<?php
+    use Yaf\Registry;
+    $user = Registry::get('user');
+    function isme($a,$b='all'){
+        $asset = Registry::get('asset');
+        $mode = $asset->params['mode'];
+        $submenu = $asset->params['submenu'];
+        if($a==$submenu && ($mode==$b || $b=='all')){
+            return 'style="display:block"';
+        }else{
+            return 'style="display:none;"';
+        }
+    }
+?>
+<div class="admin_left_nav">
+    <dl class="admin_left_nav_1 link-to" data-ref="/account">
+        <dt class="no_select admin_mouseenter">
+            <img src="<?=WEB_ASSET?>/web/user/img/myAdmin.png" alt="">
+            我的账户
+            <span class="admin_left_nav_hover admin_left_now" <?=isme('account')?>></span>
+        </dt>
+        <div class="admin_left_animat">
+            <dd><a href="/user/detail">资产明细</a></dd>
+            <dd><a href="/account/logs">交易记录</a></dd>
+            <dd><a href="/account/recharge?type=fast">充值</a></dd>
+            <dd><a href="/account/withdraw">提现</a></dd>
+            <dd><a href="/account/bank">银行卡</a></dd>
+        </div>
+    </dl>
+    <dl class="admin_left_nav_2">
+        <dt class="admin_left_nav_dl_dt admin_mouseenter" ui-sref="userAuto">
+            <img src="<?=WEB_ASSET?>/web/user/img/investSet.png" alt="">
+            投资管理
+            <span class="admin_left_nav_hover" <?=isme('invest')?>></span>
+        </dt>
+        <div class="admin_left_animat" <?=isme('invest')?>>
+            <?php if($user->estimateScore == -1): ?>
+            <dd><a href="javascript:void()" class="estimate-msg">自动投标</a></dd>
+            <?php else: ?>
+            <!-- <dd><a href="/user/autoInvest">自动投标</a></dd> -->
+            <?php endif; ?>
+            <dd><a href="/user/assign">债权转让</a></dd>
+        </div>
+    </dl>
+    <dl class="admin_left_nav_3">
+        <dt class="admin_left_nav_dl_dt admin_mouseenter" ui-sref="userCoupon.HongBao">
+            <img src="<?=WEB_ASSET?>/web/user/img/prerogative.png" alt="">
+            我的特权
+            <span class="admin_left_nav_hover" <?=isme('special')?>></span>
+        </dt>
+        <div class="admin_left_animat" <?=isme('special')?>>
+            <dd><a href="/account/lotteries">红包卡券</a></dd>
+            <?php if($user->hcparter){ ?><dd><a href="/user/spread">汇诚合伙人</a></dd><?php }?>
+        </div>
+    </dl>
+    <dl class="admin_left_nav_4">
+        <dt class="no_select admin_mouseenter link-to" data-ref="/user/safe">
+            <img src="<?=WEB_ASSET?>/web/user/img/ourSet.png" alt="">
+            账户设置
+            <span class="admin_left_nav_hover" <?=isme('setting')?>></span>
+        </dt>
+    </dl>
+    <!-- <dl class="admin_left_nav_5 link-to" data-ref="/user/message">
+        <dt class="no_select admin_mouseenter" ui-sref="userMessage">
+            <img src="<?=WEB_ASSET?>/web/user/img/messageCenter.png" alt="">
+            消息中心
+            <span class="admin_left_nav_hover"></span>
+        </dt>
+    </dl> -->
+</div>

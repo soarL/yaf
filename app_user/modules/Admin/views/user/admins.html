@@ -1,0 +1,106 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">管理员列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+										<option value="email" <?php if($searchType=='email'):?>selected<?php endif;?>>邮箱</option>
+										<option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">帐号状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="active">正常</option>
+										<option value="locked">锁定</option>
+										<option value="invalid">失效</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">注册时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>用户ID</th>
+								<th>帐号</th>
+								<th class="visible-lg">姓名</th>
+								<th class="visible-lg">手机</th>
+								<th class="visible-lg">角色</th>
+								<th class="visible-lg">注册时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($users as $user):?>
+							<tr>
+								<td><?=$user->userId?></td>
+								<td><?=$user->username?></td>
+								<td class="visible-lg">
+									<?php if($user->cardstatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->name?>
+								</td>
+								<td class="visible-lg">
+									<?php if($user->phonestatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->phone?>
+								</td>
+								<td class="visible-lg">
+									<?php foreach ($user->roles as $role):?>
+									<span class="label label-success"><?=$role->display_name;?></span>
+									<?php endforeach;?>
+								</td>
+								<td class="visible-lg"><?=$user->addtime?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="/admin/user/show?userId=<?=$user->userId?>"> <i class="fa fa-eye icon-white"></i>
+										查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/user/update?userId=<?=$user->userId?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$users->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

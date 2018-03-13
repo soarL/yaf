@@ -1,0 +1,28 @@
+<?php $this->display('header.html');?>
+<div id="user-app" style="margin-bottom: 20px;">
+	<div class="suc-box">
+		<h1 class="suc-title suc-title-2">恭喜您，注册成功啦！获得888元投资红包券！</h1>
+		<div class="suc-icon"><img src="<?=RSRC?>/images/user/suc-icon.png" alt=""></div>
+<!-- 		<ul class="suc-bank">
+			<li class="suc-bank-li-1">
+				<img src="<?=RSRC?>/images/user/sHBank.png" alt="">
+			</li>
+			<li class="margin-left-rigth">
+				<img src="<?=RSRC?>/images/user/hand.png" alt="">
+			</li>
+			<li class="suc-bank-li-1">
+				<img src="<?=RSRC?>/images/user/logo.png" alt="">
+			</li>
+			<div class="clearfix"></div>
+		</ul> -->
+		<h3 class="suc-state">
+			为了保证您的资金安全，请先进行<span style="color: #07a4fe">身份证认证</span>、<span style="color: #07a4fe">绑卡操作</span>			
+		</h3>
+		<div class="suc-button">
+			<button onClick="window.location.href='/account/custody'" style="padding: 13px 63px;">进行认证</button>
+			<a href="/odds">先去逛逛</a>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

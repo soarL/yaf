@@ -1,0 +1,127 @@
+<?php use helpers\StringHelper;?>
+<div class="rank ui-tab" style="margin-top:0px;">
+  <h1>排行榜</h1>
+  <div class="idTabs rankTabs">
+   <ul class="clearfix">
+    <li><a href="#dayrank" class="selected">昨日<i class="tab-arrow">&nbsp;</i></a></li>
+    <li><a href="#weekrank">上周<i class="tab-arrow">&nbsp;</i></a></li>
+    <li><a href="#monthrank">上月<i class="tab-arrow">&nbsp;</i></a></li>
+    <li><a href="#totalrank" style="border-right:0px;">总计<i class="tab-arrow">&nbsp;</i></a></li>
+  </ul>
+  </div>
+  <div id="dayrank" style="display: block;"> 
+    <table class="ranktable">
+      <thead>
+         <tr><th>排名</th>
+        <th>用户名</th>
+        <th>累计投资</th>
+        <th>排名变化</th>
+       </tr></thead>
+      <tbody>
+        <?php foreach ($rankingDayList as $key => $ranking):?>
+        <tr>
+          <td><span class="<?php if($ranking->id<=3):?>rankstatus1<?php else:?>rankstatus2<?php endif;?>"><?=$ranking->id?></span></td>
+          <td><?=StringHelper::getHideUsername($ranking['username'])?></td>
+          <td class="money"><?=$ranking->tenderMoney?></td>
+          <td>
+            <?php if($ranking->rankChange==0):?>
+            <span>--</span>
+            <?php elseif($ranking->rankChange>0):?>
+            <span class="plus">+<?=$ranking->rankChange?></span>
+            <?php else:?>
+            <span class="minus"><?=$ranking->rankChange?></span>
+            <?php endif;?>
+          </td>
+        </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="weekrank" style="display: none;"> 
+    <table class="ranktable">
+      <thead>
+        <tr><th>排名</th>
+        <th>用户名</th>
+        <th>累计投资</th>
+        <th>排名变化</th>
+       </tr></thead>
+      <tbody>
+        <?php foreach ($rankingWeekList as $ranking):?>
+        <tr>
+          <td><span class="<?php if($ranking->id<=3):?>rankstatus1<?php else:?>rankstatus2<?php endif;?>"><?=$ranking->id?></span></td>
+          <td><?=StringHelper::getHideUsername($ranking->username)?></td>
+          <td class="money"><?=$ranking->tenderMoney?></td>
+          <td>
+            <?php if($ranking->rankChange==0):?>
+            <span>--</span>
+            <?php elseif($ranking['rankChange']>0):?>
+            <span class="plus">+<?=$ranking->rankChange?></span>
+            <?php else:?>
+            <span class="minus"><?=$ranking->rankChange?></span>
+            <?php endif;?>
+          </td>
+        </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="monthrank" style="display: none;"> 
+    <table class="ranktable">
+      <thead>
+        <tr><th>排名</th>
+        <th>用户名</th>
+        <th>累计投资</th>
+        <th>排名变化</th>
+       </tr></thead>
+      <tbody>
+        <?php foreach ($rankingMonthList as $ranking):?>
+        <tr>
+          <td><span class="<?php if($ranking->id<=3):?>rankstatus1<?php else:?>rankstatus2<?php endif;?>"><?=$ranking->id?></span></td>
+          <td><?=StringHelper::getHideUsername($ranking['username'])?></td>
+          <td class="money"><?=$ranking->tenderMoney?></td>
+          <td>
+            <?php if($ranking->rankChange==0):?>
+            <span>--</span>
+            <?php elseif($ranking->rankChange>0):?>
+            <span class="plus">+<?=$ranking->rankChange?></span>
+            <?php else:?>
+            <span class="minus"><?=$ranking->rankChange?></span>
+            <?php endif;?>
+          </td>
+        </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="totalrank" style="display: none;"> 
+    <table class="ranktable">
+      <thead>
+        <tr><th>排名</th>
+        <th>用户名</th>
+        <th>累计投资</th>
+        <th>排名变化</th>
+       </tr></thead>
+      <tbody>
+        <?php foreach ($rankingList as $ranking):?>
+        <tr>
+          <td><span class="<?php if($ranking->id<=3):?>rankstatus1<?php else:?>rankstatus2<?php endif;?>"><?=$ranking->id?></span></td>
+          <td><?=StringHelper::getHideUsername($ranking->username)?></td>
+          <td class="money"><?=$ranking->tenderMoney?></td>
+          <td>
+            <?php if($ranking->rankChange==0):?>
+            <span>--</span>
+            <?php elseif($ranking->rankChange>0):?>
+            <span class="plus">+<?=$ranking->rankChange?></span>
+            <?php else:?>
+            <span class="minus"><?=$ranking->rankChange?></span>
+            <?php endif;?>
+          </td>
+        </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
+  </div>
+</div>

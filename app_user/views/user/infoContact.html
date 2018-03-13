@@ -1,0 +1,96 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">联系方式</div>
+  <form action="/user/infoContact" method="post">
+    <div class="input-wrap mt20">
+      <label class="label">联系人一</label>
+      <input class="ui-input input-icon" type="text" name="firstLinkName"  value="<?php echo $info['firstLinkName'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label label-1">关系</label>
+      <div class="radio-item-list clearfix">
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="firstRelation" value="house" <?php if($info['firstRelation']=='house'){echo 'checked';}?>>家庭成员</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="firstRelation" value="friend" <?php if($info['firstRelation']=='friend'){echo 'checked';}?>>朋友</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="firstRelation" value="business" <?php if($info['firstRelation']=='business'){echo 'checked';}?>>商业伙伴</label>
+        </div>
+      </div>
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label">联系电话</label>
+      <input class="ui-input input-icon" type="text" name="firstPhone" value="<?php echo $info['firstPhone'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="hr mt20"></div>
+    <div class="input-wrap mt20">
+      <label class="label">联系人二</label>
+      <input class="ui-input input-icon" type="text" name="secondLinkName" value="<?php echo $info['secondLinkName'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label label-1">关系</label>
+      <div class="radio-item-list clearfix">
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="secondRelation" value="house" <?php if($info['secondRelation']=='house'){echo 'checked';}?>>家庭成员</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="secondRelation" value="friend" <?php if($info['secondRelation']=='friend'){echo 'checked';}?>>朋友</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="secondRelation" value="business" <?php if($info['secondRelation']=='business'){echo 'checked';}?>>商业伙伴</label>
+        </div>
+      </div>
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label">联系电话</label>
+      <input class="ui-input input-icon" type="text" name="secondPhone" value="<?php echo $info['secondPhone'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="hr mt20"></div>
+    <div class="input-wrap mt20">
+      <label class="label">联系人三</label>
+      <input class="ui-input input-icon" type="text" name="thirdLinkName" value="<?php echo $info['thirdLinkName'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label label-1">关系</label>
+      <div class="radio-item-list clearfix">
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="thirdRelation" value="house" <?php if($info['thirdRelation']=='house'){echo 'checked';}?>>家庭成员</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="thirdRelation" value="friend" <?php if($info['thirdRelation']=='friend'){echo 'checked';}?>>朋友</label>
+        </div>
+        <div class="radio-item">
+          <label>
+            <input type="radio" name="thirdRelation" value="business" <?php if($info['thirdRelation']=='business'){echo 'checked';}?>>商业伙伴</label>
+        </div>
+      </div>
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label">联系电话</label>
+      <input class="ui-input input-icon" type="text" name="thirdPhone" value="<?php echo $info['thirdPhone'];?>">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="tc mt20">
+      <input  type="submit" value="确定" class="btn-blue loginbtn"/>
+    </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

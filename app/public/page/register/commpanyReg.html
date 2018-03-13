@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="apple-mobile-web-app-title" content="注册">
+	<link rel="stylesheet" href="./reg.css">
+	<script src="https://apps.bdimg.com/libs/jquery/1.8.0/jquery.min.js"></script>
+</head>
+<body>
+	<h1 class="form-error">true</h1>
+	<div class='container'>
+		<div class="logo">
+			<h1 class="pull-left"><a href="index.html">返回个人借款注册</a></h1>
+			<img src="hui.png" alt="" class="pull-right">
+			<div class="clearfix"></div>
+		</div>
+		<div class="container-fluid">
+			<form action="" id="form">
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-1"></i>
+						<input type="text" id="commpanyName" name="enterpriseName" class="form-control" placeholder="企业名称">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="USCI" name="USCI" class="form-control" placeholder="统一社会信用代码">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="bankId" name="bankLicense"  class="form-control" placeholder="开户银行许可证号">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-3"></i>
+						<input type="text" id="faRenName" name = "legal" class="form-control" placeholder="法人姓名">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-5"></i>
+						<input type="text" id="faRenIdCard" name="legalIdCardNo" class="form-control" placeholder="法人身份证">
+					</div>
+				</label>
+
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="cmpRelation" name="name" class="form-control" placeholder="企业联系人">
+					</div>
+				</label>
+
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-1"></i>
+						<input type="text" id="RelationPhone" name="phone"  class="form-control" placeholder="联系人手机号">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-1"></i>
+						<input type="text" placeholder="验证码" class="form-control" name="picString" id="picString">
+						<img src="/common/captcha" onclick="$(this).attr('src','/common/captcha?1')" alt="" class="reg-img ">
+						<div class="clearfix"></div>
+					</div>
+				</label>
+                <label for="" class="form-label-box margin-topBottom-20">
+				<div class="form-position">
+					<i class="icon icon-2"></i>
+					<input type="text" placeholder="请输入短信验证码" class="form-control" maxlength="6" id='verify' name="smsCode">
+					<input class="hq-duanxin" value="获取短信验证码" type="button" id="hqdxyz">
+				</div>
+                </label>
+                <label for="" class="form-label-box margin-topBottom-20">
+				<div class="form-position">
+					<i class="icon icon-3"></i>
+					<input type="password" placeholder="请输入密码（6位字母和数字的组合）" class="form-control" name="password" id="password">
+				</div>
+                                </label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="cmpAccounts" name="bankNum" class="form-control" placeholder="企业对公账号">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="province" name="province" class="form-control" placeholder="开户行省名">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="city" name="city" class="form-control" placeholder="开户行市名">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-2"></i>
+						<input type="text" id="subbranch" name="subbranch" class="form-control" placeholder="开户行机构名">
+					</div>
+				</label>
+				<label for="" class="form-label-box margin-topBottom-20">
+					<div class="form-position">
+						<i class="icon icon-3"></i>
+                                                     <select name="bankName" id="bankCode" class="form-control">
+							<option value="ICBC">中国工商银行</option>
+							<option value="ABC">中国农业银行</option>
+							<option value="CCB">中国建设银行</option>
+							<option value="BOC">中国银行</option>
+							<option value="BCOM">中国交通银行</option>
+							<option value="CIB">兴业银行</option>
+							<option value="CITIC">中信银行</option>
+							<option value="CEB">中国光大银行</option>
+							<option value="PAB">平安银行</option>
+							<option value="PSBC">中国邮政储蓄银行</option>
+							<option value="SHB">上海银行</option>
+							<option value="SPDB">浦东发展银行</option>
+							<option value="CMBC">中国民生银行</option>
+							<option value="CMB">招商银行</option>
+							<option value="GDB">广发银行</option>
+							<option value="HXB">华夏银行</option>
+						</select>
+					</div>
+				</label>
+
+				<p style="color: #fff;font-size: 13px;margin-bottom: 10px;">
+					<label for="">
+						<input type="checkbox" name="borrownotice">我已阅读并同意<a href="javascript:" id="agree" style="text-decoration: none;">《借款须知》</a>
+					</label>
+				</p>
+
+				<label for="" class="margin-top-30">
+					<div>
+						<input type="button" value="提交注册" class="form-label-btn" id="submit"> 			
+					</div>
+				</label>
+                    <input type="hidden" name="key" value="boss">
+			</form>
+		</div>
+	</div>
+
+	<!-- 借款人须知 -->
+	<div id="borrownotice" style="display: none;" class="borrownotice">
+		<h1>汇诚普惠网络借贷平台借款须知</h1>
+		<div class="riskmain">
+		    <h3 style="text-indent: 0;font-weight: bold;">一、借款利息及收费（实际收费根据市场浮动）:</h3>
+		    <p>产品类型：房优贷、车险优贷</p>
+		    <p>借款期限：1~12月</p>
+		    <p>借款年利息：8%~12%</p>
+		    <p>还款方式：先息后本/等额本息</p>
+		    <p>房优贷居间服务费：借款金额1%~3.5%</p>
+		    <p>房优贷其他费用：评估费（1000元~2000元）、手续费（住宅：200元 ，非住宅：1000元）车险优贷无服务费</p>
+		    <p>逾期罚息：详见借款合同</p>
+		    <h3 style="text-indent: 0;font-weight: bold;">二、《网络借贷信息中介机构业务活动管理暂行办法》中明确规定了借款人应当履行如下义务：</h3>
+		    <p>1、提供真实、准确、完整的用户信息及融资信息；</p>
+		    <p>2、提供在所有网络借贷信息中介机构未偿还借款信息；</p>
+		    <p>3、保证融资项目真实、合法，并按照约定用途使用借贷资金，不得用于出借等其他目的；</p>
+		    <p>4、按照约定向出借人如实报告影响或可能影响出借人权益的重大信息；</p>
+		    <p>5、确保自身具有与借款金额相匹配的还款能力并按照合同约定还款；</p>
+		    <p>6、借贷合同及有关协议约定的其他义务。</p>
+		    <h3 style="text-indent: 0;font-weight: bold;">三、借款人应当禁止如下活动：</h3>
+		    <p>1、通过故意变换身份、虚构融资项目、夸大融资项目收益前景等形式的欺诈借款；</p>
+		    <p>2、同时通过多个网络借贷信息中介机构，或者通过变换项目名称、对项目内容进行非实质性变更等方式，就同一融资项目进行重复融资；</p>
+		    <p>3、在网络借贷信息中介机构以外的公开场所发布同一融资项目的信息；</p>
+		    <p>4、已发现网络借贷信息中介机构提供的服务中含有本办法第十条所列内容，仍进行交易；</p>
+		    <p>5、法律法规和网络借贷有关监管规定禁止从事的其他活动。</p>
+		    <h3 style="text-indent: 0;font-weight: bold;">四、借款人违约后果告知如下：</h3>
+		    <p>1、按照借款合同约定对逾期借款计收罚息；</p>
+		    <p>2、按照借款合同约定对应付未付利息计收复利；</p>
+		    <p>3、将借款人逾期信息报送至个人征信系统；</p>
+		    <p>4、通过电话、律师函、信函等多种形式进行催收借款人；</p>
+		    <p>5、采取保证担保方式的，通过电话、律师函、信函等多种形式进行催收保证人；</p>
+		    <p>6、停止借款人剩余授信额度的使用；</p>
+		    <p>7、宣布借款提前到期；</p>
+		    <p>8、采取质押担保方式的，将处置质押物归还于其借款本息；</p>
+		    <p>9、根据借款合同约定，向人民法院提起诉讼。</p>
+		</div>
+	</div>
+
+</body>
+
+<div class="alerts"></div>
+<script src="../accountinfo/layer/layer.js"></script>
+<script>
+	var cmpRegs = {
+		password: /(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^&*-+]))|((?=.*[0-9])((?=.*[a-z])|(?=.*[!@#$%^&*-+]))).{6,12}/,
+		verify: /^\d{6}$/,
+		USCI: /.{1,}/,
+		commpanyName:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+		bankId:/.{1,}/,
+		faRenName:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+		faRenIdCard:/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+		cmpRelation:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+		RelationPhone:/^1[2345789]\d{9}$/,
+		cmpAccounts:/.{1,}/,
+		province:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+		city:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+		subbranch:/^[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*$/,
+	    phone:/^1[2345789]\d{9}$/,
+	}
+
+	$(function(){
+
+		//获取元素
+		var password        = $('#password');
+		var verify        = $('#verify');
+		var commpanyName  = $('#commpanyName');
+		var USCI  = $('#USCI');
+		var bankId        = $('#bankId');
+		var faRenName     = $('#faRenName');
+		var faRenIdCard   = $('#faRenIdCard');
+		var cmpRelation   = $('#cmpRelation');
+		var RelationPhone = $('#RelationPhone');
+		var cmpAccounts   = $('#cmpAccounts');
+		var error         = $('.form-error');
+		var submit        = $('#submit');
+		var province      = $('#province');
+		var city          = $('#city');
+		var subbranch     = $('#subbranch');
+
+		//校验与需要正则的输入框验证el为元素，text1为未填写时的提示语，text2未填写错误时的提示语，regular为验证时用的正则
+		function checks(el,text1,text2,regular){
+			var value   =el.val();
+			if(value == ''){
+				error.html(text1);
+				error.hide().slideDown();
+			}else if (!regular.test(value)) {
+				error.html(text2);
+				error.hide().slideDown();
+			}else{
+				error.html('');
+				error.hide();
+			}
+		}
+		password.blur(function(){
+			var text1 = '请填写密码';
+			var text2 = '密码必须为6位数字和字母的组合';
+			checks(password,text1,text2,cmpRegs.password)
+		})
+		verify.blur(function(){
+			var text1 = '请填写短信验证码';
+			var text2 = '短信验证码填写错误';
+			checks(verify,text1,text2,cmpRegs.verify)
+		})
+
+		//验证企业名称
+		commpanyName.blur(function(){
+			var text1 = '请填写企业名称';
+			var text2 = '企业名称填写错误';
+			checks(commpanyName,text1,text2,cmpRegs.commpanyName)
+		})
+		//验证企业名称
+		USCI.blur(function(){
+			var text1 = '请填写统一社会信用代码';
+			var text2 = '统一社会信用代码填写错误';
+			checks(USCI,text1,text2,cmpRegs.USCI)
+		})
+		// 开户银行许可证号
+		bankId.blur(function(){
+			var text1 = '请填写开户银行许可证号';
+			var text2 = '开户银行许可证号填写错误';
+			checks(bankId,text1,text2,cmpRegs.bankId)
+		})
+		// 法人姓名
+		faRenName.blur(function(){
+			var text1 = '请填写法人信息';
+			var text2 = '法人信息填写错误';
+			checks(faRenName,text1,text2,cmpRegs.faRenName)
+		})
+		// 法人身份证
+		faRenIdCard.blur(function(){
+			var text1 = '请填写法人身份证';
+			var text2 = '法人身份证信息填写错误';
+			checks(faRenIdCard,text1,text2,cmpRegs.faRenIdCard)
+		})
+		// 企业联系人
+		cmpRelation.blur(function(){
+			var text1 = '请填写企业联系人';
+			var text2 = '企业联系人信息填写错误';
+			checks(cmpRelation,text1,text2,cmpRegs.cmpRelation)
+		})
+		// 联系人手机号
+		RelationPhone.blur(function(){
+			var text1 = '请填写联系人手机号';
+			var text2 = '联系人手机号填写错误';
+			checks(RelationPhone,text1,text2,cmpRegs.RelationPhone)
+		})
+		// 企业对公账号
+		cmpAccounts.blur(function(){
+			var text1 = '请填写企业对公账号';
+			var text2 = '企业对公账号填写错误';
+			checks(cmpAccounts,text1,text2,cmpRegs.cmpAccounts)
+		})
+		province.blur(function(){
+			var text1 = '请填写开户行地址';
+			var text2 = '开户行地址填写错误';
+			checks(cmpAccounts,text1,text2,cmpRegs.cmpAccounts)
+		})
+		city.blur(function(){
+			var text1 = '请填写开户行地址';
+			var text2 = '开户行地址填写错误';
+			checks(cmpAccounts,text1,text2,cmpRegs.cmpAccounts)
+		})
+		subbranch.blur(function(){
+			var text1 = '请填写开户行地址';
+			var text2 = '开户行地址填写错误';
+			checks(cmpAccounts,text1,text2,cmpRegs.cmpAccounts)
+		})
+	})	
+
+
+function check(){
+
+		var password      = $('#password');
+		var verify        = $('#verify');
+		var commpanyName  = $('#commpanyName');
+		var bankId        = $('#bankId');
+		var faRenName     = $('#faRenName');
+		var faRenIdCard   = $('#faRenIdCard');
+		var cmpRelation   = $('#cmpRelation');
+		var RelationPhone = $('#RelationPhone');
+		var cmpAccounts   = $('#cmpAccounts');
+		var error         = $('.form-error');
+		var province      = $('#province');
+		var city          = $('#city');
+		var subbranch     = $('#subbranch');
+
+
+		var errorValue         = error.text();
+		var commpanyNameValue  = commpanyName.val();
+		var bankIdValue        = bankId.val();
+		var faRenNameValue     = faRenName.val();
+		var faRenIdCardValue   = faRenIdCard.val();
+		var cmpRelationValue   = cmpRelation.val();
+		var RelationPhoneValue = RelationPhone.val();
+		var cmpAccountsValue   = cmpAccounts.val();
+		var verifValue         = verify.val();
+		var passwordVlaue        = password.val();
+		var	province           = province.val();    
+		var	city               = city.val();
+		var	subbranch          = subbranch.val();     
+		if(
+			commpanyNameValue=='' ||
+			bankIdValue=='' ||
+			faRenNameValue=='' ||
+			faRenIdCardValue=='' ||
+			cmpRelationValue =='' ||
+			RelationPhoneValue =='' ||
+			cmpAccountsValue == '' ||
+			verifValue =='' ||
+			passwordVlaue == '' ||
+			province == '' ||
+			city == '' ||
+			subbranch == '' 
+			 ){
+			error.html('请填写相关字段');
+			error.hide().slideDown();
+			return false
+		}else if(errorValue == ''){
+			alert('提交成功');//提交事件
+			return true
+		}else{
+			alert('提交失败')
+			return false
+		}
+}
+
+
+function alert(x){
+	$('.alerts').text(x);
+	$('.alerts').show(200,function(){
+		setTimeout(function(){
+			$('.alerts').fadeOut(200);
+		},1000)
+	})
+}
+
+$(function(){
+	function daojishi(){
+        var strPhone =  $("#RelationPhone")[0].value;
+        var captcha = $('#picString').val();
+        if(strPhone=='') {
+            alert('请输入手机号');
+            return false;
+        }
+        if(!cmpRegs.phone.test(strPhone)) {
+            alert('手机号格式错误');
+            return false;
+        }
+
+		if(captcha=='') {
+            alert('请输入验证码');
+            return false;
+        }
+
+        $.post("/common/sendSms", { msgType: "register", phone: strPhone , 'captcha': captcha}, function(json){
+	        if(json.status){
+	            var timer =60;
+				function Countdown() {
+					if (timer >= 1) {
+						timer -= 1;
+						setTimeout(function() {
+							Countdown();
+						}, 1000);
+					}
+				    if (timer<60) {
+						$(".hq-duanxin").val("短信已发送 "+timer+"s")
+						$('.hq-duanxin').attr("disabled",true);
+					}
+				    if(timer==0){
+						$(".hq-duanxin").val("重新获取验证码")
+						$('.hq-duanxin').attr("disabled",false);
+					}
+			    }
+
+		        Countdown();
+		        alert('短信发送成功');
+	        }else{
+	        	console.log(json);
+				alert(json.info);
+	        }
+    	},'json');
+    }
+        $(".hq-duanxin").click(daojishi);
+
+})
+
+$('#submit').click(function() {
+	var data = {};
+	var t = $('form').serializeArray();
+	$.each(t, function() {
+	  data[this.name] = this.value;
+	});
+	
+	if(!$('input[name="borrownotice"]').attr("checked")){
+		layer.msg('请阅读并勾选《借款须知》');
+		return
+	}
+
+
+	$.post("/common/registerLoanCompany",data,function(e){
+		var e = JSON.parse(e);
+
+		if(e.status == 1){
+			window.location = e.url
+		}else {
+			alert(e.info)
+		}
+	})
+
+});
+
+$("#agree").on("click",function(){
+	layer.open({
+		type:1,
+		title:"借款人须知",
+		content:$("#borrownotice")
+	})
+})
+
+
+</script>
+</html>

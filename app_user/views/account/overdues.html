@@ -1,0 +1,54 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20 mb20">
+        <?php $this->display('user/common/tab-invest.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">逾期还款</div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>标号</th>
+                        <th>借款期限</th>
+                        <th>投标日期</th>
+                        <th>投资金额</th>
+                        <th>当期应还本金</th>
+                        <th>当期应还利息</th>
+                        <th>最终回款日</th>
+                        <th>逾期天数</th>
+                        <th>罚息</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $key => $record):?>
+                    <tr>
+                        <td class="gray3">
+                            <a style="color: #28a7e1" target="_blank" href="<?=WEB_MAIN.Url::to('/odd/view', ['num'=>$record->oddNumber])?>"><?=$record->oddNumber?></a>
+                        </td>
+                        <td><?=$record->odd->getPeriod()?></td>
+                        <td><?=_date('Y-m-d', $record->oddMoney->time)?></td>
+                        <td><?=$record->oddMoney->money?><i>元</i></td>
+                        <td class="f16"><?=$record->benJin?><i>元</i></td>
+                        <td class="f16"><?=$record->interest?><i>元</i></td>
+                        <td><?=_date('Y-m-d', $record->operatetime)?></td>
+                        <td class="f16"><?=$record->getOverdueDay()?><i>天</i></td>
+                        <td class="f16"><?=$record->subsidy?><i>元</i></td>
+                        <td class="f16">
+                            <?php if($record->status==4):?>
+                                <span class="status-label status-success">已垫付</span>
+                            <?php else:?>
+                                <span class="status-label status-fail">逾期中</span>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$records->render()?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

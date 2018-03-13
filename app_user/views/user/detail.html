@@ -1,0 +1,169 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <ul class="list-unstyled userDetaiTopNav">
+                <li class="userDetaiTopNav-2"  data-ref=".invest-item">投资散标</li>
+                <li id="credit-li" data-ref=".credit-item">承接债权</li>
+                <div class="clearfix"></div>
+            </ul>
+            <div>
+                <div class="touzisanbiao">
+                    <div class="userDetailHead invest-item">
+                        <ul class="list-unstyled userDetaiTJ">
+                            <li>总待收本金: <span>￥<?=$houseInvestStayCapital+$insInvestStayCapital?></span>元</li>
+                            <li>总待收利息: <span>￥<?=$houseInvestStayInterest+$insInvestStayInterest?></span>元</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <ul class="list-unstyled userDetaiTable">
+                            <li>
+                                <div id="userDetaiTable-1" data-house="<?=$houseInvestStayCapital?>" data-ins="<?=$insInvestStayCapital?>"></div>
+                                <dl class="userDetaiTable-1">
+                                    <dd class="userDetaiTable-1-1">房优贷待收本金:￥<?=$houseInvestStayCapital?>元</dd>
+                                    <dd class="userDetaiTable-1-2">车险优贷待收本金:￥<?=$insInvestStayCapital?>元</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <div id="userDetaiTable-2" data-house="<?=$houseInvestStayInterest?>" data-ins="<?=$insInvestStayInterest?>"></div>
+                                <dl  class="userDetaiTable-2">
+                                    <dd class="userDetaiTable-1-1">房优贷待收利息:￥<?=$houseInvestStayInterest?>元</dd>
+                                    <dd class="userDetaiTable-1-2">车险优贷待收利息:￥<?=$insInvestStayInterest?>元</dd>
+                                </dl>
+                            </li>
+                            <div class="clearfix"></div>
+                            <a name="bodylist"></a>
+                        </ul>
+                    </div>
+                    <div class="userDetailHead hide credit-item">
+                        <ul class="list-unstyled userDetaiTJ">
+                            <li>总待收本金: <span>￥<?=$houseCreditStayCapital+$insCreditStayCapital?></span>元</li>
+                            <li>总待收利息: <span>￥<?=$houseCreditStayInterest+$insCreditStayInterest?></span>元</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <ul class="list-unstyled userDetaiTable">
+                            <li>
+                                <div id="userDetaiTable-3" data-house="<?=$houseCreditStayCapital?>" data-ins="<?=$insCreditStayCapital?>"></div>
+                                <dl class="userDetaiTable-1">
+                                    <dd class="userDetaiTable-1-1">房优贷待收本金:￥<?=$houseCreditStayCapital?>元</dd>
+                                    <dd class="userDetaiTable-1-2">车险优贷待收本金:￥<?=$insCreditStayCapital?>元</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <div id="userDetaiTable-4" data-house="<?=$houseCreditStayInterest?>" data-ins="<?=$insCreditStayInterest?>"></div>
+                                <dl  class="userDetaiTable-2">
+                                    <dd class="userDetaiTable-1-1">房优贷待收利息:￥<?=$houseCreditStayInterest?>元</dd>
+                                    <dd class="userDetaiTable-1-2">车险优贷待收利息:￥<?=$insCreditStayInterest?>元</dd>
+                                </dl>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                    <div  class="userDetailBody invest-item">
+                        <?php $type = $queries->type?>
+                        <ul class="list-unstyled">
+                            <li <?php if($type=='biding'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=biding#bodylist">投标中</a></li>
+                            <li <?php if($type=='repaying'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=repaying#bodylist">还款中</a></li>
+                            <li <?php if($type=='finished'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=finished#bodylist">已结清</a></li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <div class="userDetail1">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资时间</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化利率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                        <?php if($queries->type !='biding'){ ?> <th>合同</th><?php }?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($debts as $debt):?>
+                                    <tr>
+                                        <td><?=$debt->time?></td>
+                                        <td><?=$debt->oddNumber?></td>
+                                        <td><?=$debt->odd->getTypeName()?></td>
+                                        <td><?=$debt->odd->oddMoney?></td>
+                                        <td><?=$debt->money?></td>
+                                        <td><?=($debt->odd->oddYearRate)*100?>% <?php if($debt->odd->oddReward>0):?>+ <span><?=$debt->odd->oddReward*100?>%</span><?php endif;?></td>
+                                        <td><?=$debt->odd->getPeriod()?></td>
+                                        <td><?=$debt->remark?></td>
+                                        <td><?=$debt->odd->getPRGName()?></td>
+                                        <td>
+                                        <?php if($queries->type !='biding' && $debt->odd->loan->ancun){ ?>
+                                            <a href="https://www.51cunzheng.com/searchResult?r=<?=$debt->odd->loan->ancun->recordNo?>" target="_blank">查看</a>
+                                        <?php }elseif($queries->type !='biding'){?>
+                                        <a href="javascript:void" style="color:grey">生成中</a>
+                                        <?php }?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <?=$debts->render()?>
+                        </div>
+                    </div>
+                    <div  class="userDetailBody credit-item hide">
+                        <?php $type = $queries->type?>
+                        <ul class="list-unstyled">
+                            <li <?php if($type=='biding'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=biding&credit#bodylist">投标中</a></li>
+                            <li <?php if($type=='repaying'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=repaying&credit#bodylist">还款中</a></li>
+                            <li <?php if($type=='finished'):?>class="userDetailBodyUlLi"<?php endif;?>><a href="/user/detail?type=finished&credit#bodylist">已结清</a></li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <div class="userDetail1">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资时间</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化利率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                        <?php if($queries->type !='biding'){ ?> <th>合同</th><?php }?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($creditdebts as $debt):?>
+                                    <tr>
+                                        <td><?=$debt->time?></td>
+                                        <td><?=$debt->oddNumber?></td>
+                                        <td><?=$debt->odd->getTypeName()?></td>
+                                        <td><?=$debt->odd->oddMoney?></td>
+                                        <td><?=$debt->money?></td>
+                                        <td><?=($debt->odd->oddYearRate)*100?>% <?php if($debt->odd->oddReward>0):?>+ <span><?=$debt->odd->oddReward*100?>%</span><?php endif;?></td>
+                                        <td><?=$debt->odd->getPeriod()?></td>
+                                        <td><?=$debt->remark?></td>
+                                        <td><?=$debt->odd->getPRGName()?></td>
+                                        <td>
+                                        <?php if($queries->type !='biding' && $debt->ancun){ ?>
+                                            <a href="https://www.51cunzheng.com/searchResult?r=<?=$debt->ancun->recordNo?>" target="_blank">查看</a>
+                                        <?php }elseif($queries->type !='biding'){?>
+                                        <a href="javascript:void" style="color:grey">生成中</a>
+                                        <?php }?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <?=$debts->render()?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

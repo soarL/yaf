@@ -1,0 +1,549 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+        	<div class="userSetBody">
+			<h1 class="userSetTitle">实名认证</h1>
+			<?php if($type != 'company'){ ?>
+			<div >
+				<form id="open-custody-form" class="user-form" action="/account/openBaofoo" method="post">
+			      <input type="hidden" name="type" value="<?=$type?>">
+			      <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">手机号码</label>
+			        <div class="static-input">
+			          <span><?=_hide_phone($user->phone)?></span>
+			        </div>
+			      </div>
+			      <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">真实姓名</label>
+			        <input class="ui-input input-icon" id="custody-name" name="name" type="text" placeholder="请输入您的真实姓名" />
+			      </div>
+			      <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">身份证</label>
+			        <input class="ui-input input-icon" id="custody-cardnum" name="cardnum" type="text" placeholder="请输入您的身份证号" />
+			      </div>
+			      <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">银行卡号</label>
+			        <input class="ui-input input-icon" id="custody-bankNum" name="bankNum" type="text" placeholder="请输入您的银行卡号" />
+			      </div>
+			      <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">交易密码</label>
+			        <input class="ui-input input-icon" id="custody-payPass" name="paypass" type="password" placeholder="请输入您的交易密码" />
+			      </div>
+			      <div class="input-wrap mt10 w clearfix " style="display: none;">
+			        <span class="cRed">*</span>
+			        <label class="label">类型</label>
+			        <input class="ui-input input-icon" id="custody-card_type1" checked name="card_type" type="radio" value="101" style="width:25px;"/>
+			        <label for="custody-card_type1" class="radio-label">借记卡</label>
+					<!--<input class="ui-input input-icon" id="custody-card_type2" name="card_type" type="radio" value="102" style="width:25px;"/>
+			        <label for="custody-card_type2" class="radio-label">信用卡</label> -->
+			      </div>
+			      <div class="input-wrap mt10 w clearfix credit">
+			        <span class="cRed">*</span>
+			        <label class="label">银行卡有效期</label>
+			        <input class="ui-input input-icon" id="custody-valid_date" name="valid_date" type="text" placeholder="请输入您的银行卡有效期" />
+			      </div>
+			      <div class="input-wrap mt10 w clearfix credit">
+			        <span class="cRed">*</span>
+			        <label class="label">银行卡安全码</label>
+			        <input class="ui-input input-icon" id="custody-cvv" name="cvv" type="text" placeholder="请输入您的银行卡安全码" />
+			      </div>
+			      <input type="hidden" name="unique_code" id="unique_code">
+			      <!-- <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">验证码</label>
+			        <input class="ui-input input-icon" id="custody-sms_code" name="sms_code" type="text" placeholder="请输入验证码" /> 
+			        <button type="button" id="get-sms_code">获取验证码</button>
+			      </div> -->
+			      <div class="mt10 checkbox-wrap">
+			        <!-- <label style="color: #666;"><input id="custody-check" type="checkbox" /> 我已阅读并同意</label>
+			        	<a style="color: #03a2ff;" href="<?=WEB_MAIN?>/safe/custody" target="_blank">《开户协议》</a> -->
+			      </div>
+			      <!-- <div>
+						<input type="button" onclick="javascript:window.location='/account/custody?type=company'" value="企业用户认证" class="btn-blue loginbtn pr">
+			      </div> -->
+			      <div class="mt30 button-wrap">
+			        <input type="button" value="下一步" class="btn-blue loginbtn pr get-sms_code">
+			      </div>
+			      </form>
+			</div>
+			<?php }else{ ?>
+				<form id="open-custody-form" class="user-form" action="/account/openCompany" method="post">
+			      <input type="hidden" name="type" value="<?=$type?>">
+  			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">企业名称</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-enterpriseName" name="enterpriseName" value="<?=$bank->enterpriseName?>" type="text" placeholder="企业名称" />
+			        </div>
+			    </div>
+			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">统一社会信用代码</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-USCI" name="USCI" value="<?=$bank->USCI?>" type="text" placeholder="统一社会信用代码" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">银行许可证号</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-bankLicense" name="bankLicense" value="<?=$bank->bankLicense?>" type="text" placeholder="开户银行许可证号" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">法人姓名</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-legal" name="legal" value="<?=$bank->legal?>" type="text" placeholder="法人姓名" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">法人身份证</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-legalIdCardNo" name="legalIdCardNo" value="<?=$bank->legalIdCardNo?>" type="text" placeholder="法人身份证" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">企业联系人</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-bankUsername" name="bankUsername" value="<?=$bank->bankUsername?>" type="text" placeholder="企业联系人" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">联系人手机号</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-contactPhone" name="contactPhone" value="<?=$bank->contactPhone?>" type="text" placeholder="联系人手机号" />
+			        </div>
+			    </div>
+			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">企业对公账号</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-bankNum" name="bankNum" value="<?=$bank->bankNum?>" type="text" placeholder="企业对公账号" />
+			        </div>
+			    </div>
+				<div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">开户行省名</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-province" name="province" value="<?=$bank->province?>" type="text" placeholder="开户行省名" />
+			        </div>
+			    </div>
+			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">开户行市名</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-city" name="city" value="<?=$bank->city?>" type="text" placeholder="开户行市名" />
+			        </div>
+			    </div>
+			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">开户行机构名</label>
+			        <div class="static-input">
+			        	<input class="ui-input input-icon" id="custody-subbranch" name="subbranch" value="<?=$bank->subbranch?>" type="text" placeholder="开户行机构名" />
+			        </div>
+			    </div>
+			    <div class="input-wrap mt10 w clearfix">
+			      	<span class="cRed">*</span>
+			        <label class="label">开户行</label>
+			        <div class="static-input">
+			        	<select class="ui-input input-icon" name="bankName" style="height:40px;width: 205px;">
+			        		<option <?=$bank->bankName=='ICBC'?'selected':'';?> value="ICBC">中国工商银行</option>
+							<option <?=$bank->bankName=='ABC'?'selected':'';?> value="ABC">中国农业银行</option>
+							<option <?=$bank->bankName=='CCB'?'selected':'';?> value="CCB">中国建设银行</option>
+							<option <?=$bank->bankName=='BOC'?'selected':'';?> value="BOC">中国银行</option>
+							<option <?=$bank->bankName=='BCOM'?'selected':'';?> value="BCOM">中国交通银行</option>
+							<option <?=$bank->bankName=='CIB'?'selected':'';?> value="CIB">兴业银行</option>
+							<option <?=$bank->bankName=='CITIC'?'selected':'';?> value="CITIC">中信银行</option>
+							<option <?=$bank->bankName=='CEB'?'selected':'';?> value="CEB">中国光大银行</option>
+							<option <?=$bank->bankName=='PAB'?'selected':'';?> value="PAB">平安银行</option>
+							<option <?=$bank->bankName=='PSBC'?'selected':'';?> value="PSBC">中国邮政储蓄银行</option>
+							<option <?=$bank->bankName=='SHB'?'selected':'';?> value="SHB">上海银行</option>
+							<option <?=$bank->bankName=='SPDB'?'selected':'';?> value="SPDB">浦东发展银行</option>
+							<option <?=$bank->bankName=='CMBC'?'selected':'';?> value="CMBC">中国民生银行</option>
+							<option <?=$bank->bankName=='CMB'?'selected':'';?> value="CMB">招商银行</option>
+							<option <?=$bank->bankName=='GDB'?'selected':'';?> value="GDB">广发银行</option>
+							<option <?=$bank->bankName=='HXB'?'selected':'';?> value="HXB">华夏银行</option>
+			        	</select>
+			        </div>
+			    </div>
+			      <!-- <div class="input-wrap mt10 w clearfix">
+			        <span class="cRed">*</span>
+			        <label class="label">验证码</label>
+			        <input class="ui-input input-icon" id="custody-sms_code" name="sms_code" type="text" placeholder="请输入验证码" /> 
+			        <button type="button" id="get-sms_code">获取验证码</button>
+			      </div> -->
+			      <div class="mt10 checkbox-wrap">
+			        <!-- <label style="color: #666;"><input id="custody-check" type="checkbox" /> 我已阅读并同意</label>
+			        	<a style="color: #03a2ff;" href="<?=WEB_MAIN?>/safe/custody" target="_blank">《开户协议》</a> -->
+			      </div>
+			      <div class="mt30 button-wrap">
+			        <input type="submit" value="提交" class="btn-blue loginbtn pr">
+			      </div>
+			      </form>
+				
+			<?php }?>
+		</div>
+		<div id="confirm-box" class="user-form" style="display: none;padding:10px 15px">
+			<div class="input-wrap mt10 w clearfix">
+		        <label class="label" style="width:60px">验证码</label>
+		        <input class="ui-input input-icon" id="custody-sms_code" name="sms_code" type="text" placeholder="请输入验证码" /> 
+		        <button type="button" class="get-sms_code" id="get-sms_code">重新获取</button>
+	        </div>
+	        <div class="mt30 button-wrap">
+	        	<input type="button" value="认证" id="confirm" class="btn-blue loginbtn pr">
+	        </div>
+		</div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+	#get-sms_code{
+		width: 110px;
+		height: 40px;
+	    display: inline-block;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #eee;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.user-form .mt10 {margin-top: 10px;}
+	.user-form .mt30 {margin-top: 30px;}
+
+	.user-form {
+		padding: 30px 50px;
+	}
+	.user-form .input-wrap {
+		margin: 15px 0px;
+		line-height: 40px;
+	}
+	.user-form .input-wrap .ui-input {
+		width: 180px;
+		height: 25px;
+	    display: inline-block;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.user-form .input-wrap .static-input {
+		color: #03a2ff;
+		float: left;
+	}
+	.user-form .input-wrap .cRed {
+		float: left;
+		color: #f00;
+		width: 30px;
+	}
+	.user-form .input-wrap .label {
+		color: #666;
+		float: left;
+		width: 100px;
+		text-align: right;
+		margin-right: 20px;
+	}
+	.user-form .btn-blue {
+	    color: #fff;
+	    padding: 8px 23px;
+	    border-radius: 4px;
+	    background-color: #03a2ff;
+	    border: none;
+	    margin: auto;
+	    display: table;
+	}
+	.credit{
+		display: none
+	}
+	.alert-msg{
+		padding: 15px 0 15px 15px;
+		width: 250px;
+	}
+</style>
+
+<script type="text/javascript">require(['Index/user','ebox'],function(user,ebox){
+
+	$('#custody-card_type1').click(function(){
+		$('.credit').hide();
+	})
+	$('#custody-card_type2').click(function(){
+		$('.credit').show();
+	})
+	$('#confirm').click(function(){
+
+		ebox.closeAll();
+		var lay = ebox.open({
+			type:3
+		})
+		// if($('#custody-phone').val()){
+		// 	var phone = $('#custody-phone').val();
+		// }else{
+		// 	ebox.open({
+	 //          type: 1,
+	 //          title: '提示',
+	 //          // content: '<div class="alert-msg">请填写手机号</div>'
+	 //        });
+	 //        return
+		// }
+
+		if($('#custody-name').val()){
+			var name = $('#custody-name').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写真实姓名</div>'
+	        });
+	        return
+		}
+		if($('#custody-cardnum').val()){
+			var cardnum = $('#custody-cardnum').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写身份证</div>'
+	        });
+	        return
+		}
+
+		if($('#custody-payPass').val()){
+			var payPass = $('#custody-payPass').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写交易密码</div>'
+	        });
+	        return
+		}
+
+		if($('#custody-bankNum').val()){
+			var bankNum = $('#custody-bankNum').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写银行卡号</div>'
+	        });
+	        return
+		}
+		if($('#custody-card_type2:checked').val()){
+			var card_type = $('#custody-card_type2:checked').val();
+			if($('#custody-valid_date').val()){
+				var valid_date = $('#custody-valid_date').val();
+			}else{
+				ebox.open({
+		          type: 1,
+		          title: '提示',
+		          content: '<div class="alert-msg">请填写银行卡有效期</div>'
+		        });
+		        return
+			}
+			if($('#custody-cvv').val()){
+				var cvv = $('#custody-cvv').val();
+			}else{
+				ebox.open({
+		          type: 1,
+		          title: '提示',
+		          content: '<div class="alert-msg">请填写银行卡安全码</div>'
+		        });
+		        return
+			}
+		}else{
+			var card_type = $('#custody-card_type1:checked').val();
+		}
+
+		var sms_code = $('#custody-sms_code').val();
+		var unique_code = $('#unique_code').val();
+
+		$.ajax({
+			type: "POST",
+            url: "/account/openBaofoo2",
+            data: {name:name,cardnum:cardnum,bankNum:bankNum,card_type:card_type,valid_date:valid_date,cvv:cvv,sms_code:sms_code,unique_code:unique_code,paypass:payPass},
+            dataType: "json",
+            success: function(data){
+            	ebox.close(lay);
+            	if(data.status == -1){
+            		ebox.open({
+			          type: 1,
+			          title: '提示',
+			          content: '<div class="alert-msg">'+data.info+'</div>',
+			          end:function(){
+					        ebox.open({
+								type:1,
+								title:'请输入短信验证码!',
+								content:$('#confirm-box')
+							})
+			          	}
+			        });
+            	}else{
+            		window.location.href = '/user/safe';
+            	}
+	        }
+		})
+	})
+
+
+	$('.get-sms_code').click(function(){
+		ebox.closeAll();
+		// if($('#custody-phone').val()){
+		// 	var phone = $('#custody-phone').val();
+		// }else{
+		// 	ebox.open({
+	 //          type: 1,
+	 //          title: '提示',
+	 //          content: '<div class="alert-msg">请填写手机号</div>'
+	 //        });
+	 //        return
+		// }
+
+		if($('#custody-name').val()){
+			var name = $('#custody-name').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写真实姓名</div>'
+	        });
+	        return
+		}
+		if($('#custody-cardnum').val()){
+			var cardnum = $('#custody-cardnum').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写身份证</div>'
+	        });
+	        return
+		}
+		if($('#custody-bankNum').val()){
+			var bankNum = $('#custody-bankNum').val();
+		}else{
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写银行卡号</div>'
+	        });
+	        return
+		}
+		if($('#custody-payPass').val()){
+			var payPass = $('#custody-payPass').val();
+		}else {
+			ebox.open({
+	          type: 1,
+	          title: '提示',
+	          content: '<div class="alert-msg">请填写交易密码</div>'
+	        });
+	        return
+		}
+		if($('#custody-card_type2:checked').val()){
+			var card_type = $('#custody-card_type2:checked').val();
+			if($('#custody-valid_date').val()){
+				var valid_date = $('#custody-valid_date').val();
+			}else{
+				ebox.open({
+		          type: 1,
+		          title: '提示',
+		          content: '<div class="alert-msg">请填写银行卡有效期</div>'
+		        });
+		        return
+			}
+			if($('#custody-cvv').val()){
+				var cvv = $('#custody-cvv').val();
+			}else{
+				ebox.open({
+		          type: 1,
+		          title: '提示',
+		          content: '<div class="alert-msg">请填写银行卡安全码</div>'
+		        });
+		        return
+			}
+		}else{
+			var card_type = $('#custody-card_type1:checked').val();
+		}
+
+
+		var lay = ebox.open({
+			type:3
+		})
+		
+		//settime($(this),30);
+		$.ajax({
+			type: "POST",
+            url: "/account/openBaofoo1",
+            data: {name:name,cardnum:cardnum,bankNum:bankNum,card_type:card_type,valid_date:valid_date,cvv:cvv,paypass:payPass},
+            dataType: "json",
+            success: function(data){
+            	if(data.status == -1){
+            		ebox.close(lay);
+            		ebox.open({
+			          type: 1,
+			          title: '提示',
+			          content: '<div class="alert-msg">'+data.info+'</div>'
+			        });
+            	}else{
+            		ebox.close(lay);
+            		ebox.open({
+            			type:1,
+            			title:'请输入短信验证码!',
+            			content:$('#confirm-box'),
+            			success:function(){
+            				setTime();
+            			}
+            		})	
+            		$('#unique_code').val(data.unique_code);
+            	}
+	        }
+		})
+	})
+
+	function setTime(val,countdown) { 
+ 		$('.get-sms_code').text('60s');
+ 		$('.get-sms_code').attr('disabled','true');
+ 		var i = 60;
+ 		var timer = setInterval(function(){
+ 			i--;
+ 			if(i==0){
+ 				clearInterval(timer);
+ 				$('.get-sms_code').text('重新获取');
+ 				$('.get-sms_code').attr('disabled',false);
+ 			}else {
+ 				$('.get-sms_code').text(i+'s');
+ 			}
+ 		},1000);
+	}
+})
+
+</script>
+<?php $this->display('footer.html');?>

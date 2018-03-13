@@ -1,0 +1,38 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $webAsset = $asset->url;
+?>
+<?php $this->display('header.html');?>
+<?php $this->display('safe/common/menu.html');?>
+<div class="zhifubox">
+	<ul class="zhifunav clearfix">
+		<li class="ico1"><a href="/safe/payOne"><em></em>江西银行介绍</a></li>
+		<li class="ico2"><a href="/safe/payTwo"><em></em>托管流程</a></li>
+		<li class="ico3"><a href="/safe/payThree" class="cur"><em></em>资金安全</a></li>
+	</ul>
+	<div class="cont3">
+        <dl class="bordertn"><p>资金存管是指平台在江西银行为用户单独设立资金账号由江西银行管理用户资金，平台只负责为借贷双方提供信息服务从而避免了用户资金被平台挪用的风险。
+            </p></dl>
+		<dl class="">
+			<dt>监管合规</dt>
+			<dd><p>与江西银行开展资金存管，符合《暂行办法》的要求，遵循监管的规范；</p></dd>
+		</dl>
+        <dl class="">
+            <dt>资金安全</dt>
+            <dd><p>存管银行为用户设立独立的个人银行账户并管理，资金交易更清晰、更透明；</p></dd>
+        </dl>
+		<dl class="">
+			<dt>法律保障</dt>
+			<dd><p>资金流水为银行提供，具备法律效力，可证明用户与借款人之间的真实借贷行为；</p></dd>
+		</dl>
+        <dl class="">
+            <dt>高效便捷</dt>
+            <dd><p>满足手机银行、网银、银行柜台转账等各种充值方式，提现实时到站，便捷快速；</p></dd>
+        </dl>
+		<dl class="">
+			<dt>收益更多</dt>
+			<dd><p>账户余额资金可享受活期理财收益，不再担心资金站岗问题；</p></dd>
+		</dl>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,48 @@
+<?php foreach($crtrs as $crtr):?>
+<?php $remain = $crtr->getRemain();?>
+<li class="oddItemLarge">
+    <h3>
+        <a target="_blank" href="/crtr/view/num/<?=$crtr->getSN()?>"><?='转让项目'.$crtr->getSN().'号';?></a>
+        
+    </h3>
+    <div class="row">
+        <div class="col-lg-6 oddDescArea">
+            <dl class="col-xs-4">
+                <dd><strong><?=$crtr->odd->oddYearRate*100?>%</strong></dd>
+                <?php if($crtr->odd->oddReward>0):?>
+                <small>+<?=$crtr->odd->oddReward*100?>%</small>
+                <?php endif;?>
+                <dt>年化利率</dt>
+            </dl>
+            <dl class="col-xs-4">
+                <dd><?=$crtr->getRemainDay()?></dd>
+                <dt>剩余天数</dt>
+            </dl>
+            <dl class="col-xs-4">
+                <dd><?=_cn_number($crtr->money)?>元</dd>
+                <dt>债权金额</dt>
+            </dl>
+        </div>
+        <div class="col-lg-6 oddProcArea">
+            <div class="col-xs-8">
+                <?php $per = $crtr->getPer($remain);?>
+                <div class="pull-right progressNum"><?=$per?>%</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="<?=$per?>" aria-valuemin="0" aria-valuemax="100" style="width: <?=$per?>%;">
+                    </div>
+                </div>
+                <p class="clearfix">剩余可买：<?=$remain?>元</p>
+            </div>
+            <div class="col-xs-4">
+                <?php if($crtr->progress=='start'&&$remain>0):?>
+                <a target="_blank" href="/crtr/view/num/<?=$crtr->getSN()?>" class="btn btn-block btn-primary">立即购买</a>
+                <?php elseif($crtr->progress=='start'&&$remain==0):?>
+                <a target="_blank" href="/crtr/view/num/<?=$crtr->getSN()?>" class="btn btn-block btn-handle">复审中</a>
+                <?php else:?>
+                <a target="_blank" href="/crtr/view/num/<?=$crtr->getSN()?>" class="btn btn-block btn-unable">已出售</a>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</li>
+<?php endforeach;?>

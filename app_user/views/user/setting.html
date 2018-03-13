@@ -1,0 +1,24 @@
+<?php $this->display('header.html');?>
+<?php use helpers\StringHelper;?>
+<div class="middle">
+	<?php $this->display('user/common/menu.html');?>
+	<div class="main pt20 mb30">
+		<?php $this->display('user/common/tab-info.html');?>
+		<div class="info-list">
+			<div class="info-item clearfix">
+				<div class="info-detail info-name">被推荐人隐私</div>
+				<div class="info-detail info-description" style="width: 700px;">是否允许您的推荐人看到您的投资金额</div>
+				<div class="info-setting">
+					<div id="spread-show" class="elf-select clearfix">
+	                    <a class="btn-group btn-left <?php if($setting['spread_show']==1):?>on<?php endif;?>" href="javascript:;" data-value="1">开放
+	                    </a>
+	                    <a class="btn-group btn-right <?php if($setting['spread_show']==0):?>on<?php endif;?>" href="javascript:;" data-value="0">隐藏
+	                    </a>
+	                    <input class="value" type="hidden" value="<?=$setting['1']?>" name="spread_show">
+	                </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

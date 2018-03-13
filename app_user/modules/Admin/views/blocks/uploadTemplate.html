@@ -1,0 +1,90 @@
+<div class="modal fade" id="show-images-modal" tabindex="-1" role="dialog" aria-labelledby="show-images-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="show-images-label">查看图片</h5>
+      </div>
+      <div class="modal-body">
+        <div class="image-list">
+          <ul class="clearfix sortable"></ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+  <div class="item template-upload fade">
+    <div class="preview"></div>
+    <div>
+      <p class="name">{%=file.name%}</p>
+      <strong class="error text-danger"></strong>
+    </div>
+    <div>
+      <p class="size">进度...</p>
+      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+    </div>
+    <div class="clearfix">
+      <div class="btn-right">
+        {% if (!i && !o.options.autoUpload) { %}
+          <button class="btn btn-default start" disabled>
+            <i class="glyphicon glyphicon-upload text-success"></i>
+          </button>
+        {% } %}
+        {% if (!i) { %}
+          <button class="btn btn-default cancel">
+            <i class="glyphicon glyphicon-ban-circle text-warning"></i>
+          </button>
+        {% } %}
+      </div>
+    </div>
+  </div>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+  <div class="template-download item fade">
+    <div class="preview">
+      {% if (file.thumbnailUrl) { %}
+        <a href="{%=file.baseUrl + file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.baseUrl + file.thumbnailUrl%}"></a>
+      {% } %}
+    </div>
+    <div class="photo-identity">
+      <p class="name">
+        {% if (file.url) { %}
+          <a href="{%=file.baseUrl + file.url%}" title="{%=file.name%}" download="{%=file.name%}" real="{%=file.url%}" {%=file.thumbnailUrl?'thumbnail='+file.thumbnailUrl+' data-gallery':''%}>{%=file.name%}</a>
+        {% } else { %}
+          <span>{%=file.name%}</span>
+        {% } %}
+      </p>
+      {% if (file.error) { %}
+      <div class="error" title="{%=file.error%}">错误: {%=file.error%}</div>
+      {% } %}
+    </div>
+    <div>
+      <p class="size">{%=o.formatFileSize(file.size)%}</p>
+      {% if (!file.error) { %}
+      <p class="result text-success">上传成功！</p>
+      {% } %}
+    </div>
+    <div class="clearfix">
+      <div class="btn-right">
+      {% if (file.deleteUrl) { %}
+      <button class="btn btn-default delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" data-file="{%=file.url%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+        <i class="glyphicon glyphicon-trash text-danger"></i>
+      </button>
+      {% } else { %}
+      <button class="btn btn-default cancel">
+        <i class="glyphicon glyphicon-ban-circle text-danger"></i>
+      </button>
+      {% } %}
+      </div>
+    </div>
+  </div>
+{% } %}
+</script>

@@ -1,0 +1,64 @@
+<?php
+    use helpers\NumberHelper;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('account/common/tab-money.html');?>
+        <!-- 修改区域开始 -->
+        <div class="mt20 ui-tab newRechargeForm">
+            <div class="mainwithborder clearfix">
+                <div class="pay-type-list clearfix">
+                    <a href="/account/recharge?type=bank" class="pay-type-item active">银行转账<i class="rt"></i></a>
+                    <a href="/account/recharge?type=alipay" class="pay-type-item">支付宝转账<i class="rt"></i></a>
+                    <a href="/account/recharge?type=fast" class="pay-type-item">快速充值<i class="rt"></i></a>
+                </div>
+                <p class="leading">客户可直接通过银行账户向江西资金存管电子账户转账（柜台、网银、手机银行），所需填写收款人信息如下：</p>
+                <dl>
+                    <dt>姓名：</dt><dd><em><?=_hide_name($user->name)?></em></dd>
+                </dl>
+                <dl>
+                    <dt>卡号：</dt><dd><em><?=$user->custody_id?></em> <!-- <a href="javascript:;">复制</a> --></dd>
+                </dl>
+                <dl>
+                    <dt>开户行：</dt><dd>江西银行（南昌银行、城市商业银行等）</dd>
+                </dl>
+                <dl>
+                    <dt>开户地：</dt><dd>江西省南昌市</dd>
+                </dl>
+                <dl>
+                    <dt>开户支行：</dt><dd>江西银行股份有限公司总行营业部</dd>
+                </dl>
+                <p class="leading">为了您的资金顺利到账，请尽量使用以下银行转账</p>
+                <ul class="imgBox">
+                    <li><a href="http://www.icbc.com.cn/icbc/" target="_blank"><img src="<?=RSRC?>/images/account/bank01.png" /></a></li>
+                    <li><a href="http://www.boc.cn/" target="_blank"><img src="<?=RSRC?>/images/account/bank02.png" /></a></li>
+                    <li><a href="http://creditcard.ccb.com/cn/creditcard/index.html" target="_blank"><img src="<?=RSRC?>/images/account/bank03.png" /></a></li>
+                    <li><a href="http://www.abchina.com/cn/" target="_blank"><img src="<?=RSRC?>/images/account/bank04.png" /></a></li>
+                    <li><a href="http://www.cebbank.com/" target="_blank"><img src="<?=RSRC?>/images/account/bank05.png" /></a></li>
+                    <li><a href="http://www.bankcomm.com/BankCommSite/default.shtml" target="_blank"><img src="<?=RSRC?>/images/account/bank06.png" /></a></li>
+                    <li><a href="http://www.citicbank.com/" target="_blank"><img src="<?=RSRC?>/images/account/bank07.png" /></a></li>
+                    <li><a href="http://www.cib.com.cn/cn/index.html" target="_blank"><img src="<?=RSRC?>/images/account/bank08.png" /></a></li>
+                    <li><a href="http://www.cmbc.com.cn/" target="_blank"><img src="<?=RSRC?>/images/account/bank09.png" /></a></li>
+                    <li><a href="http://www.cgbchina.com.cn/" target="_blank"><img src="<?=RSRC?>/images/account/bank10.png" /></a></li>
+                    <li><a href="http://www.pingan.com/" target="_blank"><img src="<?=RSRC?>/images/account/bank11.png" /></a></li>
+                    <li><a href="http://www.spdb.com.cn/" target="_blank"><img src="<?=RSRC?>/images/account/bank12.png" /></a></li>
+                </ul>
+                <div class="remark-box">
+                    <div class="remark-title">温馨提醒:</div>
+                    <div class="remark-content">
+                        <p>1. 账户充值前请先确认您是否开通江西银行存管账户；</p>
+                        <p>2. 请关注您的银行卡充值限制，以免造成不便，每日的充值限额根据各银行限额为准，充值到账时间以银行最终结果为准；</p>
+                        <p>3. 用户充值时如果发现账户余额没有实时更新，请到我的账户中点击“同步信息”获取最新账户余额；</p>
+                        <p>4. 快捷充值需要事先绑定银行卡；</p>
+                        <p>5. 由于银行会在23:30到次日凌晨3:00进行系统数据处理，请尽量避免在此时间段充值；</p>
+                        <p>6. 充值过程中如出现异常，请拨打江西银行客服电话<strong>400-78-96266</strong>。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改区域结束 -->
+    </div>
+</div>
+<?php $this->display('footer.html');?>

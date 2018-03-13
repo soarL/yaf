@@ -1,0 +1,77 @@
+# 配置说明
+# rules规则：
+# Module与User首字母大写，action一律小写
+# method为访问方法，规定哪些方法可以访问，默认为所有方法都能进行访问，method的值可以是字符串和数组
+# ajax规定是否需要ajax请求访问，默认为false
+# ip为ip限制，默认不限制。ip有两个属性：list为ip列表，表明哪些ip适用该规则；type类型，allow为允许，ban为禁止
+# time为时间限制，在时间范围内不能访问
+# login为是否需要登录，默认不需要
+var1: &var1
+  - gettenderinfo
+  - gettenderreward
+  - transfer
+  - vipapply
+  - readmessage
+  - ajaxcheckpaypass
+  - getmessage
+  - ajaxautoinvest
+  - isidcardexist
+  - isphoneexist
+  - isusernameexist
+  - ajaxgetinfo
+
+var2: &var2
+  - bankUnbind
+  - delBank
+  - ajaxgetbankinfo
+  - ajaxupdatebank
+  - getwithdrawfee
+  - ajaxwithdraw
+  - doWithdraw
+  - bankcardquery
+  - ajaxrepayments
+
+groups:
+  1:
+    Index:
+      User: 
+        <<: *var1
+      Account: 
+        <<: *var2
+      Register: [ajaxregister]
+      Mail: [read, delete]
+  2:
+    Index:
+      Login: [forgettwo]
+      Account: [dorecharge]
+  3:
+    Index:
+      Spread: *
+      Mail: *
+      Account: *
+      Look: *
+      !User: [isidcardexist, isphoneexist, isusernameexist]
+  4:
+    Admin: *
+
+rules:
+  myrule: 
+    method: 
+    ajax: true
+    ip: {list: [0.0.0.0], type: allow}
+    time: {begin: ~, end: 2001-12-14 21:59:43, reason: ''}
+    login: false
+
+  need-login: {login: true}
+  ajax-post: {method: post, ajax: true}
+  need-post: {method: post}
+  close: 
+    time: {begin: 2017-08-10 22:00:00, end: 2018-08-11 08:00:00, reason: '因江西银行存管上线，服务器升级中！！！', open: [120.36.85.106, 59.56.5.218, 222.79.19.49,222.79.19.61]}
+  ip-close:
+    ip: {list: [114.80.78.215, 202.85.218.20], type: ban}
+map:
+  # - {group: *, rule: close}
+  - {group: 1, rule: ajax-post}
+  - {group: 2, rule: need-post}
+  - {group: 3, rule: need-login}
+  - {group: 4, rule: need-login}

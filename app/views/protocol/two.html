@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php
+  use Yaf\Registry;
+  $user = Registry::get('user');
+  $asset = Registry::get('asset');
+  $asset->begin();
+?>
+</head>
+<body>
+	<div class="main">
+		<div class="header clearfix">
+			<div class="logo"></div>
+			<div class="title">汇诚普惠电子借款合同</div>
+		</div>
+		<div class="main-title">
+			债权转让协议书
+			<?php if($protocolData):?>
+			<a target="_blank" class="download" href="<?=$link?>">【下载合同】</a>
+			<?php endif;?>
+		</div>
+		<div class="main-content">
+			<div class="mb10">甲方（出借人）： </div>
+			<div class="table-wrapper mb10">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>投标标题</th>
+							<th>利率</th>
+							<!-- <th>待还期数/总期数</th>
+							<th>待收本息</th> -->
+							<th>转让价格</th>
+							<th>转让时间</th>
+							<th>购买者</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if($protocolData):?>
+						<tr>
+							<td><?=$protocolData['oddTitle'];?></td>
+							<td><?=$protocolData['oddYearRate']*100;?>%</td>
+							<!-- <td></td>
+							<td></td> -->
+							<td><?=$protocolData['money'];?></td>
+							<td><?=$protocolData['time'];?></td>
+							<td><?=$protocolData['buyUser'];?></td>
+						</tr>
+						<?php else:?>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<!-- <td>&nbsp;</td>
+							<td>&nbsp;</td> -->
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<?php endif;?>
+					</tbody>
+				</table>
+				<div class="table-mark">（注：因计算中存在四舍五入，最后一期应收本息与之前略有不同！）</div>
+			</div>
+			<div class="mb10">协议号：<u><?=$protocolData['proSerial'];?></u></div>
+
+			<div class="mb10">转让人（以下简称甲方）：<?php if($protocolData):?><u><?=$protocolData['sellUser'];?>（原出借人）</u><?php endif;?></div>
+			<div class="mb10">受让人（以下简称乙方）：<?php if($protocolData):?><u><?=$protocolData['buyUser'];?>（新债权人）</u><?php endif;?></div>
+			<div class="mb10">债务人：<u><?=$protocolData['oddUser'];?></u></div>
+
+			<div>平台方：<u>福建汇诚普惠科技发展有限公司</u></div>
+			<div class="item">
+				<p>鉴于甲方在福建汇诚普惠科技发展有限公司运营管理的"汇诚普惠"网站平台（以下简称平台）上对债务人拥有合法债权，现甲方将其债权通过平台转让给乙方。双方达成如下协议：</p>
+				<p>01、转让债权标的：转让债权标的即甲方发标时的金额（债权本金及利息）</p>
+				<p>02、债权转让价格：转让债权标的即甲方发标时的价格。乙方应一次性支付转让价款。</p>
+				<p>03、本债权自本协议生效之日起转移，甲方的所有权利义务同时转移给乙方。甲乙双方具有向债务人送达债权转让通知的义务。</p>
+				<p>04、甲方因转让债权而产生的相关费用具体收费标准详见"资费说明"。各项费用的调整，以公告的"资费说明"为准，并对调整后发生的借款发生效力。</p>
+				<p>05、乙方承继甲方债权后可以再转让给第三人。</p>
+				<p>06、乙方保证其支付受让标的债权的资金来源合法，乙方是该资金的合法所有人，如果第三方对资金归属、合法性问题发生争议，由乙方自行负责解决。</p>
+				<p>07、甲乙双方任何一方违反本协议的约定，使得本协议的全部或部分不能履行，均应承担违约责任，并赔偿对方因此遭受的损失（包括但不限于由此产生的诉讼费和律师费）。</p>
+				<p>08、在本协议履行过程中，如发生任何争执或纠纷，且协商不成的，双方约定向平台住所地人民法院提起诉讼。</p>
+				<p>09、甲方、乙方通过平台发标、投标转让债权时，视为接受本协议的条款，视为已认真阅读和理解本协议所有内容并自愿按本协议相关约定履行各自的权利义务。</p>
+				<p>10、本协议自转让资金支付到甲方账户起生效。</p>
+			</div>
+			<div class="word-footer">福建汇诚普惠科技发展有限公司</div>
+		</div>
+	</div>
+</body>
+</html>

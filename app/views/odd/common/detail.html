@@ -1,0 +1,234 @@
+<div class="mt20 ui-tab loandetail">
+  <div class="tab-label">
+    <ul class="clearfix">
+      <?php if($odd->oddType!='special'):?>
+      <li> <a href="javascript:;" class="selected" data-name="info">借款者信息</a> </li>
+      <li> <a href="javascript:;" data-name="carinfo">车辆信息</a> </li>
+      <li> <a href="javascript:;" data-name="control">风控材料</a> </li>
+      <?php endif;?>
+      <li> <a href="javascript:;" data-name="investlist">投资记录</a> </li>
+      <li> <a href="javascript:;" data-name="inglist">在投记录</a> </li>
+      <?php if($odd->oddType=='danbao'||$odd->oddType=='diya'):?>
+      <li> <a href="javascript:;" data-name="gps">GPS定位</a> </li>
+      <?php endif;?>
+    </ul>
+  </div>
+  <div class="tab-content mainwithborder clearfix" style="border-top:0px;">
+    <?php if($odd->oddType!='special'):?>
+    <div class="info tab-item tab-item-info open">
+      <div class="ui-tab-content">
+       <div class="ui-tab-content-title">
+        <h4>用户信息</h4><span class="aside infoID">ID: <?=$oddUser->userId?></span>
+       </div>
+        <ul class="ui-tab-list clearfix">
+          <li> <span class="tab-list-label mr30">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span> <span class="tab-list-value pr"> <em class="fn-text-overflow"><?=_hide_username($oddUser->username)?></em> <em class="ui-icon <?php if($oddUser->sex=='man'):?>ui-icon-gender-male<?php else:?>ui-icon-gender-female<?php endif;?>"></em></span></li>
+          <li> <span class="tab-list-label mr30">年&nbsp;&nbsp;&nbsp;&nbsp;龄</span> <span class="tab-list-value"><?=$oddUser->getAge()?></span> </li>
+          <?php if($oddUser->educational!=null):?>
+          <li> 
+            <span class="tab-list-label mr30">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历</span> 
+            <span class="tab-list-value"><?=_hide_username($oddUser->username)?></span> 
+          </li>
+          <?php endif;?>
+          <li> <span class="tab-list-label mr30">婚&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姻</span> 
+            <span class="tab-list-value"><?php if($oddUser->maritalstatus=='y'):?>已婚<?php else:?>未婚<?php endif;?></span> 
+          </li>
+          <?php if($oddUser->income):?>
+          <li> <span class="tab-list-label mr30">收&nbsp;&nbsp;&nbsp;&nbsp;入</span> 
+            <span class="tab-list-value"><?=$oddUser->income?>元/月</span> 
+          </li>
+          <?php endif;?>
+          <?php if($oddUserCompany):?>
+            <?php if($oddUserCompany->officecity!=''):?>
+            <li> <span class="tab-list-label mr30">工作城市</span> <span class="tab-list-value"><?=$oddUserCompany->officecity?></span> </li>
+            <?php endif;?>
+            <?php if($oddUserCompany->officeyear!=null):?>
+            <li> <span class="tab-list-label mr30">工作时间</span> <span class="tab-list-value"><?=$oddUserCompany->getOfficeyearName()?></span> </li>
+            <?php endif;?>
+          <?php endif;?>
+        </ul>
+      </div>
+      <div class="ui-tab-content">
+       <div class="ui-tab-content-title">
+        <h4 >账户详情</h4>
+        </div>
+        <ul class="ui-tab-list clearfix">
+          <li> <span class="tab-list-label mr20">共计借入（元）</span> <span class="tab-list-value"><?=$borrowMoney?></span> </li>
+          <li> <span class="tab-list-label mr20">待还金额（元）</span> <span class="tab-list-value to-fix"><?=$stayMoney?></span> </li>
+          <li> <span class="tab-list-label mr20">共计借出（元）</span> <span class="tab-list-value">0.00</span> </li>
+        </ul>
+        <div style="display: none;"> <span class="pg-helper large-number" data-name="available-level"></span> </div>
+      </div>
+      <div class="ui-tab-content">
+       <div class="ui-tab-content-title">
+        <h4 >个人信用 </h4>
+        </div>
+        <ul class="ui-tab-list clearfix">
+          <li> <span class="tab-list-label mr20">申请借款（笔）</span> <span class="tab-list-value"><?=$borrowCount?></span> </li>
+          <li> <span class="tab-list-label mr20">成功借款（笔）</span> <span class="tab-list-value"><?=$borrowSuccessCount?></span> </li>
+          <li> <span class="tab-list-label mr20">借款总额（元）</span> <span class="tab-list-value to-fix"><?=$borrowMoney?></span> </li>
+          <li> <span class="tab-list-label mr20">还清笔数（笔）</span> <span class="tab-list-value"><?=$endCount?></span> </li>
+          <li> <span class="tab-list-label mr20">待还本息（元）</span> <span class="tab-list-value to-fix"><?=$stayMoney?></span> </li>
+        </ul>
+        <div style="display: none;"> <span class="pg-helper large-number" data-name="available-level"></span> </div>
+      </div>
+    </div>
+    <div id="car-wrap" class="carinfo tab-item tab-item-carinfo"></div>
+    <div id="control-wrap" class="carinfo info tab-item tab-item-control"></div>
+    <?php endif;?>
+    <div class="investlist tab-item tab-item-investlist">
+      <div class="tr color-red-text mb10"> 
+        <span class="mr50">投标次数 <em><?=$count?></em> 次</span> <span class="mr10">投标总额 <em><?=$totalMoney?></em>元</span> 
+      </div>
+     
+        <table id="tender-records" class="ui-table ui-table-blue ui-table-auditoria">
+          <thead>
+            <tr>
+              <th width="15%"><span class="pl60">序号</span></th>
+              <th width="18%"><span class="pl25">投标人</span></th>
+              <th width="15%"><span class="text-right pr70">投标金额</span></th>
+              <th width="15%"><span class="pl25">投标方式</span></th>
+              <th><span class="text-right pr90">投标时间</span></th>
+              <th width="15%"><span class="pl25">自动投标排名</span></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <div id="tender-records-pager" class="pagination-wrapper dy-pagination" data-action="/odd/oddTenders" data-table="#tender-records" data-var="#tender-records-var" style="display:table;margin: 0 auto;">
+        </div>
+        <div id="tender-records-var" style="display:none;">
+          <div class="item-var" data-var="num"><?=$odd->oddNumber?></div>
+        </div>
+    </div>
+    <div class="investlist tab-item tab-item-inglist">
+      <div class="tr color-red-text mb10"> 
+        <span class="mr50">在投次数 <em><?=$ingCount?></em> 次</span> <span class="mr10">在投总额 <em><?=$ingMoney?></em>元</span> 
+      </div>
+     
+        <table id="ing-records" class="ui-table ui-table-blue ui-table-auditoria">
+          <thead>
+            <tr>
+              <th width="18%"><span class="pl60">序号</span></th>
+              <th width="19%"><span class="pl25">投标人</span></th>
+              <th width="19%"><span class="text-right pr70">投标金额</span></th>
+              <th><span class="text-right pr90">投标时间</span></th>
+              <th><span class="text-right pr90">有效时间</span></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+        <div id="ing-records-pager" class="pagination-wrapper dy-pagination" data-action="/odd/ingRecords" data-table="#ing-records" data-var="#ing-records-var">
+        </div>
+        <div id="ing-records-var" style="display:none;">
+          <div class="item-var" data-var="num"><?=$odd->oddNumber?></div>
+        </div>
+    </div>
+    <?php if($odd->oddType=='danbao'||$odd->oddType=='diya'):?>
+    <div id="gps-wrap" class="gps tab-item tab-item-gps"></div>
+    <?php endif;?>
+  </div>
+</div>
+
+<script id="car-info" type="text/html">
+  {{if info}}
+  <div class="ui-tab-content-title">
+    <h4>车辆信息</h4>
+  </div>
+  <div class="content">
+    {{@info.oddLoanRemark}}
+  </div>
+  {{if info.oddExteriorPhotos}}
+  <div class="ui-tab-content-title">
+    <h4>车辆图片</h4>
+  </div>
+  <div class="content slider-img">
+    <ul class="clearfix">
+      {{each info.oddExteriorPhotos image key}}
+      <li><a rel="exterior" href="{{image.max}}"><img src="{{image.min}}"></a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{else}}
+  <div class="info-waiting">资料补充中...</div>
+  {{/if}}
+</script>
+
+<script id="control-info" type="text/html">
+  {{if info}}
+  <div class="ui-tab-content">
+    <div class="ui-tab-content-title">
+      <h4>借款资料</h4>
+    </div>
+    <ul class="ui-tab-list clearfix">
+      {{each info.oddLoanControlList controVar key}}
+      {{if controVar}}
+      <li class="clearfix">
+        <span class="tab-list-value">
+          <i class="ico-yes"></i>
+        </span>
+        <span class="tab-list-label mr30">{{controVar}}</span> 
+      </li>
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+  <div class="ui-tab-content-title">
+    <h4>风控描述</h4>
+  </div>
+  <div class="content">
+    {{@info.oddLoanControl}}
+  </div>
+  {{if info.oddPropertyPhotos}}
+  <div class="ui-tab-content-title">
+    <h4>产权图片</h4>
+  </div>
+  <div class="content slider-img">
+    <ul class="clearfix">
+      {{each info.oddPropertyPhotos image key}}
+      <li><a rel="property" href="{{image.max}}"><img src="{{image.min}}"></a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{if info.otherPhotos}}
+  <div class="ui-tab-content-title">
+    <h4>借款手续</h4>
+  </div>
+  <div class="content slider-img">
+    <ul class="clearfix">
+      {{each info.otherPhotos image key}}
+      <li><a rel="loan" href="{{image.max}}"><img src="{{image.min}}"></a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{if info.controlPhotos}}
+  <div class="ui-tab-content-title">
+    <h4>风控图片</h4>
+  </div>
+  <div class="content slider-img">
+    <ul class="clearfix">
+      {{each info.controlPhotos image key}}
+      <li><a rel="control" href="{{image.max}}"><img src="{{image.min}}"></a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{if info.validateCarPhotos}}
+  <div class="ui-tab-content-title">
+    <h4>验车图片</h4>
+  </div>
+  <div class="content slider-img">
+    <ul class="clearfix">
+      {{each info.validateCarPhotos image key}}
+      <li><a rel="validate" href="{{image.max}}"><img src="{{image.min}}"></a></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{else}}
+  <div class="info-waiting">资料补充中...</div>
+  {{/if}}
+</script>

@@ -1,0 +1,258 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="userPayHead">
+                <ul class="list-unstyled userPayHeadNav">
+                    <li <?php if($type=='fast'):?>class="userpa"<?php endif;?>><a href="/account/recharge?type=fast">快捷支付</a></li>
+                    <li <?php if($type=='normal'):?>class="userpa"<?php endif;?>><a href="/account/recharge?type=normal">网银支付</a></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="userPayline"></div>
+            </div>
+            <div>
+                <?php if($type=='fast'):?>
+                <div class="kjzfBank">
+                    <img src="<?=RSRC?>/images/user/bank/<?=$bank->bankName?>.png" alt="" id="ImgUrl">
+                    <span class="strBank" id="strBank"><?=$bank->num?></span>
+                </div>
+
+                <div class="kjzfBody">
+                    <h1 class="kjzfSm">充值限额:单笔限额<span>￥500000.00</span>，每日限额<span>￥1000000.00</span>，每月限额<span>￥3000000.00</span></h1>
+                    <form action="/account/doRecharge" method="post" class="kjzfForm">
+                        <input type="hidden" name="payWay" value="SWIFT">
+                        <p>充值金额<input type="text" name="money" id="recharge" class="recharge form-control" placeholder="0">最低充值金额100元</p>
+                        <input type="hidden" name="business_no" id="business_no">
+                        <h2><input type="button" class="get-sms_code" value="充值"></h2>
+                    </form>
+                    <dl class="wxts">
+                        <dt>温馨提示</dt>
+                        <dd>
+                            <p>
+                                1.平台充值服务0手续费，单笔充值金额不低于100元<br>
+                                2.充值后未用于投资的金额申请提现，将额外收取提现金额0.5%的费用；<br>
+                                3.若充值金额没有及时到账，可咨询客服人员：400-080-8885；<br>
+                                4.如果超出支付限额，可以拆分整体投资金额多次充值；<br>   
+                                5.请使用借记卡充值，信用卡无法充值，禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。<br>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <?php elseif($type=='normal'):?>
+                <div class="kjzfBody">
+                    <form action="/account/doRecharge" method="post" class="kjzfForm">
+                        <input type="hidden" name="payWay" value="WEB">
+                        <p>充值金额<input type="text" name="money" id="recharge" class="recharge form-control" placeholder="0">最低充值金额100元</p>
+                        <h2><input type="submit" value="充值"></h2>
+                    </form>
+                    <dl class="wxts">
+                        <dt>温馨提示</dt>
+                        <dd>
+                          <p>
+                              1.平台充值服务0手续费，单笔充值金额不低于100元<br>
+                              2.充值后未用于投资的金额申请提现，将额外收取提现金额0.5%的费用；<br>
+                              3.若充值金额没有及时到账，可咨询客服人员：400-080-8885；<br>
+                              4.如果超出支付限额，可以拆分整体投资金额多次充值；<br>   
+                              5.请使用借记卡充值，信用卡无法充值，禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。<br>
+                          </p>
+                        </dd>
+                    </dl>
+                </div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirm-box" class="user-form" style="display: none;padding:10px 15px">
+    <div class="input-wrap mt10 w clearfix">
+        <label class="label" style="width:60px">验证码</label>
+        <input class="ui-input input-icon" id="custody-sms_code" name="sms_code" type="text" placeholder="请输入验证码" /> 
+        <button type="button" class="get-sms_code" id="get-sms_code">重新获取</button>
+    </div>
+    <div class="mt30 button-wrap">
+        <input type="button" value="确定" id="confirm" class="btn-blue loginbtn pr">
+    </div>
+</div>
+
+<script type="text/javascript">require(['Index/user','ebox'],function(user,ebox){
+    $('#confirm').click(function(){
+        ebox.closeAll();
+        var lay = ebox.open({
+            type:3
+        })
+
+        var sms_code = $('#custody-sms_code').val();
+        var business_no = $('#business_no').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/account/confirmBFRecharge",
+            data: {sms_code:sms_code,business_no:business_no},
+            dataType: "json",
+            success: function(data){
+                ebox.close(lay);
+                if(data.status == -1){
+                    ebox.open({
+                      type: 1,
+                      title: '提示',
+                      content: '<div class="alert-msg">'+data.info+'</div>',
+                      end:function(){
+                            ebox.open({
+                                type:1,
+                                title:'请输入短信验证码!',
+                                content:$('#confirm-box')
+                            })
+                        }
+                    });
+                }else{
+                    ebox.open({
+                      type: 1,
+                      title: '提示',
+                      content: '<div class="alert-msg">'+data.info+'</div>',
+                    });
+                }
+            }
+        })
+    })
+    $('.get-sms_code').click(function(){
+        ebox.closeAll();
+        if($('#recharge').val()){
+            var money = $('#recharge').val();
+        }else{
+            ebox.open({
+              type: 1,
+              title: '提示',
+              content: '<div class="alert-msg">请填写金额!</div>'
+            });
+            return
+        }
+
+        var lay = ebox.open({
+            type:3
+        })
+
+        //settime($(this),30);
+        $.ajax({
+            type: "POST",
+            url: "/account/doRecharge",
+            data: {money:money,payWay:'SWIFT'},
+            dataType: "json",
+            success: function(data){
+                if(data.status == -1){
+                    ebox.close(lay);
+                    ebox.open({
+                      type: 1,
+                      title: '提示',
+                      content: '<div class="alert-msg">'+data.info+'</div>'
+                    });
+                }else{
+                    ebox.close(lay);
+                    ebox.open({
+                        type:1,
+                        title:'请输入短信验证码!',
+                        content:$('#confirm-box')
+                    })
+                    $('#business_no').val(data.business_no);
+                }
+            }
+        })
+    })
+
+    function settime(val,countdown) { 
+        if (countdown == 0) { 
+            val.attr("disabled",false);
+            val.html('获取验证码');
+            $('#get-sms_code').show();
+            countdown = countdown; 
+        } else { 
+            $('#get-sms_code').hide();
+            //val.attr("disabled", true); 
+            //val.html("重新发送(" + countdown + ")"); 
+            countdown--; 
+            setTimeout(function() { 
+                settime(val,countdown) 
+            },1000) 
+        } 
+    }
+})</script>
+<style type="text/css">
+    #get-sms_code{
+        width: 110px;
+        height: 40px;
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #eee;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    .user-form .mt10 {margin-top: 10px;}
+    .user-form .mt30 {margin-top: 30px;}
+
+    .user-form {
+        padding: 30px 50px;
+    }
+    .user-form .input-wrap {
+        margin: 15px 0px;
+    }
+    .user-form .input-wrap .ui-input {
+        width: 180px;
+        height: 25px;
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    .user-form .input-wrap .static-input {
+        color: #03a2ff;
+        float: left;
+    }
+    .user-form .input-wrap .cRed {
+        float: left;
+        color: #f00;
+        width: 30px;
+    }
+    .user-form .input-wrap .label {
+        color: #666;
+        float: left;
+        width: 100px;
+        text-align: right;
+        margin-right: 20px;
+    }
+    .user-form .btn-blue {
+        color: #fff;
+        padding: 8px 23px;
+        border-radius: 4px;
+        background-color: #03a2ff;
+        border: none;
+    }
+    .credit{
+        display: none
+    }
+    .alert-msg{
+        padding: 15px 0 15px 15px;
+        width: 250px;
+    }
+</style>
+<?php $this->display('footer.html');?>

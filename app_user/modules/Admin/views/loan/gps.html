@@ -1,0 +1,78 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">借款列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">名称</label>
+								<div class="select-wrap">
+									<?php $searchTypes = [ 'oddNumber'=>'借款单号'];?>
+									<select class="form-control input-sm" name="key">
+										<?=_options($searchTypes, $queries->key);?>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="value" placeholder="查询内容" value="<?=$queries->value?>">
+							</div>
+							<!-- <div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="startTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div> -->
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th width="15%">借款编号</th>
+								<!-- <th>车辆型号</th>
+								<th>IMEI</th>
+								<th>设备备注</th>
+								<th>GPS更新时间</th>
+								<th>设备开始时间</th>
+								<th>设备结束时间</th>
+								<th>LON</th> -->
+								<th>URL</th>
+							</tr>
+							<?php foreach ($list as $value):?>
+							<tr data-id="<?=$value->oddNumber?>" data-oddNumber="<?=$value->oddNumber?>">
+								<td><?=$value->oddNumber?></td>
+								<td class='input' data-name='url'><?=isset($value->gps)?$value->gps->url:''?></td>
+								<!-- <td class='input' data-name='tname'><?=$value->tname?></td>
+								<td><?=$value->imei?></td>
+								<td><?=$value->chepai?></td>
+								<td><?=$value->gpstime?></td>
+								<td><?=$value->addtime?></td>
+								<td><?=$value->endtime?></td>
+								<td><?=$value->lon?></td> -->
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

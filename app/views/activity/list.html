@@ -1,0 +1,48 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('activity/common/menu.html');?>
+  <div class="main pt10 pb30">
+    <div class="ui-tab-content-title" >
+      <h4>最新活动</h4>
+    </div>
+    <div class="ac-list ac-list-ol">
+      <ul class="clearfix">
+        <?php foreach ($activities as $key=> $activity):?>
+        <?php
+          $isOver = true;
+          if($activity->endDate==null) {
+            $isOver = false;
+          } else {
+            if(strtotime($activity->endDate)>time()) {
+              $isOver = false;
+            }
+          }
+        ?>
+        <li class="ac-list-item <?php if($key%2==0):?>mr30<?php endif;?>">
+          <?php
+            $imageUrl = $activity['imageUrl'];
+            if(strpos($activity['imageUrl'], 'http://')===false&&strpos($activity['imageUrl'], 'https://')===false) {
+              $imageUrl = WEB_ASSET.'/uploads/images/'.$imageUrl;
+            }
+          ?>
+          <a><img src="<?=$imageUrl?>"/></a>
+          <div class="ac-info">
+            <h5 class="ac-title"><?=$activity->title?><em class="ac-status"><?php if($isOver):?>已结束<?php else:?>进行中<?php endif;?></em></h5>
+            <p class="ac-time">活动时间：<span><?=_date('Y年n月j日', $activity->startDate)?>至
+            <?php if($activity['endDate']==null):?>长期<?php else:?><?=_date('Y年n月j日', $activity->endDate)?><?php endif;?></span></p>
+            <div class="ac-content"><?=_decode($activity->content)?></div>
+          </div>
+          <?php if($isOver):?>
+          <div class="ac-mask"><span>已结束</span></div>
+          <?php endif;?>
+          <a class="ac-btn" href="<?php if($activity['linkUrl']==''){echo 'javascript:;';}else{echo $activity['linkUrl'];}?>">查看详情&nbsp;&nbsp;&nbsp;›</a>
+        </li>
+        <?php endforeach;?>
+      </ul>
+      <div class="pagination-wrapper">
+        <?php echo $activities->render();?>    
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

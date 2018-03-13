@@ -1,0 +1,47 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="userBankCard">
+                <h1 class="BankTitle">我的银行卡</h1>
+                <h3>为保证资金安全，请绑定本人的银行卡
+                    <?php if($bank):?>
+                    <form id="unbind-form" action="/account/unbindBankCard" method="post" style="display: inline;">
+                        <input type="hidden" name="bankNum" value="<?=$bank->bankNum?>">
+                        <button type="button" class="pull-right remove-bind">解除绑定</button>
+                    </form>
+                    <?php endif;?>
+                </h3>
+                <ul class="list-unstyled HoldBankCard">
+                    <?php if($bank):?>
+                    <li>
+                        <div class="hold-car"><span><?=_hide_banknum($bank->bankNum)?></span></div>
+                        <img src="<?=RSRC?>/images/user/bank/<?=$bank->bankName?>.png" alt="" class="BankInfo">
+                        <span class="BankUser">持卡人：<?=_hide_name($user->name)?></span>       
+                    </li>
+                    <?php else:?>
+                    <li class="addBankCard">
+                        <a href="/account/bindBankCard"><img src="<?=RSRC?>/images/user/addBankCar.png" alt=""></a>
+                    </li>
+                    <?php endif;?>
+                    <div class="clearfix"></div>
+                </ul>
+                <dl class="wxts">
+                    <dt>温馨提示</dt>
+                    <dd>
+                        <p>
+                            汇诚普惠禁止信用卡套现、虚假交易等行为,一经发现将予以处罚,包括但不限于：<br/>限制收款、冻结账户、永久停止服务,并有可能影响相关信用记录。
+                        </p>
+                    </dd>
+                </dl>
+            </div>
+            <div id="addBankCard">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

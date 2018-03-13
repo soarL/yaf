@@ -1,0 +1,70 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">往期查标</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">期数</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="period" placeholder="期数" value="<?=$queries->period?>"></div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/lookodd/deleteHistory">
+							<tr>
+								<th>期数</th>
+								<th>标的</th>
+								<th>票数</th>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">修改时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-id="<?=$record['id'];?>">
+								<td><?=$record->period?></td>
+								<td><?=$record->odd->oddTitle.' <span class="label label-primary">'.$record->odd->oddNumber.'</span>';?></td>
+								<td><?=$record->num?></td>
+								<td class="visible-lg"><?=$record->created_at?></td>
+								<td class="visible-lg"><?=$record->updated_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/lookodd/updateHistory?id=<?=$record->id?>"> 
+										<i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,83 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"><?=$queries->date?$queries->date:'';?>&nbsp;&nbsp;&nbsp;用户充值详情</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<input type="hidden" name="date" value="<?=$queries->date?>" />
+							<div class="form-group">
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="">全部</option>
+										<option value="username" data-type="text" <?php if($searchType=='username'):?>selected<?php endif;?>>用户名</option>
+										<option value="userType" data-type="text" <?php if($searchType=='userType'):?>selected<?php endif;?>>用户类型</option>
+										<option value="money" data-type="area" <?php if($searchType=='money'):?>selected<?php endif;?>>充值金额</option>
+										<option value="payType" data-type="text" <?php if($searchType=='payType'):?>selected<?php endif;?>>支付方式</option>
+									</select>
+								</div>
+							</div>
+							<?php 
+								$text = ['username', 'userType', 'payType'];
+								$area = ['money'];
+							?>
+							<div class="form-group <?php if(!in_array($searchType,$text)):?>hidden<?php endif;?> data-text">
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group <?php if(!in_array($searchType,$area)):?>hidden<?php endif;?> data-area">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm" name="begin" value="<?=$queries->begin?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm" name="end" value="<?=$queries->end?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 class="box-title">充值总额 (搜索结果)：<?=number_format($sum?$sum:0, 2)?></h5>
+						<table class="table table-hover mb-1">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>编号</th>
+								<th class="visible-lg">用户类型<?=$queries->sort('userType')?></th>
+								<th class="visible-lg">用户名</th>
+								<th class="visible-lg">充值时间<?=$queries->sort('time')?></th>
+								<th class="visible-lg">充值金额<?=$queries->sort('money')?></th>
+								<th class="visible-lg">支付方式</th>
+							</tr>
+							<?php foreach ($recharge as $key => $value):?>
+							<tr>
+								<td><?=$value->id?></td>
+								<td><?=_key($value->userType, $userTypes, 0);?></td>
+								<td><?=$value->user->username?></td>
+								<td><?=$value->time?></td>
+								<td><?=number_format($value->money, 2)?></td>
+								<td><?=_key($value->payType, $payTypes, 'yemadai');?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$recharge->render()?><br/><br/>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

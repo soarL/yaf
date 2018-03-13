@@ -1,0 +1,137 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="nav-tabs-custom">
+      <?php $this->display('repayment/common/tab-repay.html', ['type'=>$queries->type]);?>
+      <div class="tab-content">
+        <div class="tab-pane active">
+          <div class="row">
+            <div class="col-sm-12">
+              <form action="" class="table-search-form clearfix">
+                <div class="form-group">
+                  <label class="control-label">查询</label>
+                  <?php $searchType = $queries->searchType;?>
+                  <div class="select-wrap">
+                    <select class="form-control input-sm" name="searchType">
+                      <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                      <option value="oddNumber" <?php if($searchType=='oddNumber'):?>selected<?php endif;?>>借款编号</option>
+                    </select>
+                  </div>
+                  <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                </div>
+                <?php if($queries->type=='stay'||$queries->type=='ing'||$queries->type=='over'):?>
+                <div class="form-group">
+                  <label class="control-label">还款状态</label>
+                  <div class="select-wrap">
+                    <select class="form-control input-sm" name="type">
+                      <option value="stay" <?php if($queries->type=='stay'):?>selected<?php endif;?>>未还</option>
+                      <option value="ing" <?php if($queries->type=='ing'):?>selected<?php endif;?>>还款中</option>
+                      <option value="over" <?php if($queries->type=='over'):?>selected<?php endif;?>>已还</option>
+                    </select>
+                  </div>
+                </div>
+                <?php endif;?>
+                <?php if($queries->type=='over'):?>
+                <div class="form-group">
+                  <label class="control-label">还款类型</label>
+                  <div class="select-wrap">
+                    <select class="form-control input-sm" name="status">
+                      <option value="0" <?php if($queries->status==1):?>selected<?php endif;?>>全部</option>
+                      <option value="1" <?php if($queries->status==1):?>selected<?php endif;?>>正常还款</option>
+                      <option value="2" <?php if($queries->status==2):?>selected<?php endif;?>>提前还款</option>
+                      <option value="3" <?php if($queries->status==3):?>selected<?php endif;?>>逾期还款</option>
+                    </select>
+                  </div>
+                </div>
+                <?php endif;?>
+                <button type="submit" class="btn btn-sm btn-info">搜索</button>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-hover mb-0">
+                <tr>
+                  <?php if($queries->type=='today'):?>
+                  <th>
+                    <input class="table-check-all" data-name="idList[]" type="checkbox">
+                  </th>
+                  <?php endif;?>
+                  <th>标号</th>
+                  <th class="visible-lg">借款人ID</th>
+                  <th>应还总额</th>
+                  <th class="visible-lg">应还本金</th>
+                  <th class="visible-lg">应还利息</th>
+                  <?php if($queries->type=='over'):?>
+                  <th>实还总额</th>
+                  <th>罚息</th>
+                  <th>还款类型</th>
+                  <?php endif;?>
+                  <th class="visible-lg">逾期天数</th>
+                  <th>操作</th>
+                </tr>
+                <?php foreach($records as $record):?>
+                  <tr data-id="<?=$record->id?>">
+                    <?php if($queries->type=='today'):?>
+                    <td>
+                      <input type="checkbox" name="idList[]" value="<?=$record->id?>">
+                    </td>
+                    <?php endif;?>
+                    <td><?=$record->oddNumber.'-'.$record->qishu?></td>
+                    <td class="visible-lg">
+                      <a href="/admin/user/show?userId=<?=$record->userId?>" target="_blank"><?=$record->userId?></a>
+                    </td>
+                    <td><?=$record->zongEr?></td>
+                    <td class="visible-lg"><?=$record->benJin?></td>
+                    <td class="visible-lg"><?=$record->interest?></td>
+                    <?php if($queries->type=='over'):?>
+                      <td>
+                        <span class="label label-primary" data-toggle="tooltip" data-original-title="本金：<?=$record->realAmount-$record->realinterest?>，利息：<?=$record->realinterest?>">
+                        <?=$record->realAmount?>
+                        </span>
+                      </td>
+                      <td><?=$record->subsidy?></td>
+                      <td><?=$record->getStatusName()?></td>
+                    <?php endif;?>
+                    <td class="visible-lg"><?=$record->etime?>天</td>
+                    <td>
+                        <?php if($record->status==-1 || in_array($record->id, $ingList)):?>
+                        <a class="btn btn-ssm btn-danger" href="/admin/repayment/detail?id=<?=$record->id?>&type=normal">
+                         还款中
+                        </a>
+                        <?php elseif($record->status==0):?>
+                        <a class="btn btn-ssm btn-warning" href="/admin/repayment/detail?id=<?=$record->id?>&type=normal">
+                         未还款
+                        </a>
+                        <?php else:?>
+                        <a class="btn btn-ssm btn-default" href="/admin/repayment/detail?id=<?=$record->id?>&type=normal">
+                         已还款
+                        </a>
+                        <?php endif;?>
+                    </td>
+                  </tr>
+                <?php endforeach;?>
+              </table>
+            </div>
+          </div>
+          <div class="row row-footer">
+            <div class="col-sm-7">
+              <div class="table-info" style="line-height: 30px">
+                <span>应还本金：<em><?=$page['benjin']?></em></span>
+                <span>应还利息：<em><?=$page['interest']?></em></span>
+                <?php if($queries->type=='today'):?>
+                <button type="button" class="btn btn-info btn-sub-selected btn-ssm">还选中</button>
+                <button type="button" class="btn btn-success btn-sub-today btn-ssm">还所有</button>
+                <?php endif;?>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <?=$records->render()?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

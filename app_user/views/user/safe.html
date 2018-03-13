@@ -1,0 +1,288 @@
+<?php $this->display('header.html');?>
+<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+        	<div class="userSetBody">
+			<h1 class="userSetTitle">个人设置</h1>
+			<div>
+				<div class="touxiang">
+					<p>
+						<img src="<?=RSRC?>/images/user/userImg/userImg.png" alt="">	
+					</p>
+					<!-- <a>【更换头像】</a> -->
+				</div>
+				<div class="shezhi">
+					<table class="table">
+						<tr>
+							<td class="shezhi1">用户名</td>
+							<td class="shezhi2"><?=_hide_username($user->username)?></td>
+							<td class="shezhi3"><img src="<?=RSRC?>/images/user/tick.png" alt=""></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">注册时间</td>
+							<td class="shezhi2"><?=_date('Y-m-d', $user->addtime)?></td>
+							<td class="shezhi3"></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">手机号码</td>
+							<td class="shezhi2"><?=_hide_phone($user->phone)?></td>
+							<td class="shezhi3"><!--<a href="javascript:" class="box-transfer-btn1">立即修改</a>--></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">账户密码</td>
+							<td class="shezhi2">已设置</td>
+							<td class="shezhi3"><a href="javascript:" class="box-transfer-btn2">立即修改</a></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">交易密码</td>
+							<?php if($user->paypass){ ?>
+							<td class="shezhi2">已设置</td>
+							<td class="shezhi3"><a href="javascript:" class="box-transfer-btn3">立即修改</a></td>
+							<?php }elseif(!$user->custody_id){ ?>
+							<td class="shezhi2">未设置</td>
+							<td class="shezhi3"><a href="javascript:window.location='/account/custody'">立即设置</a></td>
+							<?php }else{ ?>
+							<td class="shezhi2">未设置</td>
+							<td class="shezhi3"><a href="javascript:" class="box-transfer-btn3">立即设置</a></td>
+							<?php }?>
+						</tr>
+						<tr>
+							<td class="shezhi1">个人签章</td>
+							<?php if($user->isseal){ ?>
+							<td class="shezhi2">已设置</td>
+							<?php }else{ ?>
+							<td class="shezhi2">未设置</td>
+							<td class="shezhi3"><a href="javascript:" class="isseal">立即设置</a></td>
+							<?php }?>
+						</tr>
+						<?php if($user->userType == 3):?>
+						<tr>
+							<td class="shezhi1">企业信息</td>
+							<td class="shezhi2">已设置</td>
+							<td class="shezhi3"><a href="/account/custody?type=company">立即修改</a></td>
+						</tr>
+						<?php endif;?>
+						<?php if($user->is_custody_pwd):?>
+<!-- 						<tr>
+							<td class="shezhi1">存管密码</td>
+							<td class="shezhi2">已设置</td>
+							<td class="shezhi3"><a href="/user/resetCustodyPasswd">立即修改</a></td>
+						</tr> -->
+						<?php else:?>
+						<!-- <tr>
+							<td class="shezhi1">存管密码</td>
+							<td class="shezhi2"></td>
+							<td class="shezhi3"><a href="/account/custody"></a></td>
+						</tr> -->
+						<?php endif;?>
+						<?php if($user->cardnum==''):?>
+						<tr>
+							<td class="shezhi1">真实姓名</td>
+							<td class="shezhi2">未认证</td>
+							<td class="shezhi3"><a href="/account/custody">立即认证</a></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">身份证号</td>
+							<td class="shezhi2">未认证</td>
+							<td class="shezhi3"><a href="/account/custody">立即认证</a></td>
+						</tr>
+						<?php else:?>
+						<tr>
+							<td class="shezhi1">真实姓名</td>
+							<td class="shezhi2"><?=_hide_name($user->name)?></td>
+							<td class="shezhi3"><img src="<?=RSRC?>/images/user/tick.png" alt=""></td>
+						</tr>
+						<tr>
+							<td class="shezhi1">身份证号</td>
+							<td class="shezhi2"><?=_hide_cardnum($user->cardnum)?></td>
+							<td class="shezhi3"><img src="<?=RSRC?>/images/user/tick.png" alt=""></td>
+						</tr>
+						<?php endif;?>
+			 			<?php if($user->custody_id==''):?>
+		<!-- 				<tr>
+							<td class="shezhi1">银行存管</td>
+							<td class="shezhi2">未开通</td>
+							<td class="shezhi3"><a href="/account/custody">立即开通</a></td>
+						</tr> -->
+						<?php else:?>
+		<!-- 				<tr>
+							<td class="shezhi1">银行存管</td>
+							<td class="shezhi2">已开通</td>
+							<td class="shezhi3"><img src="<?=RSRC?>/images/user/tick.png" alt=""></td>
+						</tr> -->
+						<?php endif;?>
+						<?php if($user->estimateScore=='-1'):?>
+						<tr>
+							<td class="shezhi1">风险承受评估</td>
+							<td class="shezhi2">未测试</td>
+							<td class="shezhi3"><a href="/account/estimate">立即测试</a></td>
+						</tr>
+						<?php else:?>
+						<tr>
+							<td class="shezhi1">风险承受评估</td>
+							<td class="shezhi2">测试结果：<?=$user->getEstimateResult()?></td>
+							<td class="shezhi3"><a href="javascript:" onclick="showRes('<?=$user->getEstimateResult()?>');">查看</a> <a href="/account/estimate">重新测试</a></td>
+						</tr>
+						<?php endif;?>
+					</table>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<p class="userSetzs">因个人信息涉及到发生购买行为的合同有效性，故用户名及身份证认证信息不可修改</p>
+		</div>
+
+        </div>
+    </div>
+	<!-- 修改手机号码 -->
+	<div id="ajax-phone-box" class="hide-box box modal" style="width: 320px;">
+	    <div class="form-wrap">
+		  <form action="/user/updatePhone" method="post">
+		      <div class="input-wrap mt30">
+		        <label class="label">新手机号：</label>
+		        <input class="ui-input input-icon form-control" type="text" name="phone" value="">
+		        <span class="icon icon-head"></span> </div>
+		      <div class="tc mt30">
+		        <input  type="submit" value="提交" class="btn btn-primary"/>
+		      </div>
+		  </form>
+	    </div>
+<!-- 	    <div class="box-remark-box mt10" style="width:300px;">
+	        <div class="remark-title">温馨提示</div>
+	        <div class="remark-content">
+	            <p>1、...</p>
+	        </div>
+	    </div> -->
+	</div>
+
+	<!-- 修改密码 -->
+	<div id="ajax-password-box" class="hide-box box modal" style="width: 320px;">
+	    <div class="form-wrap">
+			<div class="backPass">
+			  <form action="" id="backPass">
+			    <label for="" style="display:none">
+			      <span>手机号码：</span>
+			      <input type="text" name="backPhone" id="backPhone" placeholder="请输入11位手机号码" value="<?=$user->phone?>" class="form-control">
+			      <div id="backerr1_1"></div>
+			      <div id="backerr1"></div>
+			    </label>
+			    <label for="">
+			    	<span>短信验证码：</span>
+			      <input type="text" name="backdxyz" id="backdxyz" placeholder="请输入6位数的短信验证码" class="form-control" >
+			      <input type="button" value="发送" id="backNewsPass" class="btn btn-primary dxyz-btn">
+			      <div id="backerr2"></div>
+			    </label>
+			    <label for="">
+			    	<span>新密码：</span>
+			      <input type="password" name="newsPass" id="newsPass" placeholder="请输入你的新密码" class="form-control">
+			      <div id="backerr3"></div>
+			    </label>
+			    <input type="button" value="提交" id="backsubmit" class="btn btn-primary backSubmit">
+			  </form>
+			</div>
+	    </div>
+<!-- 	    <div class="box-remark-box mt10" style="width:300px;">
+	        <div class="remark-title">温馨提示</div>
+	        <div class="remark-content">
+	            <p>1、...</p>
+	        </div>
+	    </div> -->
+	</div>
+
+	<!-- 修改交易密码 -->
+	<div id="ajax-paypass-box" class="hide-box box modal" style="width: 320px;">
+	    <div class="form-wrap">
+			<div class="backPass">
+			  <form>
+			    <label for="" style="display:none">
+			      <span>手机号码：</span>
+			      <input type="text" name="backPhone" id="payphone" placeholder="请输入11位手机号码" value="<?=$user->phone?>" class="form-control">
+			      <div id="backerr1_1"></div>
+			      <div id="backerr1"></div>
+			    </label>
+			    <label for="">
+			    	<span>短信验证码：</span>
+			      <input type="text" name="backdxyz" id="paydxyz" placeholder="请输入6位数的短信验证码" class="form-control" >
+			      <input type="button" value="发送" id="backNewsPass2" class="btn btn-primary dxyz-btn">
+			      <div id="backerr2"></div>
+			    </label>
+			    <label for="">
+			    	<span>新密码：</span>
+			      <input type="password" name="newsPass" id="newpaypass" placeholder="请输入你的新密码" class="form-control">
+			      <div id="backerr3"></div>
+			    </label>
+			    <input type="button" value="提交" id="backsubmit2" class="btn btn-primary backSubmit">
+			  </form>
+			</div>
+	    </div>
+<!-- 	    <div class="box-remark-box mt10" style="width:300px;">
+	        <div class="remark-title">温馨提示</div>
+	        <div class="remark-content">
+	            <p>1、...</p>
+	        </div>
+	    </div> -->
+	</div>
+	<!-- CFCA -->
+	<div style="padding:10px;font-size:13px;" id="CFCAbox"><p style="margin-bottom:10px;">申请开通电子印章，在用户通过电子印章对交易合同进行签署，CFCA保证交易合同的保密性、<br>完整性、不可抵赖性</p><p style="color:red;margin-bottom:10px;">注：电子印章只能在有效期内使用，若印章过了使用有效期。需要重新申请；<br>已经加盖电子印章的（合同）文件不受有效期影响。</p><div><input type="checkbox" checked id="issealed">我同意<a href="javasctipt:" id="ajax-CFCAbook">《CFCA数字证书授权协议》</a></div></div>
+
+
+	<div id="CFCAbook" class="hide-box CFCAbook">
+		<h4 style="font-weight: 700;text-align: center;">尊敬的汇诚普惠用户：</h4>
+		<p style="text-indent: 30px;">中金金融认证中心有限公司(即中国金融认证中心，简称CFCA)是经国家有关管理机关审批设立的电子认证服务机构，作为金融行业权威的第三方安全认证机构，通过发放数字证书为网上交易提供信息安全保障。本协议构成数字证书持有人（下称汇诚普惠用户）与中金金融认证中心有限公司之间的权利义务约定，以及中融民信资本管理有限公司与汇诚普惠用户之间的权利义务约定。若同意本协议全部条款，即可申请并授权于汇诚普惠生成和使用CFCA数字证书（下称数字证书）。</p>
+		<p>数字证书是指该证书由CFCA预先在智能存储介质（简称USBKey）中生成，由订户向发证机构申领，发证机构对订户的身份进行审核并与证书绑定后方生效的数字证书，用于签约网上交易电子版合同。</p>
+		<p style="font-weight: 700">一、 CFCA数字证书提供的服务和CFCA的权利、义务</p>
+		<p>1、 CFCA确保数字证书私钥是唯一的。</p>
+		<p>2、 当数字证书与用户身份信息的绑定经发证机构和CFCA数字签名确认后，该数字证书即可生效。</p>
+		<p>3、 CFCA向相关依赖方提供数字证书绑定信息的查询。</p>
+		<p>4、 CFCA依法制定《电子认证业务规则》（简称CPS）、《数字证书策略》（简称CP）并公布于CFCA网站（www.cfca.com.cn），明确CFCA数字证书的功能、使用证书各方的权利、义务以及CFCA的责任范围。</p>
+		<p>5、 CFCA为用户提供7X24小时热线支持服务（4008809888），5X8小时服务监督电话（010-83519756），CFCA将在1个工作日内对用户的意见和建议做出响应。</p>
+		<p>6、 在用户通过数字证书对交易信息进行加密和签名的条件下，CFCA保证交易信息的保密性、完整性、不可抵赖性。如果发生纠纷，CFCA将依据不同情况承担下述义务：</p>
+		<p>1） 提供签发数字证书的CA证书；</p>
+		<p>2） 提供数字证书在交易发生时，在或不在CFCA发布的数字证书废止列表内的证明；</p>
+		<p>3） 提供数字证书在交易发生时，是否与该用户信息绑定的证明；</p>
+		<p>4） 对数字证书及绑定、数字签名、时间戳的真实性、有效性进行技术确认。</p>
+		<p>7、 对于下列情况之一，CFCA有权吊销所签发的数字证书：</p>
+		<p>1） 用户申领数字证书时，提供的资料不真实；</p>
+		<p>2） 用户未履行本协议约定的义务；</p>
+		<p>3） 用户书面申请吊销数字证书；</p>
+		<p>4） 证书的安全性不能得到保证；</p>
+		<p>5） 法律、行政法规规定的其他情况。</p>
+		<p>8、 根据《电子签名法》的规定，用户依据CFCA提供的认证服务进行民事活动遭受损失，CFCA将依据本协议的相关条款给予赔偿，除非CFCA能够证明其提供的服务是按照《电子签名法》、《电子认证服务管理办法》、CFCA向主管部门备案的CPS和数字证书CP实施的。以下损失不在赔偿之列：</p>
+		<p>1） 任何直接或间接的利润或收入损失、信誉或商誉损害、任何商机或契机损失、失去项目、或失去或无法使用任何数据、设备或软件；</p>
+		<p>2） 由上述损失相应生成或附带引起的损失或损害。</p>
+		<p>9、 CFCA对企业数字证书订户的赔偿上限为人民币伍拾万元整，即￥500,000.00元。CFCA对个人数字证书用户的赔偿上限为人民币贰万元整，即￥20,000.00元。</p>
+		<p style="font-weight: 700">二、 数字证书用户（汇诚普惠用户）的权利和义务</p>
+		<p>1、 用户享受CFCA作为合法的第三方电子认证服务机构提供的数字证书服务。</p>
+		<p>2、 用户应遵循诚实、信用原则，申领数字证书时，应当提供真实、完整和准确的信息和资料，并在这些信息、资料发生改变时及时通知发证机构。如因用户故意或过失提供的资料不真实或资料改变后未及时通知，造成的损失由用户自己承担。</p>
+		<p>3、 用户须使用经合法途径获得的相关软件。</p>
+		<p>4、 用户应合法使用CFCA数字证书，并对使用数字证书的行为负责。</p>
+		<p>5、 用户应当妥善保管含有数字证书的USBKey。如因故意或过失导致他人盗用、冒用数字证书时，用户应承担由此产生的责任。</p>
+		<p>6、 如用户使用的数字证书的USBKey丢失或密码泄漏，或者用户不希望继续使用数字证书，或者用户主体不存在，用户或法定权利人应当立即申请吊销该数字证书。</p>
+		<p>7、 用户应在发证机构或指定网站进行证书更换或展期。</p>
+		<p style="font-weight: 700">三、 汇诚普惠用户授权汇诚普惠生成及使用电子签章</p>
+		<p>1. 汇诚普惠用户在登录后，经过实名认证的前提下，同意并授权汇诚普惠为其申请CFCA数字证书。</p>
+		<p>2. 汇诚普惠经过用户授权，使用用户真实身份信息为其申请数字证书私钥唯一的CFCA数字证书。</p>
+		<p>3.申请CFCA数字证书后，在汇诚普惠平台上进行的交易，将使用数字证书进行实名盖章。</p>
+		<p>4. CFCA数字证书盖章的电子版合同或协议，等同于手写签名/盖章的纸质版合同或协议的法律效力。</p>
+		<p>5. 在用户授权汇诚普惠使用其电子签章后的责任义务：</p>
+		<p>1） 用户不得私自使用电子合同/协议上的签章图片于其他任何用途；</p>
+		<p>2） 用户在汇诚普惠平台进行交易产生的电子版合同/协议，未经汇诚普惠平台授权确认，自行打印无效。</p>
+		<p>6. 汇诚普惠对于其平台用户授权CFCA数字证书的义务责任：</p>
+		<p>1） 汇诚普惠仅对其用户在汇诚普惠平台上进行的交易，进行电子版合同/协议进行CFCA数字证书盖章，不得私自在其他情况下使用用户CFCA数字证书；</p>
+		<p>2） CFCA数字证书订户在其他非民信平台上授权或使用的，汇诚普惠平台不予法律解释；</p>
+		<p>3） 汇诚普惠用户使用电子版合同/协议上电子签章图片于其他用途的，此签章图片无效，汇诚普惠平台不予法律解释。</p>
+		<p style="font-weight: 700">四、 其他</p>
+		<p>1. 建议订户经常浏览CFCA网站，以便及时了解CFCA有关证书管理、CPS、数字证书CP和本协议变更公示等方面的信息。</p>
+		<p>2. 建议用户经常登录汇诚普惠网站，以便及时了解汇诚普惠平台与CFCA联手合作的即时动态。</p>
+		<p>3. 汇诚普惠平台有权对本协议进行修订，修订后的本协议将公布于汇诚普惠网站（www.minxindai.com）。如用户在公布修订的一周后继续授权使用CFCA提供的数字证书服务，即表明同意接受此等修订的约束。如果用户不予接受本协议中的约束，用户可以在上述期限内申请停止使用数字证书，并结束在汇诚普惠平台进行交易。</p>
+		<p>4. 因依据CFCA的电子认证服务而发生的争议，双方先协商解决（必要时CFCA将召集业内专家组成专家小组，详细流程参见CPS的相关条款），双方不能达成一致意见的，将提交北京仲裁委员会申请仲裁。</p>
+		<p>5. 声明：汇诚普惠已经认真阅读并同意接受《CFCA数字证书服务协议》（以上文件公布在http://www.cfca.com.cn上），同意协议内容构成汇诚普惠与中金金融认证中心有限公司（简称CFCA）之间的权利义务约定</p>
+		
+	</div>
+
+
+</div>
+<?php $this->display('footer.html');?>

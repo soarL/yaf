@@ -1,0 +1,68 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="userPayHead">
+                <ul class="list-unstyled userPayHeadNav">
+                    <li <?php if($type=='normal'):?>class="userpa"<?php endif;?>><a href="/account/recharge?type=normal">网银支付</a></li>
+                    <li <?php if($type=='fast'):?>class="userpa"<?php endif;?>><a href="/account/recharge?type=fast">快捷支付</a></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="userPayline"></div>
+            </div>
+            <div>
+                <?php if($type=='fast'):?>
+                <div class="kjzfBank">
+                    <img src="<?=RSRC?>/images/user/bank/<?=$bank->bankName?>.png" alt="" id="ImgUrl">
+                    <span class="strBank" id="strBank"><?=$bank->num?></span>
+                </div>
+
+                <div class="kjzfBody">
+                    <h1 class="kjzfSm">充值限额:单笔限额<span>￥500000.00</span>，每日限额<span>￥1000000.00</span>，每月限额<span>￥3000000.00</span></h1>
+                    <form action="/account/doRecharge" method="post" class="kjzfForm">
+                        <input type="hidden" name="payWay" value="SWIFT">
+                        <p>充值金额<input type="text" name="money" id="recharge" class="recharge form-control" placeholder="0">最低充值金额100元</p>
+                        <h2><input type="submit" value="充值"></h2>
+                    </form>
+                    <dl class="wxts">
+                        <dt>温馨提示</dt>
+                        <dd>
+                            <p>
+                                1.平台充值服务0手续费，单笔充值金额不低于100元<br>
+                                2.充值后未用于投资的金额申请提现，将额外收取提现金额0.5%的费用；<br>
+                                3.若充值金额没有及时到账，可咨询客服人员：400-080-8885；<br>
+                                4.如果超出支付限额，可以拆分整体投资金额多次充值；<br>   
+                                5.请使用借记卡充值，信用卡无法充值，禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。<br>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <?php elseif($type=='normal'):?>
+                <div class="kjzfBody">
+                    <form action="/account/doRecharge" method="post" class="kjzfForm">
+                        <input type="hidden" name="payWay" value="WEB">
+                        <p>充值金额<input type="text" name="money" id="recharge" class="recharge form-control" placeholder="0">最低充值金额100元</p>
+                        <h2><input type="submit" value="充值"></h2>
+                    </form>
+                    <dl class="wxts">
+                        <dt>温馨提示</dt>
+                        <dd>
+                            <p>
+                                1.平台充值服务0手续费，单笔充值金额不低于100元<br>
+                                2.充值后未用于投资的金额申请提现，将额外收取提现金额0.5%的费用；<br>
+                                3.若充值金额没有及时到账，可咨询客服人员：400-080-8885；<br>
+                                4.如果超出支付限额，可以拆分整体投资金额多次充值；<br>   
+                                5.请使用借记卡充值，信用卡无法充值，禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。<br>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

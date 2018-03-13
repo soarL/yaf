@@ -1,0 +1,54 @@
+<div class="queue-box">
+    <div class="progress-wrap">
+        <h1 class="clearfix">排队资金情况
+            <a href="<?=WEB_MAIN?>/news/list?type=announce" target="_blank" style="float:right; display:block; color: #f00; font-size:12px;">发标预告</a></h1>
+        <div class="progress clearfix">
+            <div class="progress-inner progress-valid" style="width:<?=$validPer?>"><?=$validPer?></div>
+            <div class="progress-inner progress-invalid" style="width:<?=$invalidPer?>"><?=$invalidPer?></div>
+        </div>
+        <div class="progress-info clearfix">
+            <div class="info-item"><div class="block block1"></div>
+                <div class="info">排在我前面的有效资金：<br><?=$preInfo['validMoney']?>元<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="您队列前有效排名用户账户余额总和">?</i></div>
+            </div>
+            <div class="info-item"><div class="block block2"></div>
+                <div class="info">排在我前面的无效资金：<br><?=$preInfo['invalidMoney']?>元<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="您队列前无效排名用户账户余额总和">?</i></div>
+            </div>
+            <div class ="info-item">
+                <div class="info">排在我前面的资金共计：<br><?=$preInfo['allMoney']?>元<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="排在队列前所有用户账户余额总和">?</i></div>
+            </div>
+        </div>
+        <div class="progress-warning">温馨提示：排队资金情况会随您队伍前面投资人的充值、提现、投标等操作产生变化。</div>
+    </div>
+    <div class="queue-info">
+        <h1>排队人数情况</h1>
+        <div class="item">
+            <span class="title">我的排名：</span>
+            <span class="value"><?=$location?>名<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="您所处投标队列中的排名">?</i></span>
+        </div>
+        <div class="item">
+            <span class="title">有效排名人数：</span>
+            <span class="value"><?=$preInfo['validNum']?>人<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="您队列前投标设置正确且账户余额符合设置的待投用户数量">?</i></span>
+        </div>
+        <div class="item">
+            <span class="title">无效排名人数：</span>
+            <span class="value"><?=$preInfo['invalidNum']?>人<i style="right: 82px;" class="remark layer-tip question" data-position="2" data-content="您队列前选择“排队不投”、账户余额少于设置的投资金额等保留排名的用户数量">?</i></span>
+        </div>
+        <div class="item">
+            <span class="title">当前所处队列：</span>
+            <span class="value"><?=$inQueue?></span>
+        </div>
+        <div class="item">
+            <span class="title">投标类型：</span>
+            <select id="search-month">
+                <option value="<?=$preInfo['validNum']?>|<?=$preInfo['validMoney']?>">全部</option>
+                <?php foreach($preInfo['monthNum'] as $month => $num):?>
+                <option value="<?=$num?>|<?=$preInfo['monthMoney'][$month]?>"><?=$month?>月标</option>
+                <?php endforeach;?>
+            </select>
+            <div class="month-value clearfix">
+                <span class="value-num">人数：<em><?=$preInfo['validNum']?>人</em></span>
+                <span class="value-money">金额：<em><?=$preInfo['validMoney']?>元</em></span>
+            </div>
+        </div>
+    </div>
+</div>

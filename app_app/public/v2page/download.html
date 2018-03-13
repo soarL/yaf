@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>下载汇诚普惠</title>
+    <base href="assets/">
+    <link rel="stylesheet" href="imgDown/page.css">
+  </head>
+  <body class="noMargin">
+  	<div id="download20161109">
+      <div class="hidden" id="staticBanner">
+        <img src="imgDown/down_banner.jpg" alt="" />
+      </div>
+  		<div class="header noMargin">
+  			<img src="imgDown/header.jpg" alt="" />
+  		</div>
+  		<ul class="noMargin down">
+  			<li><a href="http://app.qq.com/#id=detail&amp;appid=1105069885"><img src="imgDown/down_a.png" alt="" /></a></li>
+  			<li><a href="https://itunes.apple.com/cn/app/xiao-wei-shi-dai/id1088763621?mt=8"><img src="imgDown/down_i.png" alt="" /></a></li>
+  		</ul>
+  		<ul class="noMargin desc">
+  			<li><img src="imgDown/desc1.png" alt="" /></li>
+  			<li><img src="imgDown/desc2.png" alt="" /></li>
+  		</ul>
+      <div class="footer">
+        <img src="imgDown/footer.png" alt="" />
+      </div>
+  	</div>
+    <script>
+      var u = navigator.userAgent;
+      if(u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1){
+        var link = document.getElementsByTagName("a");
+        for(var i=0;i<link.length;i++)
+        {
+          link[i].onclick = function(){
+            //console.log("hi");
+            document.getElementById("staticBanner").className = "";
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

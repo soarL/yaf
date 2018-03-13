@@ -1,0 +1,57 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">流量统计图表</h3>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form id="search-form" class="table-search-form clearfix" method="post">
+                            <div class="form-group">
+                                <label class="control-label">渠道来源</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="channel">
+                                        <option value="all">全部访问</option>
+                                        <option value="direct">直接访问</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">统计方式</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="type">
+                                        <option value="hour">按小时统计</option>
+                                        <option value="date">按日统计</option>
+                                        <option value="week">按周统计</option>
+                                        <option value="month">按月统计</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label time-label">统计时间</label>
+                                <div class="input-group time-group">
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm">至</button>
+                                    </div>
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="">
+                                </div>
+                            </div>
+                            <button id="show-chart-btn" type="button" class="btn btn-sm btn-info">查询</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="chart-view" style="height: 400px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

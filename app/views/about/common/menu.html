@@ -1,0 +1,68 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="pull-left">
+    <dl>
+        <dt>关于我们</dt>
+        <dd <?php if($submenu=='index'):?>class="ddActive"<?php endif;?>><a href="/about">公司简介</a></dd>
+        <dd <?php if($submenu=='info'):?>class="ddActive"<?php endif;?>><a href="/about/info">公司信息</a></dd>
+        <dd <?php if($submenu=='develop'):?>class="ddActive"<?php endif;?>><a href="/about/develop">发展历程</a></dd>
+        <dd <?php if($submenu=='honor'):?>class="ddActive"<?php endif;?>><a href="/about/honor">资质荣誉</a></dd>
+        <!--<dd <?php if($submenu=='custody'):?>class="ddActive"<?php endif;?>><a href="/about/custody" target="_bank">银行存管</a></dd>-->
+        <dd <?php if($submenu=='rates'):?>class="ddActive"<?php endif;?>><a href="/about/rates">收费标准</a></dd>
+        <dd <?php if($submenu=='contact'):?>class="ddActive"<?php endif;?>><a href="/about/contact">联系我们</a></dd>
+    </dl>
+    <dl>
+        <dt class="dtBgImg">对外公示</dt>
+        <!-- <dd <?php if($submenu=='audit'):?>class="ddActive"<?php endif;?>><a href="/about/audit">审计报告</a></dd> -->
+        <!-- <dd <?php if($submenu=='lagel'):?>class="ddActive"<?php endif;?>><a href="/about/lagel">法律意见书</a></dd> -->
+        <dd <?php if($submenu=='events'):?>class="ddActive"<?php endif;?>><a href="/about/events">重大事件</a></dd>
+    </dl>
+    <dl>
+        <dt class="dtBgImg">运营信息</dt>
+        <dd <?php if($submenu=='opendata'):?>class="ddActive"<?php endif;?>><a href="/about/opendata">运营数据</a></dd>
+        <dd <?php if($submenu=='report'):?>class="ddActive"<?php endif;?>><a href="/about/report">运营报告</a></dd>
+    </dl>
+<!--     <dl>
+        <dt class="dtBgImg">业务介绍</dt>
+        <dd <?php if($submenu=='houseloan'):?>class="ddActive"<?php endif;?>><a href="/about/houseloan">房优贷介绍</a></dd>
+        <dd <?php if($submenu=='carloan'):?>class="ddActive"<?php endif;?>><a href="/about/carloan">车险优贷介绍</a></dd>
+        <dd <?php if($submenu=='riskmanage'):?>class="ddActive"<?php endif;?>><a href="/about/riskmanage">风险管理机构</a></dd>
+        <dd <?php if($submenu=='riskassess'):?>class="ddActive"<?php endif;?>><a href="/about/riskassess">风险评估流程</a></dd>
+        <dd <?php if($submenu=='overdue'):?>class="ddActive"<?php endif;?>><a href="/about/overdue">逾期情况</a></dd>
+        <dd <?php if($submenu=='preloan'):?>class="ddActive"<?php endif;?>><a href="/about/preloan">贷前管理</a></dd>
+        <dd <?php if($submenu=='centerloan'):?>class="ddActive"<?php endif;?>><a href="/about/centerloan">贷中管理</a></dd>
+        <dd <?php if($submenu=='afterloan'):?>class="ddActive"<?php endif;?>><a href="/about/afterloan">贷后管理</a></dd>
+    </dl> -->
+    <dl>
+        <dt class="dtBgImg">承诺书</dt>
+        <dd <?php if($submenu=='promise'):?>class="ddActive"<?php endif;?>><a href="/about/promise">法人承诺书</a></dd>
+    </dl>
+    <dl>
+        <dt class="dtBgImg">法律法规</dt>
+        <dd <?php if($submenu=='supervise'):?>class="ddActive"<?php endif;?>><a href="/about/supervise">监管法规</a></dd>
+        <dd <?php if($submenu=='clause'):?>class="ddActive"<?php endif;?>><a href="/about/clause">法律条款</a></dd>
+        <dd <?php if($submenu=='risk'):?>class="ddActive"<?php endif;?>><a href="/about/risk">风险提示</a></dd>
+        <dd <?php if($submenu=='borrownotice'):?>class="ddActive"<?php endif;?>><a href="/about/borrownotice">借款须知</a></dd>
+        <dd <?php if($submenu=='cz'):?>class="ddActive"<?php endif;?>><a href="/about/cz">电子合同</a></dd>
+    </dl>
+</div>
+<script type="text/javascript">
+    <?php if($submenu=='supervise' || $submenu=='clause' || $submenu=='risk' ||$submenu=='cz' ||$submenu=='borrownotice'){ ?>
+
+        require(['Index/about/common'],function(){$('.dtBgImg').eq(3).click();})
+    <?php }elseif($submenu=="promise") {?>
+
+         require(['Index/about/common'],function(){$('.dtBgImg').eq(2).click();})
+    <?php }elseif($submenu=="houseloan" || $submenu=="carloan" || $submenu=="riskmanage" || $submenu=="riskassess" ||$submenu=="overdue" ||$submenu=="preloan"||$submenu=="centerloan"||$submenu=="afterloan"){?>
+
+        require(['Index/about/common'],function(){$('.dtBgImg').eq(2).click();})
+    <?php }elseif($submenu=="opendata" ||$submenu=="report"){?> 
+
+        require(['Index/about/common'],function(){$('.dtBgImg').eq(1).click();})
+    <?php }elseif($submenu=="audit"||$submenu=="lagel" ||$submenu=="events"){?>
+
+        require(['Index/about/common'],function(){$('.dtBgImg').eq(0).click();})
+    <?php }?>
+</script>

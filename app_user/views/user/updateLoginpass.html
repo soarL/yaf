@@ -1,0 +1,22 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap common-form-big mt50">
+  <div class="title">修改登录密码</div>
+  <form action="/user/updateLoginpass" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">原登录密码</label>
+        <input class="ui-input input-icon" type="password" name="oldpass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">新登录密码</label>
+        <input class="ui-input input-icon" type="password" name="loginpass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">重复新密码</label>
+        <input class="ui-input input-icon" type="password" name="loginpassSure" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,13 @@
+<?php use helpers\StringHelper;?>
+<div class="rank mt15">
+	<h3 class="ranktable-title">问题推荐</h3>
+    <div class="p10">
+    	<ul class="q-recommend">
+            <?php foreach ($hitQuestions as $question):?>
+        	<li><a href="/question/view?id=<?php echo $question['id'];?>"><i>·</i><?php echo StringHelper::newsTitle($question['title'], 6);?></a>
+                <span><em><?php echo $question['answerCount'];?></em>个回答</span>
+            </li>
+            <?php endforeach;?>
+        </ul>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">发送邮件</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/article/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/user/sendMail" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">标题</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="title" value="汇诚普惠-______的电子合同">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">用户Id</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control" name="userId" placeholder="输入用户Id">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">内容</label>
+          <div class="col-sm-11">
+          <textarea id="editor-container1" class="editor-container" name="html" style="width:100%;height:300px;display:none;">
+          <div style="background: url(https://asset.hcjrfw.com/images/email_bg.png) no-repeat left bottom; font-size:14px; width: 588px; ">
+                    <div style="padding: 10px 0px; background: url(https://asset.hcjrfw.com/images/email_button.png)  no-repeat ">
+                    <h1 style="padding: 0px 15px; margin: 0px; overflow: hidden; height: 48px;">
+                    <a title="汇诚普惠用户中心" href="https://user.hcjrfw.com/index.php?user" target="_blank" swaped="true">
+                    <img style="border-width: 0px; padding: 0px; margin: 0px;" alt="汇诚普惠用户中心" src="https://asset.hcjrfw.com/images/email_logo.png" height="48" width="208"></a>
+                    </h1>
+                    <div style="padding: 0px 20px; overflow: hidden; line-height: 40px; height: 50px; text-align: right;"> </div>
+                    <div style="padding: 2px 20px 30px;">
+                    <p>亲爱的 <span style="color: rgb(196, 0, 0);">________</span> , 您好！</p>
+                    <p>您投资“<a href="http://www.hcjrfw.com/odd/">________</a>”，单号：“<a href="http://www.hcjrfw.com/odd/' . $value['oddNumber'] . '">________</a>”</p>
+                    <p>合同已通过无忧存证进行保全，保全号为：________ </p><p>请复制保全号在下面链接内查看、下载合同：https://www.51cunzheng.com/search</p>
+                    <p style="overflow: hidden; width: 100%; word-wrap: break-word;"><a href="https://www.51cunzheng.com/search" target="_blank" swaped="true">借款合同下载</a>
+                    <br><span style="color: rgb(153, 153, 153);">(如果链接无法点击，请将它拷贝到浏览器的地址栏中)</span></p>
+                    <p style="text-align: right;"><br>汇诚普惠用户中心 敬启</p>
+                    <p><br>此为自动发送邮件，请勿直接回复！如您有任何疑问，请点击<a title="点击联系我们" style="color: rgb(15, 136, 221);" href="http://www.hcjrfw.com" target="_blank" >联系我们&gt;&gt;</a></p>
+                    </div></div></div>
+          </textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

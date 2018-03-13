@@ -1,0 +1,70 @@
+<?php
+  use Yaf\Registry;
+  $loginUser = Registry::get('session')->get('user');
+?>
+<div class="quick-links-wrap">
+	<div class="quick-links-panel">
+		<div id="quick-links" class="quick-links">
+			<a class="return-top" href="javascript:;"> 
+				<i class="top"></i>
+				<span>返回顶部</span>
+			</a>
+			<?php if($loginUser):?>
+			<a class="link-btn my-qlinks" href="javascript:;" data-ref="#quick-links-menu"> 
+				<i class="setting"></i>
+				<span>个人中心</span>
+			</a>
+			<?php else:?>
+			<a class="my-qlinks" href="<?php echo WEB_LOGIN;?>"> 
+				<i class="setting"></i>
+				<span>个人中心</span>
+			</a>
+			<?php endif;?>
+			<a class="history-list" href="<?php echo WEB_MAIN;?>/about">
+				<i class="view"></i>
+				<span>关于我们</span>
+			</a>
+			<a class="leave-message" target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4008659993">
+				<i class="qa"></i>
+				<span>联系客服</span>
+			</a>
+		</div>
+		<div class="quick-toggle">
+			<a id="toggle" class="toggle" title="展开/收起" href="javascript:;">×</a>
+		</div>
+	</div>
+	<div id="quick-links-menu" class="quick-links-pop quick-my-qlinks">
+		<div class="title">
+			<h3> <i></i>
+				个人中心
+			</h3>
+		</div>
+		<div class="pop-panel">
+			<div class="links">
+				<ul>
+					<li>
+						<a href="<?php echo WEB_USER;?>/account">账户总览</a>
+					</li>
+					<li>
+						<a href="<?php echo WEB_USER;?>/account/third">资金账户</a>
+					</li>
+					<li>
+						<a href="<?php echo WEB_USER;?>/user/safe">安全中心</a>
+					</li>
+					<li>
+						<a href="<?php echo WEB_USER;?>/user/investRecord">投资管理</a>
+					</li>
+					<li>
+						<a href="<?php echo WEB_USER;?>/user/autoInvest">自动投标</a>
+					</li>
+					<li>
+						<a href="<?php echo WEB_USER;?>/mail/list">站内消息</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="arrow"> <i></i>
+		</div>
+		<div class="fix-bg"></div>
+	</div>
+</div>

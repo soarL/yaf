@@ -1,0 +1,133 @@
+<?php $this->display('header.html');?>
+<div class="mainAdPage">
+	<div id="titlePic">
+		<img src="<?=RSRC?>/images/spread/head.png" alt="" />
+	</div>
+	<div id="stepNo1" class="stepArea bkgWhite">
+    <div class="pageMargin">
+			<h3><small>No.1</small>推荐奖励图</h3>
+			<p class="text-center"><img src="<?=RSRC?>/images/spread/stepNo1.png" alt="" /></p>
+    </div>
+	</div>
+  <div id="stepNo1Before" class="stepLine"></div>
+	<div class="stepArea bkgBlue">
+    <div id="stepNo1Next" class="pageMargin">
+			<div class="bkgWhite textGroup">
+				<p class="lead">邀请新人即可享受丰厚的推荐奖励，还等什么赶快加入吧！</p>
+				<p>投资用户每日会根据一、二、三级所有推荐新人的待收本金情况获得推荐奖励</p>
+				<p class="text-center"><img src="<?=RSRC?>/images/spread/stepNo1Next.png" alt=""></p>
+			</div>
+    </div>
+	</div>
+	<div class="stepArea bkgWhite">
+    <div id="stepNo2" class="pageMargin clearfix">
+			<h3><small>No.2</small>如何推荐</h3>
+			<div>
+				<p class="lead">方式一</p>
+				<p class="text-center"><img src="<?=RSRC?>/images/spread/stepNo2Left.png" alt=""></p>
+				<p class="text-center"><a href="https://user.hcjrfw.com/spread" target="_blank" class="linkBtn">分享专属链接</a></p>
+			</div>
+			<div>
+				<p class="lead">方式二</p>
+				<p class="text-center"><img src="<?=RSRC?>/images/spread/stepNo2Right.png" alt=""></p>
+				<p class="text-center"><a href="https://user.hcjrfw.com/register" target="_blank" class="linkBtn">注册填写推荐人</a></p>
+			</div>
+    </div>
+	</div>
+	<div id="stepNo3Before" class="stepLine"></div>
+	<div class="stepArea bkgBlue">
+    <div id="stepNo3" class="pageMargin">
+			<h3><small>No.3</small>常见问题</h3>
+			<ol class="bkgWhite textGroup">
+				<li>
+					<dl>
+						<dt>我如何获取推荐奖励？</dt>
+						<dd>您推荐的新老用户进行投资，产生待收本金后，您就可以享受到推荐奖励。</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>我如何邀请新人？</dt>
+						<dd>
+							<p>邀请新人的方式有两种：</p>
+							<ol style="margin-left: 15px;">
+								<li>进入账户内页，分享您的专属推荐链接给新人，让新人在此链接进行注册，即可成功邀请新人；</li>
+								<li>您所邀请的新人在注册页面的“推荐人”一栏中，填写入您的用户名，即可成功邀请新人。</li>
+							</ol>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>为什么我邀请的新人产生待收本金了，但是我还没有获得推荐奖励？</dt>
+						<dd>新人待收本金从新人首个非债权转让标的首次结息日后一日开始计入推荐奖励公式进行计算，首个非债权转让标如在首次结息日前发生债权转让，开始计入新人待收的时间将自动顺延至下一个非债权转让标的首次结息日后一日。</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>系统什么时间发放推荐奖励？</dt>
+						<dd>推荐奖励每日获得（预计22:00:00-23:59:59发放），推荐奖励以发放时间点的新人待收本金进行计算。</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>我邀请的新人可以让我永久获得推荐奖励吗？</dt>
+						<dd>奖励统计有效期为一年，即新人的待收本金计入推荐奖励公式满一年后不再计入。</dd>
+					</dl>
+				</li>
+			</ol>
+    </div>
+	</div>
+	<div class="stepArea bkgWhite clearfix">
+    <div id="stepNo4" class="pageMargin">
+			<h3><small>No.4</small>今日推荐奖励赚多少？</h3>
+      <div id="stepNo4PartGroup" class="clearfix">
+        <div id="stepNo4Right" class="stepNo4Right">
+          <input id="total-money" type="text" class="stepNo4Text" value="" readonly="true" />
+          <button id="money-compute" onclick="javascript:;">计算奖励</button>
+        </div>
+        <div class="stepNo4Right stepNo4Eq"></div>
+  			<div id="stepNo4Part1" class="stepNo4Left">
+          <input id="one-money" type="text" class="stepNo4Text float-input" value="" placeholder="请输入" />
+        </div>
+        <div class="stepNo4Left stepNo4Plus"></div>
+        <div id="stepNo4Part2" class="stepNo4Left">
+          <input id="two-money" type="text" class="stepNo4Text float-input" value="" placeholder="请输入" />
+        </div>
+        <div class="stepNo4Left stepNo4Plus"></div>
+        <div id="stepNo4Part3" class="stepNo4Left">
+          <input id="three-money" type="text" class="stepNo4Text float-input" value="" placeholder="请输入" />
+        </div>
+      </div>
+    </div>
+	</div>
+	<div id="stepNo5Before" class="stepLine"></div>
+	<div class="stepArea bkgBlue">
+    <div id="stepNo5" class="pageMargin">
+			<h3><small>No.5</small>活动规则</h3>
+			<ol class="bkgWhite textGroup">
+				<li>
+					<dl>
+						<dt>新人待收本金从新人首个非债权转让标的首次结息日后一日开始计入推荐奖励公式进行计算，首个非债权转让标如在首次结息日前发生债权转让，开始计入新人待收的时间将自动顺延至下一个非债权转让标的首次结息日后一日。</dt>
+						<dd><p>例如：该新人在4月10日投资一个1月债权转让标5万元（首次结息日：5月10日）；4月12日投资一个1月标10万元（首次结息日：5月12日，而该标在5月1日债权转让给其他投资用户）；4月15日投资一个3月标10万元（首次结息日：5月15日）；4月17日投资一个3月标20万元（首次结息日：5月17日），之后无其他投标。</p>
+					<p>由于4月10日投资的标的为债权转让标，4月12日投资的首个非债权转让标发生债权转让，而4月15日投资的第二个非债权转让标的首次结息日为5月15日，所以在5月16日时推荐奖励公式开始计入该新人的待收本金，待收本金为30万元（分别为4月15日和4月17日投资的三月标待收本金）</p></dd>
+					</dl>
+				</li>
+				<li>
+					待收本金仅为真实项目投资的待收本金，不包含虚拟金标、天标等活动类型标的。
+				</li>
+				<li>
+					推荐奖励每日获得（预计22:00:00-23:59:59发放），推荐奖励以发放时间点的新人待收本金进行计算。
+				</li>
+				<li>
+					奖励统计有效期为一年，即新人的待收本金计入推荐奖励公式满一年后不再计入。
+				</li>
+				<li>
+					新推荐活动上线后，保留系统原有推荐关系，原有推荐关系也将重新获得一年的奖励统计有效期。
+				</li>
+			</ol>
+			<p class="text-center"><a href="http://www.hcjrfw.com/news/show/id/1867" target="_blank" class="linkBtn">了解更多详情</a></p>
+    </div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

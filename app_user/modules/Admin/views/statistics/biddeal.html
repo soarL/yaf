@@ -1,0 +1,54 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">大额交易和可以交易监控</h3>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label time-label">截止日期</label>
+                                <input type="text" class="form-control input-sm timepicker" name="day" placeholder="截止日期" value="<?=$queries->day?>">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>用户</th>
+                                <th>姓名</th>
+                                <th>电话号码</th>
+                                <th>注册时间</th>
+                                <th>账户余额</th>
+                                <th>待收金额</th>
+                                <th>可疑情况</th>
+                                <th>资金日志</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

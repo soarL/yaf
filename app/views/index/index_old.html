@@ -1,0 +1,191 @@
+<?php 
+  use Yaf\Registry;
+  use helpers\StringHelper;
+  $asset = Registry::get('asset');
+?>
+<?php $this->display('header.html');?>
+<div class="slide1 clearfix" style="height:300px">
+  <div  class="focus" id="topimgSlide" >
+    <ul>
+      <?php foreach ($bannerList as $key => $banner):?>
+      <li class="tc">
+        <a class="lazy-load" href="<?=$banner->link?>" title="<?=$banner->title?>" target="_blank" style="background:url(<?=$banner->banner?>) center center no-repeat;"></a>
+      </li>
+      <?php endforeach;?>
+    </ul>
+  </div>
+</div>
+
+<div class="main clearfix">
+  <div class="statics clearfix"> 
+    <span>昨日成交<br><strong class="animate-number" data-number="<?=$yestodayVolume?>">0</strong>元</span>
+    <span>上月成交<br><strong class="animate-number" data-number="<?=$lastMonthVolume?>">0</strong>元</span>
+    <span>历史成交<br><strong class="animate-number" data-number="<?=$totalVolume?>">0</strong>元</span>
+    <span>总待收额<br><strong class="animate-number" data-number="<?=$stayMoney?>">0</strong>元</span>
+    <span>注册人数<br><strong class="animate-number" data-number="<?=$registerCount?>">0</strong>人</span>
+    <span style="border-right:0px; width:105px;">安全运营<br><strong class="animate-number" data-number="<?=$safeDay?>">0</strong>天</span>
+  </div>
+  <div class="modules clearfix">
+    <div> <a href="/question/list?type=ceo" target="_blank" class="ceoModule">CEO问答</a>
+      <p>直接发起疑问对话<strong>CEO</strong><br>
+        CEO帮您搞定<strong>问题</strong></p>
+    </div>
+    <div> <a href="<?=WEB_MAIN?>/safe" target="_blank" class="securityModule">安全保障</a>
+      <p>风险拨备金<br />
+        投资者资金第三方<strong>独立</strong>托管</p>
+    </div>
+    <div> <a href="<?=WEB_MAIN?>/guide" target="_blank" class="guideModule">新手引导</a>
+      <p><strong>3步</strong>教你轻松完成投资<br />
+        <strong>快速</strong>入驻汇诚普惠赚取收益 </p>
+    </div>
+    <div> <a href="<?=WEB_MAIN?>/video/list" class="videoModule">车库视频</a>
+      <p><strong>录制</strong>车库视频<br />
+        对应编号<strong>投资</strong>车辆&nbsp;定期更新实录</p>
+    </div>
+  </div>
+  <div class="announcement" style="overflow:hidden;">
+    <span class="ac-title"><i class="ac-ico">&nbsp;</i>公告区</span>
+    <ul id="notice-list">
+      <?php foreach ($notices as $notice):?>
+      <li>
+        <a href="<?=WEB_MAIN?>/news/show/id/<?=$notice->id?>" class="ac" title="<?=$notice->news_title?>" target="_blank">
+        <?=$notice->news_title?></a> 
+        <span class="time"><?=$notice->news_time?></span> 
+      </li>
+      <?php endforeach;?>
+    </ul>
+    <a href="<?=WEB_MAIN?>/news/list?type=notice" class="more">更多公告</a> 
+  </div>
+</div>
+<a class="advertisiment" title="<?=$ad->title?>" href="<?=$ad->link?>" target="_blank" style="background:url(<?=$ad->banner?>) no-repeat scroll center 0;">&nbsp;</a>
+<div class="main">
+  <?php $this->display('index/block/newhand.html', ['newHandOdds'=>$newHandOdds]);?>
+  <div class="invest">
+    <div class="idTabs">
+      <ul class="clearfix">
+        <li>
+          <a href="#invest1" class="selected">投资列表
+            <?php if($asset->params['oddNum']):?><span class="hight-light"><?=$asset->params['oddNum']?></span><?php endif;?>
+          </a>
+        </li>
+        <li>
+          <a href="#invest2">债权转让
+            <?php if($asset->params['crtrNum']):?><span class="hight-light"><?=$asset->params['crtrNum']?></span><?php endif;?>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <?php $this->display('index/block/odds.html', ['oddList'=>$oddList]);?>
+    <?php $this->display('index/block/crtrs.html', ['crtrs'=>$crtrs]);?>
+  </div>
+  <div class="medium mt30">
+    <h1>媒体报道<!-- <a href="#" class="more">更多</a> --></h1>
+    <div class="medium-list clearfix">
+    <?php foreach ($medias as $key => $media):?>
+    <a target="_blank" href="<?=$media->link?>" title="<?=$media->title?>"><img  src="<?=$media->banner?>"/></a>
+    <?php endforeach;?>
+    </div>
+  </div>
+  <div class="clearfix mt30">
+    <?php 
+      $this->display('index/block/news.html', [
+        'announceList'=>$announceList,
+        'notices'=>$notices,
+        'newsList'=>$newsList,
+        'seoList'=>$seoList,
+        'tqList'=>$tqList
+      ]);
+    ?>
+    <?php 
+      $this->display('index/block/ranks.html', [
+        'rankingList'=>$rankingList, 
+        'rankingMonthList'=>$rankingMonthList, 
+        'rankingWeekList'=>$rankingWeekList, 
+        'rankingDayList'=>$rankingDayList
+      ]);
+    ?>
+  </div>
+  <div class="ask clearfix mb50">
+    <div class="fl" style="width:610px;">
+      <div class="hot-ask-wrap">
+        <div class="hot-one">
+          <a href="/question/list" class="go-list"></a>
+          <a href="/question/view?id=<?=$hotQuestion->id?>" class="title"><?=$hotQuestion->title?></a>
+          <p class="hot-one-content"><?=StringHelper::newsTitle($hotQuestion->content, 60)?></p>
+          <p class="hot-one-aside pr">
+            <span class="ask-cl-grey">发布：<a class="ask-cl-blue"><?=StringHelper::getHideUsername($hotQuestion->username)?></a>
+            <strong class="f13 ml15"><?=date('Y-m-d', strtotime($hotQuestion->addTime))?></strong></span>
+          </p>    
+        </div>
+        </div>
+    </div>
+    <div class="fr">
+      <ul class="q-recommend">
+        <?php foreach ($questions as $question):?>
+        <li>
+          <a href="/question/view?id=<?=$question->id?>">
+            <i>·</i>
+            <?=StringHelper::newsTitle($question->title, 23)?>
+          </a>
+        </li>
+        <?php endforeach;?>
+      </ul>
+    </div>
+  </div>
+  <?php if(count($expectOdds)>0):?>
+  <div id="expect-odds-box" class="expect-odds-box open">
+    <span class="toggle">></span>
+    <div class="content">
+      <?php $firstEO = $expectOdds[0];?>
+      <span data-pre="<?=$firstEO->getContent()?>"><?=$expectOdds[0]->getContent()?></span>
+      <div class="list" style="display:none;">
+        <ul>
+          <?php foreach($expectOdds as $expectOdd):?>
+          <li><a href="/news/show/id/<?=$expectOdd['news_id']?>"><?=$expectOdd->getContent()?></a></li>
+          <?php endforeach;?>
+        </ul>
+        <div class="more"><a href="/news/show/id/<?=$firstEO['news_id']?>">更多</a></div>
+      </div>
+    </div>
+  </div>
+  <?php endif;?>
+</div>
+<!-- 弹出广告 -->
+<!-- <div class="elf-box-master"></div>
+<div class="elf-box ad-index-box">
+  <div class="elf-box-close" title="关闭">&nbsp;</div>
+  <div class="elf-box-content">
+    <ul id="ad-pop">
+      <li><a target="_blank" href="<?=WEB_MAIN?>/news/show/id/1533"><img src="<?=RSRC?>/images/ad-pic4.png" alt=""></a></li>
+      <li><a target="_blank" href="<?=WEB_MAIN?>/news/show/id/637"><img src="<?=RSRC?>/images/ad-pic3.png" alt=""></a></li>
+      <li><a target="_blank" href="<?=WEB_MAIN?>/news/show/id/740"><img src="<?=RSRC?>/images/ad-pic1.png" alt=""></a></li>
+      <li><img src="<?=RSRC?>/images/ad-pic2.png" alt=""></li>
+    </ul>
+  </div>
+</div> -->
+<div class="app-download-foot clearfix">
+  <div class="main" style="height: 160px;">
+    <div class="app-bg"><img src="<?=RSRC?>/images/app-bg.png"></div>
+    <div class="app-word">
+      <h1>下载手机APP 随时随地投资收益</h1>
+      <p>自动投标、债权转让、邀请好友更多奖励！</p>
+    </div>
+    <div class="app-qrcode">
+      <p>扫描下面二维码下载移动APP</p>
+      <div class="qrcode clearfix">
+        <div class="android-arcode">
+          <img src="<?=RSRC?>/images/android_app.png" alt="小微时代APP安卓版">  
+          <p>Android</p>
+        </div>
+        <div class="ios-arcode">
+          <img src="<?=RSRC?>/images/ios_app.png" alt="小微时代APP IOS版">  
+          <p>IOS</p>
+        </div>
+      </div>
+    </div>
+    <div id="app-close" class="app-close">
+      &times;
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');exit(0);?>

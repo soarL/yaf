@@ -1,0 +1,32 @@
+<?php
+  use helpers\StringHelper;
+?>
+<div class="rank mt15">
+  <h3 class="ranktable-title">达人排行</h3>
+  <div class="p10">
+    <table class="ranktable">
+      <thead>
+        <tr>
+          <th>排名</th>
+          <th>用户名</th>
+          <th>回答问题</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($rankingList as $key => $ranking):?>
+        <tr>
+          <td>
+            <?php if($key<3):?>
+            <span class="rankstatus1"><?php echo $key+1;?></span>
+            <?php else:?>
+            <span class="rankstatus2"><?php echo $key+1;?></span>
+            <?php endif;?>
+          </td>
+          <td><?php echo StringHelper::getHideUsername($ranking['username']);?></td>
+          <td class="money"><?php echo $ranking['userAnswerCount'];?></td>
+        </tr>
+        <?php endforeach;?>
+      </tbody>
+    </table>
+  </div>
+</div>

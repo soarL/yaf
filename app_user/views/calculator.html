@@ -1,0 +1,105 @@
+<!-- 利息计算器 -->
+<div id="ajax-calculator-box" class="hide-box box modal">
+    <div class="form-wrap form-big">
+        <div class="form-group clearfix">
+            <label>期限类型：</label>
+            <div class="select-box">
+                <select class="select" name="periodType" id="period-type" style="width:260px;">
+                    <option value="month">月</option>
+                    <option value="week">周</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <label>借款期限：</label>
+            <input id="loan-period" type="text" class="number-input" name="loanPeriod">
+            <div class="add-word">个月</div>
+        </div>
+        <div class="form-group clearfix">
+            <label>借款年利率：</label>
+            <input id="loan-rate" type="text" class="float-input" name="loanRate">
+            <div class="add-word">%</div>
+        </div>
+        <div class="form-group clearfix">
+            <label>借款金额：</label>
+            <input class="float-input" type="text" id="loan-money" name="loanMoney">
+            <div class="add-word">元</div>
+        </div>
+        <div class="form-group clearfix">
+            <label>还款方式：</label>
+            <div class="select-box">
+                <select class="select" name="loanStyle" id="loan-style" style="width:260px;">
+                    <option value="1">先息后本</option>
+                    <option value="2">等额本息</option>
+                    <option value="3">等额本金</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-calculator-btn" class="btn btn-primary ml95">计算</button>
+        </div>
+    </div>
+    <div class="box-remark-box big-remark">
+        <div class="remark-title">温馨提示</div>
+        <div class="remark-content">
+            <p>1、目前支持网站正在使用的四种还款方式：按天到期还款、按月分期还款、按月还息到期还本、到期还本息。 </p>
+        </div>
+    </div>
+</div>
+
+<div id="ajax-calculate-result-box" class="hide-box box modal">
+    <div class="result-all box-content">
+        <div class="title">借款概述</div>
+        <div class="content clearfix">
+            <div class="item clearfix">
+                <div class="item-title">综合年利率：</div>
+                <div id="year-apr" class="item-content">-</div>
+            </div>
+            <div class="item clearfix">
+                <div class="item-title">综合月利率：</div>
+                <div id="month-apr" class="item-content">-</div>
+            </div>
+            <div class="item clearfix">
+                <div class="item-title">综合周利率：</div>
+                <div id="week-apr" class="item-content">-</div>
+            </div>
+            <div class="item clearfix">
+                <div class="item-title">综合天利率：</div>
+                <div id="day-apr" class="item-content">-</div>
+            </div>
+            <div class="item clearfix">
+                <div class="item-title">共需还本息：</div>
+                <div id="account-total" class="item-content">-</div>
+            </div>
+            <div class="item clearfix">
+                <div class="item-title">共计付出利息：</div>
+                <div id="interest-total" class="item-content">-</div>
+            </div>
+        </div>
+    </div>
+    <div id="calculate-result" class="result-list box-content with-scrollbar">
+        <div class="title">借款概述</div>
+        <div class="content clearfix">
+            <div class="like-table">
+                <div class="like-table-head">
+                    <div class="like-table-tr clearfix">
+                        <div class="like-table-th result-month">期数</div>
+                        <div class="like-table-th result-capital">当期本金</div>
+                        <div class="like-table-th result-interest">当期利息</div>
+                        <div class="like-table-th result-total">当期总额</div>
+                        <div class="like-table-th result-other">余额</div>
+                    </div>
+                </div>
+                <div id="result-body" class="like-table-body">
+                    <div class="like-table-tr clearfix">
+                        <div class="like-table-td result-month"></div>
+                        <div class="like-table-td result-capital"></div>
+                        <div class="like-table-td result-interest"></div>
+                        <div class="like-table-td result-total"></div>
+                        <div class="like-table-td result-other"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

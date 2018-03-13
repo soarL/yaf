@@ -1,0 +1,9 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="content-nav">
+	<ul class="clearfix">
+		<li><a href="/link" class="content-nav-a <?php if($submenu=='index'):?>sel<?php endif;?>">友情链接<i class="tri">&nbsp;</i></a></li>
+	</ul>
+</div>

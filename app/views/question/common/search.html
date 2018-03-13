@@ -1,0 +1,31 @@
+<div class="ask-search-wrap">
+  <div class="ask-search">
+    <a class="list-link" href="/question/list"></a>
+    <div class="form-wrap">
+      <form action="/question/search" method="get">
+        <input  type="text" name="keyword" placeholder="请输入要搜索的问题"/>
+        <button type="submit" class="ask-search-btn"> <i class="searchico-white">&nbsp;</i>
+          搜答案
+        </button>
+      </form>
+      <a href="javascript:;" class="ask-btn ask-search-btn1" data-type="normal">我要提问</a>
+    </div>
+  </div>
+</div>
+<!-- 隐藏弹窗 -->
+<div id="ajax-question-box" class="hide-box box modal">
+    <div class="form-wrap">
+        <input id="question-type" type="hidden" value="" name="askType">
+        <div class="form-group clearfix">
+            <label>问题标题：</label>
+            <input id="question-title" type="text" name="title" placeholder="请输入问题标题">
+        </div>
+        <div class="form-group clearfix">
+            <label>问题内容：</label>
+            <textarea name="content" id="question-content" cols="29" rows="5" placeholder="请输入您的问题"></textarea>
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-question-btn" class="btn btn-primary ml-75">提交</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<?php $this->display('header.html');?>
+<?php $type = $queries->type;?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="userMoveBody">
+                <ul class="userMoveTitle list-unstyled">
+                    <li <?php if($type=='can'):?>class="userMoveTitleLi"<?php endif;?>><a href="/user/assign?type=can">可转让的债权</a></li>
+                    <li <?php if($type=='ing'):?>class="userMoveTitleLi"<?php endif;?>><a href="/user/assign?type=ing">转让中的债权</a></li>
+                    <li <?php if($type=='sell'):?>class="userMoveTitleLi"<?php endif;?>><a href="/user/assign?type=sell">已转让债权</a></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div>
+                    <table class="userMoveZqTable table">
+                        <thead>
+                            <tr>
+                                <th>项目编号</th>
+                                <th>年化收益</th>
+                                <th>项目期限</th>
+                                <th>剩余天数</th>
+                                <th>待收本金</th>
+                                <th>待收利息</th>
+                                <th>本期还款日</th>
+                                <th class="zrtishi" title="说明注释">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($oddMoneys as $oddMoney):?>
+                            <tr data-id="<?=$oddMoney->id?>" data-dayInterest="<?=$oddMoney->getInvestedStayInterest()?>" data-money="<?=$oddMoney->remain?>" data-crtrSM="<?=$oddMoney->getCrtrSM()?>">
+                                <td><?=$oddMoney->oddNumber?></td>
+                                <td><?=$oddMoney->odd->oddYearRate*100?>% <?php if($oddMoney->odd->oddReward>0):?>+ <span><?=$oddMoney->odd->oddReward*100?>%</span><?php endif;?></td>
+                                <td><?=$oddMoney->odd->getPeriod()?></td>
+                                <td><?=$oddMoney->getRemainDay()?>天</td>
+                                <td><?=$oddMoney->remain?>元</td>
+                                <td><?=$oddMoney->getStayInterest()?>元</td>
+                                <td><?=_date('Y-m-d', $oddMoney->odd->getNextRepayTime())?></td>
+                                <td>
+                                    <?php if($type=='can'):?>
+                                    <a class="box-transfer-btn" href="javascript:;"  data-paypass="<?=$user->paypass?'1':-1?>">债权转让</a>
+                                    <?php endif;?>
+                                    <?php if($type=='ing'):?>
+                                    <a class="box-delTransfer-btn" href="javascript:;"  data-paypass="<?=$user->paypass?'1':-1?>">撤销</a>
+                                    <?php endif;?>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                    <?=$oddMoneys->render()?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ajax-transfer-box" class="hide-box box modal" style="width: 320px;">
+    <div class="form-wrap">
+        <input id="user-phone" type="hidden" name="phone" value="<?=$user->phone?>">
+        <input id="oddMoneyId" type="hidden" name="oddMoneyId" value="">
+        <div class="form-group group-s clearfix">
+            <label>债权本金：</label>
+            <div id="tender-money" class="static-input input-blue"></div>
+        </div>
+        <div class="form-group group-s clearfix">
+            <label>未结利息：</label>
+            <div id="last-interest" class="static-input input-blue"></div>
+        </div>
+        <div class="form-group group-s clearfix">
+            <label>服务费：</label>
+            <div id="service-money" class="static-input input-blue"></div>
+        </div>
+        <div class="form-group group-s clearfix">
+            <label>交易密码：</label>
+            <input id="smsCode" type="password" value="" name="paypass">
+            <!-- <span id="send-sms-code" class="icon-btn" style="top: 5px;"></span> -->
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-transfer-btn" class="btn btn-primary ml-75">确定</button>
+        </div>
+    </div>
+    <div class="box-remark-box mt10" style="width:300px;">
+        <div class="remark-title">温馨提示</div>
+        <div class="remark-content">
+        <p>1、项目还款日当天无法进行债权转让操作；</p>
+        <p>2、客户持有债权30天内进行转让，转让费为债权本金的0.5%；持有债权31~90天内进行转让，转让费为债权本金的0.2%；持有债权超过90天转让，免转让费。</p>
+        </div>
+    </div>
+</div>
+
+<div id="ajax-delTransfer-box" class="hide-box box modal">
+    <div class="form-wrap">
+        <input id="delOddMoneyId" type="hidden" name="oddMoneyId" value="">
+        <p style="color: #666;">您确定要撤销该笔债权转让吗？</p>
+        <div class="form-group group-s clearfix">
+            <label>交易密码：</label>
+            <input id="paypassCan" type="password" value="" name="paypass">
+            <!-- <span id="send-sms-code" class="icon-btn" style="top: 5px;"></span> -->
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-delTransfer-btn" class="btn btn-primary">确定</button>
+        </div>
+    </div>
+    <div class="box-remark-box mt10" style="width:342px;">
+        <div class="remark-title">温馨提示</div>
+        <div class="remark-content">
+            <p>1、只有当债权还未被购买时才能撤销。</p>
+        </div>
+    </div>
+</div>
+
+<?php $this->display('footer.html');?>

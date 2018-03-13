@@ -1,0 +1,90 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">轮播图列表</h3>
+        <div class="box-tools pull-right">
+              <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加轮播图" href="/admin/banner/add">
+              <i class="glyphicon glyphicon-edit"></i></a>
+            </div>
+      </div>
+      <div class="box-body pb-0">
+        <div class="row">
+          <div class="col-sm-12">
+            <form action="/admin/banner/list" class="table-search-form clearfix" method="get">
+              <div class="form-group">
+                <label class="control-label">标题</label>
+                <div class="input-wrap">
+                  <input type="text" class="form-control input-sm" name="title" placeholder="标题" value="<?=$queries->title?>"></div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">类型</label>
+                <div class="select-wrap">
+                  <select class="form-control input-sm" name="type">
+                    <option value="all">全部</option>
+                    <?php foreach($types as $type):?>
+                    <option value="<?=$type['name']?>" <?php if($type['name']==$queries->type):?>selected<?php endif;?>><?=$type['name'];?></option>
+                    <?php endforeach;?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label time-label">添加时间</label>
+                <div class="input-group time-group">
+                  <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="startTime" value="<?=$queries->beginTime?>">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-sm">至</button>
+                  </div>
+                  <!-- /btn-group -->
+                  <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-info">搜索</button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-hover mb-0" data-delete="/admin/banner/del">
+              <tr>
+                <th >标题</th>
+                <th >banner图</th>
+                <th >跳转链接</th>
+                <th >类型</th>
+                <th >状态</th>
+                <th >排序</th>
+                <th >添加时间</th>
+                <th >操作</th>
+              </tr>
+              <?php  foreach($list as $value) { ?>
+                  <tr data-id="<?=$value->id?>">
+                    <td align=right ><?=$value->title?></td>
+                    <td align=right><a href="<?=$value->banner?>" target="_blank"><img src=<?=$value->banner?> width= 40 ></a></td>
+                    <td align=right><?=$value->link?></td>
+                    <td align=right><?=$types[$value->type_id]['name']?></td>
+                    <td align=right><?php if($value->status==0){ echo '隐藏';} else { echo '显示';}?></td>
+                <td align="right"><?=$value->banner_order?></td>
+                    <td align=right><?=$value->addtime?></td>
+                    <td>
+                      <a class="btn btn-ssm btn-success" href="/admin/banner/edit?id=<?=$value->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+                        编辑
+                      </a>
+                      <a href="JavaScript:deleteBanner('<?=$value->id?>');" class="btn btn-ssm btn-danger btn-delete">
+                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                        删除
+                      </a>
+                    </td>
+                  </tr>
+              <?php  } ?></table>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer clearfix">
+        <?=$list->render()?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php $this->display('footer.html');?>

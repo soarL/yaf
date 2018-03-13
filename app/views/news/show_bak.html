@@ -1,0 +1,32 @@
+<?php $this->display('header.html');?>
+<div class="middle" style="padding-top:20px;">
+  <div class="tab-s">
+  	<a href="/news/list?type=notice" <?php if($news->news_type=='notice'):?>class="sel"<?php endif;?>>网站公告</a>
+    <a href="/news/list?type=announce" <?php if($news->news_type=='announce'):?>class="sel"<?php endif;?>>新标预告</a>
+    <a href="/news/list?type=officenews" <?php if($news->news_type=='officenews'):?>class="sel"<?php endif;?>>新闻资讯</a>
+    <a href="/news/list?type=hangyenew" <?php if($news->news_type=='hangyenew'):?>class="sel"<?php endif;?>>行业新闻</a>
+    <a href="/news/list?type=tiqian" <?php if($news->news_type=='tiqian'):?>class="sel"<?php endif;?>>提前还款</a>
+  </div>
+  <div class="main mb20">
+    <div class="content-wrap">
+      <div class="news-wrap">
+        <div class="news-title"><?=$news->news_title;?></div>
+        <div class="news-other-info clearfix">
+          <div class="author"><span>作者：</span><?='汇诚普惠';?></div>
+          <div class="hit"><span>点击量：</span><?=$news->news_num;?></div>
+          <div class="time"><span>发布时间：</span><?=$news->news_time;?></div>
+        </div>
+        <div class="news-content"><?=_decode($news->news_body);?></div>
+      </div>
+    </div>
+    <div id="SOHUCS" sid="<?=$news->news_type.'_'.$news->id;?>"></div>
+    <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js"></script>
+    <script type="text/javascript">
+        window.changyan.api.config({
+            appid: 'cys9NOmGx',
+            conf: 'prod_3ae51c7251b2b88fd2b83dbccd24640e'
+        });
+    </script>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

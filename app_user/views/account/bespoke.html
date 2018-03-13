@@ -1,0 +1,37 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">申请约标</div>
+  <form action="/account/bespoke" method="post">
+    <div class="input-wrap mt20">
+      <label class="label label-1">预约金额</label>
+      <select name="money">
+        <?php foreach($moneyList as $key => $money):?>
+        <option value="<?=$key?>"><?=$money?></option>
+        <?php endforeach;?>
+      </select>
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label label-1">借款期限</label>
+      <div class="radio-item-list clearfix">
+        <?php foreach($monthList as $key => $month):?>
+        <div class="radio-item">
+          <label><input type="checkbox" name="month[]" value="<?=$key?>"><?=$month?></label>
+        </div>
+        <?php endforeach;?>
+      </div>
+    </div>
+    <div class="input-wrap mt20">
+      <label class="label">预约日期</label>
+      <input class="ui-input input-icon timepicker" type="text" name="time" value="">
+      <span class="icon icon-head"></span>
+    </div>
+    <div class="tc mt20">
+      <input  type="submit" value="提交申请" class="btn-blue loginbtn"/>
+    </div>
+    <div class="common-form-warning">
+    <p><span class="head">温馨提示：</span>您也可以拨打客服热线 <em>400-186-9996</em> 或者联系<a target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4008659993">客服QQ</a>申请约标！</p>
+    </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

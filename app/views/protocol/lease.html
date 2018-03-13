@@ -1,0 +1,53 @@
+<?php
+	use Yaf\Registry;
+	use helpers\StringHelper;
+	use helpers\FileHelper;
+	$asset = Registry::get('asset');
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<?php $asset->begin();?>
+<style>
+	p {
+		line-height: 35px;
+	    text-indent: 2em;
+	    color: #999;
+	    font-size: 14px;
+	}
+	h4 {
+		font-weight: 700;
+    	color: #666;
+    	margin-bottom: 10px;
+    	font-size: 14px;
+	}
+</style>
+</head>
+<body>
+	<div class="main">
+		<div class="header clearfix">
+			<div class="logo"></div>
+			<div class="title">汇诚普惠电子借款合同</div>
+		</div>
+		<div class="main-content">
+			<?php FileHelper::txt2html('protocols/lease.txt', $params);?>
+		</div>
+		<?php if(isset($params['rehearTime'])):?>
+		<div class="protocol-users clearfix">
+			<div class="user-item item-1">甲方：</div>
+			<div class="user-item item-2">乙方：</div>
+			<div class="user-item item-3">丙方：</div>
+			<div class="user-item item-4">签订时间：<?=_date('Y年m月d日', $params['rehearTime'])?></div>
+		</div>
+		<?php else:?>
+		<div class="protocol-users clearfix">
+			<div class="no-user-item">甲方：</div>
+			<div class="no-user-item">乙方：</div>
+			<div class="no-user-item">丙方：</div>
+			<div class="no-user-item">签订时间：</div>
+		</div>
+		<?php endif;?>
+	</div>
+</body>
+</html>

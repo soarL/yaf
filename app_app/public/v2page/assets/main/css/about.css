@@ -1,0 +1,32 @@
+.xw-container >ul {
+	width: 100%;
+}
+.ab-mtitle {
+	color: white;
+	background: #00a0e9;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 5px;
+	margin: 0 auto;
+	text-align: center;
+}
+.ab-content {
+	font-size: 14px;
+	text-indent: 2em;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 1.5em;
+}
+.ab-container {
+	padding: 15px;
+	border-bottom: 1px solid #eeeeee;
+}
+.ab-bg-gray {
+	background: #eeeeee;
+}
+.ab-img {
+	width: 100%;
+	max-width: 800px;
+	text-align: center;
+}

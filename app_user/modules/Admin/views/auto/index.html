@@ -1,0 +1,110 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">自动投标设置列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th>编号</th>
+								<th>用户</th>
+								<th>自动/站队</th>
+								<th class="visible-lg">账户余额</th>
+								<th class="visible-lg">保留金额</th>
+								<th class="visible-lg">投资范围</th>
+								<th class="visible-lg">队列位置</th>
+								<th class="visible-lg">所处队列</th>
+								<th class="visible-lg">投资类型</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr>
+								<td><?=$record->id?></td>
+								<td>
+									<?=$record->user->username.' <span class="label label-primary">'.$record->userId.'</span>';?>
+								</td>
+								<td>
+									<?php if($record->autostatus==1):?>
+									<span data-toggle="tooltip" title="" class="badge bg-green" data-original-title="自动投标开启">开</span>
+									<?php else:?>
+									<span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="自动投标关闭">关</span>
+									<?php endif;?>
+									<?php if($record->staystatus==1):?>
+									<span data-toggle="tooltip" title="" class="badge bg-green" data-original-title="站队">是</span>
+									<?php else:?>
+									<span data-toggle="tooltip" title="" class="badge bg-red" data-original-title="不站队">否</span>
+									<?php endif;?>
+								</td>
+								<td class="visible-lg"><?=$record->user->fundMoney?></td>
+								<td class="visible-lg"><?=$record->investEgisMoney===null?'不保留':$record->investEgisMoney?></td>
+								<td class="visible-lg">
+									<?=$record->investMoneyLower===null?'无':$record->investMoneyLower?>-
+									<?=$record->investMoneyUper===null?'无':$record->investMoneyUper?>
+									<?php if($record->moneyType==0):?>
+									<span class="label label-primary">指定</span>
+									<?php else:?>
+									<span class="label label-primary">范围</span>
+									<?php endif;?>
+								</td>
+								<td><?=$record->queue?$record->queue->location:'无'?></td>
+								<td>
+									<?php if($record->investable()):?>
+									<span class="label label-success">有效队列</span>
+									<?php else:?>
+									<span class="label label-danger">无效队列</span>
+									<?php endif;?>
+								</td>
+								<td class="visible-lg">
+									<a class="btn btn-ssm btn-info show-detail" href="javascript:;" data-content="<?=$record->type?>"> <i class="glyphicon  icon-white"></i>
+										详情
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="show-detail-modal" tabindex="-1" role="dialog" aria-labelledby="show-detail-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="show-detail-label">投资类型详情</h5>
+      </div>
+      <div class="modal-body">
+		
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

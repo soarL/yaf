@@ -1,0 +1,187 @@
+<?php $this->display('header-index.html');?>
+
+	  	<!-- 页面主体开始 -->
+	  	<!-- 登录与注册CSS -->
+	  	<!-- 区域背景广告图样式 广告位置仅在页面宽度超过1024时有效 -->
+	  	<style>
+	  		@media (min-width: 1024px) { #loginArea { background-image: url(<?=RSRC?>/images/bkg.png) } }
+	  	</style>
+	  	<section id="loginArea">
+	  		<div class="page-box">
+		  		<div class="loginForm">
+		  			<form>
+		  				<div class="loginUser">
+		  					<input type="text" name="phone" placeholder="手机号码" />
+		  				</div>
+		  				<div class="loginPwd"><input type="password" name="pwd" placeholder="密码" /></div>
+		  				<div ><input type="hidden" name="t_code"  value="<?=$data['t_code']?>" /></div>
+		  				<div ><input type="hidden" name="serial_num"  value="<?=$data['serial_num']?>" /></div>
+		  				<div ><input type="hidden" name="mobile" value="<?=$data['mobile']?>" /></div>
+		  				<div ><input type="hidden" name="user_id"  value="<?=$data['user_id']?>"/></div>
+		  				<div ><input type="hidden" name="platform_uid" value="<?=$data['platform_uid']?>" /></div>
+		  				<div ><input type="hidden" name="user_name"  value="<?=$data['user_name']?>" /></div>
+		  				<div ><input type="hidden" name="user_identity" value="<?=$data['user_identity']?>"  /></div>
+		  				<div ><input type="hidden" name="bid_url" value="<?=$data['bid_url']?>"  /></div>
+		  				<div ><input type="hidden" name="sign"  value="<?=$data['sign']?>" /></div>
+		  				<div ><input type="hidden" name="source"  value="<?=$data['source']?>" /></div>
+		  				<!-- 错误超过3次显示验证码 -->
+		  				<div class="row hidden">
+		  					<div class="col-xs-6">
+		  						<input class="loginCode" type="text" placeholder="验证码" />
+		  					</div>
+		  					<div class="col-xs-6 loginVCode">
+		  						<!-- 切换验证码的事件直接绑定到这个.loginVCode上即可，图片显示的大小到CSS里面调整。 -->
+		  						<img src="img/code.png" alt="" />
+		  					</div>
+		  				</div>
+		  				<div class="row">
+		  					<p class="col-xs-6 pull-right text-right"><a href="https://user.hcjrfw.com/login/forget">忘记密码</a></p>
+		  					<!-- <p class="col-xs-6 loginAuto"><label><input type="checkbox" />自动登录</label></p> -->
+		  				</div>
+		  				<button type="button" class="loginButton">立即登录</button>
+		  				<p class="row text-center">
+		  					还没账号？<a href="https://user.hcjrfw.com/register">马上注册</a>
+		  				</p>
+		  			</form>
+		  			<p class="text-center loginTips">
+	  					您的帐号信息已使用SSL加密技术，数据传输安全
+	  				</p>
+		  		</div>
+	  		</div>
+	  	</section>
+	  	<!-- 页面主体结束 -->
+    <?php $this->display('footer.html');?>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	  	<script>
+	  		jQuery(function(){
+	  			var $ = jQuery ,_this = {
+	  				url:"<?=WEB_MAIN?>/xeenho/bind",
+	  				userUrl:"<?=WEB_MAIN?>",
+	  				tipsTpl:function(str){
+	  					return '\
+		  				<div class="tooltip bottom in" role="tooltip">\
+							<div class="tooltip-arrow"></div>\
+							<div class="tooltip-inner">'+ str + '</div>\
+						</div>';
+					},
+					alertTpl:function(str){
+						return '\
+						<div class="alert alert-danger" role="alert">\
+		  					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+		  					+ str +'\
+		  				</div>';
+					},
+					modalTpl:function(str,btnid,title){
+						title = title || "提示"
+						return '\
+						<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">\
+  							<div class="modal-dialog" role="document">\
+    							<div class="modal-content">\
+    								<div class="modal-header">\
+        								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+        								<h4 class="modal-title" id="loginModalLabel">' + title + '</h4>\
+      								</div>\
+      								<div class="modal-body">' + str + '</div>\
+      								<div class="modal-footer">' + ((!!btnid) ?
+      									('<button type="button" class="btn btn-default" id="'+ btnid +'">确定</button>') :
+        								('<button type="button" class="btn btn-default" data-dismiss="modal">确定</button>')) +
+      								'</div>\
+    							</div>\
+  							</div>\
+						</div>';
+					},
+	  				notifyTips:function(str, $target){
+	  					var name = "notifyTips_"+$target.attr("name"),$tips = $(_this.tipsTpl(str)).attr("id",name);
+	  					$tips.insertAfter($target);
+	  					$target.one("change",function(){$("#"+name).remove()});
+	  				},
+	  				notifyAlert:function(str){
+	  					var $target = $(".loginForm"), name= "notifyAlert_"+$.now(), 
+	  						$tips = $(_this.alertTpl(str)).attr("id",name);
+	  					$tips.appendTo($target);
+	  					$target.one("change","input",function(){$("#"+name).remove()});
+	  				},
+	  				notifyModal:function(str, btnid, title){
+	  					var $target = $("body"), name= "notifyModal_"+$.now(), 
+	  						$tips = $(_this.modalTpl(str,btnid,title)).attr("id",name);
+	  					$tips.appendTo($target);
+	  					$("#"+name).modal("show");
+                        $("#"+_this.btnid).off("click").on("click",_this.gotoUrl);
+	  				},
+	  				submitLogin:function(){
+	  					var $user = $('[name="phone"]'), username = $user.val(), 
+	  						$pwd = $('[name="pwd"]'), password = $pwd.val(),
+	  						$t_code = $('[name="t_code"]'), t_code = $t_code.val(),
+                            $serial_num = $('[name="serial_num"]'), serial_num = $serial_num.val(),
+                            $mobile = $('[name="mobile"]'), mobile = $mobile.val(),
+                            $user_id = $('[name="user_id"]'), user_id = $user_id.val(),
+                            $platform_uid = $('[name="platform_uid"]'), platform_uid = $platform_uid.val(),
+                            $user_name = $('[name="user_name"]'), user_name = $user_name.val(),
+                            $user_identity = $('[name="user_identity"]'), user_identity = $user_identity.val(),
+                            $bid_url = $('[name="bid_url"]'), bid_url = $bid_url.val(),
+                            $sign = $('[name="sign"]'), sign = $sign.val(),
+                            $source = $('[name="source"]'), source = $source.val();
+
+	  					if("" === username){
+	  						_this.notifyTips("用户名不能为空",$user);
+	  						return false;
+	  					}
+
+	  					if("" === password){
+	  						_this.notifyTips("密码不能为空",$pwd);
+	  						return false;
+	  					}
+
+	  					$.post(_this.url,{
+	  					    "username":username,
+                            "password":password,
+                            "t_code":t_code,
+                            "serial_num":serial_num,
+                            "mobile":mobile,
+                            "user_id":user_id,
+                            "platform_uid":platform_uid,
+                            "user_name":user_name,
+                            "user_identity":user_identity,
+                            "bid_url":bid_url,
+                            "sign":sign,
+                            "source":source
+
+                        },function(json){
+	  						switch(json.status){
+	  							case 1:
+	  								_this.jsonUrl = json.url;
+	  								_this.notifyModal(json.info,_this.btnid);
+	  								break;
+	  							default:
+	  								_this.notifyAlert(json.info);
+	  								break;
+	  						}
+	  					},"JSON")
+	  					/* 测试用登录案例
+	  					if("" === userName){
+	  						_this.notifyTips("不能为空",$user)
+	  						return false;
+	  					}
+	  					if("" === pwd){
+	  						_this.notifyAlert("密码不能为空")
+	  						return false;
+	  					}
+	  					_this.notifyModal("登录成功！")
+	  					*/
+	  				},
+	  				gotoUrl:function(){
+
+	  					if(_this.jsonUrl){
+	  						location.replace(_this.jsonUrl);
+	  					}else{
+	  						location.replace(_this.userUrl);
+	  					}
+	  				}
+	  			}
+	  			_this.btnid = "loginTip"+$.now();
+	  			$(".loginButton").on("click",_this.submitLogin);
+	  		})
+	  	</script>
+  	</body>
+</html>

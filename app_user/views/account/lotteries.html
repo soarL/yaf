@@ -1,0 +1,69 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="HBzhuangtai">
+                <dl>
+                    <dt>未使用红包（元）</dt>
+                    <dd><?=$canMoney?></dd>
+                </dl>
+                <dl>
+                    <dt>已使用的红包（元）</dt>
+                    <dd><?=$useMoney?></dd>
+                </dl>
+                <div class="clearfix"></div>
+            </div>
+            <div class="HBbody">
+                <ul class="list-unstyled HBfenglei">
+                    <li <?php if($queries->status=='nouse'):?>class="HBActive"<?php endif;?>><a href="/account/lotteries?status=nouse">未使用</a></li>
+                    <li <?php if($queries->status=='used'):?>class="HBActive"<?php endif;?>><a href="/account/lotteries?status=used">已使用</a></li>
+                    <li <?php if($queries->status=='over'):?>class="HBActive"<?php endif;?>><a href="/account/lotteries?status=over">已过期</a></li>
+                    <a class="HBguizhe">红包券规则</a>
+                    <div class="clearfix"></div>
+                </ul>
+                <table class="HBbiaoge">
+                    <thead>
+                        <tr>
+                            <th>面值金额</th>
+                            <th>收到日期</th>
+                            <th>金额限制</th>
+                            <th>期限限制</th>
+                            <th>过期时间</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody class="HBbiaogeBody">
+                        <?php foreach($lotteries as $lottery):?>
+                        <tr>
+                            <td class="moneyBag"><?=$lottery->getValue()?></td>
+                            <td><?=_date('Y-m-d', $lottery->get_at)?></td>
+                            <td><?=$lottery->getMoneyType()?></td>
+                            <td><?=$lottery->getPeriodType()?></td>
+                            <td><?=_date('Y-m-d', $lottery->endtime)?></td>
+                            <td class="HBbeizhu"><?=$lottery->remark?></td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+                <div id="page1" class="page_div"></div> 
+            </div>
+        </div>
+    </div>
+    <!-- 红包规则 -->
+    <div id="hongbao-box" style="display: none;">
+          <div class="user-content">
+            <p>1、客户投资时可选择使用的投资红包，投资项目复审成功后，客户即可获得相应面值的红包奖励；</p>
+            <p>（例：客户投资金额为2000元，选择18元投资红包，则该笔投资复审成功后账户即可获得18元红包；）</p>
+           <p>2、投资红包需按所限定的使用金额和使用期限规则进行使用，不同面值红包限定不同；</p> 
+            <p>3、客户每笔投资仅可使用一张投资红包；</p>
+            <p>4、投资红包可在投资新手标、手动标、自动标时使用；</p>
+           <p>5、若投资红包超过过期时间，即该投资红包失效无法使用；</p>
+            <p>6、客户在使用投资红包过程中有相关疑问，可咨询客服人员：400-080-8885；</p>
+          </div>
+    </div>
+
+</div>
+<?php $this->display('footer.html');?>

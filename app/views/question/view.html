@@ -1,0 +1,123 @@
+<?php 
+  use helpers\StringHelper;
+  use helpers\DateHelper;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('question/common/search.html');?>
+    <div class="main mb30 clearfix">
+   	 <div class="fl"  style="width:745px; border:1px solid #eaeaea; margin-top:20px;">
+        <div class="hot-ask-wrap hot-detail">
+            <div class="hot-one m15" >
+                <h2>
+                    <?php if($question->type=='ceo'):?>
+                    <em class="ceo-ico">CEO</em>
+                    <?php endif;?>
+                    <?=$question->title?>
+                </h2>
+                <p class="hot-one-aside mb10 pr"><span class="ask-cl-grey">发布：<a class="ask-cl-blue">
+                <?php if($question->username=='汇诚普惠平台'):?>
+                    <?=$question->username?>
+                <?php else:?>
+                    <?=StringHelper::getHideUsername($question->username)?>
+                <?php endif;?>
+                </a>
+                <strong class="f13 ml15"><?=$question->addTime?></strong></span></p>
+                <p class="hot-one-content"><?=$question->content?></p>
+            </div>
+           
+        </div> 
+        <?php if($question['type']!='ceo'):?>
+        <div class="answer-area pr">
+            <form action="/question/answer" method="post">
+                <input type="hidden" name="questionId" value="<?=$question->id?>">
+                <input class="ui-input input-icon" type="text" name="answerContent" style="width:540px">
+                <input  type="submit" value="我来回复" class="answer-btn"/>
+            </form>
+        </div>
+        <?php endif;?>
+        <div class="answercount">共<em><?=$question->answerCount?></em>个回复</div>
+            <div>               
+            	<ul class="q-list m15 q-detail-list">
+                    <?php foreach ($answers as $answer):?>
+                	<li>
+                    <?php if($question->type=='ceo'):?>
+                    <img class="ask-portrait" src="<?=RSRC?>/images/ask-ceophoto.jpg">
+                    <?php elseif($answer->username=='平台客服'||$answer->username=='汇诚普惠平台'):?>
+                    <img class="ask-portrait" src="<?=RSRC?>/images/ask-customphoto.jpg">
+                    <?php else:?>
+                    <img class="ask-portrait" src="<?=RSRC?>/images/ask-portrait.jpg">
+                    <?php endif;?>
+                    <div class="q-listitem-body">
+                        <div class="q-listitem-header">
+                            <?php if($question->type=='ceo'):?>
+                            <a href="javascript:void(0)"  class="ceo" >CEO</a>    
+                            <?php elseif($answer->username=='平台客服'):?>
+                            <a href="javascript:void(0)"  class="custom" >平台客服</a>
+                            <?php elseif($answer->username=='汇诚普惠平台'):?>
+                            <a href="javascript:void(0)"  class="custom" >汇诚普惠平台</a>
+                            <?php else:?>
+                            <a href="javascript:void(0)"  class="user" ><?=StringHelper::getHideUsername($answer->username)?></a>
+                            <?php endif;?>
+                            <span class="time" data="1443146950"><?=DateHelper::getTimeDistance(strtotime($answer->answerTime))?></span>
+                        </div>
+                    	<p class="q-listitem-content"><?=$answer->content?></p>
+                        <p class="q-listitem-footer pr">
+                            <a href="javascript:;" class="prove-btn" data-answer="<?=$answer->id?>">有用(<em><?=$answer->usefulCount?></em>)</a>
+                            <a href="javascript:;" class="reply-btn">
+                                <?php if($question->type=='ceo'):?>追问<?php else:?>回复<?php endif;?>
+                                (<em><?=$answer->replyCount?></em>)
+                            </a>
+                        </p>
+                        <div class="reply-list active" data-question="<?=$question->id?>" data-answer="<?=$answer->id?>">
+                            <div class="reply-input clearfix">
+                                <input type="text" value="" class="reply-ajax-content">
+                                <?php if($question->type=='ceo'):?>
+                                <button class="reply-ajax-btn">追问</button>
+                                <?php else:?>
+                                <button class="reply-ajax-btn">回复</button>
+                                <?php endif;?>
+                            </div>
+                            <div id="answer-replys-<?=$answer->id?>" class="reply-item-list">
+                                <?php foreach ($answer->replies as $reply):?>
+                                <div class="reply-item">
+                                    <div class="reply-info">
+                                        <?php if($reply->username=='CEO'):?>
+                                        <span class="ceo">CEO</span>
+                                        <?php elseif($reply->username=='平台客服'):?>
+                                        <span class="custom">平台客服</span>
+                                        <?php elseif($reply->username=='汇诚普惠平台'):?>
+                                        <span class="custom">汇诚普惠平台</span>
+                                        <?php else:?>
+                                        <span><?=StringHelper::getHideUsername($reply->username)?></span>
+                                        <?php endif;?>
+                                        <span><?=DateHelper::getTimeDistance(strtotime($reply->answerTime))?></span>    
+                                    </div>
+                                    <div class="reply-content">
+                                        <?=$reply['content'];?>
+                                    </div>
+                                </div>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
+                    <?php endforeach;?>
+                </ul>
+                
+                <!--分页-->
+       			<div class="pagination-wrapper pt30 pb30">
+                    <?=$answers->render()?>
+                </div>
+            </div>
+        </div>
+      	<div class="fr" style="width:210px">
+            <?php $this->display('question/common/ceo.html');?>
+            <?php $this->display('question/common/sign.html', ['user'=>$user, 'signCount'=>$signCount, 'isUserSign'=>$isUserSign]);?>
+            <?php $this->display('question/common/ranking.html', ['rankingList'=>$rankingList]);?>
+            <?php $this->display('question/common/recommend.html', ['hitQuestions'=>$hitQuestions]);?>
+        </div>
+    </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

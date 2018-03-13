@@ -1,0 +1,94 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <div class="userDepositBody">
+                <form action="/account/doWithdraw" method="post">
+                <dl class="userDepositLeft">
+                    <dd>真实姓名：</dd>
+                    <dd>身份证号：</dd>
+                    <dd>手机号：</dd>
+                    <dd class="DepositSubmit">提现至银行卡：</dd>
+                    <dd>可提现金额：</dd>
+                    <dd class="DepositTation">
+<!--                         <a class="DepositTation1">
+                            <div class="DepositTationHelp">
+                                <img src="<?=RSRC?>/images/user/qipao2.png" alt="">
+                                投资前需要开通银行存管账户
+                            </div>
+                        </a> -->
+                        提现金额：</dd>
+                    <dd>提现手续费：</dd>
+                    <dd class="DepositTation">
+<!--                         <a class="DepositTation2">
+                            <div class="DepositTationHelp">
+                                <img src="<?=RSRC?>/images/user/qipao2.png" alt="">
+                                投资前需要开通银行存管账户
+                            </div>
+                        </a> -->
+                        实际到账金额：</dd>
+                    <?php if($lotteryCount>0):?>
+                    <dd class="DepositTation">
+                        <a class="DepositTation3">
+                            <div class="DepositTationHelp">
+                            <img src="<?=RSRC?>/images/user/qipao2.png" alt="">投资前需要开通银行存管账户</div>
+                        </a>
+                        使用优惠券：</dd>
+                    <?php endif;?>
+                    <dd class="DepositSubmit"></dd>
+                </dl>
+                <dl class="userDepositRight">
+                    <dd><?=_hide_name($user->name)?></dd>
+                    <dd><?=_hide_cardnum($user->cardnum)?></dd>
+                    <dd><?=_hide_phone($user->phone)?></dd>
+                    <dd class="DepositSubmit">
+                        <div class="bankImgDiv">
+                            <img src="<?=RSRC?>/images/user/BankSelect.png" alt="">
+                            <div class="BankSelectImg">
+                                <img src="<?=RSRC?>/images/user/bank/<?=$bank->bankName?>.png" alt="" id="ImgUrl">
+                                <span class="strBanks" id="strBank"><?=substr($bank->bankNum, -4)?></span>
+                            </div>
+                        </div>
+                    </dd>
+                    <dd class="DepositColor">￥<?=$user->fundMoney?>元</dd>
+                    <dd class="DepositInput"><input type="text" name="money" id="money" class="form-control"></dd>
+                    <dd id="fee" class="DepositColor">￥0.00元</dd>
+                    <dd id="realMoney" class="DepositColor">￥0.00元</dd>
+                    <?php if($lotteryCount>0):?>
+                    <dd class="DepositVoucher">
+                        <input id="user_lottery" type="hidden" name="isLottery" value="1">
+                        <div class="wai"><div class="nei"></div></div><span id="lottery-word" class="success intro-word">使用券抵扣</span>
+                    </dd>
+                    <?php endif;?>
+                    <dd class="DepositSubmit"><input type="button" value="确认提现" data-paypass="<?=$user->paypass?'1':-1?>"  class="DepositTrue" onclick="paypassC('asd')"></dd>
+                </dl>
+                <!-- 交易密码 -->
+                <div style="display: none;padding: 0px 20px 26px;" id="paypass">
+                    <input type="password" name='paypass' class="form-control" placeholder="请输入交易密码" style="width: 200px;display: inline-block;height: 22px;">
+                    <input type="submit" value="确认" class="DepositTrue" style="display: inline-block;padding: 7px 14px;font-size: 15px;">
+                </div>
+                
+                <div class="clearfix"></div>
+                </form>
+            </div>
+            <script>
+
+            </script>
+            <dl class="wxts">
+                <dt>温馨提示</dt>
+                <dd>
+                    <p>
+                        1、用户工作日（9:00~18:00）内的提现申请当天即可处理到帐，非工作时间提现将在下一个工作日到帐，若有疑问请致电400-080-8885；<br/>
+                        2、平台每笔提现收取2元提现手续费，若提现未投资的资金，该资金将额外收取提0.5%的提现手续费；<br/>
+                        3、为保证提现成功，请确保您的银行卡账号及开户行信息准确无误，相关信息可拨打银行客服电话查询；<br/>
+                        4、根据《反洗钱法》规定，禁止洗钱、信用卡套现、虚假交易等行为。平台对有上述可疑行为的用户发起的提现将采取延迟付款或终止该账户的使用。<br/>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

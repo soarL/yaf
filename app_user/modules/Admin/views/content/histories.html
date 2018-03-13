@@ -1,0 +1,75 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">公司历程</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加历程" href="/admin/content/addHistory"> <i class="glyphicon glyphicon-edit"></i>
+		          </a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">名称</label>
+								<div class="input-wrap">
+								<input type="text" class="form-control input-sm" name="name" placeholder="名称" value="<?=$queries->name?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">发生时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/content/deleteHistory">
+							<tr>
+								<th class="visible-lg">历程ID</th>
+								<th>名称</th>
+								<th class="visible-lg">内容</th>
+								<th>发生时间</th>
+								<th class="visible-lg">添加时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($histories as $history):?>
+							<tr data-id="<?=$history['id'];?>">
+								<td class="visible-lg"><?=$history->id?></td>
+								<td><?=_title($history->name)?></td>
+								<td class="visible-lg"><?=_title($history->content, 30)?></td>
+								<td><?=$history->happened_at?></td>
+								<td class="visible-lg"><?=$history->created_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/content/updateHistory?id=<?=$history->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$histories->render();?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

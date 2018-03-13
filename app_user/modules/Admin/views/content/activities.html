@@ -1,0 +1,103 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">公司活动</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加活动" href="/admin/content/addActivity"> <i class="glyphicon glyphicon-edit"></i>
+          </a>
+        </div>
+      </div>
+      <div class="box-body pb-0">
+        <div class="row">
+          <div class="col-sm-12">
+            <form action="" class="table-search-form clearfix">
+              <div class="form-group">
+                <label class="control-label">活动名称</label>
+                <div class="input-wrap">
+                  <input type="text" class="form-control input-sm" name="title" placeholder="活动名称" value="<?=$queries->title?>"></div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">活动类型</label>
+                <div class="select-wrap">
+                  <select class="form-control input-sm" name="type">
+                    <option value="all">全部</option>
+                    <option value="online" <?php if('online'==$queries->type):?>selected<?php endif;?>>线上活动</option>
+                    <option value="offline" <?php if('offline'==$queries->type):?>selected<?php endif;?>>线下活动</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label time-label">添加时间</label>
+                <div class="input-group time-group">
+                  <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-sm">至</button>
+                  </div>
+                  <!-- /btn-group -->
+                  <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-info">搜索</button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-hover mb-0" data-delete="/admin/content/deleteActivity">
+              <tr>
+                <th class="visible-lg">活动ID</th>
+                <th>名称</th>
+                <th>状态</th>
+                <th>类型</th>
+                <th class="visible-lg">开始时间</th>
+                <th class="visible-lg">结束时间</th>
+                <th class="visible-lg">链接地址</th>
+                <th class="visible-lg">添加时间</th>
+                <th>操作</th>
+              </tr>
+              <?php foreach ($activities as $activity):?>
+              <tr data-id="<?=$activity['id'];?>">
+                <td class="visible-lg"><?=$activity->id?></td>
+                <td><?=$activity->title?></td>
+                <td>
+                  <?php if($activity->lookStatus=='y'):?>
+                  <span class="label label-success">正常</span>
+                  <?php elseif($activity->lookStatus=='n'):?>
+                  <span class="label label-danger">失效</span>
+                  <?php endif;?>
+                </td>
+                <td>
+                  <?php if($activity->type=='online'):?>
+                  线上活动
+                  <?php elseif($activity->type=='offline'):?>
+                  线下活动
+                  <?php endif;?>
+                </td>
+                <td class="visible-lg"><?=$activity->startDate?></td>
+                <td class="visible-lg"><?=$activity->endDate?></td>
+                <td class="visible-lg"><?=$activity->linkUrl?></td>
+                <td class="visible-lg"><?=$activity->addtime?></td>
+                <td>
+                  <a class="btn btn-ssm btn-success" href="/admin/content/updateActivity?id=<?=$activity->id?>">
+                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                    编辑
+                  </a>
+                  <a class="btn btn-ssm btn-danger btn-delete">
+                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                    删除
+                  </a>
+                </td>
+              </tr>
+              <?php endforeach;?></table>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer clearfix">
+        <?=$activities->render()?>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

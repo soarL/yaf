@@ -1,0 +1,166 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">用户列表</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                        <i class="fa fa-file-excel-o text-red"></i></a>
+                </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户Id</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>用户姓名</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>联系方式(手机号)</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">预约类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="">全部</option>
+										<option value="6月" <?php if($queries->type=='6月'):?>selected<?php endif;?>>6月</option>
+										<option value="12月" <?php if($queries->type=='12月'):?>selected<?php endif;?>>12月</option>
+										<option value="24月" <?php if($queries->type=='24月'):?>selected<?php endif;?>>24月</option>
+										<option value="12,24月" <?php if($queries->type=='12,24月'):?>selected<?php endif;?>>12,24月</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">约标状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="0" <?php if($queries->status=='0'):?>selected<?php endif;?>>未处理</option>
+										<option value="1" <?php if($queries->status=='1'):?>selected<?php endif;?>>成功</option>
+										<option value="2" <?php if($queries->status=='2'):?>selected<?php endif;?>>失败</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="form-group">
+									<label class="control-label">时间查询</label>
+									<?php $timeType = $queries->timeType;?>
+									<div class="select-wrap">
+										<select class="form-control input-sm" name="timeType">
+											<option value="subscribe" <?php if($timeType=='subscribe'):?>selected<?php endif;?>>预约投标时间</option>
+											<option value="register" <?php if($timeType=='register'):?>selected<?php endif;?>>登记时间</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>用户姓名</th>
+								<th>联系方式</th>
+								<th>预约金额</th>
+								<th class="visible-lg">预约投标时间<?=$queries->sort('time', ['excel'=>0])?></th>
+								<th class="visible-lg">预约类型</th>
+								<th class="visible-lg">状态</th>
+								<th class="visible-lg">登记时间<?=$queries->sort('created_at', ['excel'=>0])?></th>
+								<th class="visible-lg">备注</th>
+								<th class="visible-lg">时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($list as $value):?>
+							<tr data-id="<?=$value->id?>" data-remark="<?=$value->remark?>" data-check="<?=$record->status?>">
+								<td><?=$value->user->name?></td>
+								<td><?=$value->user->phone?></td>
+								<td><?=$value->money?></td>
+								<td class="visible-lg"><?=$value->time?></td>
+								<td class="visible-lg"><?=$value->month?></td>
+								<td class="visible-lg">
+									<?php if($value->status=='0'):?>
+									<span class="label label-warning">未处理</span>
+									<?php elseif($value->status=='1'):?>
+									<span class="label label-success">成功</span>
+									<?php else:?>
+									<span class="label label-danger">失败</span>
+									<?php endif;?>
+								</td>
+								<td class="visible-lg"><?=$value->created_at?></td>
+								<!--<td class="visible-lg input"><?=$value->remark?></td>-->
+								<td>
+                                    <?php if($value->remark):?>
+                                    <?=$value->remark;?>
+                                    <a class="btn btn-ssm btn-primary btn-remark" title="修改备注">
+                                        <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    </a>
+                                    <?php else: ?>
+									<a class="btn btn-ssm btn-primary btn-remark">
+                                        <i class="fa ">添加备注</i>
+                                    </a>
+                                    <?php endif;?>
+								</td>
+								<td>
+									<a class="btn btn-ssm btn-success withdraw-handle" href="javascript:;">
+										<i class="fa fa-hand-rock-o icon-white"></i>
+										审核
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="remark-bespokes-modal" tabindex="-1" role="dialog" aria-labelledby="remark-bespokes-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h5 class="modal-title" id="remark-bespokes-label">添加备注</h5>
+			</div>
+			<div class="modal-body">
+				<div id="bespokes-modal-from" class="form-horizontal">
+					<div class="form-group hidden-vars hide">
+						<input type="hidden" name="id" value="">
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">备注</label>
+						<div class="col-sm-10">
+							<textarea name="remark" class="form-control" style="height: 60px" placeholder=""></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary btn-sm" id="remark-bespokes-btn">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

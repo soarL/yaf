@@ -1,0 +1,138 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">行为树形列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加行为" href="/admin/user/addAct">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="tree well">
+							<ul>
+								<li data-id="0" data-name="后台">
+									<span><i class="fa fa-minus-square"></i> 后台</span>
+									<button type="button" class="btn btn-info add-action-btn">
+										<i class="fa fa-plus"></i>
+									</button>
+									<ul>
+										<?php foreach($actions as $action):?>
+										<li data-id="<?=$action['id']?>" data-name="<?=$action['name']?>">
+											<span><i class="fa fa-plus-square"></i> <?=$action['name']?></span>
+											<button type="button" class="btn btn-info add-action-btn">
+												<i class="fa fa-plus"></i>
+											</button>
+											<button type="button" class="btn btn-success update-action-btn">
+												<i class="glyphicon glyphicon-edit icon-white"></i>
+											</button>
+											<button type="button" class="btn btn-danger delete-action-btn">
+												<i class="glyphicon glyphicon-trash icon-white"></i>
+											</button>
+											<ul>
+												<?php foreach($action['subs'] as $sub):?>
+												<li data-id="<?=$sub['id']?>" data-name="<?=$sub['name']?>" style="display: none;">
+													<?php if($sub['is_menu']=='y'):?>
+													<span class="action-menu">
+														<i class="fa fa-leaf"></i> <?=$sub['name']?>
+													</span>
+													<?php else:?>
+													<span  class="action-not-menu">
+														<i class="fa fa-lemon-o"></i> <?=$sub['name']?>
+													</span>
+													<?php endif;?>
+													<button type="button" class="btn btn-success update-action-btn">
+														<i class="glyphicon glyphicon-edit icon-white"></i>
+													</button>
+													<button type="button" class="btn btn-danger delete-action-btn">
+														<i class="glyphicon glyphicon-trash icon-white"></i>
+													</button>
+												</li>
+												<?php endforeach;?>
+											</ul>
+										</li>
+										<?php endforeach;?>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="add-action-modal" tabindex="-1" role="dialog" aria-labelledby="add-action-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="add-action-label">添加行为</h5>
+      </div>
+      <div class="modal-body">
+		<div id="action-modal-from" class="form-horizontal">
+			<div class="form-group hidden-vars hide">
+				<input type="hidden" name="id" value="">
+	          	<input type="hidden" name="parent_id" value="">
+	        </div>
+	      	<div class="form-group">
+	          <label class="col-sm-2 control-label">名称</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="name" value="" placeholder="输入名称">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">标识符</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="identifier" value="" placeholder="输入标识符">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">Icon</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="icon" value="" placeholder="输入Icon">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">描述</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="description" value="" placeholder="输入描述">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">是否菜单</label>
+	          <div class="col-sm-10">
+	            <select name="is_menu" class="form-control">
+	              <option value="y">是</option>
+	              <option value="n">否</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">链接</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="link" value="" placeholder="输入链接">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">排序</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="rank" value="" placeholder="输入排序">
+	          </div>
+	        </div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" id="save-action-btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,380 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">待发布标的</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="/admin/loan/edit">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+
+			<div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                    <form action="" class="table-search-form clearfix">
+                        <div class="form-group">
+                            <label class="control-label">用户名</label>
+                            <input type="text" class="form-control input-sm inline-input" name="username" placeholder="输入用户名" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label time-label">借款时间</label>
+                            <div class="input-group time-group">
+                                <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-sm">至</button>
+                                </div>
+                                <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">借款期限</label>
+                            <div class="select-wrap">
+                                <select class="form-control input-sm" name="period">
+                                    <option value="" <?php if($queries->period=='') echo 'selected';?>>全部</option>
+                                    <option value="1" <?php if($queries->period=='1') echo 'selected';?>>1月标</option>
+                                    <option value="3" <?php if($queries->period=='3') echo 'selected';?>>3月标</option>
+                                    <option value="6" <?php if($queries->period=='6') echo 'selected';?>>6月标</option>
+                                    <option value="12" <?php if($queries->period=='12') echo 'selected';?>>12月标</option>
+                                    <option value="24" <?php if($queries->period=='24') echo 'selected';?>>24月标</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">投标类型</label>
+                            <div class="select-wrap">
+                                <select class="form-control input-sm" name="investType">
+                                    <option value="" <?php if($queries->investType == '') echo 'selected';?>>全部</option>
+                                    <option value="1" <?php if($queries->investType == '1') echo 'selected';?>>手动标</option>
+                                    <option value="0" <?php if($queries->investType == '0') echo 'selected';?>>自动标</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="search" value='1'>
+                        <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                    </form>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th class="visible-lg">借款编号</th>
+								<th>借款人</th>
+								<th class="visible-lg">借款标题</th>
+								<th>借款金额</th>
+								<th>借款期限</th>
+								<th>年化率</th>
+								<th>借款时间</th>
+								<th>投标类型</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($prepOdds as $odd):?>
+							<tr data-num="<?=$odd->oddNumber?>" data-name="<?=$odd->oddTitle?>">
+								<td class="visible-lg"><?=$odd->oddNumber?></td>
+								<td><?=$odd->user->username?></td>
+								<td class="visible-lg">
+									<span class="label" style="background: <?=$odd->getTypeName('color')?>"><?=$odd->getTypeName('short')?></span>
+									<?php if($odd->oddStyle=='newhand'):?>
+									<span class="label label-warning">新</span>
+									<?php endif;?>
+									<?php if($odd->appointUserId):?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$odd->appointUserId?>" data-original-title="<?=$odd->appointUserId?>">约</span>
+									<?php endif;?>
+									<?=$odd->oddTitle?>
+								</td>
+								<td><?=$odd->oddMoney?></td>
+								<td><?=$odd->getPeriod()?></td>
+								<td>
+									<?=$odd->oddYearRate*100?>%
+									<?php if($odd->oddReward>0):?>
+										+<span class="text-success"><?=$odd->oddReward*100?>%</span>
+									<?php endif;?>
+								</td>
+								<td><?=_date('n/j H:i', $odd->openTime)?></td>
+								<td><?=$odd->investType==1?'手动标':'自动标'?></td>
+								<td>
+									<a class="btn btn-ssm btn-success btn-publish" href="javascript:;"> 发布 </a>
+									<a class="btn btn-ssm btn-info" href="<?=WEB_MAIN;?>/odd/<?=$odd->oddNumber?>" target="_blank">
+										<i class="glyphicon glyphicon-eye icon-white"></i> 查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/loan/edit?oddNumber=<?=$odd->oddNumber?>">
+										<i class="glyphicon glyphicon-edit icon-white"></i> 编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-refuse" href="javascript:;"> 拒绝 </a>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">待初审标的</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="/admin/loan/edit">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+
+			<div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                    <form action="" class="table-search-form clearfix">
+                        <div class="form-group">
+                            <label class="control-label">用户名</label>
+                            <input type="text" class="form-control input-sm inline-input" name="username" placeholder="输入用户名" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label time-label">借款时间</label>
+                            <div class="input-group time-group">
+                                <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-sm">至</button>
+                                </div>
+                                <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">借款期限</label>
+                            <div class="select-wrap">
+                                <select class="form-control input-sm" name="period">
+                                    <option value="" <?php if($queries->period=='') echo 'selected';?>>全部</option>
+                                    <option value="1" <?php if($queries->period=='1') echo 'selected';?>>1月标</option>
+                                    <option value="3" <?php if($queries->period=='3') echo 'selected';?>>3月标</option>
+                                    <option value="6" <?php if($queries->period=='6') echo 'selected';?>>6月标</option>
+                                    <option value="12" <?php if($queries->period=='12') echo 'selected';?>>12月标</option>
+                                    <option value="24" <?php if($queries->period=='24') echo 'selected';?>>24月标</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">投标类型</label>
+                            <div class="select-wrap">
+                                <select class="form-control input-sm" name="investType">
+                                    <option value="" <?php if($queries->investType == '') echo 'selected';?>>全部</option>
+                                    <option value="1" <?php if($queries->investType == '1') echo 'selected';?>>手动标</option>
+                                    <option value="0" <?php if($queries->investType == '0') echo 'selected';?>>自动标</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="search" value='2'>
+                        <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                    </form>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th class="visible-lg">借款编号</th>
+								<th>借款人</th>
+								<th class="visible-lg">借款标题</th>
+								<th>借款金额</th>
+								<th>借款期限</th>
+								<th>年化率</th>
+								<th>借款时间</th>
+								<th>投标类型</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($odds as $odd):?>
+							<?php if(in_array($odd->oddNumber, $trialList)) { continue; }?>
+							<tr data-num="<?=$odd->oddNumber?>">
+								<td class="visible-lg"><?=$odd->oddNumber?></td>
+								<td><?=$odd->user->username?></td>
+								<td class="visible-lg">
+									<span class="label" style="background: <?=$odd->getTypeName('color')?>"><?=$odd->getTypeName('short')?></span>
+									<?php if($odd->oddStyle=='newhand'):?>
+									<span class="label label-warning">新</span>
+									<?php endif;?>
+									<?php if($odd->appointUserId):?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$odd->appointUserId?>" data-original-title="<?=$odd->appointUserId?>">约</span>
+									<?php endif;?>
+									<?=$odd->oddTitle?>
+								</td>
+								<td><?=$odd->oddMoney?></td>
+								<td><?=$odd->getPeriod()?></td>
+								<td>
+									<?=$odd->oddYearRate*100?>%
+									<?php if($odd->oddReward>0):?>
+										+<span class="text-success"><?=$odd->oddReward*100?>%</span>
+									<?php endif;?>
+								</td>
+								<td><?=_date('n/j H:i', $odd->openTime)?></td>
+								<td><?=$odd->investType==1?'手动标':'自动标'?></td>
+								<td>
+									<?php if(in_array($odd->oddNumber, $ingList)):?>
+									<a class="btn btn-ssm btn-default" href="javascript:;" disabled> 
+										<i class="glyphicon glyphicon-edit icon-white"></i> 正在初审
+									</a>
+									<?php elseif($odd->isATBiding==1):?>
+									<a class="btn btn-ssm btn-default" href="javascript:;" disabled> 
+										<i class="glyphicon glyphicon-edit icon-white"></i> 正在自动投标
+									</a>
+									<?php else:?>
+									<a class="btn btn-ssm btn-danger" href="/admin/loan/inQueue?type=trial&oddNumber=<?=$odd->oddNumber?>"> 
+										加入队列
+									</a>
+									<?php endif;?>
+									<a class="btn btn-ssm btn-info" href="<?=WEB_MAIN;?>/odd/<?=$odd->oddNumber?>" target="_blank">
+										<i class="glyphicon glyphicon-eye icon-white"></i> 查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/loan/edit?oddNumber=<?=$odd->oddNumber?>">
+										<i class="glyphicon glyphicon-edit icon-white"></i> 编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-refuse" href="javascript:;"> 拒绝 </a>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">初审队列</h3>
+				<div class="box-tools pull-right">
+  		          <a class="btn btn-box-tool btn-trial" data-toggle="tooltip" data-original-title="启动队列">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th class="visible-lg">借款编号</th>
+								<th>借款人</th>
+								<th class="visible-lg">借款标题</th>
+								<th>借款金额</th>
+								<th>借款期限</th>
+								<th>年化率</th>
+								<th>借款时间</th>
+								<th>投标类型</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($odds as $odd):?>
+							<?php if(in_array($odd->oddNumber, $trialList)):?>
+							<tr>
+								<td class="visible-lg"><?=$odd->oddNumber?></td>
+								<td><?=$odd->user->username?></td>
+								<td class="visible-lg">
+									<span class="label" style="background: <?=$odd->getTypeName('color')?>"><?=$odd->getTypeName('short')?></span>
+									<?php if($odd->oddStyle=='newhand'):?>
+									<span class="label label-warning">新</span>
+									<?php endif;?>
+									<?php if($odd->appointUserId):?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$odd->appointUserId?>" data-original-title="<?=$odd->appointUserId?>">约</span>
+									<?php endif;?>
+									<?=$odd->oddTitle?>
+								</td>
+								<td><?=$odd->oddMoney?></td>
+								<td><?=$odd->getPeriod()?></td>
+								<td>
+									<?=$odd->oddYearRate*100?>%
+									<?php if($odd->oddReward>0):?>
+										+<span class="text-success"><?=$odd->oddReward*100?>%</span>
+									<?php endif;?>
+								</td>
+								<td><?=_date('n/j H:i', $odd->openTime)?></td>
+								<td><?php if($odd->investType==1):?>手动标<?php else:?>自动标<?php endif;?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="<?=WEB_MAIN;?>/odd/<?=$odd->oddNumber?>" target="_blank"> 
+										<i class="glyphicon glyphicon-eye icon-white"></i> 查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/loan/edit?oddNumber=<?=$odd->oddNumber?>">
+										<i class="glyphicon glyphicon-edit icon-white"></i> 编辑
+									</a>
+									<a class="btn btn-ssm btn-danger" href="/admin/loan/outqueue?type=trial&oddNumber=<?=$odd->oddNumber?>"> 
+										退出队列
+									</a>
+								</td>
+							</tr>
+							<?php endif;?>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+			</div>
+		</div>
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">自动投标队列</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool btn-auto-bid" data-toggle="tooltip" data-original-title="启动队列">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th class="visible-lg">借款编号</th>
+								<th>借款人</th>
+								<th class="visible-lg">借款标题</th>
+								<th>借款金额</th>
+								<th>借款期限</th>
+								<th>年化率</th>
+								<th>借款时间</th>
+								<th>投标类型</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($autoOdds as $odd):?>
+							<tr>
+								<td class="visible-lg"><?=$odd->oddNumber?></td>
+								<td><?=$odd->user->username?></td>
+								<td class="visible-lg">
+									<span class="label" style="background: <?=$odd->getTypeName('color')?>"><?=$odd->getTypeName('short')?></span>
+									<?php if($odd->oddStyle=='newhand'):?>
+									<span class="label label-warning">新</span>
+									<?php endif;?>
+									<?php if($odd->appointUserId):?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$odd->appointUserId?>" data-original-title="<?=$odd->appointUserId?>">约</span>
+									<?php endif;?>
+									<?=$odd->oddTitle?>
+								</td>
+								<td><?=$odd->oddMoney?></td>
+								<td><?=$odd->getPeriod()?></td>
+								<td>
+									<?=$odd->oddYearRate*100?>%
+									<?php if($odd->oddReward>0):?>
+										+<span class="text-success"><?=$odd->oddReward*100?>%</span>
+									<?php endif;?>
+								</td>
+								<td><?=_date('n/j H:i', $odd->openTime)?></td>
+								<td><?php if($odd->investType=='1'):?>手动标<?php else:?>自动标<?php endif;?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="<?=WEB_MAIN;?>/odd/<?=$odd->oddNumber?>" target="_blank">
+										<i class="glyphicon glyphicon-eye icon-white"></i> 查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/loan/edit?oddNumber=<?=$odd->oddNumber?>">
+										<i class="glyphicon glyphicon-edit icon-white"></i> 编辑
+									</a>
+									<a class="btn btn-ssm btn-danger" href="/admin/loan/outQueue?type=auto&oddNumber=<?=$odd->oddNumber?>"> 
+										退出队列
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

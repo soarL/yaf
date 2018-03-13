@@ -1,0 +1,1 @@
+[2017-11-18 16:40:24] custody-send.INFO: [trusteePayQuery][20171118164024000003] {"accountId":"2000000001","productId":"A10J01","version":"10","serviceName":"trusteePayQuery","instCode":"","bankCode":"","txDate":"20171118","txTime":"164024","seqNo":"000003","requestNo":"20171118164024000003","userDevice":"PC","sign":"ZWY5M2Y4YTg3MTY3OTgyZmIwNzQ4ZTYyMTIwOThiN2I="} []

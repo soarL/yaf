@@ -1,0 +1,81 @@
+<div class="ui-tab rechargeWay">
+  <div class="idTabs recharge-title">
+    <ul id="pay-way-ll-choose" class="clearfix">
+      <li >
+        <a href="javascript:;" class="selected" data-ref="#e-banks" data-value="1">网银支付</a>
+      </li>
+      <!-- <li >
+        <a href="javascript:;"  data-ref="#c-banks" data-value="D">认证支付</a>
+      </li> -->
+    </ul>
+  </div>
+  <div class="recharge-banks banks-ll">
+    <div class="pay-banks-list e-banks-list open mb20" id="e-banks">
+      <div class="title">点击选择银行 ：</div>
+      <ul class="bank-list-ul banks-only-icon clearfix">
+        <?php foreach ($gatewayBanks as $key => $bankCode):?>
+        <?php if($key!=9):?>
+        <li  class="bank-item <?php if($key>9):?>fn-hide<?php endif;?>" data-value="<?=$banks[$bankCode]['ichar']?>" data-code="<?=$bankCode?>">
+          <img alt="<?=$banks[$bankCode]['name']?>" src="<?=RSRC?>/images/bank/<?=$banks[$bankCode]['ichar']?>.png">
+          <a title="<?=$banks[$bankCode]['name']?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php else:?>
+        <li class="J_show_more_banks">
+          <a href="javascript:">更多银行</a>
+        </li>
+        <li class="bank-item fn-hide" data-value="<?=$banks[$bankCode]['ichar']?>" data-code="<?=$bankCode?>">
+          <img alt="<?=$banks[$bankCode]['name']?>" src="<?=RSRC?>/images/bank/<?=$banks[$bankCode]['ichar']?>.png">
+          <a title="<?=$banks[$bankCode]['name']?>" class="mark-blue"></a> <i class="rt"></i>
+        </li>
+        <?php endif;?>
+        <?php endforeach;?>
+      </ul>
+    </div>
+    <div class="pay-banks-list c-banks-list" id="c-banks">
+      <?php if($agreement):?>
+      <div class="c-has-banks">
+        <div class="title">已认证银行卡：</div>
+        <ul class="bank-list-ul banks-with-num clearfix">
+          <li class="clearfix bank-item" data-code="<?=$agreement['bank_code']?>" data-agree="<?=$agreement['no_agree']?>">
+            <img alt="<?=$agreement['bank_name'];?>" src="<?=RSRC?>/images/bank/<?=$banks[$agreement['bank_code']]['ichar']?>.png">
+            <span class="bank-info"><?php if($agreement['card_type']==2){echo '储蓄卡';} else {echo '信用卡';}?> | 尾号<?=$agreement['card_no'];?></span>
+            <a title="<?=$agreement['bank_name']?>" class="mark-blue"></a> <i class="rt"></i>
+          </li>
+        </ul>
+      </div>
+      <div id="c-new-banks-line" class="line hide"></div>
+      <?php endif;?>
+      <div id="c-new-banks" class="c-new-banks <?php if($agreement):?>hide<?php endif;?>">
+        <div class="title">输入银行卡号：</div>
+        <div class="bank-card-input input-wrap mt20">
+          <span class="cRed">*</span>
+          <label class="label">银行卡号</label>
+          <input id="bank-card" name="bankCard" class="ui-input input-icon" type="text" style="width:200px;">
+        </div>
+        <div id="bank-info-table" class="bank-info-table" style="display:none;">
+          <table style="display:table;" cellpadding="1" cellspacing="1" width="100%">
+            <thead>
+              <tr>
+                <th width="28%">所属银行</th>
+                <th width="18%">银行卡类型</th>
+                <th width="18%">单笔限额(元)</th>
+                <th width="18%">单日限额(元)</th>
+                <th width="18%">单月限额(元)</th>
+               </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="remark-box" style="padding-bottom:0px;">
+        <div class="remark-title">注意:</div>
+        <div class="remark-content">
+          <p>1、认证支付只能使用您本人的银行卡进行充值(不支持信用卡)！</p>
+          <p>2、使用认证支付后您的提现银行卡只能设置一张，并且该卡只能为认证支付的那张卡，您原来设置的卡将会被删除！</p>
+          <p>3、认证支付每笔充值不能少于500元！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

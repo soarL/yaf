@@ -1,0 +1,72 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('user/common/tab-invest.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">投资记录</div>
+           <!--  <h3>
+                邀请记录
+                <a href="#" class="more cBlue no_unl">查看明细</a>
+            </h3> -->
+            <div class="data-search-form">
+	            <form action="/user/investRecord" method="get">
+					<div class="form-group">
+                        <label>类型</label>
+                        <?php $type = $queries->type?>
+                        <select class="select" name="type" style="width:90px;">
+                            <option value="repaying" <?php if($type=='repaying'):?>selected<?php endif;?>>未结清</option>
+                            <option value="biding" <?php if($type=='biding'):?>selected<?php endif;?>>投标中</option>
+                            <option value="review" <?php if($type=='review'):?>selected<?php endif;?>>复审中</option>
+                            <option value="finished" <?php if($type=='finished'):?>selected<?php endif;?>>已结清</option>
+                            <option value="fail" <?php if($type=='fail'):?>selected<?php endif;?>>已失效</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>投标时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>借款标号</th>
+                        <th>类型</th>
+                        <th>投标时间</th>
+                        <th>借款金额</th>
+                        <th>年化利率</th>
+                        <th>借款期限</th>
+                        <th>投资金额</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($investList as $invest):?>
+                    <tr data-id="<?=$invest->id?>">
+                        <td><a style="color: #28a7e1" href="<?=WEB_MAIN.Url::to('/odd/view', ['num'=>$invest->oddNumber]);?>" target="_blank"><?=$invest->oddNumber?></a></td>
+                        <td data-type="<?=$invest->odd->oddType?>"><?=$invest->odd->getTypeName()?></td>
+                        <td><?=$invest->time?></td>
+                        <td><?=$invest->odd->oddMoney?></td>
+                        <td><?=($invest->odd->oddYearRate+$invest->odd->oddReward)*100?>%</td>
+                        <td><?=$invest->odd->getPeriod()?></td>
+                        <td><?=$invest->money?></td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?=Url::to('/account/repaymentRecord?oddMoneyId='.$invest->id)?>" target="_blank">回款</a>
+                            <?php if(($type=='repaying'||$type=='finished')&&$invest->odd->oddType!='special'):?>
+                                <a class="btn-small btn-c-green" href="<?=$invest->getProtocolLink(false)?>" target="_blank">合同</a>
+                            <?php endif;?>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$investList->render()?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

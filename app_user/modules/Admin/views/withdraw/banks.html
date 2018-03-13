@@ -1,0 +1,88 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">银行卡列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="bankNum" <?php if($searchType=='bankNum'):?>selected<?php endif;?>>卡号</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">状态</label>
+								<div class="select-wrap">
+									<?php $statusList = ['success'=>'正常', 'fail'=>'无效'];?>
+									<select class="form-control input-sm" name="status">
+										<?=_options(array_merge(['all'=>'全部'], $statusList), $queries->status);?>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>卡号</th>
+								<th>用户</th>
+								<th class="visible-lg">银行</th>
+								<th class="visible-lg">姓名</th>
+								<th>默认</th>
+								<th>状态</th>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">最后修改时间</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-id="<?=$record->id?>">
+								<td><?=$record->bankNum?></td>
+								<td>
+									<?=$record->user->username.' <span class="label label-primary">'.$record->userId.'</span>';?>
+								</td>
+								<td class="visible-lg">
+									<span class="label label-primary" data-toggle="tooltip" data-original-title="">
+										<!-- <?=$record->getProvince().$record->getCity().$record->subbranch?> -->
+										<?=$record->bankCName?>
+									</span>
+								</td>
+								<td class="visible-lg"><?=$record->bankUsername?></td>
+								<td><?=$record->isDefault=='y'?'是':'否'?></td>
+								<td>
+									<?php 
+										$statusMap = [
+											'1'=>['type'=>'success', 'name'=>'正常'], 
+											'0'=>['type'=>'danger', 'name'=>'失效'], 
+										];
+									?>
+									<?=_label($record->status, $statusMap);?>
+								</td>
+								<td class="visible-lg"><?=$record->createAt?></td>
+								<td class="visible-lg"><?=$record->updateAt?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

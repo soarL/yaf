@@ -1,0 +1,38 @@
+<div id="<?=$param?>-items" class="hide hide-files" data-domain="<?=WEB_ASSET?>" data-param="<?=$param?>"><?=$images?></div>
+<div class="form-group fileupload-advanced">
+    <label class="col-sm-1 control-label"><?=$name?></label>
+    <div class="col-sm-11 fileupload-buttonbar">
+        <div class="table-fileupload" id="temp-<?=$param?>" data-param="<?=$param?>">
+            <div class="files sortable clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>添加图片</span>
+                    <input type="file" name="files[]" multiple>
+                </span>
+                <button type="submit" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>开始上传</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>取消上传</span>
+                </button>
+                <button type="button" class="btn btn-success detail" data-param="<?=$param?>" data-name="<?=$name?>">
+                    <i class="fa fa-check-circle"></i>
+                    <span>已上传图片</span>
+                </button>
+                <span class="fileupload-process"></span>
+            </div>
+            <div class="col-lg-5 fileupload-progress fade">
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="margin-bottom: 0px;">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        
+    </div>
+</div>

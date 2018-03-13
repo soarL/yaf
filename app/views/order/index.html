@@ -1,0 +1,163 @@
+<?php $this->display('header.html');?>
+<div ui-view="" class="ng-scope">
+<link rel="stylesheet" href="<?=RSRC?>/css/borrowMoney.css" class="ng-scope">
+<div class="borrowHead ng-scope">
+	<img src="<?=RSRC?>/images/borrow/borrow.jpg" alt="房子抵贷-有房就能贷">
+</div>
+<div class="container borrowBody ng-scope">
+	<div class="borrowLeft">
+		<h1>三步借款到位</h1>
+		<ul class="list-unstyled step">
+			<li>
+				<span class="span1"></span>
+				<h5></h5>
+				<h2>提交申请</h2>
+				<h4>提交个人借款资料</h4>				
+			</li>
+			<li>
+				<span class="span2"></span>
+				<h5></h5>
+				<h2>借款审批</h2>
+				<h4>专业风控团队审核借款</h4>				
+			</li>
+			<li>
+				<span class="span3"></span>
+				<h5></h5>
+				<h2>借款发布</h2>
+				<h4>平台客户向您出借资金</h4>				
+			</li>
+			<li>
+				<span class="span4"></span>
+				<h2>交易成功</h2>
+				<h4>网签电子合同，收到借款。</h4>				
+			</li>
+			<div class="clearfix"></div>
+		</ul>
+		<h1>申请条件</h1>
+		<p>名下有房产。目前仅针对福州开放，其他城市敬请期待！</p>
+	</div>
+	<div class="borrowRight">
+		<h1>借款申请</h1>
+		<form action="/order/save" method="post" class="ng-pristine ng-valid" onsubmit="return submitFun(this)">
+			<label for="">
+				<input class="form-control" placeholder="请输入您的姓名" type="text" name="name">
+			</label>
+			<label for="">
+				<input class="form-control" placeholder="请输入您的手机号" type="text" name="phone">
+			</label>
+			<label for="">
+				<input class="form-control" placeholder="请输入您的身份证号码" type="text" name="cardnum">
+			</label>
+			<label for="">
+				<input class="form-control" placeholder="输入房产地址" type="text" name="address">
+			</label>
+			<label for="">
+				<input class="form-control" placeholder="输入房产面积" type="text" name="acreage">
+			</label>
+			<label for="">
+				<input class="form-control" placeholder="输入您的资金需求金额（万）" type="text" name="need_money">
+			</label>
+			<label for="">
+				<select class="form-control select" name="year_rate">
+					<option value="-1">预期利息（利息高低影响资金募集速度）</option>
+					<option value="0">6.0%-6.4%</option>
+					<option value="1">6.5%-6.9%</option>
+					<option value="2">7.0%-7.4%</option>
+					<option selected="selected" value="3">7.5%-7.9%</option>
+					<option value="4">8.0%-8.4%</option>
+					<option value="5">8.5%-8.9%</option>
+					<option value="6">9.0%-9.4%</option>
+					<option value="7">9.5%-9.9%</option>
+					<option value="8">10.0%-10.4%</option>
+					<option value="9">10.5%-11.9%</option>
+					<option value="10">11.0%-11.4%</option>
+					<option value="11">11.5%-11.9%</option>
+					<option value="12">12.0%-12.4%</option>
+				</select>
+			</label>
+			<label for="">
+				<select class="form-control select" name="house_type">
+					<option value="-1">房产性质</option>
+					<option value="0">商品房</option>
+					<option selected="selected" value="1">拆迁安置房</option>
+					<option value="2">经济适用房</option>
+					<option value="3">自建房</option>
+					<option value="4">写字楼</option>
+					<option value="5">商业店面</option>
+					<option value="6">别墅</option>
+					<option value="7">其他</option>
+				</select>
+			</label>
+			<p style="color: #818181;font-size: 13px;margin-bottom: 10px;">
+				<label for="">
+					<input type="checkbox" name="borrownotice">我已阅读并同意<a href="javascript:" id="agree">《借款须知》</a>
+				</label>
+			</p>
+			<div class="submit">
+				<input value="极速申请" type="submit">
+				<h4>如有问题请致电客服<br>4000808885</h4>
+			</div>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+</div></div>
+<!-- 借款人须知 -->
+<div id="borrownotice" style="display: none;" class="borrownotice">
+	<h1>汇诚普惠网络借贷平台借款须知</h1>
+	<div class="riskmain">
+	    <h3 style="text-indent: 0;font-weight: bold;">一、借款利息及收费（实际收费根据市场浮动）:</h3>
+	    <p>产品类型：房优贷、车险优贷</p>
+	    <p>借款期限：1~12月</p>
+	    <p>借款年利息：8%~12%</p>
+	    <p>还款方式：先息后本/等额本息</p>
+	    <p>房优贷居间服务费：借款金额1%~3.5%</p>
+	    <p>房优贷其他费用：评估费（1000元~2000元）、手续费（住宅：200元 ，非住宅：1000元）车险优贷无服务费</p>
+	    <p>逾期罚息：详见借款合同</p>
+	    <h3 style="text-indent: 0;font-weight: bold;">二、《网络借贷信息中介机构业务活动管理暂行办法》中明确规定了借款人应当履行如下义务：</h3>
+	    <p>1、提供真实、准确、完整的用户信息及融资信息；</p>
+	    <p>2、提供在所有网络借贷信息中介机构未偿还借款信息；</p>
+	    <p>3、保证融资项目真实、合法，并按照约定用途使用借贷资金，不得用于出借等其他目的；</p>
+	    <p>4、按照约定向出借人如实报告影响或可能影响出借人权益的重大信息；</p>
+	    <p>5、确保自身具有与借款金额相匹配的还款能力并按照合同约定还款；</p>
+	    <p>6、借贷合同及有关协议约定的其他义务。</p>
+	    <h3 style="text-indent: 0;font-weight: bold;">三、借款人应当禁止如下活动：</h3>
+	    <p>1、通过故意变换身份、虚构融资项目、夸大融资项目收益前景等形式的欺诈借款；</p>
+	    <p>2、同时通过多个网络借贷信息中介机构，或者通过变换项目名称、对项目内容进行非实质性变更等方式，就同一融资项目进行重复融资；</p>
+	    <p>3、在网络借贷信息中介机构以外的公开场所发布同一融资项目的信息；</p>
+	    <p>4、已发现网络借贷信息中介机构提供的服务中含有本办法第十条所列内容，仍进行交易；</p>
+	    <p>5、法律法规和网络借贷有关监管规定禁止从事的其他活动。</p>
+	    <h3 style="text-indent: 0;font-weight: bold;">四、借款人违约后果告知如下：</h3>
+	    <p>1、按照借款合同约定对逾期借款计收罚息；</p>
+	    <p>2、按照借款合同约定对应付未付利息计收复利；</p>
+	    <p>3、将借款人逾期信息报送至个人征信系统；</p>
+	    <p>4、通过电话、律师函、信函等多种形式进行催收借款人；</p>
+	    <p>5、采取保证担保方式的，通过电话、律师函、信函等多种形式进行催收保证人；</p>
+	    <p>6、停止借款人剩余授信额度的使用；</p>
+	    <p>7、宣布借款提前到期；</p>
+	    <p>8、采取质押担保方式的，将处置质押物归还于其借款本息；</p>
+	    <p>9、根据借款合同约定，向人民法院提起诉讼。</p>
+	</div>
+</div>
+<script>
+</script>
+<script>
+	require(['Index/site','ebox'],function(site,ebox){
+		$("#agree").on("click",function(){
+			ebox.open({
+				type:1,
+				title:"借款人须知",
+				content:$("#borrownotice")
+			})
+		})
+		window.submitFun = function(data){
+			if(data.borrownotice.checked){
+				return true
+			}else{
+				ebox.msg("请阅读并勾选《借款须知》")
+				return false
+			}
+		}
+
+	})
+</script>
+<?php $this->display('footer.html');?>

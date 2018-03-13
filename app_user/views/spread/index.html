@@ -1,0 +1,84 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt30">
+        <?php $this->display('account/common/tab-free.html');?>
+    	<div class="content-wrap">
+    		<div class="spread-url">
+    			<div class="alert alert-info">
+    				邀请好友成功投标，每日可获推荐奖励，推荐好友越多，每日获得奖励越多，赶紧行动吧。
+    			</div>
+    			<label>您的邀请链接</label>
+    			<input id="spread-url" type="text" class="ui-input spread-input" value="<?=$spreadUrl;?>">
+    			<input id="copy-btn" type="button" value="复制" class="btn-blue loginbtn"/>
+    		</div>
+            <div class="spread-line"></div>
+            <div class="spread-money">
+                <div class="top-money clearfix">
+                    <div class="money-item">累计获得推荐奖励：<span><?=number_format($sum, 2, '.', '')?>元</span></div>
+                    <div class="money-item">剩余可提取推荐奖励：<span><?=number_format($user->gradeSum, 2, '.', '')?>元</span></div>
+                </div>
+                <div class="buttom-button">
+                    <button id="ajax-getmoney-show" class="btn btn-blue">提取推荐奖励</button>
+                    <a href="/spread/extractRecord" class="btn btn-blue">查看提取记录</a>
+                </div>
+            </div>
+    	</div>
+    	<div class="statictable-wrap full-wrap mb30 mt30 pb20">
+    		<div class="title">邀请记录
+                <a class="more cBlue no_unl" href="/spread/detail">奖励明细(旧)</a>
+                <a class="more cBlue no_unl" href="/spread/list" style="right: 95px;">奖励明细(新)</a>
+            </div>
+           <!--  <h3>
+                邀请记录
+                <a href="#" class="more cBlue no_unl">查看明细</a>
+            </h3> -->
+           <!--  <div class="data-search-form">
+	            <form action="/spread">
+					
+	            	
+	            </form>
+            </div> -->
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>好友</th>
+                        <th>好友级别</th>
+                        <th>推荐奖励</th>
+                        <th>注册时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($friends as $friend):?>
+                    <tr>
+                        <td><?=$friend['username']?></td>
+                        <td><?=$friend['level']?>级</td>
+                        <td>￥<?=$friend['money']?></td>
+                        <td><?=$friend['time']?></td>
+                        <td>
+                            <a href="/spread/list?username=<?=$friend['username']?>" class="btn-small btn-c-blue">详情(新)</a>
+                            <a href="/spread/detail?username=<?=$friend['username']?>" class="btn-small btn-c-blue">详情(旧)</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$pager->html()?>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ajax-getmoney-box" class="hide-box box modal">
+    <div class="form-wrap">
+        <div class="form-group clearfix">
+            <label>提取金额：</label>
+            <input id="get-money" type="text" name="money">
+        </div>
+        <div class="form-group clearfix">
+            <button id="ajax-getmoney-btn" class="btn btn-primary ml-75">提取</button>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

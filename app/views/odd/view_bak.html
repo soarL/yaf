@@ -1,0 +1,255 @@
+<?php $this->display('header.html');?>
+<?php $remain = $odd->getRemain();?>
+<div class="middle" style="padding-top:10px;">
+  <div id="pg-loan-invest" class="pg-details main">
+    <div id="loan-basic">
+      <div class="container mt10">
+        <ul class="ui-breadcrumb clearfix">
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-first"> <a href="<?=Url::to('/odd/list')?>">我要投资</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text"> <a href="<?=Url::to('/odd/list')?>">散标投资列表</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-current"> <a>借款投资</a> </li>
+        </ul>
+        <span class="project">项目编号: <?=$odd->oddNumber?></span>
+      </div>
+      <div class="mt10">
+        <div class="mainwithborder clearfix" style="padding-top:0px">
+          <div class="ui-box-title clearfix">
+            <?php if($odd->oddStyle=='newhand'):?>
+                <em class="newhandico mr10" title="新手标">新</em>
+            <?php else:?>
+              <?php if($odd->oddType=='diya'):?>
+              <em class="pledgeico mr10" title="抵押标">抵</em>
+              <?php elseif($odd->oddType=='xingyong'):?>
+              <em class="guaranteeico mr10" title="质押标">质</em>
+              <?php elseif($odd->oddType=='danbao'):?>
+              <em class="rongziico mr10" title="融资租赁标">融</em>
+              <?php elseif($odd->oddType=='special'):?>
+              <span class="specialico" title="专享标">专</span>
+              <?php elseif($odd->oddType=='xiaojin'):?>
+              <span class="specialico" title="信用标">信</span>
+              <?php endif;?>
+            <?php endif;?>
+            <h3 class="fl fn-text-overflow"><?=$odd->oddTitle?></h3>
+            <?php if($odd->oddType=='danbao'||strpos($odd->oddTitle, '融资租赁')!==false):?>
+            <span class="fl grey-color-6">收益权转让方：<a href="#" target="_blank" class="pr ui-box-username">正印融资租赁</a></span> 
+            <?php else:?>
+            <span class="fl grey-color-6">借款用户：<a href="#" target="_blank" class="pr ui-box-username">
+              <?=_hide_username($oddUser->username)?></a>
+            </span> 
+            <?php endif;?>
+            <?php if($odd->oddType=='danbao'||strpos($odd->oddTitle, '融资租赁')!==false):?>
+            <a class="fr text ui-box-text" style="margin-right:55px;" href="/protocol/loan/num/<?=$odd->oddNumber?>" target="_blank">融资租赁收益权转让协议（范本）</a> 
+            <a class="odd-credit-btn" target="_blank" href="<?=WEB_MAIN?>/safe/credit/oddNumber/<?=$odd->oddNumber?>">征信查询</a>
+            <?php elseif($odd->oddType=='special'):?>
+
+            <?php else:?>
+            <a class="fr text ui-box-text" href="/protocol/loan/num/<?=$odd->oddNumber?>" target="_blank">借款协议（范本）</a>
+            <?php endif;?>
+          </div>
+          <div class="clearfix mt20">
+            <div class="loaninfo fl">
+              <div class="clearfix mb15">
+                <dl class="fl w250 mr15">
+                  <dt>标的总额 （元）</dt>
+                  <dd><em class="text-xxxl grey-color-3">￥<?=$odd['oddMoney']?></em></dd>
+                </dl>
+                <dl class="fl w150 mr15">
+                  <dt>年利率</dt>
+                  <dd class="text-xxl pr"><em class="text-xxxl grey-color-3"><?=$odd->oddYearRate*100?></em>%
+                    <?php if($odd->oddReward>0):?>
+                    <em class="reward">+<?=$odd->oddReward*100;?>%</em>
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="fl w120">
+                  <dt>剩余可投（元）</dt>
+                  <dd>
+                  <em class="text-xxxl grey-color-3">
+                  <?=$remain;?>
+                  </em>
+                  </dd>
+                </dl>
+              </div>
+              <ul>
+                <li class="clearfix"> 
+                  <span class="fl basic-label">还款方式</span>
+                  <span class="fl basic-value last <?php if($odd->oddRepaymentStyle=='matchpay'):?><?php endif;?>"><?=$odd->getRepayType()?>
+                    <em class="calculate-btn calculate-em">计算</em></span>
+                  <span class="fl basic-label">借款用途</span> <span class="fl basic-value num"><?=$odd['oddUse']?></span> 
+                </li>
+                <li class="clearfix"> 
+                  <input id="odd-period" type="hidden" value="<?=$odd->oddBorrowPeriod?>">
+                  <span class="fl basic-label">还款期限</span>
+                  <span class="fl basic-value <?php if($odd->oddRepaymentStyle=='matchpay'):?>warning<?php endif;?>">
+                  <?=$odd->getPeriod()?>
+                  </span> 
+                  <span class="fl basic-label">发布时间</span> 
+                  <span class="fl basic-value num last"><?=$odd->oddTrialTime?></span> 
+                </li>
+                <?php if($odd->oddType!='xiaojin'):?>
+                <li class="clearfix">
+                  <span class="fl basic-label">车库编号</span> 
+                  <span class="fl basic-value num last"><?=$odd->oddGarageNum?></span> 
+                </li>
+                <?php endif;?>
+
+                <?php $per=$odd->getPercent();?>
+                <li class="clearfix basic-progress pt15"> 
+                  <span class="fl basic-label">投标进度</span> 
+                  <span class="fl basic-progress-bg"> <b class="basic-percent" <?=_css_style(['width'=>$per.'%'])?>></b> </span> 
+                  <span class="fl basic-progress-value"><em><?=$per;?>%</em></span>
+                  <span id="act-end" style="display:none;">
+                    <?=date('Y/m/d H:i:s',strtotime($odd->oddTrialTime)+$odd->oddBorrowValidTime*24*60*60)?>
+                  </span>
+                  <span class="fl basic-progress-time grey-color-6">剩余时间
+                    <em id="act-day" class="value">0</em>天
+                    <em id="act-hour" class="value">00</em>时
+                    <em id="act-minute" class="value">00</em>分
+                    <em id="act-second" class="value">00</em>秒
+                  </span> 
+                </li>
+              </ul>
+            </div>
+            <?php if($user):?>
+            <div class="fr ui-term-box" >
+              <?php if($odd->progress=='run'):?>
+              <div class="stamp stamp-run"></div>
+              <?php elseif($odd->progress=='start'&&$remain==0):?>
+              <div class="stamp"></div>
+              <?php endif;?>
+              <div class="ui-term-content">
+                <div class="ui-term-overage pr">
+                  <?php if($odd->oddType!='special'):?>
+                  <p><span class="mr10">账户余额（元）</span><br />
+                    <span class="text-xxxl">￥<?=$user->fundMoney?></span>
+                  </p>
+                  <?php else:?>
+                  <p><span class="mr10">账户现金券余额（元）</span><br />
+                    <span class="text-xxxl">￥<?=$user->imiMoney?></span>
+                  </p>
+                  <?php endif;?>
+                  <a class="recharge" href="<?=WEB_USER;?>/account/recharge" target="_blank">充值</a> </div>
+                <div class="btn-wrap"><?=$odd->getDetailButton()?></div>
+              </div>
+            </div>
+            <?php else:?>
+            <div class="fr ui-term-box" >
+              <div class="user-need-login">
+                <div class="sign-info">
+                  <p><span>50元</span>起投，最高年化收益率<span>22%</span></p>
+                  <p>回报周期快，债权转让更灵活</p>
+                </div>
+                <div class="tc mt20">
+                  <input type="button" value="立即登录" class="btn-blue loginbtn user-login-btn"/>
+                </div>
+              </div>
+            </div>
+            <?php endif;?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php if($odd->oddType=='xiaojin'):?>
+    <?php $this->display('odd/common/crdDetail.html', [
+      'odd'=>$odd, 
+      'oddUser'=>$oddUser, 
+      'oddUserCompany'=>$oddUserCompany, 
+      'borrowSuccessCount'=>$borrowSuccessCount,
+      'endCount'=>$endCount,
+      'borrowMoney'=>$borrowMoney,
+      'stayMoney'=>$stayMoney,
+      'count'=>$count,
+      'totalMoney'=>$totalMoney,
+      'ingCount'=>$ingCount,
+      'ingMoney'=>$ingMoney,
+      'borrowCount'=>$borrowCount
+    ]);?>
+    <?php else:?>
+    <?php $this->display('odd/common/detail.html', [
+      'odd'=>$odd, 
+      'oddUser'=>$oddUser, 
+      'oddUserCompany'=>$oddUserCompany, 
+      'borrowSuccessCount'=>$borrowSuccessCount,
+      'endCount'=>$endCount,
+      'borrowMoney'=>$borrowMoney,
+      'stayMoney'=>$stayMoney,
+      'count'=>$count,
+      'totalMoney'=>$totalMoney,
+      'ingCount'=>$ingCount,
+      'ingMoney'=>$ingMoney,
+      'borrowCount'=>$borrowCount
+    ]);?>
+    <?php endif;?>
+  </div>
+</div>
+
+<div class="hide-form" style="display:none;">
+  <form id="third-form" action="" method="POST">
+    <input type="hidden" id="transData" name="transData" value="">
+  </form>
+</div>
+<div class="class1">
+  <div class="class2">
+    
+  </div>
+</div>
+<!-- 隐藏弹窗 -->
+<div id="ajax-bid-box" class="hide-box box modal">
+    <div class="form-wrap form-huge">
+        <div class="form-group clearfix">
+            <label>标号：</label>
+            <div class="static-input"><?=$odd->oddNumber?></div>
+        </div>
+        <div class="form-group clearfix">
+            <label>标名：</label>
+            <div class="static-input"><?=$odd->oddTitle?></div>
+        </div>
+        <div class="form-group clearfix">
+            <label>可投金额：</label>
+            <div class="static-input"><?=$remain?>元</div>
+        </div>
+        <div class="form-group clearfix">
+            <label>可使用奖券：</label>
+            <select id="lottery-list" class="select" name="lotteryID">
+              <option value="0">不使用</option>
+            </select>
+        </div>
+        <div class="form-group clearfix">
+            <?php if($odd->oddType!='special'):?>
+            <label>投资金额：</label>
+            <?php else:?>
+            <label>投资虚拟金额：</label>
+            <?php endif;?>
+            <input id="money" class="number-input" type="text" name="money">
+            <span id="get-max-invest" class="icon-btn">最大</span>
+        </div>
+        <!-- <div class="form-group clearfix">
+          <label>验证码：</label>
+          <input id="bid-captcha" type="text" name="captcha" class="captcha">
+          <a href="javascript:;" class="code-wrap">
+            <img id="bid-captcha-img" class="captcha-img" onclick="this.src+='?'+Math.random()" src="<?=WEB_CAPTCHA?>" alt="验证码">
+          </a>
+        </div> -->
+        <input type="hidden" id="oddNumber" value="<?=$odd->oddNumber;?>">
+        <div class="form-group clearfix">
+            <button id="ajax-bid-btn" class="btn btn-primary" style="margin-left: 105px;">投资</button>
+        </div>
+    </div>
+    <div class="box-remark-box huge-remark">
+        <div class="remark-title">温馨提示</div>
+        <?php if($odd->oddType!='special'):?>    
+        <div class="remark-content">
+            <p>新手标额外奖励年化收益率<span class="red" style="font-size:12px;">0.8%</span>，新手标的利息根据奖励后的年化收益率进行计息，结息日获得。</p>
+        </div>
+        <?php else:?>
+        <div class="remark-content">
+            <p>1. 该标为现金券专享标，只能使用现金券进行投资</p>
+            <p>2. 该标为虚拟标的，不支持债权转让，投资能获得收益，但是无法获得积分，无法累计投资金额</p>
+        </div>
+        <?php endif;?>
+    </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

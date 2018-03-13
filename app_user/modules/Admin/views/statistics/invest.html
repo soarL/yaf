@@ -1,0 +1,107 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"><?=$queries->date?$queries->date:'';?>&nbsp;&nbsp;&nbsp;用户投资详情</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<input type="hidden" name="date" value="<?=$queries->date?>" />
+							<div class="form-group">
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option>全部</option>
+										<option value="userType" data-type="text" <?php if($searchType=='userType'):?>selected<?php endif;?>>用户类型</option>
+										<option value="username" data-type="text" <?php if($searchType=='username'):?>selected<?php endif;?>>用户名</option>
+										<option value="registerTime" data-type="time" <?php if($searchType=='registerTime'):?>selected<?php endif;?>>注册时间</option>
+										<option value="investType" data-type="text" <?php if($searchType=='investType'):?>selected<?php endif;?>>投标类型</option>
+										<option value="oddType" data-type="text" <?php if($searchType=='oddType'):?>selected<?php endif;?>>标的类型</option>
+										<option value="oddTitle" data-type="text" <?php if($searchType=='oddTitle'):?>selected<?php endif;?>>标的名称</option>
+										<option value="oddPeriod" data-type="text" <?php if($searchType=='oddPeriod'):?>selected<?php endif;?>>标的周期</option>
+										<option value="money" data-type="area" <?php if($searchType=='money'):?>selected<?php endif;?>>投资金额</option>
+									</select>
+								</div>
+							</div>
+							<?php 
+								$text = ['userType', 'username', 'investType', 'oddType', 'oddTitle', 'oddPeriod'];
+								$time = ['registerTime'];
+								$area = ['money'];
+							?>
+							<div class="form-group <?php if(!in_array($searchType,$text)):?>hidden<?php endif;?> data-text">
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group <?php if(!in_array($searchType,$time)):?>hidden<?php endif;?> data-time">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<div class="form-group <?php if(!in_array($searchType,$area)):?>hidden<?php endif;?> data-area">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm" name="begin" value="<?=$queries->begin?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm" name="end" value="<?=$queries->end?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<h5 class="box-title">投资总额 (搜索结果)：<?=number_format($sum?$sum:0, 2)?></h5>
+						<table class="table table-hover mb-1">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>编号</th>
+								<th class="visible-lg">用户类型<?=$queries->sort('userType')?></th>
+								<th class="visible-lg">用户名</th>
+								<th class="visible-lg">注册时间<?=$queries->sort('registerTime')?></th>
+								<th class="visible-lg">投资时间<?=$queries->sort('time')?></th>
+								<th class="visible-lg">投标类型</th>
+								<th class="visible-lg">标的类型</th>
+								<th class="visible-lg">标的名称</th>
+								<th class="visible-lg">标的周期<?=$queries->sort('oddPeriod')?></th>
+								<th class="visible-lg">利率</th>
+								<th class="visible-lg">投资金额<?=$queries->sort('money')?></th>
+							</tr>
+							<?php foreach ($invest as $key => $value):?>
+							<tr>
+								<td><?=$value->id?></td>
+								<td><?=$value->userType?></td>
+								<td><?=$value->username?></td>
+								<td><?=$value->registerTime?></td>
+								<td><?=$value->time?></td>
+								<td><?=$value->investType?></td>
+								<td><?=$value->oddType?></td>
+								<td><?=$value->oddTitle?></td>
+								<td><?=$value->period?></td>
+								<td><?=$value->oddYearRate?></td>
+								<td><?=$value->money?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$invest->render()?><br/><br/>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

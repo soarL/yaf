@@ -1,0 +1,132 @@
+<?php $this->display('header.html');?>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">渠道分类</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加渠道" href="/admin/promotion/addList">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		          <a href="/admin/promotion/downExcel" class="btn btn-success btn-xs ">导出excel</a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="col-sm-12">
+					<form action="" class="table-search-form clearfix">
+						<!--<div class="form-group">-->
+							<!--<label class="control-label">渠道编号</label>-->
+							<!--<div class="input-wrap">-->
+								<!--<input type="text" class="form-control input-sm" name="channel" placeholder="渠道编号" value="<?=$queries->channel?>">-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div class="form-group">-->
+							<!--<label class="control-label">时间类型</label>-->
+							<!--<div class="select-wrap">-->
+								<!--<select class="form-control input-sm" name="type">-->
+									<!--<option value="hour" <?php if('hour'==$queries->type):?>selected<?php endif;?>>小时</option>-->
+									<!--<option value="day" <?php if('day'==$queries->type):?>selected<?php endif;?>>天</option>-->
+									<!--<option value="week" <?php if('week'==$queries->type):?>selected<?php endif;?>>周</option>-->
+									<!--<option value="month" <?php if('month'==$queries->type):?>selected<?php endif;?>>月</option>-->
+								<!--</select>-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div class="form-group">-->
+							<!--<label class="control-label time-label">时间</label>-->
+							<!--<div class="input-group time-group">-->
+								<!--<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">-->
+								<!--<div class="input-group-btn">-->
+									<!--<button type="button" class="btn btn-sm">至</button>-->
+								<!--</div>-->
+								<!--<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<button type="submit" class="btn btn-sm btn-info">搜索</button>-->
+					</form>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+							<tr>
+								<th>渠道名称</th>
+								<th>渠道代码</th>
+								<!--<th class="visible-lg">平均PV</th>-->
+								<!--<th class="visible-lg">平均UV</th>-->
+								<!--<th class="visible-lg">平均IP</th>-->
+								<th class="visible-lg">注册人数</th>
+								<!--<th class="visible-lg">充值人数</th>-->
+								<!--<th class="visible-lg">充值金额</th>-->
+								<th class="visible-lg">投资人数</th>
+								<th class="visible-lg">投资金额</th>
+								<!--<th class="visible-lg">提现人数</th>-->
+								<!--<th class="visible-lg">提现金额</th>-->
+								<th class="visible-lg" >操作</th>
+							</tr>
+							<?php foreach ($list as $item):?>
+							<tr>
+								<td><?=$item['channelName']?></td>
+								<td><?=$item['channelCode']?></td>
+								<!--<td class="visible-lg"><?=$item['pvAvg']?></td>-->
+								<!--<td class="visible-lg"><?=$item['uvAvg']?></td>-->
+								<!--<td class="visible-lg"><?=$item['ipAvg']?></td>-->
+								<td class="visible-lg"><?=$item['regCount']?></td>
+								<!--<td class="visible-lg"><?=$item['rCount']?></td>-->
+								<!--<td class="visible-lg"><?=$item['rMoney']?></td>-->
+								<td class="visible-lg"><?=$item['tCount']?></td>
+								<td class="visible-lg"><?=$item['tMoney']?></td>
+								<!--<td class="visible-lg"><?=$item['wCount']?></td>-->
+								<!--<td class="visible-lg"><?=$item['wMoney']?></td>-->
+								<td>
+									<!--<button type="button" class="btn btn-success btn-ssm editCate" data-toggle="modal" data-target="#myModal">-->
+										<!--编辑-->
+									<!--</button>-->
+									<a class="btn btn-ssm btn-info" href="<?=WEB_USER;?>/admin/promotion/detail?channel=<?=$item['channelCode']?>"> <i class="  icon-white"></i>
+										用户投资日志
+									</a>
+                                    <a class="btn btn-ssm btn-info" href="<?=WEB_USER;?>/admin/promotion/statistics?channel=<?=$item['channelCode']?>" > <i class="  icon-white"></i>
+                                        统计数据
+                                    </a>
+                                    <a class="btn btn-ssm btn-info" href="<?=WEB_USER;?>/admin/promotion/pageInfo?channel=<?=$item['channelCode']?>" > <i class="  icon-white"></i>
+                                        页面统计
+                                    </a>
+
+								</td>
+							</tr>
+						<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">修改分类</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<form method="post" action="/admin/promotion/update">
+	      		<input type="hidden" name="hidden_id" id="hidden_id" value="">
+	      	  <div class="form-group">
+	      	    <label for="exampleInputEmail1">分类名称</label>
+	      	    <input type="text" name="channelName" class="form-control" id="channelName" >
+	      	  </div>
+	      	  <div class="form-group">
+	      	    <label for="exampleInputPassword1">分类代号</label>
+	      	    <input type="text" class="form-control" name="channelCode" id="channelCode" placeholder="">
+	      	  </div>
+	      	  <button type="submit" class="btn btn-danger">保存</button>
+	      	</form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+<?php $this->display('footer.html');?>

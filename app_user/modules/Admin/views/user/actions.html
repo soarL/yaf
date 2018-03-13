@@ -1,0 +1,100 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">行为列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加行为" href="/admin/user/addAct">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="identifier" <?php if($searchType=='identifier'):?>selected<?php endif;?>>标识符</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>名称</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">帐号状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="active">正常</option>
+										<option value="locked">锁定</option>
+										<option value="invalid">失效</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/user/deleteAct" data-other="删除行为将会删除所有该行为的子行为！">
+							<tr>
+								<th>编号</th>
+								<th>名称</th>
+								<th class="visible-lg">域</th>
+								<th class="visible-lg">模块</th>
+								<th class="visible-lg">链接</th>
+								<th class="visible-lg">添加时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($actions as $action):?>
+							<tr data-id="<?=$action->id?>">
+								<td><?=$action->id?></td>
+								<td><?=$action->name?><span class="label label-success"><?=$action->identifier?></span></td>
+								<td class="visible-lg">
+									<?=$action->domain?>
+								</td>
+								<td class="visible-lg">
+									<?=$action->module?>
+								</td>
+								<td class="visible-lg">
+									<?=$action->link?>
+								</td>
+								<td class="visible-lg"><?=$action->created_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/user/updateAct?id=<?=$action->id?>"> 
+										<i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$actions->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

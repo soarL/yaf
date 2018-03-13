@@ -1,0 +1,73 @@
+<?php use Yaf\Registry;?>
+<div class="footer" id="footer">
+	<div class="container">
+		<ul class="list-unstyled">
+			<li class="bottom-nav">
+				<dl>
+					<dt>信息披露</dt>
+					<dd><a href="/help">新手指南</a></dd>
+					<dd><a href="/about/rates">收费标准</a></dd>
+					<dd><a href="/about/contact">联系我们</a></dd>
+				</dl>
+			</li>
+			<li class="bottom-nav">
+				<dl>
+					<dt>公司简介</dt>
+					<dd><a href="/news/list?type=edu">网贷教育</a></dd>
+					<dd><a href="/about/risk">风险提示</a></dd>
+				</dl>
+			</li>
+			<li><span class="suxian"></span></li>
+			<li class="footer-logo">
+				<img src="<?=RSRC?>/images/public/huilogo.png" alt="logo">
+				<h1>400-080-8885</h1>	
+			</li>
+			<li class="location">
+				<dl>
+					<dt><a href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4000808885" target="_blank"><img src="<?=RSRC?>/images/public/qqkefu.png" alt="qq"></a></dt>
+					<dt><a href="javascript:"><img src="<?=RSRC?>/images/public/weixinkefu.png" alt="weixin" class=weixin></a></dt>
+					<dd>在线客服</dd>
+					<dd>周一到周六9:00-21:00</dd>
+					<dd>福州市鼓楼区五四路国贸广场2楼H单元</dd>
+				</dl>
+			</li>
+			<li><span class="suxian"></span></li>
+			<li class="erweima">
+				<div>
+					<img src="<?=RSRC?>/images/public/public.png" alt="<?=WEB_ASSET?>/web/public">关注公众号
+				</div>
+			</li>
+			<li class="erweima">
+				<div>
+					<img src="<?=RSRC?>/images/public/after.png" alt="<?=WEB_ASSET?>/web/public">APP研发中
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- 底部 -->
+<div class="container page-footer">
+<!-- 	<ul class="list-unstyled footer-img">
+		<li><img src="<?=RSRC?>/images/public/pagefooter-1.png"></li>
+		<li><img src="<?=RSRC?>/images/public/pagefooter-2.png"></li>
+		<li><img src="<?=RSRC?>/images/public/pagefooter-3.png"></li>
+		<li><img src="<?=RSRC?>/images/public/pagefooter-4.png"></li>
+		<li><img src="<?=RSRC?>/images/public/pagefooter-5.png"></li>
+		<li><img src="<?=RSRC?>/images/public/pagefooter-6.png"></li>
+	</ul> -->
+	<ul class="list-unstyled footer-message">
+		<li>隐私保护声明</li>
+		<li>服务协议</li>
+		<li>闽ICP备17009379号-1</li>
+		<li>使用条款及隐私保护声明</li>
+		<li style="border-right: none;">附加法律信息</li>
+		<div class="clearfix"></div>
+	</ul>
+	<p>2017版本|福州汇诚金融外包服务有限公司 闽ICP备17009379号-1</p>
+	<!-- <div class="clearfix"></div> -->
+</div>
+<?php tools\Layer::flash();?>
+<?php $asset = Registry::get('asset');?>
+<?php $asset->end();?>
+</body>
+</html>

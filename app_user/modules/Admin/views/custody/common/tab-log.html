@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+    <li <?php if($logType=='recent'):?>class="active"<?php endif;?>>
+        <a href="/admin/custody/accountDetails" data-toggle="link">两日内流水</a>
+    </li>
+    <li <?php if($logType=='histody'):?>class="active"<?php endif;?>>
+        <a href="/admin/custody/accountFullLogs" data-toggle="link">历史流水</a>
+    </li>
+    <li <?php if($logType=='match'):?>class="active"<?php endif;?>>
+        <a href="/admin/custody/accountLogs" data-toggle="link">对账流水</a>
+    </li>
+</ul>

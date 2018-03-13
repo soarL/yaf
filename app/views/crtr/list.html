@@ -1,0 +1,129 @@
+<?php $this->display('header.html');?>
+<div ui-view="xiangqing">
+	<!-- <div class="add_nav_bg">
+		<div class="container">
+			<ul class="list-unstyled add_nav">
+				<li><a>13****78成功投标<span>100000</span>元<span>2017-10-09</span></a></li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+	</div> -->
+	<div class="container biaodiLBbody">
+		<ul class="list-unstyled biaodi_left_nav">
+			<li><a href="/newhand" >新手标专区</a></li>
+			<li><a href="/odds" >散标专区</a></li>
+			<li><a href="/crtr/list" class="active">债权转让</a></li>
+		</ul>
+		<div class="biaodi_right_body">
+			<div ui-view="biaodiLB">
+				<div class="allBody">
+					<div class="biaoSeach">
+						<?php 
+				            $rate = $queries->rate;
+				            $time = $queries->time;
+				            $sort = $queries->sort;
+				            $listUrl = Url::to('/crtr/list');
+				        ?>
+						<ul class="list-inline biaoSeach1">
+							资产类型：
+							<li <?php if($rate==''):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>'','time'=>$time,'sort'=>$sort])?>">全部</a>
+							</li>
+							<li <?php if($rate=='1'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>1,'time'=>$time,'sort'=>$sort])?>">房优贷</a>
+							</li>
+							<li <?php if($rate=='2'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>2,'time'=>$time,'sort'=>$sort])?>">车险优贷</a>
+							</li>
+				<!-- 			<li <?php if($rate=='3'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>3,'time'=>$time,'sort'=>$sort])?>">11%-12%</a>
+							</li>
+							<li <?php if($rate=='2'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>2,'time'=>$time,'sort'=>$sort])?>">10%-11%</a>
+							</li>
+							<li <?php if($rate=='1'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>1,'time'=>$time,'sort'=>$sort])?>">10%以下</a>
+							</li> -->
+						</ul>
+						<ul class="list-inline biaoSeach2">
+							按期限：
+							<li <?php if($time==''):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>''])?>">全部</a>
+							</li>
+							<li <?php if($time=='1'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>1])?>">1~30天</a>
+							</li>
+							<li <?php if($time=='2'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>2])?>">31~90天</a>
+							</li>
+							<li <?php if($time=='3'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>3])?>">91~180天</a>
+							</li>
+							<li <?php if($time=='4'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>4])?>">180~360天</a>
+							</li>
+							<li <?php if($time=='5'):?>class="biaoSeachLi"<?php endif;?>>
+								<a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>$sort,'time'=>5])?>">361天以上</a>
+							</li>
+						</ul>
+						<ul class="list-inline biaoSeach3">
+							<li class="<?=$idata['normal']['class']?>"><a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>'normal','time'=>$time])?>">默认排序</a></li>|
+							<li class="<?=$idata['oddYearRate']['class']?>"><a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>'oddYearRate','time'=>$time,'order'=>$idata['oddYearRate']['order']])?>">年化利率
+								<?=$idata['oddYearRate']['b']?></a></li>|
+							<li class="<?=$idata['qixian']['class']?>"><a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>'qixian','time'=>$time,'order'=>$idata['qixian']['order']])?>">剩余天数
+							<?=$idata['qixian']['b']?></a></li>|
+							<li class="<?=$idata['addtime']['class']?>"><a href="<?=Url::addParams($listUrl,['rate'=>$rate,'sort'=>'addtime','time'=>$time,'order'=>$idata['addtime']['order']])?>">发布时间
+								<?=$idata['addtime']['b']?></a></li>|
+						</ul>
+					</div>
+					<div class="biaoContent">
+						<dl>
+							<?php foreach($crtrs as $crtr):?>
+							<?php $remain = $crtr->getRemain();?>
+							<dd>
+								<a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>"><h1><?='转让项目'.$crtr->getSN().'号';?> <span class="detail-<?=$crtr->odd->user->userType==3?'3':'2'?>"></span><!--<span class="zhuangtai1"></span><span class="zhuangtai2"></span><span class="zhuangtai3"></span>--></h1></a>
+								<ul class="list-unstyled">
+									<li>
+										<h2><?=$crtr->odd->oddYearRate*100?>%  <?php if($crtr->odd->oddReward*100>0):?> + <?=$crtr->odd->oddReward*100?>% <?php endif;?></h2>
+										<p>年化利率</p>
+
+									</li>
+									<li>
+										<h3><?=$crtr->getRemainDay()?></h3>
+										<p>剩余天数</p>
+									</li>
+									<li>
+										<h3><?=$crtr->money?>元</h3>
+										<p>借款金额</p>
+									</li>
+									<li>
+										<div class="project_item_process">
+						   					<div class="project_item_table" id="p1">
+						       				 	 <label><?=$crtr->getPercent()?>%</label>
+						    					</div>
+										</div>
+									</li>
+									<li>
+										<?php if($crtr->progress=='start'&&$remain>0):?>
+			                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="blue-button">认购</a>
+			                            <?php elseif($crtr->progress=='start'&&$remain==0):?>
+			                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="btn-handle">复审中</a>
+			                            <?php else:?>
+			                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>"  class="btn-handle">已出售</a>
+			                            <?php endif;?>
+										<p>剩余可买：<?=$remain?> 元</p>
+									</li>
+									<div class="clearfix"></div>
+								</ul>
+							</dd>
+							<?php endforeach;?>
+						</dl>
+					</div>
+					<div id="page" class="page_div"><?=$crtrs->render();?></div>	
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

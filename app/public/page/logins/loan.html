@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册成功</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta name="apple-mobile-web-app-title" content="注册成功">
+	<link rel="stylesheet" href="./reg.css">
+</head>
+<body>
+	<div class="suc-box">
+		<h1 class="suc-title suc-title-2">恭喜您，注册成功啦！</h1>
+		<div class="suc-icon"><img src="./suc-icon.png" alt=""></div>
+<!-- 		<ul class="suc-bank">
+			<li class="suc-bank-li-1">
+				<img src="./sHBank.png" alt="">
+			</li>
+			<li class="margin-left-rigth">
+				<img src="./hand.png" alt="">
+			</li>
+			<li class="suc-bank-li-1">
+				<img src="./logo.png" alt="">
+			</li>
+			<div class="clearfix"></div>
+		</ul> -->
+		<h3 class="suc-state">
+			汇诚普惠携手上海银行开发的资金存管系统已上线
+			为保障资金安全，请您开通资金存管账户
+		</h3>
+		<div class="suc-button">
+			<button onClick="custom_close();">去登录</button>
+			<a href="/odds">先去逛逛</a>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</body>
+</html>
+<script language="javascript">
+// 这个脚本是 ie6和ie7 通用的脚本
+function custom_close(){
+	host=document.domain; 
+	var url = host.split('.');
+	url = 'http://user.'+ url[1] +'.com/login?login';
+    window.opener=null;
+    window.open(url,'_self');
+    window.close();
+}
+</script>

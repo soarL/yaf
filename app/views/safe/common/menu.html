@@ -1,0 +1,12 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="content-nav">
+	<ul class="clearfix">
+		<li><a href="/safe" class="content-nav-a <?php if($submenu=='safe'):?>sel<?php endif;?>">安全保障<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/safe/payOne" class="content-nav-a <?php if($submenu=='pay'):?>sel<?php endif;?>">银行存管<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/safe/law" class="content-nav-a <?php if($submenu=='law'):?>sel<?php endif;?>">法律保障<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/safe/risk" class="content-nav-a <?php if($submenu=='risk'):?>sel<?php endif;?>">风险提示<i class="tri">&nbsp;</i></a></li>
+	</ul>
+</div>

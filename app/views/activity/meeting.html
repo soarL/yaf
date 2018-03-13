@@ -1,0 +1,80 @@
+<?php $this->display('header.html');?>
+<div id="meet20161215">
+	<div class="header">
+    <h1>积微成著·聚力前行</h1>
+    <p>投资人见面会暨两周年庆典</p>
+    <p>2016年12月24日</p>
+    <p>恭候莅临</p>
+  </div>
+  <div class="gray">
+    <div class="part part01">
+      <div class="desc">
+        <h2>报名方式</h2>
+        <ol>
+          <li>点击下方“我要参会”按钮填写资料报名</li>
+          <li>关注“汇诚普惠官网”公众号，回复“我要参会”</li>
+          <li>拨打汇诚普惠全国客服电话 400-186-9996</li>
+        </ol>
+      </div>
+      <?php if($user&&$isMeeting):?>
+      <div class="btn btn01 hover">
+        <a href="javascript:;">已报名</a>
+      </div>
+      <?php else:?>
+      <div class="btn btn01">
+        <a id="want-meeting" href="javascript:;">我要参会</a>
+      </div>
+      <?php endif;?>
+      <div class="desc">
+        <h2>加入投监会，你可以：</h2>
+        <ol>
+          <li>对汇诚普惠平台进行定期考察和不定期考察</li>
+          <li>查阅汇诚普惠平台发标项目档案资料</li>
+          <li>了解借款人资料</li>
+          <li>对汇诚普惠平台相关运营情况的质询权<br />投监会构成：会长1名；副会长2名；委员8名</li>
+        </ol>
+      </div>
+      <div class="btn btn02"><a href="http://www.hcjrfw.com/news/show/id/5199">我要竞选</a></div>
+    </div>
+  </div>
+  <div class="part part02">
+    <h2>活动概况</h2>
+    <ul>
+      <li class="icon icon02">人数：50-80人</li>
+      <li class="icon icon01">时间：2016.12.24</li>
+      <li class="icon icon03">地点：福州市台江区万达广场甲A写字楼5层</li>
+      <li class="icon icon04">活动流程</li>
+    </ul>
+    <img src="<?=RSRC?>/images/meeting/pic.png" alt="活动流程" />
+  </div>
+  <div class="gray">
+    <div class="part part03">
+      <h2>报名须知</h2>
+      <ol type="1">
+        <li>由于名额有限，最终参会人员将根据用户账户总资产、投资年限等进行筛选，最终以收到邀请短信或收到客服邀请电话为准。</li>
+        <li>参加年会的外地投资人提供12月24日晚双人标间住宿，本地用户不提供住宿。</li>
+        <li>投资人可根据交通路线图自行前往汇诚普惠，期间产生的交通费、过路费等其他费用需客户自理。</li>
+        <li>请携带好身份证，同时福州近期较冷，请注意保暖。</li>
+      </ol>
+    </div>
+  </div>
+  <div class="part part04">
+    <h2>交通指南</h2>
+    <ul>
+      <li class="icon icon05">距离长乐国际机场43公里，乘坐出租车约40分钟，或乘坐机场大巴至升龙汇金大厦步行3分钟可达汇诚普惠总部。</li>
+      <li class="icon icon06">距离福州火车南站13.5公里，乘出租车约25分钟，或乘306路车至光明桥站转162或126路车至金融街万达，步行5分钟至汇诚普惠总部。</li>
+      <li class="icon icon07">距离福州火车北站10公里，乘出租车约20分钟，或乘153路车至金融街万达广场（鳌江路车站）步行3分钟至汇诚普惠总部。</li>
+    </ul>
+    <iframe src="http://lbs.amap.com/console/show/map/?0_960_480_119.34259_26.052708&amp;=福建汇诚普惠科技发展有限公司&amp;=福州市台江区鳌江路8号金融街万达广场二期&amp;=&amp;=&amp;="></iframe>
+  </div>
+</div>
+<!-- 隐藏弹窗 -->
+<?php if($user):?>
+<div id="ajax-meeting-box" class="hide-box box modal">
+    <div class="form-wrap form-huge">
+      确定要报名吗？ <button id="ajax-meeting-btn" class="btn btn-primary">报名</button>
+    </div>
+</div>
+<?php endif;?>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

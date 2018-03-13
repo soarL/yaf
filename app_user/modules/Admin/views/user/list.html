@@ -1,0 +1,189 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">用户列表</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+										<option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+										<option value="comments" <?php if($searchType=='comments'):?>selected<?php endif;?>>备注</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">帐号状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="active">正常</option>
+										<option value="locked">锁定</option>
+										<option value="invalid">失效</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">用户类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="userType">
+										<option value="">全部</option>
+										<option value="2" <?php if($queries->userType=='2'):?>selected<?php endif;?>>借款用户</option>
+										<option value="1" <?php if($queries->userType=='1'):?>selected<?php endif;?>>投资用户</option>
+									</select>
+								</div>
+							</div>
+                            <div class="form-group">
+                                <label class="control-label">渠道</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="channel">
+                                        <option value="">全部</option>
+                                        <option value="2" <?php if($queries->channel=='2'):?>selected<?php endif;?>>多赚</option>
+                                        <option value="3" <?php if($queries->channel=='3'):?>selected<?php endif;?>>头条</option>
+                                        <option value="4" <?php if($queries->channel=='4'):?>selected<?php endif;?>>76676</option>
+                                        <option value="77" <?php if($queries->channel=='77'):?>selected<?php endif;?>>小微用户</option>
+                                        <option value="78" <?php if($queries->channel=='78'):?>selected<?php endif;?>>小微用户（推荐）</option>
+                                        <option value="79" <?php if($queries->channel=='79'):?>selected<?php endif;?>>亲友用户</option>
+                                        <option value="80" <?php if($queries->channel=='80'):?>selected<?php endif;?>>亲友用户（推荐）</option>
+                                        <option value="81" <?php if($queries->channel=='81'):?>selected<?php endif;?>>公司用户</option>
+                                        <option value="82" <?php if($queries->channel=='82'):?>selected<?php endif;?>>公司用户（推荐）</option>
+                                        <option value="0" <?php if($queries->channel=='0'):?>selected<?php endif;?>>未知</option>
+                                    </select>
+                                </div>
+                            </div>
+							<div class="form-group">
+								<label class="control-label">排序</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="order">
+										<option value="">全部</option>
+										<option value="integral" <?php if($queries->order=='integral'):?>selected<?php endif;?>>积分</option>
+										<option value="fundMoney" <?php if($queries->order=='fundMoney'):?>selected<?php endif;?>>余额</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">注册时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>帐号</th>
+								<th>账户余额</th>
+								<th class="visible-lg">待收</th>
+								<!-- <th class="visible-lg">积分</th> -->
+								<th class="visible-lg">姓名</th>
+								<th class="visible-lg">手机</th>
+								<!-- <th class="visible-lg">存管账号</th> -->
+								<th class="visible-lg">客服</th>
+								<th class="visible-lg">级别</th>
+								<th class="visible-lg">注册时间</th>
+								<th class="visible-lg">地区</th>
+								<th class="visible-lg">年龄</th>
+								<th class="visible-lg">性别</th>
+								<th class="visible-lg">备注</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($users as $key => $user):?>
+							<tr data-userId='<?=$user->userId?>'>
+								<td>
+									<a class="label label-primary" href="/admin/user/show?userId=<?=$user->userId?>"><?=$user->userId?></a>
+									<?=$user->username?>
+								</td>
+								<td ><?=$user->fundMoney?></td>
+								<td class="visible-lg"><?=empty($stayMoney[$user->userId])?'0':$stayMoney[$user->userId];?>元</td>
+								<!-- <td class="visible-lg"><?=intval($user->integral/100)?></td> -->
+								<td class="visible-lg">
+									<?php if($user->cardstatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->name?>
+								</td>
+								<td class="visible-lg">
+									<?php if($user->phonestatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->phone?>
+								</td>
+								<!-- td class="visible-lg">
+									<?php if($user->custody_id):?>
+									<span class="label label-success"><?=$user->custody_id?></span>
+									<?php endif;?>
+								</td> -->
+
+								<td class="visible-lg">
+									<?=$user->waiter?$user->waiter->username:''?>
+								</td>
+								<td class="visible-lg">
+									<?=$user->level?$user->level:'未联系'?>
+								</td>
+								<td class="visible-lg">
+									<?=$user->addtime?>
+								</td>
+								<td class="visible-lg">
+									<?=$cityList[$user->userId]?>
+								</td>
+								<td class="visible-lg">
+									<?=$user->getAge()?>
+								</td>
+								<td class="visible-lg">
+									<?=$user->sex=='man'?'男':'女'?>
+								</td>
+
+								<td class="visible-lg input" data-name='comments'><?=$user->comments?></td>
+								<td>
+								<div class="links dropdown">
+							        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							          选择操作 <span class="caret"></span>
+							        </a>
+							        <ul class="dropdown-menu">
+									    <li><a href="/admin/user/update?userId=<?=$user->userId?>"> 编辑信息 </a></li>
+										<li><a href="/admin/log/money?searchType=userId&searchContent=<?=$user->userId?>"> 资金日志 </a></li>
+										<li><a href="/admin/recharge/list?searchType=userId&searchContent=<?=$user->userId?>"> 充值记录 </a></li>
+										<li><a href="/admin/withdraw/list?searchType=userId&searchContent=<?=$user->userId?>&status=all"> 提现记录 </a></li>
+										<li><a href="/admin/auto/index?searchType=userId&searchContent=<?=$user->userId?>"> 投标设置 </a></li>
+										<li><a href="/admin/user/loginlog?userId=<?=$user->userId?>"> 登录日志 </a></li>
+							        </ul>
+							    </div>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$users->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

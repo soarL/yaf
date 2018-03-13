@@ -1,0 +1,221 @@
+<?php use models\Odd;?>
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">借款列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="/admin/loan/edit">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">名称</label>
+								<div class="select-wrap">
+									<?php $searchTypes = ['name'=>'用户姓名','chepai'=>'车牌号码', 'oddNumber'=>'标的号', 'userId' => '用户ID', 'username'=>'帐号', 'oddTitle'=>'借款标题', 'phone'=>'用户手机'];?>
+									<select class="form-control input-sm" name="searchType">
+										<?=_options($searchTypes, $queries->searchType);?>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="startTime" value="<?=$queries->startTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">借款状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="progress">
+										<option value="all" <?php if($queries->progress=='all') echo 'selected';?>>全部</option>
+										<option value="prep" <?php if($queries->progress=='prep') echo 'selected';?>>待发布</option>
+										<option value="published" <?php if($queries->progress=='published') echo 'selected';?>>待初审</option>
+										<option value="start" <?php if($queries->progress=='start') echo 'selected';?>>筹款中</option>
+										<option value="finish" <?php if($queries->progress=='finish') echo 'selected';?>>待复审</option>
+										<option value="review" <?php if($queries->progress=='review') echo 'selected';?>>复审中</option>
+										<option value="run" <?php if($queries->progress=='run') echo 'selected';?>>还款中</option>
+										<option value="end" <?php if($queries->progress=='end') echo 'selected';?>>已完结</option>
+										<option value="fail" <?php if($queries->progress=='fail') echo 'selected';?>>已失效</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">标的类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="oddType">
+										<option value="all" <?php if($queries->oddType == 'all') echo 'selected';?>>全部</option>
+										<option value="xingyong" <?php if($queries->oddType == 'xingyong') echo 'selected';?>>质押标</option>
+										<option value="danbao" <?php if($queries->oddType == 'danbao') echo 'selected';?>>融资租赁标</option>
+										<option value="diya" <?php if($queries->oddType == 'diya') echo 'selected';?>>抵押标</option>
+										<option value="xiaojin" <?php if($queries->oddType == 'xiaojin') echo 'selected';?>>个人信贷标</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">还款类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="oddRepaymentStyle">
+										<option value="all" <?php if($queries->progress == 'all') echo 'selected';?>>全部</option>
+										<option value="monthpay" <?php if($queries->progress == 'monthpay') echo 'selected';?>>到期还本</option>
+										<option value="matchpay" <?php if($queries->progress == 'matchpay') echo 'selected';?>>等额本息</option>
+									</select>
+								</div>
+							</div>
+							<input type="hidden" name="order" value=<?=$queries->order?>>
+
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+                            <div class="box-tools pull-right">
+                                <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                                <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                                    <i class="fa fa-file-excel-o text-red"></i></a>
+                            </div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" >
+							<tr>
+								<th class="visible-lg">借款人</th>
+								<th class="visible-lg">姓名</th>
+								<!--<th>用户余额 <a href="<?=$queries->getUrl(['isFinish'=>'y', 'progress'=>'run'])?>"><i class="fa fa-heart text-red"></i></a></th>-->
+								<th>借款标题</th>
+								<th class="visible-lg">借款金额</th>
+								<th class="visible-lg">完成比例</th>
+								<th class="visible-lg">借款期数</th>
+								<th class="visible-lg">年利率</th>
+								<th class="visible-lg">发布时间</th>
+								<th class="visible-lg">借款类型</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-id="<?=$record->id?>" data-oddNumber="<?=$record->oddNumber?>" data-appointUserId="<?=$record->appointUserId?>" data-name="<?=$record->oddTitle?>">
+								<td class="visible-lg">
+									<?=$record->user->username?> <a class="label label-primary" href="/admin/user/list?searchType=userId&searchContent=<?=$record->userId?>"><?=$record->userId?></a>
+								</td>
+								<td class="visible-lg"><?=$record->user->name?></td>
+								<!--<td><a class="label label-danger" href="/admin/user/list?searchType=userId&searchContent=<?=$record->userId?>"><?=$record->user->fundMoney?></a></td>-->
+								<td>
+									<?php 
+										$otherInfo = '';
+										if($record->progress=='run' || $record->progress=='end') {
+											$otherInfo = '完结日期：' . $record->getEndTime().' 复审日期：'. $record->oddRehearTime;
+										}
+									?>
+									<span class="label" data-toggle="tooltip" title="<?=$otherInfo?>" data-original-title="<?=$otherInfo?>" style="background: <?=$record->getTypeName('color')?>"><?=$record->getTypeName('short')?></span>
+									
+									<?php if($record->oddStyle=='newhand'):?>
+									<span class="label label-warning">新</span>
+									<?php endif;?>
+
+									<?php if($record->appointUserId):?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$record->appointUserId?>" data-original-title="<?=$record->appointUserId?>">约</span>
+									<?php endif;?>
+									
+									<a href="/admin/loan/invests?searchType=oddNumber&searchContent=<?=$record->oddNumber?>"><span class="label label-primary" data-toggle="tooltip" data-original-title="<?=$record->oddNumber?>">
+										<?=$record->oddTitle?>
+									</span></a> 
+								</td>
+								<td class="visible-lg"><?=$record->oddMoney?></td>
+								<td class="visible-lg"><?=$record->getPercent()?>%</td>
+								<td class="visible-lg"><?=$record->getPeriod()?></td>
+								<td class="visible-lg">
+									<?=$record->oddYearRate*100?>%
+									<?php if($record->oddReward>0):?>
+										+<span class="text-success"><?=$record->oddReward*100?>%</span>
+									<?php endif;?>
+								</td>
+								<td class="visible-lg"><?=_date('n/j H:i', $record->openTime)?></td>
+								<td class="visible-lg"><?=$record->getRepayType()?></td>
+								<td><?=$record->getPRGName('html')?></td>
+								<td>
+									<div class="links dropdown">
+								        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								          选择操作 <span class="caret"></span>
+								        </a>
+								        <ul class="dropdown-menu">
+										    <li><a href="<?=WEB_MAIN?>/odd/<?=$record->oddNumber?>" target="_blank"> 页面查看 </a></li>
+											<li><a href="/admin/loan/edit?oddNumber=<?=$record->oddNumber?>"> 编辑标的 </a></li>
+											<?php if($record->progress=='prep'||$record->progress=='start'):?>
+											<li><a class="btn-bespokes" href="javascript:;"> 约标 </a></li>
+											<?php endif;?>
+											<?php if($record->progress=='prep'):?>
+											<li><a class="btn-publish" href="javascript:;"> 发布 </a></li>
+											<?php endif;?>
+											<?php if($record->canRehear()):?>
+											<li><a class="btn-rehear" href="javascript:;"> 复审 </a> </li>
+											<?php endif;?>
+											<?php if($record->canAutoBid()):?>
+											<li><a class="btn-auto-bid" href="javascript:;"> 自动投标 </a></li>
+											<?php endif;?>
+											<li><a href="/admin/loan/edit?continue=1&oddNumber=<?=$record->oddNumber?>"> 续借 </a></li>
+											<?php if($record->fronStatus==0&&$record->progress=='run'):?>
+											<li><a class="btn-advance" href="javascript:;"> 提前还款 </a></li>
+											<?php endif;?>
+											<?php if($record->progress=='run'):?>
+											<li><a class="btn-delay" href="javascript:;"> 逾期还款 </a></li>
+											<?php endif;?>
+											<?php if($record->progress=='run'):?>
+											<li><a class="btn-generate-pr" href="javascript:;" data-status="<?php if(_binhas(Odd::CER_STA_PR, $record->cerStatus)):?>1<?php else:?>0<?php endif;?>"> 生成合同 </a></li>
+											<li><a class="btn-send-ac" href="javascript:;" data-status="<?php if(_binhas(Odd::CER_STA_AC, $record->cerStatus)):?>1<?php else:?>0<?php endif;?>"> 发送安存 </a></li>
+											<?php endif;?>
+											<?php if($record->progress=='fail'):?>
+											<li><a class="btn-reback" href="javascript:;"> 重新生成 </a></li>
+											<?php endif;?>
+								        </ul>
+								    </div>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="add-action-modal" tabindex="-1" role="dialog" aria-labelledby="add-action-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="add-action-label">约标管理</h5>
+      </div>
+      <div class="modal-body">
+		<div id="action-modal-from" class="form-horizontal">
+			<div class="form-group hidden-vars hide">
+				<input type="hidden" name="oddNumber" id="oddNumber" value="">
+	        </div>
+	      	<div class="form-group">
+	          <label class="col-sm-2 control-label">用户Id</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" id="appointUserId" name="userId" value="" placeholder="输入用户Id">
+	          </div>
+	        </div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-warning btn-sm" id="end-bespokes">预约结束</button>
+        <button type="button" class="btn btn-primary btn-sm" id="save-bespokes">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

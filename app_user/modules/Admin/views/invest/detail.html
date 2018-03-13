@@ -1,0 +1,53 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">筹款列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="/admin/loan/edit">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" method="get" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">借款单号</label>
+								<input type="text" class="form-control input-sm inline-input" name="oddNumber" placeholder="借款单号" value="">
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th class="visible-lg">用户Id</th>
+								<th class="visible-lg">投资金额</th>
+								<th>时间</th>
+								<th class="visible-lg">备注</th>
+								<th class="visible-lg">状态</th>
+							</tr>
+							<?php foreach ($list as $record):?>
+							<tr data-id="<?=$record->id?>" data-oddNumber="<?=$record->oddNumber?>">
+								<td class="visible-lg"><?=$record->userId?></td>
+								<td class="visible-lg"><?=$record->money?></td>
+								<td class="visible-lg"><?=$record->time?></td>
+								<td class="visible-lg"><?=$record->remark?></td>
+								<td class="visible-lg"><?=$record->result?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

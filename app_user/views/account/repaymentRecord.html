@@ -1,0 +1,76 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('user/common/tab-invest.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">回款记录</div>
+            <div class="data-search-form">
+	            <form action="/account/repaymentRecord" method="get">
+                    <div class="form-group">
+                        <label>回款时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group">
+                        <label>标号</label>
+                        <input class="ui-input w180" type="text" name="oddNumber" value="<?=$queries->oddNumber?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>回款时间</th>
+                        <th>期数</th>
+                        <th>应回总额</th>
+                        <th>实回总额</th>
+                        <th>利息服务费</th>
+                        <th>加息</th>
+                        <th>贴息\罚息</th>
+                        <th>状态</th>
+                        <th>类型</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($repayments as $repayment):?>
+                    <tr>
+                        <?php if($repayment->status==0):?>
+                        <td><?=_date('Y-m-d', $repayment->endtime)?></td>
+                        <?php else:?>
+                        <td><?=_date('Y-m-d', $repayment->operatetime)?></td>
+                        <?php endif;?>
+                        <td>第<?=$repayment->qishu?>期</td>
+                        <td>
+                            <span class="poshytip" title="本金：<?=$repayment->getPrincipal()?>元；利息：<?=$repayment->getInterest()?>元">
+                            <?=$repayment->getAmount()?>元</span>
+                        </td>
+                        <td><?=$repayment->realAmount?>元</td>
+                        <td><?=$repayment->serviceMoney?>元</td>
+                        <td><?=$repayment->extra?>元</td>
+                        <td><?=$repayment->subsidy?>元</td>
+                        <td>
+                            <?php if($repayment->status==0):?>
+                            <span class="status-label status-fail">未回款</span>
+                            <?php else:?>
+                            <span class="status-label status-success">已回款</span>
+                            <?php endif;?>
+                        </td>
+                        <td><?=$repayment->getTypeLabels()?></td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?=WEB_MAIN.Url::to('/odd/view', ['num'=>$repayment->oddNumber])?>" target="_blank">    标的
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$repayments->render()?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,118 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="nav-tabs-custom">
+            <?php $this->display('custody/common/tab-log.html', ['logType'=>'recent']);?>
+            <div class="nav-tabs-tool">
+                <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl?>">
+                    <i class="fa fa-file-excel-o text-red"></i>
+                </a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">查询</label>
+                                <?php $searchType = $queries->searchType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="searchType">
+                                        <option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+                                        <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                                        <option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+                                        <option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+                                        <option value="email" <?php if($searchType=='email'):?>selected<?php endif;?>>邮箱</option>
+                                        <option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">交易类型</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="type">
+                                        <option value="0" <?php if($queries->type==0):?>selected<?php endif;?>>所有交易</option>
+                                        <option value="1" <?php if($queries->type==1):?>selected<?php endif;?>>转入交易</option>
+                                        <option value="2" <?php if($queries->type==2):?>selected<?php endif;?>>转出交易</option>
+                                        <option value="9" <?php if($queries->type==9):?>selected<?php endif;?>>指定交易</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">指定交易</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="tranType">
+                                        <?php foreach($tranTypes as $key => $name):?>
+                                        <option value="<?=$key?>" <?php if($queries->tranType==$key):?>selected<?php endif;?>><?=$name?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label time-label">交易时间</label>
+                                <div class="input-group time-group">
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm">至</button>
+                                    </div>
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>时间</th>
+                                <th>金额</th>
+                                <th>类型</th>
+                                <th class="visible-lg">描述</th>
+                                <th class="visible-lg">余额</th>
+                                <th>操作</th>
+                            </tr>
+                            <?php foreach ($list as $item):?>
+                            <tr>
+                                <td><?=_date('Y-m-d H:i:s', substr($item['inpDate'].$item['inpTime'], 0, 14))?></td>
+                                <td>
+                                    <span class="label label-<?=$item['txFlag']=='+'?'success':'danger'?>"><?=$item['txFlag'].$item['txAmount']?></span>
+                                </td>
+                                <th class="visible-lg"><?=$tranTypes[$item['tranType']]?></th>
+                                <td class="visible-lg"><?=$item['describe']?></td>
+                                <td class="visible-lg"><?=$item['currBal']?>元</td>
+                                <td>
+                                    <div class="hidden sync-info">
+                                        <div class="info-tradeNo"><?=$item['inpDate'].$item['inpTime'].$item['traceNo']?></div>
+                                        <div class="info-money"><?=$item['txAmount']?></div>
+                                        <div class="info-cid"><?=$item['accountId']?></div>
+                                        <div class="info-flag"><?=$item['txFlag']?></div>
+                                        <div class="info-tranType"><?=$item['tranType']?></div>
+                                    </div>
+                                    <a class="btn btn-ssm btn-info btn-sync" href="javascript:;">
+                                        同步
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                        </table>
+                    </div>
+                </div>
+                <div class="row row-footer">
+                    <div class="col-sm-12">
+                        <?php if($status==1):?>
+                        <?=$list->render()?>
+                        <?php else:?>
+                        <div class="text-danger" style="text-align: center;"><?=$msg?></div>
+                        <?php endif;?>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

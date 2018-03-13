@@ -1,0 +1,158 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">奖券列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="生成奖券" href="/admin/lottery/generate">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="sn" <?php if($searchType=='sn'):?>selected<?php endif;?>>SN码</option>
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+										<option value="money_rate" <?php if($searchType=='money_rate'):?>selected<?php endif;?>>额度</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="all">全部</option>
+										<?php foreach($types as $key => $type):?>
+			                            <option value="<?=$key?>" <?php if($key==$queries->type):?>selected<?php endif;?>><?=$type['name']?></option>
+			                            <?php endforeach;?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">状态</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="all" <?php if($queries->status=='all'):?>selected<?php endif;?>>全部</option>
+										<option value="0" <?php if($queries->status==0):?>selected<?php endif;?>>未被获取</option>
+										<option value="1" <?php if($queries->status==1):?>selected<?php endif;?>>已获取未使用</option>
+										<option value="2" <?php if($queries->status==2):?>selected<?php endif;?>>已使用</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/lottery/delete">
+							<tr>
+								<th>SN码</th>
+								<th class="visible-lg">所属用户</th>
+								<th>名称</th>
+								<th>类型</th>
+								<th>状态</th>
+								<th class="visible-lg">生成时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($lotteries as $lottery):?>
+							<tr data-id="<?=$lottery->id?>" data-type="<?=$lottery->getTypeName()?>" data-sn="<?=$lottery->sn?>">
+								<td><?=$lottery->sn?></td>
+								<td class="visible-lg">
+									<?php if($lottery->user):?>
+										<?=$lottery->user->username.' <span class="label label-primary">'.$lottery->userId.'</span>';?>	
+									<?php endif;?>
+								</td>
+								<td><?=$lottery->getName()?></td>
+								<td>
+									<?php if($lottery->type=='interest'):?>
+										<?=$lottery->money_rate*100?>%
+									<?php endif;?>
+									<?=$lottery->getTypeName()?>
+								</td>
+								<td>
+									<?php 
+										$sl = [0=>'success', 1=>'primary', 2=>'danger'];
+										$ot = '';
+										if($lottery->status==1) {
+											$ot = 'data-toggle="tooltip" data-original-title="获取时间: '.$lottery->get_at.'"';
+										} else if($lottery->status==2) {
+											$ot = 'data-toggle="tooltip" data-original-title="获取时间: '.$lottery->get_at
+											.' 使用时间:'.$lottery->used_at.'"';
+										}
+									?>
+									<span class="label label-<?=$sl[$lottery->status]?>" <?=$ot?>>
+										<?=$lottery->getStatusName()?>
+									</span>	
+								</td>
+								<td class="visible-lg"><?=$lottery->created_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-primary btn-assign">
+										<i class="fa fa-hand-pointer-o icon-white"></i>
+										分配
+									</a>
+									<a class="btn btn-ssm btn-warning btn-used">
+										<i class="fa fa-hand-pointer-o icon-white"></i>
+										使用
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$lotteries->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="assign-lottery-modal" tabindex="-1" role="dialog" aria-labelledby="assign-lottery-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="assign-lottery-label">分配奖券</h5>
+      </div>
+      <div class="modal-body">
+		<div id="lottery-modal-from" class="form-horizontal">
+			<div class="form-group hidden-vars hide">
+				<input type="hidden" name="id" value="">
+	        </div>
+	      	<div class="form-group">
+	          <label class="col-sm-2 control-label">用户ID</label>
+	          <div class="col-sm-10">
+	          <input type="text" class="form-control" name="userId" value="" placeholder="输入用户ID">
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-2 control-label">备注</label>
+	          <div class="col-sm-10">
+	          <textarea name="remark" class="form-control" style="height: 60px" placeholder="奖券备注"></textarea>
+	          </div>
+	        </div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" id="assign-lottery-btn">分配</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

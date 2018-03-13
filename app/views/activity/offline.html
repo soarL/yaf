@@ -1,0 +1,39 @@
+<?php use helpers\StringHelper;?>
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('activity/common/menu.html');?>
+  <div class="main pt10 pb30">
+    <div class="ui-tab-content-title" >
+      <h4>最新活动</h4>
+    </div>
+    <div class="ac-list">
+      <ul class="clearfix">
+        <?php foreach($records as $key => $record):?>
+        <li class="ac-list-item <?php if($key%2==0):?>mr30<?php endif;?>"> <a><img src="<?=WEB_ASSET.'/uploads/images/'.$record->imageUrl?>"/></a>
+          <div class="ac-info">
+            <h5 class="ac-title"><?=$record->title?></h5>
+            <p class="ac-time">活动时间：<span><?=_date('Y年m月d日', $record->startDate)?></span></p>
+            <p class="ac-content"><?=$record->content?></p>
+          </div>
+          <div class="gallery">
+            <div id="act-slide" class="act-slide clearfix">
+              <?php $photos = StringHelper::decodeImages($record->photos, 'all');?>
+              <ul class="clearfix">
+                <?php foreach($photos as $photo):?>
+                <li>
+                  <a class="fancybox" rel="act-<?=$key?>" href="<?=WEB_ASSET.$photo['max']?>">
+                    <img style="width: 97px; height: 76px;" src="<?=WEB_ASSET.$photo['min']?>"/>
+                  </a>
+                </li>
+                <?php endforeach;?>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <?php endforeach;?>
+      </ul>
+      <div class="pagination-wrapper"></div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

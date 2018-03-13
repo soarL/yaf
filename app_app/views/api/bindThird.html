@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body onload="document.form1.submit()">
+<form id="form1" name="form1" method="post" action="<?=$url?>">
+        <input type="hidden" name='number_id' value="<?=$data['number_id']?>" />
+        <input type='hidden' name='mode' value="<?=$data['mode']?>"/>
+        <input type='hidden' name='account_name' value="<?=$data['account_name']?>"/>
+        <input type='hidden' name='real_name' value="<?=$data['real_name']?>"/>
+        <input type='hidden' name='card_no' value="<?=$data['card_no']?>" />
+        <input type='hidden' name='nick_name' value="<?=$data['nick_name']?>" />
+        <input type='hidden' name='advice_url' value="<?=$data['advice_url']?>" />
+        <input type='hidden' name='return_url' value="<?=$data['return_url']?>" />
+        <input type='hidden' name='remark' value="<?=$data['remark']?>" />
+        <input type='hidden' name='sign_info' value="<?=$data['sign_info']?>" />
+</form>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+	<?php $this->display('user/common/menu.html');?>
+	<div class="main pt20 mb30">
+		<?php $this->display('user/common/tab-info.html');?>
+		<div class="accordion-wrap">
+			<div id="basic-info" class="accordion-item">
+				<div class="accordion-top">
+					<div class="accordion-title accordion-style-1">个人信息</div>
+				</div>
+				<div class="accordion-content">
+					<div class="item-list clearfix">
+						<div class="info-item">真实姓名：<span><?php echo $userInfo['name'];?></span></div>
+						<div class="info-item">身份证号：<span><?php echo $userInfo['cardnum'];?></span></div>
+						<div class="info-item">年龄：<span><?php echo $userInfo['age'];?></span></div>
+						<div class="info-item">性别：<span><?php echo $userInfo['sex'];?></span></div>
+						<div class="info-item">民族：<span><?php echo $userInfo['ethnic'];?></span></div>
+						<div class="info-item">婚姻状况：<span><?php echo $userInfo['maritalstatus'];?></span></div>
+						<div class="info-item">省市：<span><?php echo $userInfo['city'];?></span></div>
+						<div class="info-item">具体地址：<span><?php echo $userInfo['adder'];?></span></div>
+						<div class="info-item">学历：<span><?php echo $userInfo['educational'];?></span></div>
+						<div class="info-item">月收入：<span><?php echo $userInfo['income'];?></span></div>
+					</div>
+					<div class="btn-wrap"><a href="/user/infoBasic" class="btn-edit btn-blue">修改</a></div>
+				</div>
+			</div>
+			<div id="contact-info" class="accordion-item">
+				<div class="accordion-top">
+					<div class="accordion-title accordion-style-2">联系方式</div>
+				</div>
+				<div class="accordion-content">
+					<div class="item-list clearfix">
+						<div class="info-item item-s">联系人一：<span><?php echo $contactInfo['firstLinkName'];?></span></div>
+						<div class="info-item item-s">关系：<span><?php echo $contactInfo['firstRelation'];?></span></div>
+						<div class="info-item item-s">联系电话：<span><?php echo $contactInfo['firstPhone'];?></span></div>
+						<div class="info-item item-s">联系人二：<span><?php echo $contactInfo['secondLinkName'];?></span></div>
+						<div class="info-item item-s">关系：<span><?php echo $contactInfo['secondRelation'];?></span></div>
+						<div class="info-item item-s">联系电话：<span><?php echo $contactInfo['secondPhone'];?></span></div>
+						<div class="info-item item-s">联系人三：<span><?php echo $contactInfo['thirdLinkName'];?></span></div>
+						<div class="info-item item-s">关系：<span><?php echo $contactInfo['thirdRelation'];?></span></div>
+						<div class="info-item item-s">联系电话：<span><?php echo $contactInfo['thirdPhone'];?></span></div>
+					</div>
+					<div class="btn-wrap"><a href="/user/infoContact" class="btn-edit btn-blue">修改</a></div>
+				</div>
+			</div>
+			<div id="company-info" class="accordion-item">
+				<div class="accordion-top">
+					<div class="accordion-title accordion-style-3">单位资料</div>
+				</div>
+				<div class="accordion-content">
+					<div class="item-list clearfix">
+						<div class="info-item">单位名称：<span><?php echo $companyInfo['officename'];?></span></div>
+						<div class="info-item">联系电话：<span><?php echo $companyInfo['officephone'];?></span></div>
+						<div class="info-item">地区：<span><?php echo $companyInfo['officecity'];?></span></div>
+						<div class="info-item">具体地址 ：<span><?php echo $companyInfo['officeadder'];?></span></div>
+						<div class="info-item">工作年限：<span><?php echo $companyInfo['officeyear'];?></span></div>
+						<div class="info-item">证明人：<span><?php echo $companyInfo['officeproof'];?></span></div>
+						<div class="info-item">证明人手机：<span><?php echo $companyInfo['officeprooftel'];?></span></div>
+					</div>
+					<div class="btn-wrap"><a href="/user/infoCompany" class="btn-edit btn-blue">修改</a></div>
+				</div>
+			</div>
+			<div id="house-info" class="accordion-item accordion-last">
+				<div class="accordion-top">
+					<div class="accordion-title accordion-style-4">房产资料</div>
+				</div>
+				<div class="accordion-content">
+					<div class="item-list clearfix">
+						<div class="info-item">房产地址：<span><?php echo $houseInfo['houseradder'];?></span></div>
+						<div class="info-item">建筑面积：<span><?php echo $houseInfo['houserarea'];?></span></div>
+						<div class="info-item">建筑年份：<span><?php echo $houseInfo['houseryear'];?></span></div>
+						<div class="info-item">所有权人：<span><?php echo $houseInfo['housername1'];?></span></div>
+						<div class="info-item">供款情况：<span><?php echo $houseInfo['houserpayShow'];?></span></div>
+						<?php if($houseInfo['houserpay']=='n'):?>
+						<div class="info-item">贷款年限：<span><?php echo $houseInfo['houserage'];?></span></div>
+						<div class="info-item">月供：<span><?php echo $houseInfo['housermonth'];?></span></div>
+						<div class="info-item">贷款余额：<span><?php echo $houseInfo['houserbalance'];?></span></div>
+						<div class="info-item">按揭银行：<span><?php echo $houseInfo['houserbank'];?></span></div>
+						<?php endif;?>
+					</div>
+					<div class="btn-wrap"><a href="/user/infoHouse" class="btn-edit btn-blue">修改</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

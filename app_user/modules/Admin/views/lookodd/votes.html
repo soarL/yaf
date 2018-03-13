@@ -1,0 +1,44 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">投票记录</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/lookodd/deleteVote">
+							<tr>
+								<th>ID</th>
+								<th>用户</th>
+								<th>标的</th>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">修改时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-id="<?=$record['id'];?>">
+								<td><?=$record->id?></td>
+								<td><?=$record->user->username.' <span class="label label-primary">'.$record->userId.'</span>';?></td>
+								<td><?=$record->odd->oddTitle.' <span class="label label-primary">'.$record->odd->oddNumber.'</span>';?></td>
+								<td class="visible-lg"><?=$record->created_at?></td>
+								<td class="visible-lg"><?=$record->updated_at?></td>
+								<td>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render();?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

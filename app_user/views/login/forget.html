@@ -1,0 +1,56 @@
+<?php $this->display('header.html');?>
+<div class="main">
+    <?php if($step==1):?>
+    <div class="common-form-wrap mt50">
+        <div class="title">忘记密码</div>
+        <form action="/login/forget" method="post">
+            <div class="input-wrap mt30">
+              <label class="label">手机号码</label>
+              <input class="ui-input input-icon" placeholder="请输入手机号" type="text" name="phone">
+              <span class="icon icon-head"></span> </div>
+            <div class="clearfix mt30">
+              <div class="input-wrap fl" style="width:200px">
+                <label class="label">验证码</label>
+                <input class="ui-input input-icon" placeholder="验证码" type="text" style="width:110px" name="captcha">
+                <span class="icon icon-key"></span> </div>
+              <a href="javascript:;" class="code-wrap fl"><img id="captcha-img" src="<?php echo WEB_CAPTCHA;?>" onclick="this.src+='?'+Math.random()" /></a>
+            </div>
+            <div class="tc mt30">
+              <input  type="submit" value="下一步" class="btn-blue loginbtn"/>
+            </div>
+        </form>
+    </div>
+    <?php elseif($step==2):?>
+    <div class="common-info-wrap" style="width:400px;">
+        <div class="alert alert-success">短信已发送至您手机，请输入短信中的验证码。</div>    
+    </div>
+    <div class="common-form-wrap common-form-big">
+        <div class="title">忘记密码</div>
+        <form action="/login/forgetTwo" method="post">
+            <input type="hidden" id="phone" name="phone" value="<?php echo $phone;?>">
+            <div class="input-wrap mt30">
+              <label class="label">手机号码</label>
+              <div class="static-input"><?php echo $phone;?></div>
+              <span class="icon icon-head"></span> </div>
+            <div class="input-wrap mt30">
+              <label class="label">短信验证码</label>
+              <input class="ui-input input-icon" placeholder="请输入短信验证码" type="text" name="phoneCode">
+              <span class="icon icon-head"></span> 
+            </div>
+            <div class="input-wrap mt30">
+              <label class="label">新密码</label>
+              <input class="ui-input input-icon" type="password" name="password" id="password">
+              <span class="icon icon-head"></span> </div>
+            <div class="input-wrap mt30">
+              <label class="label">重复密码</label>
+              <input class="ui-input input-icon" type="password" name="passwordSure" id="passwordSure">
+              <span class="icon icon-head"></span> </div>
+            <div class="tc mt30">
+              <input  type="submit" value="确定" class="btn-blue loginbtn"/>
+            </div>
+        </form>
+        <div class="warning-info">注：如果您在1分钟之内没有收到验证码，请 <a href="/login/forget">返回修改手机号</a> 或 <button id="resend-sms-btn" href="javascript:;">重新发送验证码</button> 。</div>
+    </div>
+    <?php endif;?>
+</div>
+<?php $this->display('footer.html');?>

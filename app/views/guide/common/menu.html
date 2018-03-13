@@ -1,0 +1,10 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="content-nav">
+	<ul class="clearfix">
+		<li><a href="/guide" class="content-nav-a <?php if($submenu=='guide'):?>sel<?php endif;?>">新手指南<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/guide/help" class="content-nav-a <?php if($submenu=='help'):?>sel<?php endif;?>">常见问题<i class="tri">&nbsp;</i></a></li>
+	</ul>
+</div>

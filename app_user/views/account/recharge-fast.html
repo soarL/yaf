@@ -1,0 +1,76 @@
+<?php $banks = \Data::get('banks');?>
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('account/common/tab-money.html');?>
+        <!-- 修改区域开始 -->
+        <div class="mt20 ui-tab newRechargeForm">
+            <div class="mainwithborder clearfix">
+                <div class="pay-type-list clearfix">
+                    <a href="/account/recharge?type=bank" class="pay-type-item">银行转账<i class="rt"></i></a>
+                    <a href="/account/recharge?type=alipay" class="pay-type-item">支付宝转账<i class="rt"></i></a>
+                    <a href="/account/recharge?type=fast" class="pay-type-item active">快速充值<i class="rt"></i></a>
+                </div>
+                <div class="inputbox">
+                    <form action="/account/doRecharge" method="post" target="_blank">
+                    <div class="input-wrap mt10 w clearfix">
+                        <label class="label">账户余额</label>
+                        <div class="static-input">
+                            <span><?=$user->fundMoney?>元</span>
+                        </div>
+                    </div>
+                    <div class="input-wrap mt10 w clearfix">
+                        <label class="label">银行卡</label>
+                        <div class="static-input">
+                            <span><?=_hide_banknum($bank->bankNum)?></span>
+                        </div>
+                    </div>
+                    <div class="input-wrap mt20 w clearfix">
+                        <span class="cRed">*</span>
+                        <label class="label">充值金额</label>
+                        <input class="ui-input input-icon float-input" name="money" type="text" style="width:140px;" />
+                        <i class="unit">元</i>
+                        <a id="limit-show-btn" href="javascript:;">限额<span>？</span></a>
+                    </div>
+                    <table id="limit-show" style="display: none;">
+                        <thead>
+                        <tr>
+                            <th style="width:10%;">序号</th>
+                            <th style="width:30%;">支持银行</th>
+                            <th>限额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($banks as $key => $item):?>
+                        <tr>
+                            <td><?=$key+1?></td>
+                            <td><?=$item['bankName']?></td>
+                            <td><?=$item['limit']?></td>
+                        </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                    <div class="tc mt30" style="width:340px">
+                        <input  type="submit" value="充值" class="btn-blue loginbtn pr"/>
+                    </div>
+                    </form>
+                </div>
+                <div class="remark-box">
+                    <div class="remark-title">温馨提醒:</div>
+                    <div class="remark-content">
+                        <p>1. 账户充值前请先确认您是否开通江西银行存管账户；</p>
+                        <p>2. 请关注您的银行卡充值限制，以免造成不便，每日的充值限额根据各银行限额为准，充值到账时间以银行最终结果为准；</p>
+                        <p>3. 用户充值时如果发现账户余额没有实时更新，请到我的账户中点击“同步信息”获取最新账户余额；</p>
+                        <p>4. 快捷充值需要事先绑定银行卡；</p>
+                        <p>5. 由于银行会在23:30到次日凌晨3:00进行系统数据处理，请尽量避免在此时间段充值；</p>
+                        <p>6. 充值过程中如出现异常，请拨打江西银行客服电话<strong>400-78-96266</strong>。</p>
+                        <p>7. 建行大部分限额为5万，但由于建行系统问题，部分建行卡5-10万交易有可能成功，但是概率较低。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改区域结束 -->
+    </div>
+</div>
+<?php $this->display('footer.html');?>

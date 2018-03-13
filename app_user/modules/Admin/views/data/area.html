@@ -1,0 +1,31 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">地域数据</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th>省</th>
+								<th>待收</th>
+							</tr>
+							<?php foreach ($list as $key => $money):?>
+							<tr>
+								<td><?=$key?></td>
+								<td><?=$money?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

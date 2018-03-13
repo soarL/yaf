@@ -1,0 +1,86 @@
+<?php $this->display('header.html');?>
+<!-- 用户查询 -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">分类详情</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/promotion/list">
+		          <i class="glyphicon glyphicon-edit"></i>
+		          </a>
+		        </div>
+			</div>
+
+			<div class="box-body pb-0">
+			<div class="col-sm-2">
+					<button class="btn btn-sm goback">返回上一步</button>
+
+			</div>
+				<div class="row">
+				
+					<div class="col-sm-3 pull-right">
+						<form action="/admin/promotion/userSearch" class="table-search-form clearfix" method="post">
+						<div class="form-group pull-right">
+							<div class="input-wrap ">
+								<input type="hidden" name="res_url" value="/admin/promotion/userSearch">
+								<input type="text" class="form-control input-sm pull-right" name="channel_name" placeholder="请输入用户名称" value=""></div>
+							<button type="submit" class="btn btn-sm btn-danger pull-right">查询</button>
+							
+						</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+						<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th>
+									<tr>
+										<th class="visible-lg">编号ID</th>
+										<th>注册日期</th>
+										<th>用户名</th>
+										<th class="visible-lg sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">充值笔数</th>
+										<th class="visible-lg">充值金额</th>
+										<th class="visible-lg">投资笔数</th>
+										<th class="visible-lg">投资金额</th>
+										<th class="visible-lg">1月投资金额</th>
+										<th class="visible-lg">2月投资金额</th>
+										<th class="visible-lg">3月投资金额</th>
+										<th class="visible-lg">6月投资金额</th>
+										<th class="visible-lg">12月投资金额</th>
+										<th class="visible-lg">24月投资金额</th>
+										<th class="visible-lg">提现笔数</th>
+										<th class="visible-lg">提现金额</th>
+									</tr>
+									<?php foreach ($arr as $arr_res):?>
+									<tr data-id="<?=$news['id'];?>">
+										<td class="visible-lg"><?=$arr_res['userId'];?></td>
+										<td class="visible-lg"><?=$arr_res['addtime'];?></td>
+										<td class="visible-lg"><?=$arr_res['username'];?></td>
+										<td class="visible-lg"><?=$arr_res['charge_num'];?></td>
+										<td class="visible-lg"><?=$arr_res['charge_money'];?></td>
+										<td class="visible-lg"><?=$arr_res['invest_num'];?></td>
+										<td class="visible-lg"><?=$arr_res['invest_money'];?></td>
+
+										<td class="visible-lg"><?=$arr_res['arr_month_1'];?></td>
+										<td class="visible-lg"><?=$arr_res['arr_month_2'];?></td>
+										<td class="visible-lg"><?=$arr_res['arr_month_3'];?></td>
+										<td class="visible-lg"><?=$arr_res['arr_month_6'];?></td>
+										<td class="visible-lg"><?=$arr_res['arr_month_12'];?></td>
+										<td class="visible-lg"><?=$arr_res['arr_month_24'];?></td>
+
+										<td class="visible-lg"><?=$arr_res['draw_num'];?></td>
+										<td class="visible-lg"><?=$arr_res['draw_money'];?></td>
+									</tr>
+									<?php endforeach;?>
+									</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+	
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

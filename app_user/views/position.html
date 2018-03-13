@@ -1,0 +1,74 @@
+<?php
+$url = $_SERVER['REQUEST_URI'];
+$showUrl;
+$showTwo;
+$urlTwo;
+switch ($url) {
+	case '/account':
+		$showUrl="账户总览";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/user/detail':
+		$showUrl="资产明细";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/account/logs':
+		$showUrl="交易记录";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/account/recharge':
+		$showUrl="充值";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/account/withdraw':
+		$showUrl="提现";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/account/bank':
+		$showUrl="银行卡";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+	case '/user/autoInvest':
+		$showUrl="自动投标";
+		$showTwo="投资管理";
+		$urlTwo="/user/autoInvest";
+		break;
+	case '/user/assign':
+		$showUrl="债权转让";
+		$showTwo="投资管理";
+		$urlTwo="/user/autoInvest";
+		break;	
+	case '/account/lotteries':
+		$showUrl="红包卡券";
+		$showTwo="我的特权";
+		$urlTwo="/account/lotteries";
+		break;
+	case '/user/safe':
+		$showUrl="账户设置";
+		$showTwo="账户设置";
+		$urlTwo="/user/safe";
+		break;
+	default:
+		$showUrl="账户总览";
+		$showTwo="我的账户";
+		$urlTwo="/account";
+		break;
+}
+?>
+
+<div class="add_nav_bg">
+    <div class="container">
+        <ul class="list-unstyled add_nav">
+            <li><a href="<?=WEB_MAIN?>">首页</a>/</li>
+            <li><a href="<?=WEB_USER?><?=$urlTwo?>"><?=$showTwo?></a>/</li>
+            <li><a href="<?=WEB_USER?><?=$url?>" class="add_nav_hover"><?=$showUrl?></a></li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">部门列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加部门" href="/admin/content/addDepartment">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/content/deleteDepartment" data-other="删除该部门将会删除所有该部门的职位！">
+							<tr>
+								<th>部门ID</th>
+								<th>名称</th>
+								<th>标识符</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($departments as $department):?>
+							<tr data-id="<?=$department->id?>">
+								<td><?=$department->id?></td>
+								<td><?=$department->name?></td>
+								<td><?=$department->identifier?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/content/updateDepartment?id=<?=$department->id?>"> 
+										<i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

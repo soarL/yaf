@@ -1,0 +1,154 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20 mb20">
+    <?php $this->display('user/common/tab-invest.html');?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>自动投标</h3>
+        <div class="content">
+          开启自动投标需要投资用户授权汇诚普惠，授权成功后投资用户可以根据投资需求在自动投标系统中进行投标设置。设置保存成功后投资用户进入自动投标队列，投资用户排到投标位置后，如果标的项目满足投资用户设置的所有条件，自动投标系统就会为投资用户进行投标。
+        </div>
+      </div>
+      <div class="white-box box-left">
+        <?php if($autoInvest->autostatus==1):?>
+        <div class="alert alert-info">
+          <p>您当前的普通标自动投标当前位置为：<span class="word-important"><?=$location?></span></p>
+          <p>您排队号前的存量：<span  class="word-important"><?=$preMoney?></span></p>
+        </div>
+        <?php else:?>
+        <div class="alert alert-warning">
+          <p>您还未开启自动投标功能！</p>
+        </div>
+        <?php endif;?>
+        <div class="btn-wrap">
+          <a id="box-autoinvest-btn" href="javascript:;" class="btn-blue">设置</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 隐藏弹窗 -->
+<div id="ajax-autoinvest-box" class="hide-box box modal">
+  <div class="box-content clearfix">
+    <div class="form-wrap form-huge left-content">
+      <div class="form-group group-s poshytip clearfix" title="是否开启自动投标">
+          <label>是否开启：</label>
+          <div class="radio-item-list clearfix">
+              <div class="radio-item"><label><input type="radio" name="autostatus" value="1" <?php if($autoInvest->autostatus=='1'):?>checked<?php endif;?>>是</label></div>
+              <div class="radio-item"><label><input type="radio" name="autostatus" value="0" <?php if($autoInvest->autostatus=='0'):?>checked<?php endif;?>>否</label></div>
+          </div>
+      </div>
+      <div class="form-group poshytip clearfix" title="每笔自动投标的至少投资金额">
+        <label>最低投资金额：</label>
+        <input id="investMoneyLower" class="number-input" type="text" name="investMoneyLower" value="<?=$autoInvest->investMoneyLower?>">
+      </div>
+      <!-- 最高投资金额，隐藏处理 -->
+      <div class="form-group poshytip clearfix" title="每笔自动投标的最多投资金额">
+        <label>最高投资金额：</label>
+        <input id="investMoneyUper" class="number-input" type="text" name="investMoneyUper" value="<?=$autoInvest->investMoneyUper?>">
+      </div>
+      <div class="form-group poshytip clearfix" title="您的账户中将保留的金额">
+          <label>账户保留金额：</label>
+          <input id="investEgisMoney" class="float-input" type="text" name="investEgisMoney" value="<?=$autoInvest->investEgisMoney?>">
+      </div>
+      <div class="form-group group-s poshytip clearfix" title="如果设定，自动投标将只投该类型的标的">
+          <label>投标类型：</label>
+          <div class="select-box">
+              <select name="investType" id="investType" style="width:150px;">
+                <option value="all" <?php if($autoInvest->investType=='all'):?>selected<?php endif;?>>全部</option>
+                <option value="diya" <?php if($autoInvest->investType=='diya'):?>selected<?php endif;?>>抵押标</option>
+                <option value="xingyong" <?php if($autoInvest->investType=='xingyong'):?>selected<?php endif;?>>质押标</option>
+                <option value="danbao" <?php if($autoInvest->investType=='danbao'):?>selected<?php endif;?>>融资租赁标</option>
+              </select>
+          </div>
+      </div>     
+      <div class="form-group group-s poshytip clearfix" title="是否投资天标">
+          <label>是否投天标：</label>
+          <div class="radio-item-list clearfix">
+              <div class="radio-item"><label><input type="radio" name="investDay" value="0" <?php if($autoInvest->investDay=='0'):?>checked<?php endif;?>>否</label></div>
+              <div class="radio-item"><label><input type="radio" name="investDay" value="1" <?php if($autoInvest->investDay=='1'):?>checked<?php endif;?>>是</label></div>
+          </div>
+      </div>
+      <div class="form-group group-s poshytip clearfix" title="若开启，则在您设定的【借<br>款期限范围】内进行自动投标">
+        <label>借款期限限制：</label>
+        <div id="timeLimit" class="radio-item-list clearfix">
+          <div class="radio-item">
+          <label>
+            <input type="radio" id="timeLimit-n" name="investTimeStyle" value="all" <?php if($autoInvest->investTimeStyle=='all'):?>class="cur" checked<?php endif;?>>全部
+          </label>
+          </div>
+          <div class="radio-item">
+            <label>
+              <input type="radio" id="timeLimit-y" name="investTimeStyle" value="limit" <?php if($autoInvest->investTimeStyle=='limit'):?>class="cur" checked<?php endif;?>>开启
+            </label>
+          </div>
+        </div>
+      </div>
+      <div id="timeLimit-hide" class="form-group group-s clearfix hide poshytip spacial-hide" title="需要【借款期限限制】在<br>【开启】状态下才生效">
+          <label>借款期限范围：</label>
+          <div class="select-box clearfix">
+              <select name="investTimeStart" id="investTimeStart" style="width:90px;">
+                <?php for ($i=0; $i < 24 ; $i++):?>
+                <option value="<?=$i;?>" <?php if($autoInvest->investTimeStart==$i):?>selected<?php endif;?>><?=$i?>个月</option>
+                <?php endfor;?>
+              </select>
+              <span>~</span>
+              <select name="investTimeEnd" id="investTimeEnd" style="width:90px;">
+                <?php for ($i=0; $i < 24 ; $i++):?>
+                <option value="<?=$i;?>" <?php if($autoInvest->investTimeEnd==$i):?>selected<?php endif;?>><?=$i?>个月</option>
+                <?php endfor;?>
+              </select>
+          </div>
+      </div>
+      <div class="form-group group-s poshytip clearfix" title="若开启，则在您设定的【利<br>率范围】内进行自动投标">
+          <label>利率限制：</label>
+          <div id="rateLimit" class="radio-item-list clearfix">
+              <div class="radio-item">
+                <label>
+                  <input type="radio" id="rateLimit-n" name="investRateStyle" value="all" <?php if($autoInvest->investRateStyle=='all'):?>class="cur" checked<?php endif;?>>全部
+                </label>
+              </div>
+              <div class="radio-item">
+                <label>
+                  <input type="radio" id="rateLimit-y" name="investRateStyle" value="limit" <?php if($autoInvest->investRateStyle=='limit'):?>class="cur" checked<?php endif;?>>开启
+                </label>
+              </div>
+          </div>
+      </div>
+      <div id="rateLimit-hide" class="form-group group-s clearfix poshytip hide spacial-hide" title="需要【利率限制】在【<br>开启】状态下才生效">
+          <label>利率范围：</label>
+          <div class="select-box clearfix">
+              <select name="investRateStart" id="investRateStart" style="width:90px;">
+                <?php for ($i=10; $i < 24 ; $i++):?>
+                <option value="<?=$i;?>" <?php if($autoInvest->investRateStart==$i):?>selected<?php endif;?>><?=$i?>%</option>
+                <?php endfor;?>
+              </select>
+              <span>~</span>
+              <select name="investRateEnd" id="investRateEnd" style="width:90px;">
+                <?php for ($i=10; $i < 24 ; $i++):?>
+                <option value="<?=$i;?>"  <?php if($autoInvest->investRateEnd==$i):?>selected<?php endif;?>><?=$i?>%</option>
+                <?php endfor;?>
+              </select>
+          </div>
+      </div>
+      <div class="form-group clearfix">
+        <button id="ajax-autoinvest-btn" class="btn btn-primary ml110">保存设置</button>
+      </div>
+    </div>
+    <div class="form-remark right-content">
+      <div class="remark-content">
+        <p>汇诚普惠系统自动投标设置规则说明：</p>
+        <p>1、单笔自动投标金额的最小投资额为50元,投标金额需为50的倍数，投标金额通过<em>最低投资金额，最高投资金额，账户保留金额</em>的设置共同计算得出。</p>
+        <p>2、设置的自动投标金额须 ≤ 账户余额-账户保留金额，否则不能成功自动投标。</p>
+        <p>3、投资用户排到投出位置时：</p>
+        <p>若自动投标的设置金额＞标的金额的20%，则当前队列位置保留至下一轮符合自动投标设置金额的标的队列中。</p>
+        <p>若自动投标的设置金额≤标的金额的20%，则可投出的金额为：自动投标的设置金额≤可投出的金额≤所投标额20%<em>（标的最后一名投资用户只能投出标的的剩余投标额，投标后投资用户重新排队。）</em></p>
+        <p>4、若自动投标设置错误（例如自动投标金额大于账户余额，自动借出金额不为50倍数等等），在投资用户排到投出位置时将会重新排队。</p>
+        <p>5、排队号前存量资金不需要全部投完才排到您，每个排队用户最多只能投资标的20%。</p>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,65 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $webAsset = $asset->url;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+<?php if($creditImg!==''):?>
+<div class="main pt30" style="margin-bottom:40px;">
+   <div style="border:1px solid #d8d8d8;" class="p15">
+   <img style="width: 100%;" src="<?php echo $creditImg;?>"/>
+   </div>
+</div>
+<?php endif;?>
+<div class="clearfix" style="background-color:#fff">
+  <div class="main">
+    <div class="ui-tab-content-title" style="background:none;">
+        <h4>引导查询</h4>
+     </div>
+  </div>
+</div>
+ <div class="step-wrap">
+        <div class="clearfix">
+          <div class="main">
+            <div class="step fl">
+                <p><i>1</i>打开中国人民银行征信中心 <a href="http://www.pbccrc.org.cn" target="_blank">www.pbccrc.org.cn</a></p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg1.jpg"/></div>
+            </div>
+            <div class="step fr">
+                <p><i>2</i>点击“动产融资统一登记系统”按钮 </p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg2.jpg"/></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="clearfix" style="background-color:#fff">
+           <div class="main">
+            <div class="step fl">
+                <p><i>3</i>进入动产融资统一登记系统平台，点击“证明验证”按钮 </p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg3.jpg"/></div>
+            </div>
+            <div class="step fr">
+                <p style="margin-bottom:50px"><i>4</i>咨询汇诚普惠客服人员，获得登记证明编号</p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg4.jpg"/></div>
+            </div>
+            </div>
+        </div>
+        
+        <div class="clearfix">
+           <div class="main">
+            <div class="step fl">
+                <p><i>5</i>输入登记证明编号，选定登记证明，输入验证码，点击查询按钮</p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg5.jpg"/></div>
+            </div>
+            <div class="step fr">
+                <p style="margin-bottom: 48px;"><i>6</i>选中登记文件，输入验证码，点击下载查询</p>
+                <div class="img-wrap"><img src="<?php echo $webAsset;?>/images/credit/helpimg6.jpg"/></div>
+            </div>
+            </div>
+        </div>
+        
+   </div>
+
+
+</div>
+<?php $this->display('footer.html');?>

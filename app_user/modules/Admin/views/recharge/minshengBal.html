@@ -1,0 +1,73 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">民生对账</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">日期</label>
+								<div class="input-wrap">
+									<input id="balance-time" type="text" class="form-control input-sm timepicker" data-allow-input="true" name="time" placeholder="日期" value=""></div>
+							</div>
+							<button id="balance-btn" type="button" class="btn btn-sm btn-info">对账</button>
+						</form>
+					</div>
+				</div>
+
+				<div class="row"><div class="col-sm-12"><div class="table-title">支付流水</div></div></div>
+				<div class="row" style="margin-bottom: 20px;">
+					<div class="col-sm-12">
+						<table id="zhifu-list" class="table table-hover mb-0">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>民生流水号</th>
+									<th>订单号</th>
+									<th>金额</th>
+									<th>对账日期</th>
+									<th>状态</th>
+									<th>民生响应</th>
+									<th>类型</th>
+									<th>手续费</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td colspan="9" class="info-td">选择日期后点击对账！</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="row"><div class="col-sm-12"><div class="table-title">退款流水</div></div></div>
+				<div class="row" style="margin-bottom: 20px;">
+					<div class="col-sm-12">
+						<table id="tuikuan-list" class="table table-hover mb-0">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>民生流水号</th>
+									<th>订单号</th>
+									<th>金额</th>
+									<th>对账日期</th>
+									<th>状态</th>
+									<th>民生响应</th>
+									<th>类型</th>
+									<th>手续费</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td colspan="9" class="info-td">选择日期后点击对账！</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

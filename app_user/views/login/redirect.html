@@ -1,0 +1,17 @@
+<?php $this->display('header.html');?>
+<div class="main">
+  <div class="redirect-info">
+    <p id="redirect-wrap" data-url="<?=$returnUrl?>">登录成功！ <em>3</em>秒后前往<a href="<?=$returnUrl?>">来源页面</a>！</p>
+    <div class="btn-wrap">
+      <a href="<?=WEB_MAIN?>/odds" class="btn-blue-s">前往投资</a>
+      <a href="<?=WEB_USER?>" class="btn-blue-s">用户中心</a>
+    </div>
+  </div>
+  <style type="text/css">
+    .redirect-info {width: 360px; margin: 0 auto; border: 1px solid #ccc; height: 100px; margin-top: 80px; border-radius: 3px; box-shadow: 1px 1px 6px #ccc; padding: 20px;}
+    .redirect-info p { margin-bottom: 20px; margin-top: 10px; text-align: center; color: #6fa100;}
+    .redirect-info p a {color: #159fde;}
+    .redirect-info .btn-wrap a {margin-left: 35px;}
+  </style>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,42 @@
+<?php use helpers\StringHelper; ?>
+<div class="notice">
+  <h1>投标预告<a href="/news/list?type=announce">更多</a></h1>
+  <ul class="liststyle1">
+    <?php foreach($announceList as $announce): ?>
+    <li> <a href="<?=WEB_MAIN?>/news/show/id/<?=$announce->id?>" target="_blank" title="<?=$announce->news_title?>">
+    <?=StringHelper::newsTitle($announce->news_title)?></a> </li>
+    <?php endforeach ?>
+  </ul>
+  <h1 class="mt15">平台公告<a href="/news/list?type=notice">更多</a></h1>
+  <ul class="liststyle1">
+    <?php foreach($notices as $notice): ?>
+    <li> <a href="<?=WEB_MAIN?>/news/show/id/<?=$notice->id?>" target="_blank" title="<?=$notice->news_title?>">
+    <?=StringHelper::newsTitle($notice->news_title)?></a> </li>
+    <?php endforeach ?>
+  </ul>
+</div>
+<div class="advance">
+  <h1>新闻资讯<a href="/news/list?type=officenews">更多</a></h1>
+  <ul class="liststyle1">
+  	<?php foreach($newsList as $news): ?>
+  	<li> <a href="<?=WEB_MAIN?>/news/show/id/<?=$news->id?>" target="_blank" title="<?=$news->news_title?>">
+    <?=StringHelper::newsTitle($news->news_title)?></a> </li>	
+  	<?php endforeach ?>
+  </ul>
+  <h1 class="mt15">提前\逾期<a href="/news/list?type=tiqian">更多</a></h1>
+  <ul class="liststyle1">
+    <?php foreach($tqList as $tiqian): ?>
+    <li> <a href="<?=WEB_MAIN?>/news/show/id/<?=$tiqian->id?>" target="_blank" title="<?=$tiqian->news_title?>">
+    <?=StringHelper::newsTitle($tiqian->news_title)?></a> </li>
+    <?php endforeach ?>
+  </ul>
+</div>
+<div class="seo" style="display:none;">
+  <h1>其他资讯<a href="/news/list?type=seo">更多</a></h1>
+  <ul class="liststyle1">
+    <?php foreach($seoList as $seo): ?>
+    <li> <a href="<?=WEB_MAIN?>/news/show/id/<?=$seo->id?>" target="_blank" title="<?=$seo->news_title?>">
+    <?=StringHelper::newsTitle($seo->news_title);?></a> </li>  
+    <?php endforeach ?>
+  </ul>
+</div>

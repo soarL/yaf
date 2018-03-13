@@ -1,0 +1,9 @@
+<div class="long-menu">
+	<div class="main-wrap">
+		<ul class="clearfix">
+			<?php foreach ($types as $type):?>
+			<li><a href="/knowledge/list?type=<?=$type->rootType?>"><?=$type->rootType?></a></li>
+			<?php endforeach;?>
+		</ul>
+	</div>
+</div> 

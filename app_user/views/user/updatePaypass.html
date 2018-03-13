@@ -1,0 +1,28 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap common-form-big mt50">
+  <div class="title">修改支付密码</div>
+  <form action="/user/updatePaypass" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">原支付密码</label>
+        <input class="ui-input input-icon" type="password" name="oldpass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">新支付密码</label>
+        <input class="ui-input input-icon" type="password" name="paypass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">重复密码</label>
+        <input class="ui-input input-icon" type="password" name="paypassSure" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+      <div class="warn-wrap">
+        <div class="warn-title">注意：</div>
+        <div class="warn-content">
+          <p>1. 如果您忘记了原支付密码，点此<a href="/user/forgetPaypass">找回支付密码</a>！</p>
+        </div>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

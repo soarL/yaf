@@ -1,0 +1,91 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">新闻列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加新闻" href="/admin/article/add">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">标题</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="title" placeholder="标题" value="<?=$queries->title?>"></div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">新闻类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="all">全部</option>
+										<?php foreach($types as $type):?>
+										<option value="<?=$type->type_key?>" <?php if($type->type_key==$queries->type):?>selected<?php endif;?>><?=$type['type_name'];?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th class="visible-lg">新闻ID</th>
+								<th>标题</th>
+								<th>类型</th>
+								<th class="visible-lg">点击量<?=$queries->sort('news_num')?></th>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">添加管理员</th>
+								<th class="visible-lg">排序</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($newsList as $news):?>
+							<tr data-id="<?=$news['id'];?>">
+								<td class="visible-lg"><?=$news->id?></td>
+								<td><?=$news->news_title?></td>
+								<td><?=$news->type->type_name?></td>
+								<td class="visible-lg"><?=$news->news_num?></td>
+								<td class="visible-lg"><?=$news->news_time?></td>
+								<td class="visible-lg"><?=$news->news_user?></td>
+								<td class="visible-lg"><?=$news->news_order?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="<?=WEB_MAIN;?>/news/show/id/<?=$news->id?>" target="_blank"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/article/update?id=<?=$news->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$newsList->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

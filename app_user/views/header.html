@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<?php
+  use Yaf\Registry;
+  $user = Registry::get('user');
+  $asset = Registry::get('asset');
+?>
+<?php $asset->begin();?>
+<style>
+.loading-l{
+	height: 3px;
+	width: 100%;
+	position: fixed;
+	top:0px;
+	z-index:99999
+}
+.progress-loading{
+	width: 0px;
+	height: 100%;
+	background-color: #0989d4;
+	transition:width 0.5s;
+}
+/*.loadings{background:#fff url(<?=RSRC?>/images/public/loadings.gif) 50% 50% no-repeat;height:100%;width:100%;display:block;overflow:hidden;position:fixed;left:0;top:149px;z-index:10000}*/
+</style>
+<!--[if lt IE 9]>
+<script src="<?=WEB_ASSET?>/web/public/js/html5shiv.min.js"></script>
+<script src="<?=WEB_ASSET?>/web/public/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body id="big-app">
+<di百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?07025c988d3cbfb4a060368c96db1354";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> 
+<!-- 顶部横条 -->
+<div class="header-box">
+<div class="header">
+	<div class="container">
+		<ul class="pull-left list-inline">
+			<li><img src="<?=WEB_ASSET?>/web/public/img/phoneico.png" alt="phoneico"> 全国热线：<span> 400-080-8885 </span>(9:00-21:00)</li>
+			<li class="weixinBox">关注我们：<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4000808885" target="_blank"><img src="<?=RSRC?>/images/public/qqico.png" alt="qq"></a> <img src="<?=RSRC?>/images/public/wxico.png" alt="weixin" id='weixin'><div style="display: none;" class="weixin"></div></li>
+		</ul>
+		<ul class="pull-right list-inline">
+			<?php if($user):?>
+			<li><a href="<?=WEB_USER?>" class="enter"><?=$user->username?></a></li>
+			<li class="ls">|</li>
+			<li><a href="javascript:;" class="login ajax-logout-box-btn">退出</a></li>
+			<?php else:?>
+			<li><a href="<?=WEB_LOGIN?>" class="enter">登录</a></li>
+			<li class="ls">|</li>
+			<li><a href="<?=WEB_LOGIN?>" class="login">注册</a></li>
+			<?php endif;?>
+			<li class="ls">|</li>
+			<li><a href="<?=WEB_MAIN?>/help">新手指南</a></li>
+			<!-- <li class="ls">|</li> -->
+			<!--<li><a href="#">最新活动</a></li>-->
+			<!-- <li class='mobile'><a href="javascript:" class="app"><img src="<?=WEB_ASSET?>/web/public/img/appico.png" alt="app"> 手机端</a></li> -->
+ <!-- 			<li class="ls">|</li>
+            <li><a href="https://www.hcpuhui.com/" target="_blank" class="login">旧版系统</a></li> -->
+		</ul>
+	</div>
+</div>
+<!-- 导航条 -->
+<div class="main-nav">
+	<div class="container">
+		<ul class="logo list-unstyled">
+			<li><a href="<?=WEB_MAIN?>"><img src="<?=WEB_ASSET?>/src/images/public/logo.png" alt="logo"></a></li>
+			<!-- <li class="logo-lin"><h1>|</h1></li> -->
+			<!-- <li><a href="#"><img src="<?=WEB_ASSET?>/web/public/img/shbank.gif" alt="shanghaibank"></a></li> -->
+		</ul>
+		<ul class="list-inline pull-right nav-top" id="nav-top">
+			<li><a href="<?=WEB_MAIN?>">首页</a></li>
+			<li><a href="<?=WEB_MAIN?>/odds">我要投资</a><span></span></li>
+			<li><a href="<?=WEB_MAIN?>/order">我要借款</a></li>
+			<li><a href="<?=WEB_MAIN?>/about">信息披露</a></li>
+			<li  style="margin-right: -15px;"><a class="nav-active" href="<?=WEB_USER?>">我的账户</a></li>
+		</ul>
+	</div>
+</div>
+</div>
+<div class="line"></div>
+<div id="tool_boxs">
+	<ul class="list-unstyled">
+		<li>
+			<i class="calculate-btn tool-cal" style="background-image: url('<?=RSRC?>/images/public/cal.png');"></i>
+		</li>
+		<li>
+			<i class="tool-top top" style="background-image: url('<?=RSRC?>/images/public/top.png');"></i>
+		</li>
+	</ul>
+
+</div>
+
+<?php $this->display('calculator.html');?>

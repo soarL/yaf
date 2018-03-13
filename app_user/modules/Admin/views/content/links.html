@@ -1,0 +1,48 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">友情链接</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加链接" href="/admin/content/setLink">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" >
+							<tr>
+								<th>id</th>
+								<th>链接地址</th>
+								<th>链接名称</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($links as $link):?>
+							<tr data-id="<?=$link->id?>">
+								<td><?=$link->id?></td>
+								<td><?=$link->link_url?></td>
+								<td><?=$link->link_name?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/content/editLink?id=<?=$link->id?>">
+										<i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete" href="/admin/content/deleteLink?id=<?=$link->id?>">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+            <div class="box-footer clearfix">
+                <?=$links->render()?>
+            </div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

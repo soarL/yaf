@@ -1,0 +1,62 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/promotion/list">
+		          <i class="glyphicon glyphicon-edit"></i>
+					<!-- <a type="button"  class="btn btn-xs btn-success">导出excel</a> -->
+                      <!--<?php $excelUrl = $queries->getUrl(['excel'=>1]);?>-->
+					<!--<a href="<?=$excelUrl?>" class="btn btn-success btn-xs ">导出excel</a>-->
+		          </a>
+		        </div>
+			</div>
+
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">渠道编号</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="channel" placeholder="渠道编号" value="<?=$queries->channel?>">
+								</div>
+							</div>
+
+							<!--<button type="submit" class="btn btn-sm btn-info">搜索</button>-->
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+							<tr>
+								<th class="visible-lg">PV</th>
+								<th class="visible-lg">UV</th>
+								<th class="visible-lg">注册量</th>
+								<th class="visible-lg">按钮点击量</th>
+                                <th class="visible-lg">下载按钮点击量</th>
+
+							</tr>
+							<tr>
+								<td class="visible-lg"><?=$pv?></td>
+								<td class="visible-lg"><?=$uv?></td>
+								<td class="visible-lg"><?=$count?></td>
+								<td class="visible-lg"><?=$clicks?></td>
+								<td class="visible-lg"><?=$downClicks?></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!--<div class="box-footer clearfix">-->
+				<!--<div class="col-sm-12">-->
+					<!--<?=$records->render()?>-->
+				<!--</div>-->
+			<!--</div>-->
+		</div>
+	</div>
+</div>
+
+<?php $this->display('footer.html');?>

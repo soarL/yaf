@@ -1,0 +1,51 @@
+<?php use models\Article;?>
+<?php $this->display('header.html');?>
+<div class="middle">
+   	<?php $this->display('knowledge/common/menu.html', ['types'=>$types]);?>
+   	<div class="main">
+		<div class="knowledge-position">当前位置：<a href="/">汇诚普惠</a> &gt;&gt; <a href="#">财富文库</a></div>
+		<div class="knowledge-top-block clearfix">
+			<div class="block-left">
+				<img src="<?=RSRC?>/images/knowledge_hot.jpg" alt="">
+			</div>
+			<div class="block-right">
+				<div class="title">财富文库 热门文章</div>
+				<?php $tops = Article::getTops();?>
+				<ul>
+					<?php foreach ($tops as $article):?>
+					<li><a href="/knowledge/view/id/<?=$article->id?>"><?=$article->title?></a></li>
+					<?php endforeach;?>
+				</ul>
+			</div>
+		</div>
+		<div class="knowledge-block-list clearfix">
+			<?php foreach ($types as $key => $type):?>
+   			<?php 
+   				$topArticle = Article::getTopByType($type->rootType);
+   				$articles = Article::getByType($type->rootType);
+   			?>
+			<div class="knowledge-block <?php if($key%2!=0):?>right<?php endif;?>">
+				<div class="block-top">
+					<div class="title"><?=$type->rootType?></div>
+					<a class="more" href="knowledge/list?type=<?=$type->rootType?>">更多&gt;&gt;</a>
+				</div>
+				<div class="block-show clearfix">
+					<div class="block-show-img"><img src="<?=RSRC?>/images/knowledge_item.jpg" alt=""></div>
+					<div class="block-show-content">
+						<div class="title"><a href="/knowledge/view/id/<?=$topArticle->id?>"><?=_title($topArticle->title, 27)?></a></div>
+						<div class="content"><?=_title(strip_tags($topArticle->body), 50)?></div>
+					</div>
+				</div>
+				<div class="block-list">
+					<ul>
+						<?php foreach ($articles as $article):?>
+						<li><a href="/knowledge/view/id/<?=$article->id?>"><?=_title($article->title, 30)?></a></li>
+						<?php endforeach;?>
+					</ul>
+				</div>
+			</div>
+			<?php endforeach;?>
+		</div>
+   	</div>
+</div>
+<?php $this->display('footer.html');?>

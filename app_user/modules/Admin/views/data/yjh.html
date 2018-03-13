@@ -1,0 +1,48 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">银监会数据</h3>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label time-label">截止日期</label>
+                                <input type="text" class="form-control input-sm timepicker" name="day" placeholder="截止日期" value="<?=$queries->day?>">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>借款余额</th>
+                                <th>借款人数</th>
+                                <th>出借人数</th>
+                                <th>平均借款期限</th>
+                                <th>平均借款额度</th>
+                                <th>平均借款利率</th>
+                            </tr>
+                            <tr>
+                                <td><?=$stay?></td>
+                                <td><?=$inum?></td>
+                                <td><?=$onum?></td>
+                                <td><?=$period?></td>
+                                <td><?=$money?></td>
+                                <td><?=$rate?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,73 @@
+
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">轮播图类型</h3>
+        <div class="box-tools pull-right">
+              <i class="glyphicon glyphicon-edit"></i></a>
+            </div>
+      </div>
+      <div class="box-body pb-0">
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-hover mb-0" data-delete="/admin/banner/deleteType" data-other="!!!">
+              <tr>
+                <th>类型ID</th>
+                <th>名称</th>
+                <th>操作</th>
+              </tr>
+              <?php foreach ($list as $type):?>
+              <tr data-id="<?=$type->id;?>">
+                <td><?=$type->id?></td>
+                <td><?=$type->name?></td>
+                <td>
+                  <a class="btn btn-ssm btn-success" href="/admin/banner/types?id=<?=$type->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+                    编辑
+                  </a>
+                  <a class="btn btn-ssm btn-danger btn-delete">
+                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                    删除
+                  </a>
+                </td>
+              </tr>
+              <?php endforeach;?></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">编辑轮播图类型</h3>
+        <div class="box-tools pull-right">
+              <i class="glyphicon glyphicon-edit"></i></a>
+        </div>
+      </div>
+      <div class="box-body pb-0">
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-hover mb-0"  data-other="!!!">
+                          <FORM method=post name=listForm action="/admin/banner/typeAdd">
+                          <DIV id=listDiv class=form-div>
+                                <th></th><th></th><th></th>
+                              <tr><input type="hidden" class='form-control' name="id" value="<?=$queries['id']?>" size="40">
+                                <td>名称</td>
+                                <td ><input type="text" class='form-control' name="name" value="<?=$queries['name'] ?>" size="40"></td>
+                                <td ><input type="submit" class= 'btn btn-success' value="<?php if(empty($queries['id'])){echo "添加轮播图类型";}else{echo "修改轮播图类型";}?>" class="button"></td>
+                              </tr>
+                          </DIV>
+                          </FORM>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+<?php $this->display('footer.html');?>

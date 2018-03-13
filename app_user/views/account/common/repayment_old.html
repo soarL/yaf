@@ -1,0 +1,360 @@
+<?php 
+    use helpers\NumberHelper;
+    use helpers\DateHelper;
+?>
+<div class="statictable-wrap fr" style="width:335px; height:800px">
+    <h3>回款计划<a href="/account/repaymentRecord" class="more cBlue no_unl">查看明细</a></h3>
+    <div class="latestRepayment">
+        <div style="position: relative;" class="repaymentPlan1" id="repayCal">
+            <div class="repaymentPlan_right">
+                <div class="totalRepayment grey-color-6" id="monthMoney">
+                    <p class="item-stay"> 待收总额： <span> <em>￥<?=NumberHelper::format($stayAllMoney)?></em> 元 </span> </p>
+                    <p class="item-month"> <?=$month?>月回款总额： <span> <em>￥0.00</em> 元 </span> </p>
+                    <p class="item-month-benjin item-sub"> 本金： <span> <em>￥0.00</em> 元 </span> </p>
+                    <p class="item-month-interest item-sub"> 利息： <span> <em>￥0.00</em> 元 </span> </p>
+                </div>
+                <div id="repaymentPlanMoney">
+                    <div class="repaydatemoney clearfix">
+                        <div class="repaydate fl chooseRepayDate">
+                            <p class="repayweek">十一月</p>
+                            <span class="repayday">7</span>
+                        </div>
+                        <div class="fl ml30 repaymoney">
+                            <p class="mt5 oughtedMoney grey-color-6 f13 show-hide-box" data-ref="#money-detail"> 应回金额： 
+                                <span>¥ 0.00</span> <em class="f12">元</em> 
+                                <a id="show-day-detail" target="_blank" href="" data-ref="/account/repaymentRecord">详情</a>
+                            </p>
+                            <div id="money-detail" class="money-detail-box hide">
+                                <p class="mt5 benJin grey-color-6 f12"> 应回本金： <span class="f12">¥ 0.00</span> <em class="f12">元</em> </p>
+                                <p class="mt5 interest grey-color-6 f12"> 应回利息： <span class="f12">¥ 0.00</span> <em class="f12">元</em> </p>
+                                <p class="mt5 serviceMoney grey-color-6 f12"> 利息服务费： <span class="f12">¥ 0.00</span> <em class="f12">元</em> </p>
+                            </div>
+                            <p class="mt15 realMoney grey-color-6 f12"> 实回金额： <span>¥ 0.00</span> <em class="f12">元</em> </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="repaymentPlan_left">
+                <input id="server-time" type="hidden" value="<?=date('Y-m-d H:i:s')?>">
+                <div class="select-date rel mt20">
+                    <div class="selectYear rel fl">
+                        <select id="selectYear">
+                            <option value="2014">2014年</option>
+                            <option value="2015">2015年</option>
+                            <option value="2016">2016年</option>
+                            <option value="2017">2017年</option>
+                            <option value="2018">2018年</option>
+                        </select>
+                        <span class="selectXia"></span>
+                    </div>
+                    <div class="selectMonth rel">
+                        <a class="left fl tc preMonth">&lt;</a>
+                        <select id="selectMonth">
+                            <option value="1">1月</option>
+                            <option value="2">2月</option>
+                            <option value="3">3月</option>
+                            <option value="4">4月</option>
+                            <option value="5">5月</option>
+                            <option value="6">6月</option>
+                            <option value="7">7月</option>
+                            <option value="8">8月</option>
+                            <option value="9">9月</option>
+                            <option value="10">10月</option>
+                            <option value="11">11月</option>
+                            <option value="12">12月</option>
+                        </select>
+                        <a class="right fl tc nextMonth">&gt;</a>
+                        <span class="selectXia"></span>
+                    </div>
+                    <a class="fr returnToday" id="curMonth">返回今天</a>
+                </div>
+                <div class="date-con-week clearfix">
+                    <span class="item-day">一</span>
+                    <span class="item-day">二</span>
+                    <span class="item-day">三</span>
+                    <span class="item-day">四</span>
+                    <span class="item-day">五</span>
+                    <span class="item-day">六</span>
+                    <span class="item-day" style="border-right:none">日</span>
+                </div>
+                <div class="date-con clearfix">
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">26</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">27</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">28</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">29</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">30</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">31</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-1" _date="1" style="border-right:none" _w="0">
+                        <span class="item-day-txt">
+                            <p>1</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-2" _date="2" _w="1">
+                        <span class="item-day-txt">
+                            <p>2</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-3" _date="3" _w="2">
+                        <span class="item-day-txt">
+                            <p>3</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-4" _date="4" _w="3">
+                        <span class="item-day-txt">
+                            <p>4</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-5" _date="5" _w="4">
+                        <span class="item-day-txt">
+                            <p>5</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-6" _date="6" _w="5">
+                        <span class="item-day-txt">
+                            <p>6</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-7" _date="7" _w="6">
+                        <span class="item-day-txt ">
+                            <p>7</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-8" _date="8" style="border-right:none" _w="0">
+                        <span class="item-day-txt">
+                            <p>8</p>
+                            <em class="ffA fw-n">￥121</em>
+                            <img  src="<?=RSRC?>/images/repayment_signet.png" class="signet"/>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-9" _date="9" _w="1">
+                        <span class="item-day-txt">
+                            <p>9</p>
+                            <em class="ffA fw-n">￥56</em>
+
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-10" _date="10" _w="2">
+                        <span class="item-day-txt">
+                            <p>10</p>
+                            <em class="ffA fw-n">￥541</em>
+                            <img  src="<?=RSRC?>/images/repayment_signet.png" class="signet"/>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-11" _date="11" _w="3">
+                        <span class="item-day-txt curDay">
+                            <p>今天</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-12" _date="12" _w="4">
+                        <span class="item-day-txt">
+                            <p>12</p>
+                            <em class="ffA fw-n">￥11.11</em>
+                            <img  src="<?=RSRC?>/images/repayment_signet.png" class="signet"/>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-13" _date="13" _w="5">
+                        <span class="item-day-txt">
+                            <p>13</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-14" _date="14" _w="6">
+                        <span class="item-day-txt">
+                            <p>14</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-15" _date="15" style="border-right:none" _w="0">
+                        <span class="item-day-txt">
+                            <p>15</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-16" _date="16" _w="1">
+                        <span class="item-day-txt">
+                            <p>16</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-17" _date="17" _w="2">
+                        <span class="item-day-txt">
+                            <p>17</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-18" _date="18" _w="3">
+                        <span class="item-day-txt">
+                            <p>18</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-19" _date="19" _w="4">
+                        <span class="item-day-txt">
+                            <p>19</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-20" _date="20" _w="5">
+                        <span class="item-day-txt">
+                            <p>20</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-21" _date="21" _w="6">
+                        <span class="item-day-txt">
+                            <p>21</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-22" _date="22" style="border-right:none" _w="0">
+                        <span class="item-day-txt">
+                            <p>22</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-23" _date="23" _w="1">
+                        <span class="item-day-txt">
+                            <p>23</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-24" _date="24" _w="2">
+                        <span class="item-day-txt">
+                            <p>24</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-25" _date="25" _w="3">
+                        <span class="item-day-txt">
+                            <p>25</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-26" _date="26" _w="4">
+                        <span class="item-day-txt">
+                            <p>26</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-27" _date="27" _w="5">
+                        <span class="item-day-txt">
+                            <p>27</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-28" _date="28" _w="6">
+                        <span class="item-day-txt">
+                            <p>28</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-29" _date="29" style="border-right:none" _w="0">
+                        <span class="item-day-txt">
+                            <p>29</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span   class="item-day item-day-d item-day-30" _date="30" _w="1">
+                        <span class="item-day-txt">
+                            <p>30</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">1</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">2</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">3</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">4</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w">
+                        <span class="next-month-day">
+                            <p class="grey">5</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                    <span class="item-day item-day-w" style="border-right:none">
+                        <span class="next-month-day">
+                            <p class="grey">6</p>
+                            <em class="ffA fw-n"></em>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="grey-color-6 mt30 f14">回款时间：</div>
+            <?php if(count($repaymentDays)>0):?>
+            <div class="all-realrepay">
+                <ul id="realRepay" class="liststyle1 clearfix">
+                    <?php foreach ($repaymentDays as $repayment):?>
+                    <li class="repaymentPro">
+                        <a class="mt5 repaymentProA" href="javascript:;" data-year="<?=_date('Y', $repayment)?>" data-month="<?=_date('n', $repayment)?>" data-day="<?=_date('j', $repayment)?>">
+                            <span><?=DateHelper::getChineseMonth(_date('n', $repayment))?>月</span>
+                            <em><?=_date('j', $repayment);?></em>
+                        </a>
+                    </li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <?php endif;?>
+            <input id="choseYear" type="hidden" value="2015"/>
+            <input id="choseMonth" type="hidden" value="10"/>
+            <input id="choseDay" type="hidden" value="14" />
+        </div>
+    </div>
+</div>

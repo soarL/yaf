@@ -1,0 +1,174 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">生成发标预告</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/article/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/article/save" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <input id="news_id" type="hidden" name="news_id" value="<?=$annc['news_id']?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">日期</label>
+          <div class="col-sm-11">
+          <input type="text" class="form-control timepicker" data-allow-input="true" name="day" value="<?=$annc['day']?>" placeholder="输入日期">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">预发标的</label>
+          <div class="col-sm-11">
+            <div id="odd-list">
+              <?php foreach($expectOdds as $k => $expectOdd):?>
+              <div class="line-item row">
+                <div class="item-index"><?=$k+1?></div>
+                <div class="item-cancle"><i class="fa fa-times"></i></div>
+                <div class="col-xs-12 item-wrap">
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">标名</label>
+                    <div class="col-sm-11">
+                      <input type="text" class="form-control" name="title" value="<?=$expectOdd->title?>" placeholder="输入标名">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">金额</label>
+                    <div class="col-sm-11">
+                      <input type="text" class="form-control" name="money" value="<?=$expectOdd->money?>" placeholder="输入标的金额">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">利率</label>
+                    <div class="col-sm-11">
+                      <input type="text" class="form-control" name="yearRate" value="<?=$expectOdd->yearRate?>" placeholder="输入年化率">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">限额</label>
+                    <div class="col-sm-11">
+                      <input type="text" class="form-control" name="limitMoney" value="<?=$expectOdd->limitMoney?>" placeholder="输入标的限额">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">时段</label>
+                    <div class="col-sm-11">
+                      <select name="time" class="form-control">
+                        <option value="-1">请选择...</option>
+                        <?php foreach($times as $key => $time):?>
+                        <option value="<?=$key?>" <?php if($expectOdd->time==$key):?>selected<?php endif;?>><?=$time?></option>
+                        <?php endforeach;?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">类型</label>
+                    <div class="col-sm-11">
+                      <select name="type" class="form-control">
+                        <option value="0">请选择...</option>
+                        <?php foreach($types as $key => $type):?>
+                        <option value="<?=$key?>" <?php if($expectOdd->type==$key):?>selected<?php endif;?>><?=$type?></option>
+                        <?php endforeach;?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 input-item">
+                    <label class="col-sm-1 control-label">周期</label>
+                    <div class="col-sm-11">
+                      <select name="period" class="form-control">
+                        <option value="0">请选择...</option>
+                        <?php foreach($periods as $key => $period):?>
+                        <option value="<?=$key?>" <?php if($expectOdd->period==$key):?>selected<?php endif;?>><?=$period?></option>
+                        <?php endforeach;?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <?php endforeach;?>
+            </div>
+            <a id="form-add-item" class="form-add-item" href="javascript:;">
+              <i class="fa fa-plus"></i>
+            </a>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button id="announce-btn" type="button" class="btn btn-primary">生成</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="hidden-wrap" class="hide hidden-wrap">
+  <div class="line-item row">
+    <div class="item-index">1</div>
+    <div class="item-cancle"><i class="fa fa-times"></i></div>
+    <div class="col-xs-12 item-wrap">
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">标名</label>
+        <div class="col-sm-11">
+          <input type="text" class="form-control" name="title" value="" placeholder="输入标名">
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">金额</label>
+        <div class="col-sm-11">
+          <input type="text" class="form-control" name="money" value="" placeholder="输入标的金额">
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">利率</label>
+        <div class="col-sm-11">
+          <input type="text" class="form-control" name="yearRate" value="" placeholder="输入年化率">
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">限额</label>
+        <div class="col-sm-11">
+          <input type="text" class="form-control" name="limitMoney" value="" placeholder="输入标的限额">
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">时段</label>
+        <div class="col-sm-11">
+          <select name="time" class="form-control">
+            <option value="-1">请选择...</option>
+            <?php foreach($times as $key => $time):?>
+            <option value="<?=$key?>"><?=$time?></option>
+            <?php endforeach;?>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">类型</label>
+        <div class="col-sm-11">
+          <select name="type" class="form-control">
+            <option value="0">请选择...</option>
+            <?php foreach($types as $key => $type):?>
+            <option value="<?=$key?>"><?=$type?></option>
+            <?php endforeach;?>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-6 input-item">
+        <label class="col-sm-1 control-label">周期</label>
+        <div class="col-sm-11">
+          <select name="period" class="form-control">
+            <option value="0">请选择...</option>
+            <?php foreach($periods as $key => $period):?>
+            <option value="<?=$key?>"><?=$period?></option>
+            <?php endforeach;?>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+<?php $this->display('footer.html');?>

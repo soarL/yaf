@@ -1,0 +1,42 @@
+<?php $this->display('header.html');?>
+<?php $type = $queries->type; $keyword = $queries->keyword; ?>
+<div class="middle" style="padding-top:20px;">
+  <div class="tab-s">
+    <a href="/news/list?type=notice" <?php if($type=='notice'):?>class="sel"<?php endif;?>>网站公告</a>
+    <a href="/news/list?type=announce" <?php if($type=='announce'):?>class="sel"<?php endif;?>>新标预告</a>
+    <a href="/news/list?type=officenews" <?php if($type=='officenews'):?>class="sel"<?php endif;?>>新闻资讯</a>
+    <a href="/news/list?type=hangyenew" <?php if($type=='hangyenew'):?>class="sel"<?php endif;?>>行业新闻</a>
+    <a href="/news/list?type=tiqian" <?php if($type=='tiqian'):?>class="sel"<?php endif;?>>提前还款</a>
+  </div>
+  <div class="main mb20">
+    <div class="content-wrap" style="padding:20px; position: relative;">
+      <h3 class="m-title" style="margin-bottom:20px;">
+        <?php if($type=='notice'):?>网站公告
+        <?php elseif($type=='announce'):?>新标预告
+        <?php elseif($type=='officenews'):?>新闻资讯
+        <?php elseif($type=='hangyenew'):?>行业新闻
+        <?php elseif($type=='tiqian'):?>提前还款
+        <?php endif;?>
+      </h3>
+      <form action="" method="get" class="news-search-form">
+        <input type="hidden" name="type" value="<?=$type?>">
+        <input type="text" name="keyword" value="<?=$keyword?>" placeholder="输入关键词...">
+        <button type="submit"></button>
+      </form>
+      <ul class="news-list">
+        <?php foreach ($newsList as $news):?>
+        <li>
+          <a href="/news/show/id/<?=$news->id?>" title="<?=$news->news_title?>">
+            <?=_title($news->news_title, 90);?>
+            <span><?=$news->news_time?></span>
+          </a>
+        </li>
+        <?php endforeach;?>
+      </ul>
+      <div class="pagination-wrapper">
+      <?=$newsList->render()?>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

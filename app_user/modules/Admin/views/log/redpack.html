@@ -1,0 +1,63 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="nav-tabs-custom">
+      <?php $this->display('log/common/tab-log.html', ['type'=>'redpack']);?>
+      <div class="tab-content">
+        <div class="tab-pane active">
+          <div class="row">
+            <div class="col-sm-12">
+              <form action="" class="table-search-form clearfix" method="get">
+                <div class="form-group">
+                  <label class="control-label time-label">发生时间</label>
+                  <div class="input-group time-group">
+                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="startTime" value="<?=$queries->startTime?>">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-sm">至</button>
+                    </div>
+                    <!-- /btn-group -->
+                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                  <div class="box-tools pull-right">
+                      <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                      <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                          <i class="fa fa-file-excel-o text-red"></i></a>
+                  </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-hover mb-0">
+                <tr>
+                  <th>用户名</th>
+                  <th>类型</th>
+                  <th>金额</th>
+                  <th>备注</th>
+                  <th>操作时间</th>
+                </tr>
+                <?php foreach($logs as $log):?>
+                    <tr>
+                      <td>
+                        <a class="label label-primary" href="/admin/user/show?userId=<?=$log->userId?>"><?=$log->userId?></a>
+                        <?=$log->user->username?>
+                      </td>
+                      <td><?=$log->getTypeName()?></td>
+                      <td><?=$log->mvalue?></td>
+                      <td><?=$log->remark?></td>
+                      <td><?=$log->time?></td>
+                    </tr>
+                <?php endforeach;?></table>
+            </div>
+          </div>
+          <div class="row row-footer">
+            <?=$logs->render()?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

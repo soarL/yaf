@@ -1,0 +1,16 @@
+<div class="input-wrap mt30 w clearfix">
+	<span class="cRed">*</span>
+	<label class="label">支付渠道</label>
+	<div class="pay-type-list clearfix">
+		<?php if(isset($setting['baofoo'])&&in_array(date('w'), $setting['baofoo'])):?>
+		<a href="/account/recharge?type=baofoo" class="pay-type-item <?php if($type=='baofoo'):?>active<?php endif;?>">宝付支付<i class="rt"></i></a>
+		<?php endif;?>
+		<?php if(isset($setting['minsheng'])&&in_array(date('w'), $setting['minsheng'])):?>
+		<a href="/account/recharge?type=minsheng" class="pay-type-item <?php if($type=='minsheng'):?>active<?php endif;?>">民生支付<i class="rt"></i></a>
+		<?php endif;?>
+		<?php if(isset($setting['lianlian'])&&in_array(date('w'), $setting['lianlian'])):?>
+		<a href="/account/recharge?type=lianlian" class="pay-type-item <?php if($type=='lianlian'):?>active<?php endif;?>">连连支付<i class="rt"></i></a>
+		<?php endif;?>
+		<a href="/account/recharge?type=yemadai" class="pay-type-item <?php if($type=='yemadai'):?>active<?php endif;?>">汇潮支付<i class="rt"></i></a>
+	</div>
+</div>

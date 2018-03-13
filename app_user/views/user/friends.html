@@ -1,0 +1,120 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+        
+        <div class="admin_right_body">
+		<div ui-view="" class="ng-scope">
+			<div class="userAwarpHead ng-scope">
+				<ul class="list-unstyled userAwarpnav">
+					<li class=""><a href="/user/spread">推荐方式</a></li>
+					<li class="userAwarpNLi"><a href="/user/friends">我的推荐</a></li>
+					<div class="clearfix"></div>
+				</ul>
+				<div class="recommendJL" style="display: none;">
+					正在开发中！敬请期待......
+				</div>
+			</div>
+
+			<div class="userAwarpBody">
+				<input type="text" class="form-control" placeholder="姓名/电话">
+				<input type="button" value="查询" class="cxjl">
+				<span class="spanctx">上月佣金<?=$emonth?>元</span>
+				<span class="spanctx">本月佣金<?=$tmonth?>元</span>
+				<input type="button" value="佣金数据" class="cxjl selectdate">
+			</div>
+
+			<div class="myRecommend ng-scope">
+				<table class="table mytable">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>电话</th>
+							<th>年龄</th>
+							<th>地区</th>
+							<th>身份</th>
+							<th>账户余额</th>
+							<th>待收本金</th>
+							<th>客服人员</th>
+							<th>客户等级</th>
+							<th width="20%">备注</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($friends as $friend):?>
+						<tr>
+							<td><?=($friend->name)?></td>
+							<td><?=_hide_phone($friend->phone)?></td>
+							<td><?=$friend->getAge()?></td>
+							<td><?=$cityList[$friend->userId]?></td>
+							<td><?=$friend->hcparter==1?'合伙人':'客户'?></td>
+							<td><?=$friend->fundMoney?></td>
+							<td><?=empty($stayMoney[$friend->userId])?'0':$stayMoney[$friend->userId];?>元</td>
+							<td><?=$friend->waiter?$friend->waiter->username:'无'?></td>
+							<td><?=$friend->level?$friend->level:'未联系'?></td>
+							<td><?=$friend->comments?></td>
+						</tr>
+						<?php endforeach;?>
+					</tbody>
+				</table>
+				<div class="pagination-wrapper" style="text-align: center">
+				<?=$friends->render() ?>
+				</div>
+			</div>
+			<div class="friend_rule">
+				<h2>汇诚合伙人规则：</h2>
+				<p>1、成为汇诚合伙人后即可开启本功能；</p>
+				<p>2、合伙人可通过自己的推荐链接、二维码进行推广，通过推广页面注册客户均统计为该合伙人客户；</p>
+				<p>3、汇诚合伙人根据所推荐客户待收本金总和获得佣金奖励，比率如下：</p>
+				<table class="table">
+					<tr>
+						<th>等级</th>
+						<th>倔强青铜</th>
+						<th>秩序白银</th>
+						<th>荣耀黄金</th>
+						<th>尊贵铂金</th>
+						<th>永恒钻石</th>
+						<th>至尊星耀</th>
+					</tr>
+					<tr>
+						<td>推荐客户</td>
+						<td>10万内</td>
+						<td>10~20万</td>
+						<td>20~50万</td>
+						<td>50~100万</td>
+						<td>100~200万</td>
+						<td>200万以上</td>
+					</tr>
+					<tr>
+						<td>返佣比例（年化）</td>
+						<td>0.5%</td>
+						<td>0.6%</td>
+						<td>0.7%</td>
+						<td>0.8%</td>
+						<td>0.9%</td>
+						<td>1%</td>
+					</tr>
+				</table>
+				<p>4、汇诚合伙人佣金按日统计（日佣金=当日推荐客户总待收本金*返佣比例/360）,每月月初平台统计上月佣金，并于本月15号发放至账号内；（例：推荐客户总待收本金为100万元，则日佣金=100万*0.9%/360=25元）</p>
+				<p>5、合伙人推荐新客获取佣金奖励期限为2年；（即：所推荐客户注册后2年不再获得本客户佣金抽成）</p>
+				<p>6、汇诚普惠保留法律范围内允许对规则进行调整以及活动的解释权。</p>
+			</div>
+			</div>
+		</div>      
+        
+    </div>
+</div>
+<style>
+	.input-parent{
+		display: inline-block;
+	}
+</style>
+<div id="ajax-date-box" style="display: none;width: 300px;min-height: 40px;padding:13px 20px">
+	选择月份 : <input name="timeEnd" type="text" data-beatpicker="true" class="beatpicker-input beatpicker-inputnode" value="<?=date('Y-m-d')?>" readonly="readonly" data-beatpicker-id="beatpicker-1" style="background-image: url(&quot;img/datarili.png&quot;);display: inline-block;" id="dateInput">
+	<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>&date=" id="ajax-data-down">下载</a>
+</div>
+
+<?php $this->display('footer.html');?>

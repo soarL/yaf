@@ -1,0 +1,124 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">提现列表</h3>
+				<div class="box-tools pull-right">
+					<?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<div class="select-wrap">
+									<?php $searchTypes = ['tradeNo'=>'订单号', 'username'=>'帐号', 'userId'=>'用户ID'];?>
+									<select class="form-control input-sm" name="searchType">
+										<?=_options($searchTypes, $queries->searchType);?>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">状态</label>
+								<div class="select-wrap">
+									<?php $statusList = ['success'=>'成功', 'fail'=>'失败', 'unfinished'=>'未完成', 'unrehear'=>'未审核'];?>
+									<select class="form-control input-sm" name="status">
+										<?=_options(array_merge(['all'=>'全部'], $statusList), $queries->status);?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">提现时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th class="visible-lg">订单号</th>
+								<th>用户</th>
+								<th>金额</th>
+								<th class="visible-lg">手续费</th>
+								<th class="visible-lg">实际到账金额</th>
+								<th class="visible-lg">银行卡信息</th>
+								<th>状态</th>
+								<th class="visible-lg">时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-no="<?=$record->tradeNo?>">
+								<td class="visible-lg"><?=$record->tradeNo?></td>
+								<td>
+									<?=$record->user->username.' <span class="label label-primary">'.$record->userId.'</span>';?>
+								</td>
+								<td><?=$record->outMoney?>元</td>
+								<td class="visible-lg"><?=$record->fee?>元</td>
+								<td class="visible-lg"><?=$record->outMoney-$record->fee?>元</td>
+								<td class="visible-lg">
+									<span class="label label-primary" data-toggle="tooltip" data-original-title="<?=$record->province.$record->city.$record->subbranch?>">
+										<?=$record->bankUsername;?>&nbsp;|&nbsp;
+										<?=$record->bankNum;?>&nbsp;|&nbsp;
+										<?=$record->bank;?>
+									</span>
+								</td>
+								<td>
+									<?php if($record->status==2):?>
+									<?php $errorMsg = $record->result.'['.custody\Code::getMsg($record->result).']';?>
+									<span class="label label-danger" data-toggle="tooltip" title="<?=$errorMsg?>" data-original-title="<?=$errorMsg?>">失败</span>
+									<?php elseif($record->status==1):?>
+									<span class="label label-success">成功</span>
+									<?php elseif($record->status==3):?>
+									<span class="label label-primary">待审核</span>
+									<?php else:?>
+									<span class="label label-warning">失败</span>
+									<?php endif;?>
+								</td>
+								<td class="visible-lg"><?=$record->addTime?></td>
+								<td>
+									<?php if($record->status==3):?>
+									<a class="btn btn-ssm btn-info withdraw-pack" href="javascript:;">
+										<i class="fa fa-share icon-white"></i>
+										审核
+									</a>
+									<a class="btn btn-ssm btn-danger withdraw-refuse" href="javascript:;">
+										<i class="fa fa-warning icon-white"></i>
+										拒绝
+									</a>
+									<?php endif;?>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<div class="col-sm-5">
+					<div class="table-info">
+						<span>笔数：<em><?=$statistics->total_num?></em></span>
+						<span>金额：<em><?=$statistics->total_money?></em></span>
+						<span>手续费：<em><?=$statistics->total_fee?></em></span>
+					</div>
+				</div>
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

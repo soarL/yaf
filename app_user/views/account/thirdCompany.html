@@ -1,0 +1,76 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20 mb20">
+    <?php $this->display('user/common/tab-invest.html');?>
+    <?php if($user->cardstatus=='n'):?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>第三方资金托管</h3>
+        <div class="content">汇诚普惠使用汇潮支付提供第三方资金托管服务，您在汇潮支付开立托管账户之后，可以充值、提现，用账户资金购买理财计划。汇诚普惠会根据您的授权划拨资金给借款人，除此之外无权动用，从而保障资金安全。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="alert alert-warning">您还未实名认证请立即认证！</div>
+        <div class="btn-wrap">
+          <a href="/user/cardnumAuth" class="btn-blue">立即认证</a>
+        </div>
+      </div>
+    </div>
+    <?php elseif($user->phonestatus=='n'):?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>第三方资金托管</h3>
+        <div class="content">汇诚普惠使用汇潮支付提供第三方资金托管服务，您在汇潮支付开立托管账户之后，可以充值、提现，用账户资金购买理财计划。汇诚普惠会根据您的授权划拨资金给借款人，除此之外无权动用，从而保障资金安全。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="alert alert-warning">您还未开通手机认证请立即开通！</div>
+        <div class="btn-wrap">
+          <a href="#" class="btn-blue">立即认证</a>
+        </div>
+      </div>
+    </div>
+    <?php elseif($user->thirdAccountStatus=='0'):?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>第三方资金托管</h3>
+        <div class="content">汇诚普惠使用汇潮支付提供第三方资金托管服务，您在汇潮支付开立托管账户之后，可以充值、提现，用账户资金购买理财计划。汇诚普惠会根据您的授权划拨资金给借款人，除此之外无权动用，从而保障资金安全。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="alert alert-warning">您还未开通托管账户请立即开通！</div>
+        <div class="btn-wrap">
+          <form action="/account/bindThirdCompany" method="post">
+            <input type="submit" class="btn-blue" value="立即开通托管账户"/>
+          </form>
+        </div>
+      </div>
+    </div>
+    <?php else:?>
+    <div class="content-wrap clearfix mb20">
+      <div class="content-box box-left">
+        <h3>第三方资金托管</h3>
+        <div class="content">汇诚普惠使用汇潮支付提供第三方资金托管服务，您在汇潮支付开立托管账户之后，可以充值、提现，用账户资金购买理财计划。汇诚普惠会根据您的授权划拨资金给借款人，除此之外无权动用，从而保障资金安全。</div>
+      </div>
+      <div class="white-box box-left">
+        <div class="info-account info-item">您的托管登陆账号：<span><?=$user->phone?></span></div>
+        <div class="info-money info-item">您的余额：<span>￥<?=$user->fundMoney?></span></div>
+        <div class="btn-wrap mt20 clearfix">
+          <a href="https://www.yemadai.com/" target="_blank" class="btn-blue fl pr20 pl20 ml15 mr15">登陆托管账户</a>
+          <?php if($user->thirdAccountAuth==0):?>
+          <a href="/account/thirdAuth" class="btn-blue fl pr20 pl20 ml15 mr15">授权汇诚普惠</a>
+          <?php elseif($user->thirdAccountAuth==1):?>
+          <a href="/account/thirdAuth" class="btn-blue fl pr20 pl20 ml15 mr15">解除授权汇诚普惠</a>
+          <?php endif;?>
+        </div>
+        <div class="remark-box-s">
+          <div class="remark-title">温馨提醒:</div>
+          <div class="remark-content">
+            <p>1. 启用自动投标功能需要您授权给汇诚普惠。</p>
+            <p>2. 汇诚普惠郑重承诺保障您的资金安全！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endif;?>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,84 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title"><?=$interest->odd?$interest->odd->oddTitle:''?>[<?=$interest->oddNumber?>] 还款详情</h3>
+        <div class="box-tools pull-right">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="table table-hover mb-0" data-delete="">
+              <tr>
+                <th>投资人ID</th>
+                <th>期数</th>
+                <th class="visible-lg">应还本金</th>
+                <th class="visible-lg">应还利息</th>
+              </tr>
+              <?php $totalCapital=0; $totalInterest=0; $totalRealInterest=0;?>
+              <?php foreach($invests as $invest):?>
+              <?php 
+                if($invest->status==0) {
+                  $totalCapital += $invest->benJin; 
+                  $totalInterest += $invest->interest;
+                } else {
+                  $totalRealInterest += $invest->realinterest;
+                }
+              ?>
+              <tr data-id="<?=$invest->id?>">
+                <td>
+                <?=$invest->userId?> 
+                <?php if($invest->status==0):?>
+                <label class="label label-primary">未还款</label>
+                <?php elseif($invest->status==-1):?>
+                <label class="label label-default">正在还款</label>
+                <?php elseif($invest->status==1):?>
+                <label class="label label-success">正常结清</label>
+                <?php elseif($invest->status==2):?>
+                <label class="label label-success">已转让</label>
+                <?php elseif($invest->status==3):?>
+                <label class="label label-success">提前结清</label>
+                <?php elseif($invest->status==4):?>
+                <label class="label label-success">逾期结清</label>
+                <?php endif;?>
+                </td>
+                <td><?=$invest->qishu?></td>
+                <td class="visible-lg"><?=$invest->benJin?></td>
+                <td class="visible-lg"><?=$invest->interest?></td>
+              </tr>
+              <?php endforeach;?></table>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer clearfix">
+        <div class="col-sm-9">
+          <div class="table-info" style="line-height: 30px">
+            <span>应还本金：<em><?=$totalCapital?> [<?=$interest->benJin?>]</em></span>
+            <span>应还利息：<em><?=$totalInterest?> [<?=$interest->interest?>]</em></span>
+            <span>已还利息：<em><?=$totalRealInterest?></em></span>
+            <span>应还时间：<em><?=$interest->endtime?></em></span>
+            <span>借款人余额：<em><?=$loanMoney?></em></span>
+            <span>代偿人余额：<em><?=$replaceMoney?></em></span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="table-info" style="float: right;">
+            <?php $cot = ['normal'=>'正常还款', 'advance'=>'提前还款', 'delay'=>'逾期还款'];?>
+            <?php if($interest->status==-1 || in_array($interest->id, $ingList)):?>
+            <button type="button" class="btn btn-default btn-sub btn-sm" disabled>正在还款</button>
+            <?php elseif($interest->status==0):?>
+            <button type="button" class="btn btn-primary btn-sub btn-sm" data-type="<?=$type?>" data-replace="0" data-id="<?=$interest->id?>"><?=$cot[$type]?></button>
+            <button type="button" class="btn btn-primary btn-sub btn-sm" data-type="<?=$type?>" data-replace="1" data-id="<?=$interest->id?>">委托还款</button>
+            <?php else:?>
+            <button type="button" class="btn btn-default btn-sub btn-sm" disabled>已经还款</button>
+            <?php endif;?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

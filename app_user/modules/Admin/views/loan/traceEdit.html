@@ -1,0 +1,90 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div id="odd-box" class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">
+          贷后信息 <?=$oddTrace->oddNumber?>
+        </h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/loan/trace">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/loan/saveTrace" id="form-odd" class="form-horizontal" method="post" enctype="multipart/form-data">
+      <div class="box-body">
+        <div class="form-group hidden-vars hide">
+          <input type="hidden" name="id" value="<?=$oddTrace->id?>">
+          <input type="hidden" name="oddNumber" value="<?=$oddNumber?>">
+        </div>
+        <?php if($oddTrace->type != 'base'){ ?>
+        <div class="form-group">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 时间</label>
+          <div class="col-sm-3">
+          <input type="text" class="form-control timepicker" name="addtime" value="<?=$oddTrace->addtime=='0000-00-00 00:00:00'?'':$oddTrace->addtime;?>" data-enable-time=true placeholder="时间" required>
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 信息</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info" value="<?=$oddTrace->info?>"  placeholder="信息">
+          </div>
+        </div>
+        <?php }else{ $oddTrace = json_decode($oddTrace->info); ?>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i>资金运用情况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[money]" value="<?=$oddTrace->money?>"  placeholder="资金运用情况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 经营状况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[management]" value="<?=$oddTrace->management?>"  placeholder="经营状况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 财务状况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[finance]" value="<?=$oddTrace->finance?>"  placeholder="财务状况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 还款能力变化情况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[ability]" value="<?=$oddTrace->ability?>"  placeholder="还款能力变化情况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 逾期情况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[delay]" value="<?=$oddTrace->delay?>"  placeholder="逾期情况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 涉诉情况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[appeal]" value="<?=$oddTrace->appeal?>"  placeholder="涉诉情况">
+          </div>
+        </div>
+        <div class="form-group user-info">
+          <label class="col-sm-1 control-label"><i class="fa fa-space-shuttle text-red"></i> 受行政处罚情况</label>
+          <div class="col-sm-3 form-value">
+            <input type="text" class="form-control" name="info[penalty]" value="<?=$oddTrace->penalty?>"  placeholder="受行政处罚情况">
+          </div>
+        </div>
+        <?php }?>
+
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary btn-sub">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('blocks/uploadTemplate.html');?>
+<?php $this->display('footer.html');?>

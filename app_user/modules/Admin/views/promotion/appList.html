@@ -1,0 +1,204 @@
+<?php $this->display('header.html');?>
+<style>
+	.a1ctive{
+		color: blue;
+		background: blue;
+	}
+</style>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">渠道分类</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加新闻" href="/admin/promotion/addList">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="/admin/promotion/add" class="table-search-form clearfix" method="post">
+						<div class="form-group">
+							<div class="input-wrap">
+								<input type="text" class="form-control input-sm" name="channel_name" placeholder="添加渠道名称" value=""></div>
+							<div class="input-wrap">
+								<input type="text" class="form-control input-sm" name="channel_code" placeholder="添加渠道简称" value=""></div>
+							<button type="submit" class="btn btn-sm btn-info">新增</button>
+						</div>
+							<!-- <div class="form-group">
+								<label class="control-label">标题</label>
+								<div class="input-wrap">
+									<input type="text" class="form-control input-sm" name="title" placeholder="标题" value="<?=$queries->title?>"></div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">新闻类型</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="all">全部</option>
+										<?php foreach($types as $type):?>
+										<option value="<?=$type->type_key?>" <?php if($type->type_key==$queries->type):?>selected<?php endif;?>><?=$type['type_name'];?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div> -->
+							<!-- <button type="submit" class="btn btn-sm btn-info">搜索</button> -->
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="">
+									<tr>
+										<th class="visible-lg">编号ID</th>
+										<th>渠道名称</th>
+										<th>渠道代码</th>
+										<!-- <th class="visible-lg">访问人数</th> -->
+										<th class="visible-lg">注册人数</th>
+										<th class="visible-lg">充值人数</th>
+										<th class="visible-lg">充值金额</th>
+										<th class="visible-lg">投资人数</th>
+										<th class="visible-lg">投资金额</th>
+										<th class="visible-lg">提现人数</th>
+										<th class="visible-lg">提现金额</th>
+										<th>详情</th>
+									</tr>
+									<?php foreach ($channelList as $channel):?>
+									<tr data-id="<?=$channel['id'] ?>">
+										<td class="visible-lg"><?=$channel['id']?></td>
+										<td><?=$channel['channelName']?></td>
+										<td><?=$channel['channelCode']?></td>
+										<!-- <td class="visible-lg">xxxx</td> -->
+										<td class="visible-lg"><?=$channel['reg_sum']?></td>
+										<td class="visible-lg"><?=$channel['charge_num']?></td>
+										<td class="visible-lg"><?=$channel['charge_money']?></td>
+										<td class="visible-lg"><?=$channel['invest_num']?></td>
+										<td class="visible-lg"><?=$channel['invest_money']?></td>
+										<td class="visible-lg"><?=$channel['draw_num']?></td>
+										<td class="visible-lg"><?=$channel['draw_money']?></td>
+										<td>
+											
+											<button type="button" class="btn btn-success btn-sm editCate" data-toggle="modal" data-target="#myModal">
+											  编辑
+											</button>
+											<!-- Modal -->
+											<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											  <div class="modal-dialog" role="document">
+											    <div class="modal-content">
+											      <div class="modal-header">
+											        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											        <h4 class="modal-title" id="myModalLabel">修改分类</h4>
+											      </div>
+											      <div class="modal-body">
+											      	<form method="post" action="/admin/promotion/update">
+											      		<input type="hidden" name="hidden_id" id="hidden_id" value="">
+											      	  <div class="form-group">
+											      	    <label for="exampleInputEmail1">分类名称</label>
+											      	    <input type="text" name="channelName" class="form-control" id="channelName" >
+											      	  </div>
+											      	  <div class="form-group">
+											      	    <label for="exampleInputPassword1">分类代号</label>
+											      	    <input type="text" class="form-control" name="channelCode" id="channelCode" placeholder="">
+											      	  </div>
+											      	  <button type="submit" class="btn btn-danger">保存</button>
+											      	</form>
+											      </div>
+											     <!--  <div class="modal-footer">
+											        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+											        <button type="button" class="btn btn-primary">保存</button>
+											      </div> -->
+											    </div>
+											  </div>
+											</div>
+											<a class="btn btn-ssm btn-info" href="<?=WEB_USER;?>/admin/promotion/detail?id=<?=$channel['id']?>" target="_blank"> <i class="glyphicon glyphicon-edit icon-white"></i>
+												查看详情
+											</a>
+										</td>
+									</tr>
+									<?php endforeach;?>
+									</table>
+					</div>
+				</div>
+			</div>
+			
+
+
+			<div class="box-footer clearfix">
+				<!-- Single button -->
+				 <div class="col-md-1 form-inline">
+				 	<div class="dropdown form-inline">
+				 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				 	    <a href="/admin/promotion/list?num=15">页码</a>
+				 	    <span class="caret"></span>
+				 	  </button>
+				 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+				 	    <li><a href="/admin/promotion/list?num=15">15</a></li>
+				 	    <li><a href="/admin/promotion/list?num=20">20</a></li>
+				 	    <li><a href="/admin/promotion/list?num=30">30</a></li>
+				 	  </ul>
+				 	</div>
+				 </div>
+
+				<nav aria-label="Page navigation">
+				  <ul class="pagination">
+				    <li>
+				      <a href="<?=WEB_USER;?>/admin/promotion/list?id=1&num=<?php echo $num?>" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				          <?php for($i=1;$i<=$arr_page['res_id'];$i++){?>
+				      	    <li>
+				      	    	<a class="" href="<?=WEB_USER;?>/admin/promotion/list?id=<?=$i?>&num=<?php echo $num?>">
+				      	    	<span><?php echo $i?></span>
+				      	    	</a>
+				      	    </li>
+				            <?php }?>
+				          <li>
+				      <a href="<?=WEB_USER;?>/admin/promotion/list?id=<?=$arr_page['res_id']?>&num=<?php echo $num?>" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+			<div class="box-footer clearfix">
+
+				<table class="table table-hover mb-0" data-delete="">
+					<tr>
+						<th class="visible-lg">名称</th>
+						<th>访问人数</th>
+						<th class="visible-lg">注册人数</th>
+						<th class="visible-lg">充值人数</th>
+						<th class="visible-lg">充值金额</th>
+						<th class="visible-lg">投资人数</th>
+						<th class="visible-lg">投资金额</th>
+						<th class="visible-lg">提现人数</th>
+						<th class="visible-lg">提现金额</th>
+					</tr>
+					<tr data-id="<?=$news['id'];?>">
+						<td class="visible-lg">合计</td>
+						<td>xxx</td>
+						<td>xxx</td>
+						<td><?=$arr2['sum_charge_num'];?> </td>
+						<td><?=$arr2['sum_charge_money'];?> </td>
+						<td><?=$arr2['sum_invest_num'];?> </td>
+						<td><?=$arr2['sum_invest_money'];?> </td>
+						<td><?=$arr2['sum_draw_num'];?> </td>
+						<td><?=$arr2['sum_draw_money'];?> </td>
+						
+					</tr>
+				</table>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

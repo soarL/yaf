@@ -1,0 +1,81 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('account/common/tab-money.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">提现记录</div>
+            <div class="data-search-form">
+	            <form action="/account/withdrawRecord" method="get">
+					<div class="form-group">
+                        <label>状态</label>
+                        <select name="status" class="select" style="width:95px;">
+                            <option value="all" <?php if('all'==$queries->status):?>selected<?php endif;?>>全部</option>
+                            <option value="success" <?php if('success'==$queries->status):?>selected<?php endif;?>>成功</option>
+                            <option value="fail" <?php if('fail'==$queries->status):?>selected<?php endif;?>>失败</option>
+                            <option value="handle" <?php if('fail'==$queries->status):?>selected<?php endif;?>>审核中</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>流水号</th>
+                        <th>提现金额</th>
+                        <th>手续费</th>
+                        <th>实得金额</th>
+                        <th>状态</th>
+                        <th>申请时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($withdrawList as $withdraw):?>
+                    <tr>
+                        <td><?=$withdraw->tradeNo?></td>
+                        <td><?=$withdraw->outMoney?>元</td>
+                        <td><?=$withdraw->fee?>元</td>
+                        <td><?=($withdraw->outMoney-$withdraw->fee)?>元</td>
+                        <td>
+                            <?php if($withdraw->status==0):?>
+                            <span class="status-label status-fail">失败</span>
+                            <?php elseif($withdraw->status==1):?>
+                            <span class="status-label status-success">成功</span>
+                            <?php elseif($withdraw->status==3):?>
+                            <span class="status-label status-primary">审核中</span>
+                            <?php else:?>
+                            <span class="status-label status-fail">失败</span>
+                            <?php endif;?>
+                        </td>
+                        <td><?=$withdraw->addTime?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$withdrawList->render()?>
+            </div>
+            <div class="statistics clearfix">
+                <div class="item">
+                    <span>共计笔数：</span><em><?=$totalResult->totalCount?>笔</em>
+                </div>
+                <div class="item">
+                    <span>共计提现金额：</span><em><?=floatval($totalResult->totalMoney)?>元</em>
+                </div>
+                <div class="item">
+                    <span>共计手续费：</span><em><?=floatval($totalResult->totalFee)?>元</em>
+                </div>
+                <div class="item">
+                    <span>共计实得金额：</span><em><?=floatval($totalResult->totalRelMoney)?>元</em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

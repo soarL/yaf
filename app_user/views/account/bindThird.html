@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body onload="document.form1.submit()">
+<?php //var_dump($data);?>
+<form id="form1" name="form1" method="post" action="<?php echo $url; ?>">
+        <input type="hidden" name='number_id' value="<?php echo $data['number_id']; ?>" />
+        <input type='hidden' name='mode' value="<?php echo $data['mode']; ?>"/>
+        <input type='hidden' name='account_name' value="<?php echo $data['account_name']; ?>"/>
+        <input type='hidden' name='real_name' value="<?php echo $data['real_name']; ?>"/>
+        <input type='hidden' name='card_no' value="<?php echo $data['card_no']; ?>" />
+        <input type='hidden' name='nick_name' value="<?php echo $data['nick_name']; ?>" />
+        <input type='hidden' name='advice_url' value="<?php echo $data['advice_url']; ?>" />
+        <input type='hidden' name='return_url' value="<?php echo $data['return_url']; ?>" />
+        <input type='hidden' name='remark' value="<?php echo $data['remark']; ?>" />
+        <input type='hidden' name='sign_info' value="<?php echo $data['sign_info']; ?>" />
+</form>
+</body>
+</html>

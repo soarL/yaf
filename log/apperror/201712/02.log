@@ -1,0 +1,7 @@
+[2017-12-02 11:57:30] apperror.ERROR: APP请求接口[register]错误：缺少参数：username【用户名】！ [] []
+[2017-12-02 14:53:12] apperror.ERROR: APP请求接口[register]错误：缺少参数：username【用户名】！ {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []
+[2017-12-02 14:54:22] apperror.ERROR: APP请求接口[register]错误：签名验证失败！post_to_compute:--to--b8f3d5e1b1bb8b53d349a2b2aa98d073 {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []
+[2017-12-02 14:59:58] apperror.ERROR: APP请求接口[register]错误：缺少参数：username【用户名】！ {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []
+[2017-12-02 15:00:13] apperror.ERROR: APP请求接口[register]错误：签名验证失败！post_to_compute:--to--b8f3d5e1b1bb8b53d349a2b2aa98d073 {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []
+[2017-12-02 15:00:55] apperror.ERROR: APP请求接口[register]错误：缺少参数：username【用户名】！ {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []
+[2017-12-02 15:01:05] apperror.ERROR: APP请求接口[register]错误：签名验证失败！post_to_compute:--to--b8f3d5e1b1bb8b53d349a2b2aa98d073 {"phone":"13075962836","password":"zxc123","smsCode":"380294","spreadUser":"18850400209"} []

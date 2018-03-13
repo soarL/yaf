@@ -1,0 +1,83 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('user/common/tab-invest.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">债权转让</div>
+           <!--  <h3>
+                邀请记录
+                <a href="#" class="more cBlue no_unl">查看明细</a>
+            </h3> -->
+            <div class="data-search-form">
+	            <form action="/user/assignment" method="get">
+					<div class="form-group">
+                        <label>类型</label>
+                        <?php $type = $queries->type;?>
+                        <select class="select" name="type" style="width:120px;">
+                            <option value="out" <?php if($type=='out'):?>selected<?php endif;?>>成功转让债权</option>
+                            <option value="buy" <?php if($type=='buy'):?>selected<?php endif;?>>已购买债权</option>
+                            <option value="back" <?php if($type=='back'):?>selected<?php endif;?>>回收中债权</option>
+                            <option value="del" <?php if($type=='del'):?>selected<?php endif;?>>已撤销债权</option>
+                        </select>
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>转让项目</th>
+                        <th>债权总价</th>
+                        <th>转让金额</th>
+                        <th>待收本息</th>
+                        <th>最终还款日</th>
+
+                        <?php if($type=='ing'||$type=='out'):?>
+                        <th>转让时间</th>
+                        <?php endif;?>
+
+                        <?php if($type=='back'||$type=='buy'||$type=='out'):?>
+                        <th>购买时间</th>
+                        <?php endif;?>
+
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($claims as $claim):?>
+                    <tr data-id="<?=$claim->id?>">
+                        <td class="gray3"><?='转让项目'.(90000000+$claim->id).'号';?></td>
+                        <td><?=$claim->oddMoney->money?><i>元</i></td>
+                        <td><?=$claim->claimsMoney?><i>元</i></td>
+                        <td><?=$claim->getStayMoney()?><i>元</i></td>
+                        <td class="f16"><?=_date('Y-m-d', $claim->getEndTime())?><i></i></td>
+
+                        <?php if($type=='ing'||$type=='out'):?>
+                        <td><?=$claim->addtime?></td>
+                        <?php endif;?>
+
+                        <?php if($type=='buy'||$type=='back'):?>
+                        <td><?=$claim->addtime?></td>
+                        <?php endif;?>
+                        <?php if($type=='out'):?>
+                        <td><?=$claim->toClaim->addtime?></td>
+                        <?php endif;?>
+
+                        <td>
+                            <?php if($type=='ing'):?>
+                            <a class="btn-small btn-c-yellow box-delTransfer-btn" href="javascript:;">撤销转让</a>
+                            <?php endif;?>
+                            <a class="btn-small btn-c-blue" href="<?=WEB_MAIN.Url::to('/odd/view', ['num'=>$claim->oddNumber]);?>" target="_blank">标详情</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$claims->render()?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

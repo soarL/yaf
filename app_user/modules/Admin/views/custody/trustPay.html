@@ -1,0 +1,61 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">受托支付申请查询</h3>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">标的号</label>
+                                <div class="input-wrap">
+                                <input type="text" class="form-control input-sm" name="oddNumber" placeholder="标的号" value="<?=$queries->oddNumber?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>借款人电子账户</th>
+                                <th>借款人姓名</th>
+                                <th>标的号</th>
+                                <th>收款人</th>
+                                <th>状态</th>
+                                <th>时间</th>
+                            </tr>
+                            <?php if($row):?>
+                            <tr>
+                                <td><?=$row['accountId']?></td>
+                                <td><?=$row['name']?></td>
+                                <td><?=_pton($row['productId'])?></td>
+                                <td><?=$row['receiptAccountId']?></td>
+                                <td><?php if($row['state']==1):?>
+                                    <span class="label label-success">已确认</span>
+                                    <?php else:?>
+                                    <span class="label label-warning">未确认</span>
+                                    <?php endif;?>
+                                </td>
+                                <td><?=_date('Y-m-d H:i:s', substr($row['affirmDate'].$row['affirmTime'], 0, 14))?></td>
+                            </tr>
+                            <?php endif;?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <?php if($status==1):?>
+                <?php else:?>
+                <div class="text-danger" style="text-align: center;"><?=$msg?></div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

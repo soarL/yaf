@@ -1,0 +1,409 @@
+html{
+	font-size: 6.25%;
+}
+body{
+	font-size: 16px
+}
+body,h1,ul{
+	margin:0;
+}
+ul{
+	padding:0;
+}
+li{
+	list-style: none;
+}
+/*借款人须知*/
+.borrownotice{
+	padding: 20px;
+	color: #333;
+	line-height: 26px;
+}
+.borrownotice h1{
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+.borrownotice h3{
+	font-weight: 500;
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+.borrownotice p{
+	text-indent: 25px;
+	font-size: 14px;
+}
+.pull-left{
+	float: left;
+}
+.pull-right{
+	float: right;
+}
+.clearfix{
+	clear: both;
+}
+.container{
+	width: 100%;
+	background-color: #588d9b;
+	background-image: url(./bgImg.jpg);
+	background-size: 100%;
+	position: relative;
+}
+.container-fluid{
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+	padding-top: 45px;
+}
+.form-label-box{
+	width: 100%;
+	display: block;
+	background-color: rgba(255,255,255,0.28);
+	height: 45px;
+	border-radius: 60px;
+	position: relative;
+}
+.form-control{
+	width: 96%;
+	outline: none;
+	display:inline-block;
+	line-height: 1.42857143;
+	color: #fff;
+	background-color: rgba(255,255,255,0);
+	background-image: none;
+	border: 1px solid transparent;
+	border-left: 1px solid #fff;
+	font-size: 14px;
+	padding-left:10px;
+	padding-top:0;
+	padding-bottom:0;
+}
+.form-control::-moz-placeholder {
+	color: #fff;
+	opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+	color: #fff;
+}
+.form-control::-webkit-input-placeholder {
+	color: #fff;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+	background-color: #eee;
+	opacity: 1;
+	color: #ccc;
+}
+.form-control option{
+	color: #333;
+}
+.form-label-btn{
+	width: 100%;
+	display: block;
+	background-color:#57bdbb;
+	height: 45px;
+	outline: none;
+	border:none;
+	color: #fff;
+	line-height: 40px;
+	text-align: center;
+	font-size: 16rem;
+	border-radius: 60px;
+	font-style: none;
+	text-decoration: none;
+	line-height: 45px;
+}
+
+.form-label-btn:active{
+	background-color:#33b6b3;
+}
+.logo{
+	border-bottom: 1px solid #fff;
+	padding: 10px 20px;
+}
+.logo h1{
+	color: #fff;
+	font-size: 16rem;
+	font-weight: normal;
+	margin: 0;
+	line-height: 29.06px;
+}
+.logo img{
+	width:100px;
+}
+.logo a{
+	color: #fff;
+	text-decoration: none;
+}
+.hq-duanxin,.reg-img{
+	outline: none;
+	position: absolute;
+	border:none;
+	display:block;
+	right: 10px;
+    border-top-right-radius: 33px;
+    border-bottom-right-radius: 33px;
+	padding:0px 0px;
+	top: -10px;
+	right: 0px;
+	font-size: 12px;
+	color: #ffe;
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	width:120px;
+	height: 44px;
+	line-height: 45px;
+	background-color:#87ADB7;
+} 
+.hq-duanxin:active,.reg-img:active{
+	background-color:#57BDBB;
+	color: #fff;
+}
+.form-error{
+	position: fixed;
+	top:60px;
+	z-index: 66;
+	display: none;
+	color: #e37031;
+	font-size: 14rem;
+	text-indent: 30px;
+	background: url(./error.png) no-repeat center left;
+	background-size: 25px 25px;
+	padding: 15px 0 15px 0px;
+	font-weight: normal;
+}
+.margin-topBottom-20{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.margin-top-30{
+	margin-top: 30px;
+	display:block;
+}
+.form-position{
+	width: 79%;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -12px;
+}
+.icon{
+	position: absolute;
+	top: 50%;
+	margin-top: -13px;
+	height: 26px;
+	background-repeat: no-repeat;
+	background-size:100% auto; 
+}
+.icon-1{
+	left: -32px;
+	width: 16px;
+	background-image: url(./phone.png);
+}
+.icon-2{
+	left: -38px;
+	width: 22px;
+	background-image: url(./verify.png);
+}
+.icon-3{
+	left: -32px;
+	width: 18px;
+	background-image: url(./password.png);
+}
+.icon-4{
+	margin-top: -9px;
+	left: -38px;
+	width: 26px;
+	background-image: url(./name.png);
+}
+.icon-5{
+	margin-top: -8px;
+	left: -40px;
+	width: 28px;
+	background-image: url(./ID.png);
+}
+/*单选框*/
+.radio{
+	color: #fff;
+	margin-left: 20px;
+	font-size: 14rem;
+	display: inline-block;
+}
+.radio input{
+	width: 25px;
+	height: 25px;
+	margin-right: 20px;
+	display: inline-block;
+	float: left;
+	cursor: pointer;
+}
+.radio i{
+	line-height: 29px;
+	float: left;
+	font-style: normal;
+}
+/*注册成功页面样式*/
+.suc-box{
+	margin: 0 auto;
+	padding: 50px ;
+    box-shadow: 0px 0px 7.52px 0.48px rgba(4, 0, 0, 0.23);
+    width: 1000px;
+    margin-top:30px; 
+}
+.suc-title{
+	width: 374px;
+	margin:  0 auto;
+	margin-bottom: 20px;
+	font-size: 18rem;
+	color: #fb6602;
+	font-weight: normal;
+}
+.suc-title-2{
+	width: 181px;
+}
+.suc-icon{
+	margin: 0 auto;
+	width: 93px;
+	margin-bottom: 20px;
+}
+.suc-icon img{
+	width: 100%;
+}
+.suc-bank{
+	width: 406px;
+	margin:0 auto;
+}
+.suc-bank li{
+	float: left;
+}
+.margin-left-rigth{
+	margin-left: 19px;
+	margin-right:19px;
+	margin-top: 18px;
+}
+.suc-state{
+	width: 400px;
+	font-size: 16rem;
+	color: #a4a4a4;
+	text-align: center;
+	line-height: 30px;
+	font-weight: normal;
+	margin: 25px auto; 
+}
+.suc-button{
+	width:180px;
+	margin: 0 auto;
+}
+.suc-button button{
+	border-radius: 4px;
+	background-color: #07a4fe;
+	text-align: center;
+	padding: 13px 70px;
+	color: #fff;
+	border:none;
+	outline: none;
+	cursor: pointer;
+}
+.suc-button button:active{
+	background-color: #118ed6;
+}
+.suc-button a{
+	display: inline-block;
+	color: #9c9c9c;
+	font-size: 12rem;
+	float: right;
+	margin-top: 10px;
+}
+.suc-button a:hover{
+	color: #0096e2;
+}
+.alerts{
+	width: 140px;
+	height: 120px;
+	background-color: rgba(0,0,0,0.45);
+	border-radius: 10px;
+	color: #fff;
+	line-height: 120px;
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	margin-top: -60px;
+	left: 50%;
+	margin-left: -70px;
+	font-size: 16rem;
+	display: none;
+	z-index: 88
+}
+
+/*响应布局*/
+@media screen and (min-width:1000px){
+	.container-fluid{
+		padding: 10px;
+		width: 600px;
+		padding-bottom: 60px;
+	}
+	.logo img{
+		width: 150px;
+	}
+	.logo h1{
+		line-height: 43.61px;
+	}
+	.logo{
+		padding: 10px 60px;
+	}
+	.form-error{
+		left: 50%;
+		margin-left: -200px;
+		top: 10px;
+	}
+	.margin-top-30{
+		margin-top: 50px;
+	}
+	.hq-duanxin{
+		top: -10px;
+	}
+	html,body,.container{
+		min-height: 100%;
+	}
+}
+@media screen and (max-width:1000px){
+	.form-error{
+		background-color: #588d9b;
+		width: 100%;
+		background-position: 40px center;
+		text-indent: 80px;
+	}
+	.suc-box{
+	    box-shadow: none;
+	    width: auto;
+	    padding: 35px 0 0 0;
+	}
+	.suc-icon {
+	    margin: 40px auto 0 auto;
+	    width: 70px;
+	}
+	.suc-bank{
+		width: 331px;
+		margin-top: 40px;
+	}
+	.suc-bank-li-1{
+		width:130px;
+	}
+	.suc-bank-li-1 img{
+		width: 100%;
+	}
+	.suc-state{
+		width: 350px;
+		margin:25px auto 60px auto;
+	}
+	.suc-button{
+		width:297px;
+	}
+	.suc-button button{
+		padding: 13px 135px;
+	}
+}

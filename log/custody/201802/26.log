@@ -1,0 +1,4 @@
+[2018-02-26 03:53:49] custody.INFO: 接口请求:http://bankapi.hcjrfw.com/index.php?r=bank {"userNo":"2000000002","serviceName":"CREATE_PROJECT","projectNo":"20180127000004","projectAmount":100000,"projectName":"测试发标","projectDesc":"资金周转","projectType":"STANDARD","projectPeriod":90,"annualRate":0,"repaymentWay":"INTEREST_FIRST","userDevice":"PC"} []
+[2018-02-26 03:53:49] custody.INFO: 接口返回:{"requestNo":"LS201802260000000001","respCode":"00000","respMsg":"成功","status":"SUCCESS"} [] []
+[2018-02-26 04:02:23] custody.INFO: 接口请求:http://bankapi.hcjrfw.com/index.php?r=bank {"userNo":"2000000002","serviceName":"CREATE_PROJECT","projectNo":"20180226000001","projectAmount":9000000,"projectName":"这个标用来测试不要投啊！兄弟们","projectDesc":"资金周转","projectType":"STANDARD","projectPeriod":330,"annualRate":10,"repaymentWay":"INTEREST_FIRST","userDevice":"PC"} []
+[2018-02-26 04:02:23] custody.INFO: 接口返回:{"requestNo":"LS201802260000000002","respCode":"00000","respMsg":"成功","status":"SUCCESS"} [] []

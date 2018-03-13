@@ -1,0 +1,251 @@
+<?php $this->display('header.html');?>
+<?php $odd = $crtr->odd;?>
+<?php $remain = $crtr->getRemain();?>
+<div class="hide" id="crtr-money"><?=$crtr->money?></div>
+<div class="hide" id="crtr-daystay"><?=$crtr->oddMoney->getInvestedStayInterest()?></div>
+<div class="middle" style="padding-top:10px;">
+  <div id="pg-loan-invest" class="pg-details main">
+    <div id="loan-basic">
+      <div class="container mt10">
+        <ul class="ui-breadcrumb clearfix">
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-first"> <a href="<?=Url::to('/crtr/list')?>">债权转让</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text"> <a href="<?=Url::to('/crtr/list')?>">债权转让列表</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-current"> <a>债权转让</a> </li>
+        </ul>
+        <span class="project">项目编号: <?=$crtr->getSN()?></span>
+      </div>
+      <div class="mt10">
+        <div class="mainwithborder clearfix" style="padding-top:0px">
+          <div class="ui-box-title clearfix"> 
+            <em class="pledgeico mr10" title="债权转让">转</em>
+            <h3 class="fl fn-text-overflow">债权转让<?=$crtr->getSN()?>号</h3>
+            <span class="fl grey-color-6">转让用户：
+              <a href="#" target="_blank" class="pr ui-box-username"><?=_hide_username($crtr->user->username)?></a>
+            </span> 
+            <!-- <a class="fr text ui-box-text mr5" href="/protocol/two" target="_blank">债权转让协议（范本）</a>  -->
+            <a class="mathtool calculate-btn" href="javascript:;">&nbsp;</a>
+          </div>
+          <div class="clearfix mt20">
+            <div class="loaninfo fl">
+              <div class="clearfix mb15">
+                <dl class="fl w250 mr15">
+                  <dt>债权本金 （元）</dt>
+                  <dd><em class="text-xxxl grey-color-3">￥<?=$crtr->money?></em></dd>
+                </dl>
+                <dl class="fl w150 mr15">
+                  <dt>年利率</dt>
+                  <dd class="text-xxl pr">
+                    <em class="text-xxxl grey-color-3"><?=$odd->oddYearRate*100?></em>%
+                    <?php if($odd->oddReward>0):?>
+                    <em class="reward">+<?=$odd->oddReward*100;?>%</em>
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="fl w120">
+                  <dt>剩余可买（元）</dt>
+                  <dd>
+                  <em class="text-xxxl grey-color-3">
+                  <?=$crtr->getRemain()?>
+                  </em>
+                  </dd>
+                </dl>
+              </div>
+              <ul>
+                <li class="clearfix"> 
+                  <span class="fl long-label">还款方式</span> 
+                  <?php if($odd->oddRepaymentStyle=='monthpay'):?>
+                  <span class="fl basic-value last">先息后本</span> 
+                  <?php elseif($odd->oddRepaymentStyle=='matchpay'):?>
+                  <span class="fl basic-value warning last">等额本息</span> 
+                  <?php endif;?>
+                  <span class="fl long-label layer-tip" data-position="1" data-content="从转让成功日计起，含转让成功日当日">
+                    剩余计息天数
+                  </span> 
+                  <span class="fl basic-value">
+                    <?=$crtr->getRemainDay()?>天
+                  </span> 
+                </li>
+                <li class="clearfix"> 
+                  <span class="fl long-label">发标时间</span> 
+                  <span class="fl basic-value">
+                    <?=$odd->oddTrialTime?>
+                  </span> 
+                  <a class="btn-blue btn-sm" href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber])?>" target="_blank">更多原标信息</a>
+                </li>
+                <li class="clearfix">
+                  
+                  <span class="fl long-label">结息日</span>
+                  <?php
+                    $endDays = '';
+                    foreach($odd->interests as $key => $interest) {
+                      if($key==0) {
+                        $endDay = _date('Y/m/d', $interest->endtime);
+                      }
+                      $endDays .= _date('Y/m/d', $interest->endtime) . ',';
+                      if(($key+1)%2==0) {
+                        $endDays .= '<br>';
+                      }
+                    }
+                    $endDays = rtrim($endDays, ',');
+                  ?>
+                  <span class="fl basic-value layer-tip" data-position="1" data-content="<?=$endDays?>">
+                  <?=$endDay.'...'?>
+                  </span>
+                  <span class="fl long-label">转让时间</span> 
+                  <span class="fl basic-value num last"><?=$crtr->addtime?></span> 
+                </li>
+                <li class="clearfix basic-progress pt15"> 
+                  <span class="fl long-label">购买进度</span> 
+                  <span class="fl basic-progress-bg"> <b class="basic-percent" style="width: <?=$crtr->getPer($remain)?>%"></b> </span> 
+                  <span class="fl basic-progress-value"><em><?=$crtr->getPer($remain)?>%</em></span>
+                </li>
+              </ul>
+            </div>
+            <?php if($user):?>
+            <div class="fr ui-term-box" >
+              <?php if($crtr->progress=='run'):?>
+              <div class="stamp stamp-run"></div>
+              <?php elseif($crtr->progress=='start'&&$remain==0):?>
+              <div class="stamp"></div>
+              <?php endif;?>
+              <div class="ui-term-content">
+                <div class="ui-term-overage pr">
+                  <p><span class="mr10">账户余额（元）</span><br />
+                    <span class="text-xxxl">￥<?=$user->fundMoney?></span>
+                  </p>
+                  <a class="recharge" href="<?=WEB_USER;?>/account/recharge" target="_blank">充值</a> </div>
+                <div class="btn-wrap"> 
+                  <?php if($crtr->progress=='start'&&$remain>0):?>
+                  <a id="buy-btn" href="javascript:;" class="btn-blue">立即抢购</a> 
+                  <?php elseif($crtr->progress=='start'&&$remain==0):?>
+                  <a href="javascript:;" class="btn-blue">复审中</a> 
+                  <?php else:?>
+                  <a href="javascript:;" class="btn-blue">已出售</a> 
+                  <?php endif;?>
+                </div>
+              </div>
+            </div>
+            <?php else:?>
+            <div class="fr ui-term-box" >
+              <div class="user-need-login">
+                <div class="sign-info">
+                  <p><span>50元</span>起投，最高年化收益率<span>22%</span></p>
+                  <p>回报周期快，债权转让更灵活</p>
+                </div>
+                <div class="tc mt20">
+                  <input type="button" value="立即登录" class="btn-blue loginbtn user-login-btn"/>
+                </div>
+              </div>
+            </div>
+            <?php endif;?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt20 ui-tab loandetail">
+      <div class="tab-label">
+        <ul class="clearfix">
+          <li> <a class="selected" href="javascript:;" data-name="investlist">购买记录</a> </li>
+          <li> <a href="javascript:;" data-name="inglist">在买记录</a> </li>
+        </ul>
+      </div>
+      <div class="tab-content mainwithborder clearfix" style="border-top:0px;">
+        <div class="investlist tab-item tab-item-investlist">
+          <div class="tr color-red-text mb10"> 
+            <span class="mr50">购买次数 <em><?=$count?></em> 次</span> <span class="mr10">已售出总额 <em><?=$totalMoney?></em>元</span> 
+          </div>
+         
+            <table id="purchasers" class="ui-table ui-table-blue ui-table-auditoria">
+              <thead>
+                <tr>
+                  <th width="20%"><span class="pl60">序号</span></th>
+                  <th width="25%"><span class="pl25">购买用户</span></th>
+                  <th width="25%"><span class="text-right pr70">购买金额</span></th>
+                  <th><span class="text-right pr90">购买时间</span></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <div id="purchasers-pager" class="pagination-wrapper dy-pagination" data-action="/crtr/purchasers" data-table="#purchasers" data-var="#purchasers-var" style="display:table;margin: 0 auto;">
+            </div>
+            <div id="purchasers-var" style="display:none;">
+              <div class="item-var" data-var="id"><?=$crtr->id?></div>
+            </div>
+        </div>
+        <div class="investlist tab-item tab-item-inglist">
+          <div class="tr color-red-text mb10"> 
+            <span class="mr50">在买次数 <em><?=$ingCount?></em> 次</span> <span class="mr10">在买总额 <em><?=$ingMoney?></em>元</span> 
+          </div>
+         
+            <table id="ing-records" class="ui-table ui-table-blue ui-table-auditoria">
+              <thead>
+                <tr>
+                  <th width="18%"><span class="pl60">序号</span></th>
+                  <th width="19%"><span class="pl25">购买用户</span></th>
+                  <th width="19%"><span class="text-right pr70">购买金额</span></th>
+                  <th><span class="text-right pr90">购买时间</span></th>
+                  <th><span class="text-right pr90">有效时间</span></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <div id="ing-records-pager" class="pagination-wrapper dy-pagination" data-action="/crtr/ingRecords" data-table="#ing-records" data-var="#ing-records-var" style="display:table;margin: 0 auto;">
+            </div>
+            <div id="ing-records-var" style="display:none;">
+              <div class="item-var" data-var="id"><?=$crtr->id?></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hide-form" style="display:none;">
+  <form id="third-form" action="" method="POST">
+    <input type="hidden" id="transData" name="transData" value="">
+  </form>
+</div>
+<div class="class1">
+  <div class="class2">
+    
+  </div>
+</div>
+<!-- 隐藏弹窗 -->
+<div id="ajax-buy-box" class="hide-box box modal">
+    <div class="form-wrap form-huge">
+        <div class="form-group clearfix">
+          <label>债权编号：</label>
+          <div class="static-input input-blue"><?=$crtr->getSN()?></div>
+        </div>
+        <div class="form-group clearfix">
+          <label>剩余可买：</label>
+          <div class="static-input input-blue"><?=$remain?>元</div>
+        </div>
+        <div class="form-group clearfix">
+          <label>支付利息：</label>
+          <div id="interest-fee" class="static-input input-blue">0元</div>
+        </div>
+        <div class="form-group clearfix">
+          <label>购买金额：</label>
+          <input id="money" class="float-input" type="text" name="money">
+          <span id="get-max-buy" class="icon-btn">最大</span>
+        </div>
+        <input type="hidden" id="crtr-id" value="<?=$crtr->id;?>">
+        <div class="form-group clearfix">
+            <button id="ajax-buy-btn" class="btn btn-primary ml110">购买</button>
+        </div>
+    </div>
+    <div class="box-remark-box huge-remark">
+        <div class="remark-title">温馨提示</div>
+        <div class="remark-content">
+            <p>1. 购买的债权在债权复审后开始计息。</p>
+            <p>2. 购买债权与投资原标的收益完全相同。</p>
+        </div>
+    </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

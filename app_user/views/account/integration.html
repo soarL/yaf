@@ -1,0 +1,63 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('account/common/tab-money.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">积分记录</div>
+            <div class="data-search-form">
+	            <form action="/account/integration" method="get">
+					<div class="form-group">
+                        <label>类型</label>
+                        <select class="auto-submit-select select" name="type" style="width:110px;">
+                            <option value="all" <?php if('all'==$queries->type):?>selected<?php endif;?>>全部</option>
+                            <?php foreach ($types as $key => $value):?>
+                            <option value="<?=$key?>" <?php if($key==$queries->type):?>selected<?php endif;?>><?=$value;?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>发生时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>发生日期</th>
+                        <th>类型</th>
+                        <th>获得积分</th>
+                        <th>总积分</th>
+                        <th width="200">备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($logs as $key => $log):?>
+                    <tr>
+                        <td><?=$log->created_at?></td>
+                        <td><?=$log->getTypeName()?></td>
+                        <td>
+                            <?php if($log->integral>0):?>
+                            <span class="c-green">+<?=intval($log->integral/100)?></span>
+                            <?php else:?>
+                            <span class="c-red"><?=intval($log->integral/100)?></span>
+                            <?php endif;?>
+                        </td>
+                        <td><?=intval($log->total/100)?></td>
+                        <td class="remark tx-left">
+                            <?=$log->translate()?>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$logs->render()?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

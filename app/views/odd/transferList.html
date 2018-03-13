@@ -1,0 +1,55 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('odd/common/menu.html');?>
+    <div class="main">
+        <div class="content-wrap">
+            <div class="pr">
+                <h3 class="m-title">债权转让列表<a href="javascript:;" class="mathbtn calculate-btn">理财计算器</a></h3>
+                <p class="aside-wrap"><span class="pledgeico">转</span>债权转让</p></div>
+            <table class="tablecomponent">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>转让项目</th>
+                    <th>债权总价</th>
+                    <th>转让金额</th>
+                    <th>待收本息</th>
+                    <th>最终还款日</th>
+                    <th>转让状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($oddClaims as $oddClaim):?>
+                      <tr>
+                        <td><a href="<?=Url::to('/odd/view', ['num'=>$oddClaim->oddNumber]);?>">
+                        <?php $oddImages = $oddClaim->odd->getImages('oddExteriorPhotos')?>
+                        <img src="<?=$oddImages[0]['min'];?>" class="itemimg"/></a></td>
+                        <td class="gray3">
+                            <span class="pledgeico" title="债权转让">转</span>
+                            <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)]);?>" target="_blank">
+                                <?='转让项目'.(90000000+$oddClaim->id).'号';?>
+                            </a>
+                        </td>
+                        <td><?=$oddClaim->oddMoney->money?><i>元</i></td>
+                        <td><?=$oddClaim->claimsMoney?><i>元</i></td>
+                        <td><?=$oddClaim->getStayMoney()?><i>元</i></td>
+                        <td class="f16"><?=date('Y-m-d',strtotime($oddClaim->getEndTime()))?><i></i></td>
+                        <td>
+                          <?php if($oddClaim->status==0):?>
+                          <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)])?>" class="status">认购</a>
+                          <?php elseif($oddClaim->status==-1):?>
+                          <a href="<?=Url::to('/odd/transfer', ['num'=>(90000000+$oddClaim->id)])?>" class="status status3">已转让</a>
+                          <?php endif;?>
+                        </td>
+                        <!-- <td class="f16"><?=$odd['oddNumber'];?></td> -->
+                      </tr>
+                      <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+            <?=$oddClaims->render();?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

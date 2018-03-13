@@ -1,0 +1,14 @@
+<?php $this->display('header.html');?>
+<?php $this->display('link/common/menu.html');?>
+<div class="main mt30">
+	<div class="main-content">
+		<div class="friend-link">
+			<ul class="clearfix">
+				<?php foreach ($links as $link):?>
+				<li><a target="_blank" href="<?=$link->link_url?>"><?=$link->link_name?></a>|</li>
+				<?php endforeach;?>
+			</ul>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

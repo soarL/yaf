@@ -1,0 +1,60 @@
+<div id="invest2"  class="pt15"> 
+  <table class="tablecomponent">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>转让项目</th>
+        <th>债权总价</th>
+        <th>年化率</th>
+        <th>进度</th>
+        <th>最终还款日</th>
+        <th>转让状态</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($crtrs as $crtr):?>
+      <tr>
+        <td>
+        <a href="<?=Url::to('/odd/view', ['num'=>$crtr->odd->oddNumber]);?>">
+          <?php $oddImages = $crtr->odd->getImages('oddExteriorPhotos'); ?>
+          <?php if(count($oddImages)>0):?>
+          <img src="<?=$oddImages[0]['min'];?>" class="itemimg"/>
+          <?php else:?>
+          <img src="" class="itemimg"/>
+          <?php endif;?>
+        </a>
+        </td>
+        <td class="gray3">
+          <span class="pledgeico" title="债权转让">转</span>
+          <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()]);?>" target="_blank">
+            <?='转让项目'.$crtr->getSN().'号';?>
+          </a>
+        </td>
+        <td><?=$crtr->money?><i>元</i></td>
+        <td class="pr reward-row">
+          <?=$crtr->odd->oddYearRate*100;?><i>%</i>
+          <?php if($crtr->odd->oddReward>0):?>
+          <em class="reward">+<?=$crtr->odd->oddReward*100;?>%</em>
+          <?php endif;?>
+        </td>
+        <td><strong class="ui-progressbar-mid ui-progressbar-mid-<?=$crtr->getPer()?> bc"><em><?=$crtr->getPer()?></em>%</strong></td>
+        <td class="f16"><?=_date('Y-m-d', $crtr->odd->getEndTime())?><i></i></td>
+        <td>
+          <?php if($crtr->progress=='start'&&$crtr->oddMoneyLast>0):?>
+          <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="status">认购</a>
+          <?php elseif($crtr->progress=='start'&&$crtr->oddMoneyLast==0):?>
+          <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="status status2">复审中</a>
+          <?php else:?>
+          <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="status status3">已出售</a> 
+          <?php endif;?>
+        </td>
+      </tr>
+      <?php endforeach;?>
+    </tbody>
+    <tfoot>
+      <tr>
+      <td colspan="9"><a href="<?=Url::to('/crtr/list')?>">查看更多项目</a></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

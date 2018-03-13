@@ -1,0 +1,259 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">投资列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="新增借款" href="/admin/loan/edit">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		          <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+			      <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+			      <i class="fa fa-file-excel-o text-red"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" method="get" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="oddNumber" <?php if($searchType=='oddNumber'):?>selected<?php endif;?>>借款单号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">添加时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="startTime" value="<?=$queries->startTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/article/delete">
+							<tr>
+								<th>用户ID</th>
+								<th class="visible-lg">标的名称</th>
+								<th class="visible-lg">标的周期</th>
+								<th>投资金额</th>
+								<th>授权码</th>
+								<th class="visible-lg">备注</th>
+								<th class="visible-lg">时间</th>
+								<th class="visible-lg">状态</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($records as $record):?>
+							<tr data-id="<?=$record->id?>" data-code="<?=$record->authCode?>">
+								<td><?=$record->userId?></td>
+								<td class="visible-lg"><?=$record->odd->oddTitle?></td>
+								<td class="visible-lg"><?=$record->odd->getPeriod()?></td>
+								<td><?=$record->money?></td>
+								<td><?=$record->authCode?></td>
+								<td class="visible-lg"><?=$record->remark?></td>
+								<td class="visible-lg"><?=_date('n/j H:i:s', $record->time)?></td>
+								<td class="visible-lg">
+									<?php 
+										$statusMap = [
+											0=>['type'=>'warning', 'name'=>'未复审'], 
+											1=>['type'=>'success', 'name'=>'正常计息'], 
+											2=>['type'=>'danger', 'name'=>'已售出'], 
+											3=>['type'=>'danger', 'name'=>'已完结'], 
+											4=>['type'=>'danger', 'name'=>'已撤销'], 
+										];
+									?>
+									<?=_label($record->status, $statusMap);?>
+								</td>
+								<td>
+									<div class="links dropdown">
+								        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								          选择操作 <span class="caret"></span>
+								        </a>
+								        <ul class="dropdown-menu">
+											<li><a class="btn-bid-query" href="javascript:;"> 投标查询 </a></li>
+											<?php if($record->type=='credit'):?>
+											<li><a class="btn-credit-query" href="javascript:;"> 债权查询 </a></li>
+											<?php endif;?>
+											<li><a class="btn-debt-cancel" href="javascript:;"> 投资撤销 </a></li>
+								        </ul>
+								    </div>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<div class="col-sm-7">
+					<div class="table-info" style="line-height: 30px">
+		                <span>总金额：<em><?=$sumMoney?></em></span>
+	                </div>
+                </div>
+                <div class="col-sm-5">
+					<?=$records->render()?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="bid-query-modal" tabindex="-1" role="dialog" aria-labelledby="bid-query-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="show-detail-label">投标申请详情</h5>
+      </div>
+      <div class="modal-body">
+      	<div class="form-horizontal">
+			<div class="form-group">
+	          <label class="col-sm-3 control-label">存管账号</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-accountId"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">姓名</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-name"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">标的号</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-productId"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">投标金额</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-txAmount"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">预期收益</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-forIncome"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">投标日期</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-buyDate"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">状态</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-state"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">授权码</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-authCode"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">抵扣红包</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-bonusAmount"></p>
+	          </div>
+	        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="credit-query-modal" tabindex="-1" role="dialog" aria-labelledby="credit-query-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="show-detail-label">投标申请详情</h5>
+      </div>
+      <div class="modal-body">
+      	<div class="form-horizontal">
+			<div class="form-group">
+	          <label class="col-sm-3 control-label">买入方账号</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-accountId"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">买入方姓名</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-name"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">卖出方账号</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-forAccountId"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">卖出方姓名</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-forName"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">转让金额</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-tsfAmount"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">转让价格</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-txAmount"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">剩余可转让</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-availAmount"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">转让手续费</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-txFee"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">转让所得</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-txIncome"></p>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <label class="col-sm-3 control-label">授权码</label>
+	          <div class="col-sm-9">
+	            <p class="form-control-static item-authCode"></p>
+	          </div>
+	        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,136 @@
+<?php 
+  use helpers\StringHelper;
+  $type = $queries->type;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('question/common/search.html');?>
+  <div class="main mb30 clearfix">
+    <div class="fl"  style="width:730px;">
+      <div class="hot-ask-wrap">
+        <div class="<?php if($type=='ceo'):?>hot-ceo<?php else:?>hot-one<?php endif;?> hot-question">
+          <h2>
+            <?php if($hotQuestion->type=='ceo'):?>
+            <em class="ceo-ico">CEO</em>
+            <?php endif;?>
+            <a href="/question/view?id=<?=$hotQuestion->id?>"><?=$hotQuestion->title?></a>
+          </h2>
+          <p class="hot-one-content" style="height:80px;">
+            <?=_title($hotQuestion->content,100)?>
+          </p>
+          <p class="hot-one-aside mb10 pr">
+            <span class="ask-cl-grey">
+              发布：
+              <a class="ask-cl-blue">
+              <?php if($hotQuestion->username=='汇诚普惠平台'):?>
+                <?=$hotQuestion->username?>
+              <?php else:?>
+                <?=StringHelper::getHideUsername($hotQuestion->username)?>
+              <?php endif;?>
+              </a> 
+              <strong class="f13 ml15"><?=_date('Y-m-d', $hotQuestion->addTime)?></strong>
+            </span>
+            <span class="pa ask-cl-grey" style="right:0px;">
+              共 <strong class="ask-cl-blue ml5 mr5"><?=$hotQuestion->answerCount?></strong>
+              个回复
+            </span>
+          </p>
+        </div>
+        <ul class="other-one">
+          <?php foreach ($hitQuestions as $hitQuestion):?>
+          <li>
+            <a href="/question/view?id=<?=$hitQuestion->id?>"> 
+              <?php if($hitQuestion->type=='ceo'):?>
+              <em class="ceo-ico">CEO</em>
+              <?php endif;?>
+              <i>·</i>
+              <?=$hitQuestion->title?>
+            </a>
+          </li>
+          <?php endforeach;?>
+        </ul>
+      </div>
+      <div class="ui-tab ui-tab-s">
+        <div class="idTabs">
+          <ul class="clearfix">
+            <li>
+              <a <?php if($type=='all'):?>class="selected"<?php endif;?> href="/question/list">所有问题</a>
+            </li>
+            <li>
+              <a <?php if($type=='hot'):?>class="selected"<?php endif;?> href="/question/list?type=hot">热门问题</a>
+            </li>
+            <li class="ceoQli">
+              <a <?php if($type=='ceo'):?>class="selected"<?php endif;?> class="ceoQ" href="/question/list?type=ceo">CEO问答</a>
+            </li>
+          </ul>
+        </div>
+        <div class="Qwrap pt15" id="allQ">
+          <ul class="q-list">
+            <?php foreach ($questions as $question):?>
+            <li>
+              <a href="/question/view?id=<?=$question->id?>" class="title">
+                <?php if($question->type=='ceo'):?>
+                <em class="ceo-ico">CEO</em>
+                <?php endif;?>
+                <?=$question->title?>
+              </a>
+              <p class="q-list-content">
+                <?=$question->content?>
+              </p>
+              <p class="mb10">
+                <span class="ask-cl-grey">
+                  发表：
+                  <a class="ask-cl-blue">
+                  <?php if($question->username=='汇诚普惠平台'):?>
+                    <?=$question->username?>
+                  <?php else:?>
+                    <?=StringHelper::getHideUsername($question->username)?>
+                  <?php endif;?>
+                  </a>
+                  <strong class="f13 ml15"><?=_date('Y-m-d',$question->addTime)?></strong>
+                </span>
+                <span class="ask-cl-grey ml50">
+                  最后回复：
+                  <a class="ask-cl-blue">
+                    <?php if($question->lastAnswerUser!=''):?>
+                      <?php if($question->type=='ceo'):?>
+                        CEO
+                      <?php elseif($question->lastAnswerUser=='平台客服'):?>
+                        平台客服
+                      <?php elseif($question->lastAnswerUser=='汇诚普惠平台'):?>
+                        汇诚普惠平台
+                      <?php else:?>
+                        <?=StringHelper::getHideUsername($question->lastAnswerUser)?>
+                      <?php endif;?>
+                    <?php endif;?>
+                  </a>
+                  <strong class="f13 ml15">
+                    <?php if($question->lastAnswerTime!=null):?><?=_date('Y-m-d', $question->lastAnswerTime)?><?php endif;?>
+                  </strong>
+                </span>
+                <span class="ask-cl-grey ml50">已阅读：<a class="ask-cl-blue"><?=$question->hitCount?></a></span>
+              </p>
+              <a class="answernum" href="/question/view?id=<?=$question->id?>"><?=$question->answerCount?>个回复</a>
+            </li>
+            <?php endforeach;?>
+          </ul>
+
+          <!--分页-->
+          <div class="pagination-wrapper pt30">
+            <?=$questions->render()?>
+          </div>
+        </div>
+        <div class="Qwrap" id="hotQ"></div>
+
+      </div>
+    </div>
+    <div class="fr" style="width:210px">
+      <?php $this->display('question/common/ceo.html');?>
+      <?php $this->display('question/common/sign.html', ['user'=>$user, 'signCount'=>$signCount, 'isUserSign'=>$isUserSign]);?>
+      <?php //$this->display('question/common/block.html');?>
+      <?php $this->display('question/common/ranking.html', ['rankingList'=>$rankingList]);?>
+    </div>
+  </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

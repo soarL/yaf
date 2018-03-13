@@ -1,0 +1,59 @@
+<?php $this->display('header.html');?>
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">生成推广</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加新闻" href="/admin/promotion/addList">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="jumbotron">
+				  <div class="container">
+				    <div class="row">
+					<div class="page-header">
+					  <h1>点击获取推广地址 <small>app会生成二维码</small></h1>
+					</div>
+					</div>
+				  </div>
+				</div>
+				<div class="row">
+				  <div class="col-sm-6 col-md-6">
+				    <div class="thumbnail">
+				      <div class="caption">
+				        <h3>PC 推广</h3>
+				        <p></p>
+				        <select class="form-control pc_tg">
+				        <option disabled="" selected="selected">请选择渠道</option>
+				        <?php foreach ($all as $res):?>
+				          <option value="<?=WEB_MAIN?>?tg=<?=$res['channelCode']?>"><?=$res['channelName']?></option>
+				        <?php endforeach ?>
+				        </select>
+				        <br>
+				        <p>
+				        	<a href="#" class="btn btn-danger pc_btn" role="button">生成</a>
+				        	 <li class="list-group-item list-group-item-success dis_txt"></li>
+				        </p>
+
+				      </div>
+				    </div>
+				  </div>
+
+				  <div class="col-sm-6 col-md-6">
+				    <div class="thumbnail">
+				      <div class="caption">
+				        <h3>APP 推广</h3>
+				        <p>...</p>
+				        <p><a href="/admin/promotion/appQrcode" class="btn btn-danger" role="button">生成推广码</a></p>
+				      </div>
+				    </div>
+				  </div>
+
+				</div>
+			</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

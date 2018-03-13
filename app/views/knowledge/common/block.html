@@ -1,0 +1,50 @@
+<?php use models\Article;?>
+<div class="konwledge-block">
+	<div class="odd-list">
+		<?php foreach ($odds as $odd):?>
+		<div class="odd-item">
+			<div class="odd-name"><a href="/odd/<?=$odd->oddNumber?>"><?=$odd->oddTitle?></a></div>
+			<div class="odd-info clearfix">
+				<div class="info-item">
+					<span class="item-title">年化收益</span>
+					<span class="item-value"><?=$odd->oddYearRate*100?>%</span>
+				</div>
+				<div class="info-item">
+					<span class="item-title">投资周期</span>
+					<span class="item-value">
+						<?=$odd->oddBorrowPeriod?>
+						<?php if($odd->oddBorrowStyle=='month') { echo '个月';} else if($odd->oddBorrowStyle=='day') { echo '天';}?>
+					</span>
+				</div>
+				<div class="info-item last">
+					<span class="item-title">起投金额</span>
+					<span class="item-value">50元</span>
+				</div>
+			</div>
+			<?php $per = $odd->getPercent();?>
+			<div class="odd-per" title="<?php echo $per;?>%">
+				<div class="odd-per-m" style="width:<?=$per?>%;"></div>
+			</div>
+		</div>
+		<?php endforeach;?>
+		<a class="odd-more" href="/odds">查看更多</a>
+	</div>
+	<div class="knowledge-hot">
+		<div class="hot-title">热门文章</div>
+		<div class="hot-list">
+			<?php $tops = Article::getTops();?>
+			<ul>
+				<?php foreach ($tops as $key => $article):?>
+				<li>
+					<?php if($key<=2):?>
+					<i class="top"><?=$key+1?></i>
+					<?php else:?>
+					<i class="nor"><?=$key+1?></i>
+					<?php endif;?>
+					<a href="/knowledge/view/id/<?php echo $article['id'];?>"><?=_title($article['title'], 15)?></a>
+				</li>
+				<?php endforeach;?>
+			</ul>
+		</div>
+	</div>
+</div>

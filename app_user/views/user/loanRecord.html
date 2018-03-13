@@ -1,0 +1,182 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <div class="tab-s">
+            <a href="/user/loanRecord" <?php if($mode=='loanRecord'):?>class="sel"<?php endif;?>>借款记录</a>
+        </div>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">借款记录</div>
+            <div class="data-search-form">
+	            <form action="/user/loanRecord" method="get">
+					<div class="form-group">
+                        <label>类型</label>
+                        <?php $type = $queries->type;?>
+                        <select class="select" name="type" style="width:100px;">
+                            <option value="start" <?php if($type=='start'):?>selected<?php endif;?>>发标中</option>
+                            <option value="run" <?php if($type=='run'):?>selected<?php endif;?>>偿还中</option>
+                            <option value="fail" <?php if($type=='fail'):?>selected<?php endif;?>>失败借款</option>
+                            <option value="end" <?php if($type=='end'):?>selected<?php endif;?>>已还清</option>
+                        </select>
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <?php if($type=='start'):?>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>借款标号</th>
+                        <th>还款方式</th>
+                        <th>借款金额</th>
+                        <th>借款进度</th>
+                        <th>发标时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($loanList as $loan):?>
+                    <tr>
+                        <td><?=$loan->oddNumber?></td>
+                        <td><?php if($loan->oddRepaymentStyle=='monthpay'):?>
+                            按月付息
+                            <?php elseif($loan->oddRepaymentStyle=='matchpay'):?>
+                            等额本息
+                            <?php endif;?>
+                        </td>
+                        <td><?=$loan->oddMoney?>元</td>
+                        <?php $per = round(($loan->oddMoney-$loan->oddMoneyLast)/$loan->oddMoney*100);?>
+                        <td><?=$per?>%</td>
+                        <td><?=$loan->oddTrialTime?></td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?=WEB_MAIN.'/odd/'.$loan->oddNumber?>" target="_blank">详情</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php elseif($type=='run'):?>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>借款标号</th>
+                        <th>还款方式</th>
+                        <th>借款金额</th>
+                        <th>已还本息</th>
+                        <th>年利率</th>
+                        <th>还款期限</th>
+                        <th>下期还款时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($loanList as $loan):?>
+                    <tr>
+                        <td><?=$loan->oddNumber?></td>
+                        <td><?php if($loan->oddRepaymentStyle=='monthpay'):?>
+                            按月付息
+                            <?php elseif($loan->oddRepaymentStyle=='matchpay'):?>
+                            等额本息
+                            <?php endif;?>
+                        </td>
+                        <td><?=$loan->oddMoney?>元</td>
+                        <td><?=$loan->getHadRepayMoney()?>元</td>
+                        <td><?=$loan->oddYearRate*100?>%</td>
+                        <td>
+                            <?php if($loan->oddBorrowStyle=='month'):?>
+                                <?=$loan->oddBorrowPeriod?>个月
+                            <?php elseif($loan->oddBorrowStyle=='day'):?>
+                                <?=$loan->oddBorrowPeriod?>天
+                            <?php else:?>
+                                秒标
+                            <?php endif;?>
+                        </td>
+                        <td><?=$loan->getNextRepayTime()?></td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?=WEB_MAIN.'/odd/'.$loan->oddNumber?>" target="_blank">详情</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php elseif($type=='fail'):?>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>借款标号</th>
+                        <th>还款方式</th>
+                        <th>借款金额</th>
+                        <th>发标时间</th>
+                        <th>标的状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($loanList as $loan):?>
+                    <tr>
+                        <td><?=$loan->oddNumber?></td>
+                        <td><?php if($loan->oddRepaymentStyle=='monthpay'):?>
+                            按月付息
+                            <?php elseif($loan->oddRepaymentStyle=='matchpay'):?>
+                            等额本息
+                            <?php endif;?>
+                        </td>
+                        <td><?=$loan->oddMoney?>元</td>
+                        <td><?=$loan->oddTrialTime?></td>
+                        <td>审核失败</td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php elseif($type=='end'):?>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>借款标号</th>
+                        <th>还款方式</th>
+                        <th>借款金额</th>
+                        <th>应还本息</th>
+                        <th>还款期限</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($loanList as $loan):?>
+                    <tr>
+                        <td><?=$loan->oddNumber?></td>
+                        <td><?php if($loan->oddRepaymentStyle=='monthpay'):?>
+                            按月付息
+                            <?php elseif($loan->oddRepaymentStyle=='matchpay'):?>
+                            等额本息
+                            <?php endif;?>
+                        </td>
+                        <td><?=$loan->oddMoney?>元</td>
+                        <td><?=OddInsterest::getAllRepayByOdd($loan->oddNumber);?>元</td>
+                        <td>
+                            <?php if($loan->oddBorrowStyle=='month'):?>
+                                <?=$loan->oddBorrowPeriod?>个月
+                            <?php elseif($loan->oddBorrowStyle=='day'):?>
+                                <?=$loan->oddBorrowPeriod?>天
+                            <?php else:?>
+                                秒标
+                            <?php endif;?>
+                        </td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?=WEB_MAIN.'/odd/'.$loan->oddNumber?>" target="_blank">详情</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <?php endif;?>
+            <div class="pagination-wrapper">
+                <?=$loanList->render()?>
+            </div>
+            <p class="tc f20 grey-color-6" style="display:none">暂无记录</p>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

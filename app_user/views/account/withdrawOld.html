@@ -1,0 +1,97 @@
+<?php
+  use tools\Banks;
+?>
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20">
+    <?php $this->display('account/common/tab-money.html');?>
+    <div class="content-wrap mb30">
+      <h3 style=" margin-bottom:20px; border-bottom:1px solid #d8d8d8; padding-bottom:10px">提现</h3>
+      <div class="withdrawInputs">
+        <!-- <form action="/account/doWithdraw" method="post" onsubmit="return checkWithdrawForm();"> -->
+          <input type="hidden" name="bank" id="bank-id" value="<?=$bank->id?>">
+          <div class="inputbox">
+            <div class="input-wrap mt20 clearfix w">
+              <span class="cRed">*</span>
+              <label class="label">账户余额</label>
+              <span class="value"> <em>￥<?=$fundMoney?></em>
+                元
+              </span>
+              <span id="fundMoney" style="display:none;"><?=$fundMoney?></span>
+            </div>
+            <div class="input-wrap mt10 w clearfix">
+              <span class="cRed">*</span>
+              <label class="label">提入账户</label>
+              <div class="static-input">
+                <span id="current-bank"><?=Banks::getBankName($bank->bank);?>【<?=_hide_banknum($bank->bankNum)?>】</span> 
+                <a id="show-bank-list" href="javascript:;">选择其他帐户</a>
+              </div>
+            </div>
+            <div class="input-wrap mt20 clearfix w">
+              <span class="cRed">*</span>
+              <label class="label">提现金额</label>
+              <input id="money" class="ui-input input-icon float-input" name="money" type="text" style="width:140px;">
+              <i class="unit">元</i>
+            </div>
+            <div id="fee-show" class="hide-short-content">
+              提现费用：<span id="fee">0</span>元，实得金额：<span id="realMoney">0</span>元。
+              <span id="fee-wranning" class="fee-wranning"></span>
+            </div>
+            <div class="input-wrap mt20 clearfix w">
+              <span class="cRed">*</span>
+              <label class="label">支付密码</label>
+              <input class="ui-input input-icon" id="paypass" name="paypass" type="password" style="width:140px;">
+            </div>
+            <?php if($lotteryCount>0):?>
+            <div class="sub-input-wrap mt20 clearfix w">
+              <label class="poshytip" data-align-x="right" data-align-y="center" data-offset-y="10" title="使用后将会免除2元手续费">
+                <input id="user_lottery" name="user_lottery" type="checkbox" checked="true"> 使用提现券 (剩余<?=$lotteryCount?>张)
+              </label>
+            </div>
+            <?php endif;?>
+            <div class="mt30" style="width:410px; margin-left:105px;">
+              <input id="withdraw-btn" type="button" value="提现" class="btn-blue loginbtn pr"/>
+            </div>
+          </div>
+        <!-- </form> -->
+      </div>
+      <div class="remark-box">
+        <div class="remark-title">温馨提醒:</div>
+        <div class="remark-content">
+          <p>1、工作日（9:00-16:00）内单笔提现限额20万，单卡每日提现限额100万（超过100万提现需更换银行卡）；<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工作日（16:00-20:00）与节假日（周六、周日及法定节假日）内提现金额单笔不得大于5万,若提现金额大于5万将到下一个工作日进行处理；<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;凡晚上20:00后的提现申请将延后至次日，按次日的提现处理方式进行处理。符合以上规则的提现申请，汇潮支付将即时处理，当天到账。
+          </p>
+          <p>2、为保障您的账户资金安全，申请提现时，您选择的银行卡开户名必须与您汇诚普惠账户实名认证一致，否则提现申请将不予受理。</p>
+          <p>3、提现每笔收<strong>2元</strong>手续费，为防止恶意套现，<strong>未投标的资金</strong>第三方支付公司会额外收取您<strong>提现金额的0.5%</strong>作为转账费用，提现费用在提现金额中扣除。（转让和受让债权的资金属于投标资金，不额外收取转账费用；转让债权按债权转让服务费规则收取转让费用。）</p>
+          <p>4、下列情况下，用户提现将被退回：用户提供的银行卡非本人银行卡；用户申请提现的银行卡与银行名称不符，或卡号明显异常；用户错误提供提现操作必要的支行信息，且汇诚普惠无法与之取得联系的。</p>
+          <p><strong>5、第三方资金托管,汇潮支付咨询电话：400 0002 156</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="bank-list-box" class="hide-box box modal">
+  <div class="show-bank-list clearfix">
+    <?php foreach ($bankList as $showBank):?>
+    <a href="javascript:;" class="bank-item <?php if($bank->id==$showBank->id):?>item-current<?php endif;?>">
+      <?php if($bank->id==$showBank->id):?>
+        <div class="bank-current">选择</div>
+      <?php endif;?>
+      <div class="bank-name"><?=Banks::getBankName($showBank->bank)?></div>
+      <div class="bank-number"><?=_hide_banknum($showBank->bankNum)?></div>
+      <input type="hidden" class="bank-id-val" value="<?=$showBank->id?>">
+    </a>
+    <?php endforeach;?>
+  </div>
+  <div class="bank-button-wrap"><input id="bank-sure" class="btn-blue" type="text" value="确定"></div>
+  <div class="box-remark-box">
+    <div class="remark-title">温馨提示</div>
+    <div class="remark-content">
+      <p>1、如果您需要的银行账户还未添加，点此<a href="/account/banks">前往添加</a>！</p>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

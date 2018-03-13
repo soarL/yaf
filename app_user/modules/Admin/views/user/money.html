@@ -1,0 +1,84 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">用户资金</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="control-label">用户：</label><?=$queries->userId?>&nbsp
+						<label class="control-label">平台余额：</label><span class='label label-danger'><?=$money[0]?></span>
+						<label class="control-label">一麻袋余额：</label><span class='label label-danger'><?=$balance?></span>
+					</div>
+					<div class="col-sm-12">
+						<form action="/admin/user/moneylog" method="post" class="table-search-form clearfix">
+							<input type='hidden' value='<?=$queries->userId?>' name="userId">
+							<div class="form-group">
+								<label class="control-label">操作</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="mode">
+										<option value="out">扣除金额</option>
+										<option value="in">添加金额</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control input-sm" name="money" placeholder="操作金额">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control input-sm" name="remark" placeholder="备注">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-sm btn-info">确认提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th class="visible-lg">添加时间</th>
+								<th class="visible-lg">操作人</th>
+								<th>增/减</th>
+								<th>金额</th>
+								<th class="visible-lg">备注</th>
+								<th class="visible-lg">流水号</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($list as $value):?>
+							<tr>
+								<td><?=$value->time?></td>
+								<td><?=$value->operator?></td>
+								<td><?=$value->mode=='out'?'减少':'增加';?></td>
+								<td><?=$value->money?></td>
+								<td class="visible-lg"><?=$value->remark?></td>
+								<td class="visible-lg"><?=$value->serialNumber?></td>
+								<td>
+									<?php if($value->status == 0){ ?>
+									<a class="btn btn-ssm btn-info" href="/admin/user/increase?mode=<?=$value->mode?>&userId=<?=$value->userId?>&status=ok&id=<?=$value->id?>"> <i class="fa fa-eye icon-white"></i>
+										审核
+									</a>
+									<a class="btn btn-ssm btn-danger" href="/admin/user/increase?mode=<?=$value->mode?>&userId=<?=$value->userId?>&status=error&id=<?=$value->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										拒绝
+									</a>
+									<?php }else if($value->status == 1){ ?>
+										已审核
+									<?php }else if($value->status == -1){ ?>
+										已拒绝
+									<?php } ?>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

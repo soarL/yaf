@@ -1,0 +1,45 @@
+<?php if($app==0 && strpos($content, '<!--#header#-->')!==false):?>
+<?php $this->display('header-index.html');?>
+<?php endif;?>
+<?php if($app):?>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title><?=$title?></title>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+    <script>
+        var clientWidth = 0;
+        if (document.documentElement.clientWidth > 750) {
+            clientWidth = 750;
+        } else {
+            clientWidth = document.documentElement.clientWidth;
+        }
+        document.documentElement.style.fontSize = clientWidth / 7.5 + 'px';
+      </script>
+</head>
+<body>
+<?php endif;?>
+
+<?=$content?>
+
+<?php if($app==0 && strpos($content, '<!--#footer#-->')!==false):?>
+<?php $this->display('footer-index.html');?>
+<?php endif;?>
+
+<?php if($app):?>
+</body>
+</html>
+<?php endif;?>

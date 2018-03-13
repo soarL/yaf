@@ -1,0 +1,78 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="nav-tabs-custom">
+      <div class="tab-content">
+        <div class="tab-pane active">
+          <div class="row">
+            <div class="col-sm-12">
+              <form action="" class="table-search-form clearfix">
+                <div class="form-group">
+                  <label class="control-label">查询</label>
+                  <?php $searchType = $queries->searchType;?>
+                  <div class="select-wrap">
+                    <select class="form-control input-sm" name="searchType">
+                      <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                      <option value="oddNumber" <?php if($searchType=='oddNumber'):?>selected<?php endif;?>>借款编号</option>
+                    </select>
+                  </div>
+                  <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                </div>
+                <div class="select-wrap" style="float: right"> 逾期率 0% ,逾期警戒 5%</div>
+                <button type="submit" class="btn btn-sm btn-info">搜索</button>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table table-hover mb-0">
+                <tr>
+                  <th>标号</th>
+                  <th class="visible-lg">借款人</th>
+                  <th>联系方式</th>
+                  <th>借款金额</th>
+                  <th>借款类型</th>
+                  <th>期数</th>
+                  <th>应还总额</th>
+                  <th class="visible-lg">应还本金</th>
+                  <th class="visible-lg">应还利息</th>
+                  <th class="visible-lg">逾期天数</th>
+                  <th class="visible-lg">还款日期</th>
+                  <th>操作</th>
+                </tr>
+                <?php foreach($records as $record):?>
+                  <tr data-id="<?=$record->id?>">
+                    <td><?=$record->oddNumber?></td>
+                    <td class="visible-lg">
+                      <a href="/admin/user/show?userId=<?=$record->userId?>" target="_blank"><?=$record->user->name?></a>
+                    </td>
+                    <td><?=$record->user->phone?></td>
+                    <td><?=$record->odd->oddMoney?></td>
+                    <td><?=$record->oddType['long']?></td>
+                    <td><?=$record->qishu?></td>
+                    <td><?=$record->zongEr?></td>
+                    <td class="visible-lg"><?=$record->benJin?></td>
+                    <td class="visible-lg"><?=$record->interest?></td>
+                    <td class="visible-lg"><?=$record->etime?>天</td>
+                    <td><?=$record->endtime?></td>
+                    <td>
+                        <a class="btn btn-ssm btn-danger" href="/admin/loan/traceDetail?oddNumber=<?=$record->oddNumber?>">
+                         追踪信息
+                        </a>
+                    </td>
+                  </tr>
+                <?php endforeach;?>
+              </table>
+            </div>
+          </div>
+          <div class="row row-footer">
+            <div class="col-sm-5">
+              <?=$records->render()?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

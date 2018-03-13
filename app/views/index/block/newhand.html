@@ -1,0 +1,57 @@
+<?php if(count($newHandOdds)>0):?>
+<div class="novicate-item clearfix mt30">
+  <i class="novicate-ico">&nbsp;</i>
+  <div <?php if(count($newHandOdds)>1):?>id="newhand-list"<?php endif;?> class="fl" style="width:715px;">
+    <div class="newhand-list-wrap">
+    <?php foreach($newHandOdds as $newHandOdd):?>
+    <div class="" style="width:665px; padding:15px 25px;">
+        <p class="novicate-title">
+          <span><em class="newhandico" style="top:-2px; margin-right:15px;">新</em>
+            <a href="<?=Url::to('/odd/view', ['num'=>$newHandOdd->oddNumber])?>"><?=$newHandOdd->oddTitle?></a>
+          </span>
+          <a class="more" href="/odds?type=4">更多新手项目</a>
+        </p>
+        <div class="novicate-table-wrap">
+            <span class="novicate-img none-invest-img"></span>
+            <table class="tablecomponent">
+            <thead>
+              <tr>               
+                <th>借款金额</th>
+                <th style="width:60px;">投资进度</th>
+                <th>年化利率</th>
+                <th>投资周期</th>
+                <th style="width:160px">状态</th>    
+              </tr>
+            </thead>
+            <tbody>
+              <tr>   
+                <td><?=$newHandOdd->oddMoney;?><i>元</i></td>
+                <?php $newHandOddper = $newHandOdd->getPercent();?>
+                <td style="color:#666">
+                  <strong class="ui-progressbar-mid ui-progressbar-mid-<?=$newHandOddper?>">
+                  <em><?=$newHandOddper?></em>%</strong>
+                </td>
+                <td class="pr reward-row">
+                  <?=$newHandOdd->oddYearRate*100?><i>%</i>
+                  <?php if($newHandOdd->oddReward>0):?>
+                  <em class="reward">+<?=$newHandOdd->oddReward*100;?>%</em>
+                  <?php endif;?>
+                </td>
+                <td><?=$newHandOdd->getPeriod()?></td>
+                <td class="pr"><?=$newHandOdd->getNewButton()?></td>
+              </tr>
+             </tbody>
+             </table>
+        </div>
+    </div>
+    <?php endforeach;?>
+    </div>
+  </div>
+  <div class="fr novicate-aside">
+    <p style="line-height:23px;">
+        参与条件：未投普通标的用户<br>投标限额：50起投<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可累计投满5000<br>投标方式：仅限手动
+      </p>
+      <a href="<?=WEB_MAIN;?>/guide" target="_blank" class="novicate-more">新手入门？点击了解更多</a>
+  </div>
+</div>
+<?php endif;?>

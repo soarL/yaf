@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>Payment By CreditCard online</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body onload="document.form1.submit()">
+<form action="<?php echo $url?>" method="post" name="form1">
+	<?php foreach($params as $key => $value):?>
+  	<input type="hidden" name="<?=$key?>" value="<?=$value?>">
+	<?php endforeach;?>
+</form>
+</body>
+</html>

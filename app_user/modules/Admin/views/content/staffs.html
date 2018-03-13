@@ -1,0 +1,47 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">客服列表</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加客服" href="/admin/content/addStaff">
+		          <i class="glyphicon glyphicon-edit"></i></a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/content/deleteStaff" data-other="删除该客服将会导致该客服的用户被随机分配给其他客服！">
+							<tr>
+								<th>客服ID</th>
+								<th>姓名</th>
+								<th>昵称</th>
+								<th class="visible-lg">QQ号</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($staffs as $staff):?>
+							<tr data-id="<?=$staff->id?>">
+								<td><?=$staff->id?></td>
+								<td><?=$staff->name?></td>
+								<td><?=$staff->nick_name?></td>
+								<td class="visible-lg"><?=$staff->qq?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/content/updateStaff?id=<?=$staff->id?>"> 
+										<i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

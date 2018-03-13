@@ -1,0 +1,2 @@
+[2018-01-26 02:19:50] custody.INFO: 接口请求:http://bankapi.hcjrfw.com/index.php?r=bank {"userNo":"2000000002","serviceName":"CREATE_PROJECT","projectNo":"20180126000001","projectAmount":10000000,"projectName":"这个标不要投！","projectDesc":"资金周转","projectType":"STANDARD","projectPeriod":360,"annualRate":10,"repaymentWay":"INTEREST_FIRST","userDevice":"PC"} []
+[2018-01-26 02:19:50] custody.INFO: 接口返回:{"requestNo":"LS201801260000000001","respCode":"00000","respMsg":"成功","status":"SUCCESS"} [] []

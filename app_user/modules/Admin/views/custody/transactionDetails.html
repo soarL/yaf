@@ -1,0 +1,96 @@
+<?php use custody\Type;?>
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">用户借款明细</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                    <i class="fa fa-file-excel-o text-red"></i></a>
+                </div>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">查询</label>
+                                <?php $searchType = $queries->searchType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="searchType">
+                                        <option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+                                        <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                                        <option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+                                        <option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+                                        <option value="email" <?php if($searchType=='email'):?>selected<?php endif;?>>邮箱</option>
+                                        <option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">类型</label>
+                                <?php $reqType = $queries->reqType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="reqType">
+                                        <option value="1" <?php if($reqType=='1'):?>selected<?php endif;?>>流水号</option>
+                                        <option value="2" <?php if($reqType=='2'):?>selected<?php endif;?>>订单号</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="reqData" placeholder="查询内容" value="<?=$queries->reqData?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">交易类型</label>
+                                <input type="text" class="form-control input-sm inline-input" name="reqTxCode" placeholder="交易类型" value="<?=$queries->reqTxCode?>">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>标的号</th>
+                                <th class="visible-lg">募集日期</th>
+                                <th class="visible-lg">募集结束日期</th>
+                                <th class="visible-lg">借款期限</th>
+                                <th class="visible-lg">交易金额</th>
+                                <th class="visible-lg">年化利率</th>
+                                <th class="visible-lg">平台手续费</th>
+                                <th class="visible-lg">募集金额</th>
+                                <th class="visible-lg">已还金额</th>
+                                <th class="visible-lg">已还利息</th>
+                                <th class="visible-lg">状态</th>
+                            </tr>
+                            <?php foreach ($list as $item):?>
+                            <tr>
+                                <td><?=$item['productId']?></td>
+                                <td class="visible-lg"><?=$item['raiseDate']?></td>
+                                <td class="visible-lg"><?=$item['raiseEndDate']?></td>
+                                <td class="visible-lg"><?=$item['duration']?>元</td>
+                                <td class="visible-lg"><?=$item['txAmount']?>%</td>
+                                <td class="visible-lg"><?=$item['rate']?>元</td>
+                                <td class="visible-lg"><?=$item['fee']?>元</td>
+                                <td class="visible-lg"><?=$item['raiseAmount']?>元</td>
+                                <td class="visible-lg"><?=$item['repaymentAmt']?></td>
+                                <td class="visible-lg"><?=$item['repaymentInt']?></td>
+                                <td class="visible-lg"><?=Type::getName('loanState', $item['state'])?></td>
+                            </tr>
+                            <?php endforeach;?></table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <?php if($status==1):?>
+                <?=$list->render()?>
+                <?php else:?>
+                <div class="text-danger" style="text-align: center;"><?=$msg?></div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

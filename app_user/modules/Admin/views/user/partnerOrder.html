@@ -1,0 +1,61 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">合伙人排行</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">排序</label>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="order">
+										<option value="">全部</option>
+										<option value="stays" <?php if($queries->order=='stays'):?>selected<?php endif;?>>待收</option>
+										<option value="count" <?php if($queries->order=='count'):?>selected<?php endif;?>>人数</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>合伙人</th>
+								<th>推荐人数</th>
+								<th>日变化</th>
+								<th class="visible-lg">总待收</th>
+								<th>日变化</th>
+							</tr>
+							<?php foreach ($records as $key => $record):?>
+							<tr >
+								<td ><?=$record->parent->name?></td>
+								<td ><?=$record->count?></td>
+								<td ><?=$record->parent->tuijians->count()?></td>
+								<td>
+									<?=$record->stays?$record->stays:0?>
+								</td>
+								<td ><?=$record->stays - $record->tstays?></td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$records->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

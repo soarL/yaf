@@ -1,0 +1,35 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">解绑申请</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr><th>姓名</th><th>卡号</th><th>申请时间</th><th>操作</th></tr>
+							<?php foreach ($list as $row):?>
+					        <tr>
+					        	<td>
+									<?=$row->bankUsername?>
+									<a class="label label-primary" href="/admin/user/show?userId=<?=$row->userId?>"><?=$row->userId?></a>
+								</td>
+					            <td><?=$row->bankNum?></td>
+					            <td><?=$row->addTime?></td>            
+					            <td>
+					                <a class="btn btn-warning btn-confirm" data-url="/admin/user/dounbind?unbindId=<?=$row->unbindId?>&bankId=<?=$row->bankId?>" data-content="确定要解绑改银行卡吗？" data-type="warning"><i class="glyphicon glyphicon-edit icon-white"></i>解绑</a>
+					            </td>
+					        </tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

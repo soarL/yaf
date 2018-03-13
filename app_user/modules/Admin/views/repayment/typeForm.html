@@ -1,0 +1,38 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">修改类型</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/article/types">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/article/saveType" class="form-horizontal" method="post">
+      <div class="box-body">
+        <input type="hidden" name="id" value="<?=$type->id?>">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">名称</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="type_name" value="<?=$type->type_name?>" placeholder="输入名称">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">标识符</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="type_key" value="<?=$type->type_key?>" placeholder="输入标识符">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

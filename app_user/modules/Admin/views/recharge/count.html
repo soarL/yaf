@@ -1,0 +1,294 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">充值汇总</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label time-label">充值时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?php echo $beginTime;?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?php echo $endTime;?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+		            <div class="col-md-3 col-sm-6 col-xs-12">
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">总充值</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $total;?>元</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $count;?>笔</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">富友支付</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $fyTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($fyTotal/$total)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $fyCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($fyCount/$count)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            </div>
+		            <div class="col-md-3 col-sm-6 col-xs-12">
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">汇潮支付</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $hcTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($hcTotal/$total)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $hcCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($hcCount/$count)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">宝付支付</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $bfTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($bfTotal/$total)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $bfCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($bfCount/$count)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">网银支付</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $wybfTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($wybfTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $bfTotal==0?0:round(($wybfTotal/$bfTotal)*100, 2);?>%]</em>
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $wybfCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($wybfCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $bfCount==0?0:round(($wybfCount/$bfCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">认证支付</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $rzbfTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($rzbfTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $bfTotal==0?0:round(($rzbfTotal/$bfTotal)*100, 2);?>%]</em>
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $rzbfCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($rzbfCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $bfCount==0?0:round(($rzbfCount/$bfCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">代扣支付</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $debfTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($debfTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $bfTotal==0?0:round(($debfTotal/$bfTotal)*100, 2);?>%]</em>
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $debfCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($debfCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $bfCount==0?0:round(($debfCount/$bfCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            </div>
+		            <div class="col-md-3 col-sm-6 col-xs-12">
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">连连支付</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $llTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($llTotal/$total)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $llCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($llCount/$count)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">网银支付</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $wyTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($wyTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $llTotal==0?0:round(($wyTotal/$llTotal)*100, 2);?>%]</em>
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $wyCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($wyCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $llCount==0?0:round(($wyCount/$llCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">认证支付</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $rzTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($rzTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $llTotal==0?0:round(($rzTotal/$llTotal)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $rzCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($rzCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $llCount==0?0:round(($rzCount/$llCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            </div>
+		            <div class="col-md-3 col-sm-6 col-xs-12">
+		            	<div class="box box-success box-solid">
+			                <div class="box-header with-border">
+			                	<h3 class="box-title">民生支付</h3>
+			                	<div class="box-tools pull-right">
+			               			<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			                	</div>
+			                </div>
+			                <div class="box-body">
+			                	<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $msTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($msTotal/$total)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+								<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $msCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($msCount/$count)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">借记卡</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $jjTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($jjTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $msTotal==0?0:round(($jjTotal/$msTotal)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+		                  		<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $jjCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($jjCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $msCount==0?0:round(($jjCount/$msCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">信用卡</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $xyTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($xyTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $msTotal==0?0:round(($xyTotal/$msTotal)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+		                  		<div class="data-item">
+				               		<span class="label label-info">笔数</span> 
+			                  		<span class="item-value"><?php echo $xyCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($xyCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $msCount==0?0:round(($xyCount/$msCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+		                  		<div class="data-item-title">混合通道</div>
+		                  		<div class="data-item">
+			                		<span class="label label-info">金额</span>
+			               			<span class="item-value"><?php echo $hhTotal;?>元 
+			               				<em>[<?php echo $total==0?0:round(($hhTotal/$total)*100, 2);?>%]</em> 
+			               				<em class="per-cur">[<?php echo $msTotal==0?0:round(($hhTotal/$msTotal)*100, 2);?>%]</em> 
+			               			</span>
+			               		</div>
+		                  		<div class="data-item">
+				               		<span class="label label-info">笔数</span>
+			                  		<span class="item-value"><?php echo $hhCount;?>笔 
+			                  			<em>[<?php echo $count==0?0:round(($hhCount/$count)*100, 2);?>%]</em> 
+			                  			<em class="per-cur">[<?php echo $msCount==0?0:round(($hhCount/$msCount)*100, 2);?>%]</em> 
+			                  		</span>
+		                  		</div>
+			                </div>
+		            	</div>
+		            </div>
+	        	</div>
+			</div>
+			<div class="box-footer clearfix">
+				<div class="box-footer-warning">
+					注意：黄色比例 表示占总充值的比例，绿色比例 表示占其充值渠道的比例！
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,121 @@
+<?php $this->display('header.html');?>
+<?php $user = Yaf\Registry::get('user');?>
+<div class="load_box">
+	<div class="w1000">
+        <div class="load_box_l f_left"><img src="<?=RSRC?>/images/thirdreg/nl_pic.png"></div>
+		<input type="hidden" name="is_server[]" value="1">
+        <ul class="f_right">
+            <li><h2>注册立送50元红包<i><img src="<?=RSRC?>/images/thirdreg/nl_icon1.png" width="21" height="9"></i></h2></li>
+            <?php if($user):?>
+            <li class="bd">
+               <p class="register-ok">恭喜您，注册成功！</p>
+               <p style="margin-top:30px;"><a href="/account" class="btn" style="padding:0px;">前往个人中心</a></p>
+            </li>
+            <?php else:?>
+            <li id="reg-step-1" class="bd">
+                <p><span>手机号</span><input name="phone" id="phone" type="text"></p>
+                <p><span>用户名</span><input id="username" name="username" type="text"></p>
+                <p><span>登录密码</span><input id="password" type="password" name="password"></p>
+                <p><span>确认密码</span><input name="passwordSure" id="passwordSure" type="password"></p>
+                <p class="clearfix"><span>验证码</span><input name="captcha" id="captcha" type="text" class="code">
+                    <a class="codeimg-wrap" href="javascript:;"><img src="<?php echo WEB_CAPTCHA;?>" id="captcha-img" alt="点击刷新" onClick="this.src+='?'+Math.random()"></a>
+                </p>
+                <p><button id="regOne-btn" type="button" class="btn" style="padding:0px;">免费注册</button></p>
+            </li>
+            <li id="reg-step-2" class="bd" style="display:none;">
+                <input type="hidden" name="username" value="" id="username1">
+                <input type="hidden" name="phone" value="" id="phone1">
+                <input type="hidden" name="password_hash" value="" id="password_hash1">
+                <input type="hidden" name="authCode" value="" id="authCode1">
+                <input type="hidden" name="randomCode" value="" id="randomCode1">
+                <p class="send-ok">短信已发送至您手机，请输入短信中的验证码。</p>
+                <p style="margin-top:15px;" class="clearfix"><span>手机号</span><span id="phone-show" style="color:#ffff00;"></span></p>
+                <p style="padding-bottom:10px;"><span>验证码</span><input id="phoneCode" name="phoneCode" type="text"></p>
+                <p><button id="regTwo-btn" type="button" class="btn" style="padding:0px;">验证</button></p>
+                <p class="remark">注：如果您在1分钟之内没有收到验证码，请 <a href="/register/third">返回修改手机号</a> 或 <button id="resend-sms-btn" href="javascript:;">重新发送验证码</button> 。</p>
+            </li>
+            <?php endif;?>
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="nl_item1">
+	<img src="<?=RSRC?>/images/thirdreg/nl_pic3.png">
+</div>
+
+
+<div class="nl_item2">
+    <dl>
+        <dt>
+            <h2><img src="<?=RSRC?>/images/thirdreg/nl_pic4.png"></h2>
+            <p style="color:#ff6006;">新用户注册立送50红包</p>
+            <p style="color:#ff6006;">
+				<span style="color:#ff6006;">推荐好友投资成功，送万分之五奖励</span>
+				<a href="http://www.hcjrfw.com/activity/list" target="_blank">了解更多详情>></a>
+			</p>
+            <p><a href="http://www.hcjrfw.com/register" target="_blank" class="btn">我要注册</a></p>
+        </dt>
+        <dd><img src="<?=RSRC?>/images/thirdreg/nl_pic5.png"></dd>
+    </dl>
+    <div class="clear"></div>
+</div>
+
+<div class="nl_item3">
+    <dl>
+        <dt><img src="<?=RSRC?>/images/thirdreg/nl_pic6.png"></dt>
+        <dd>
+            <h2><img src="<?=RSRC?>/images/thirdreg/nl_pic7.png"></h2>
+            <p>质押车标、抵押车标、融资租赁车标</p>
+            <p>年化收益19.8%  投资周期：1-3个月</p>
+        </dd>
+    </dl>
+    <div class="clear"></div>
+</div>
+
+<div class="nl_item4">
+    <dl>
+        <dt>
+            <h2><img src="<?=RSRC?>/images/thirdreg/nl_pic8.png"></h2>
+            <p>支持自动投标，债权转让</p>
+            <p>资金回收灵活迅速，当月坐享收益</p>
+        </dt>
+        <dd><img src="<?=RSRC?>/images/thirdreg/nl_pic9.png"></dd>
+    </dl>
+    <div class="clear"></div>
+</div>
+
+<div class="nl_item5">
+    <dl>
+        <dt><img src="<?=RSRC?>/images/thirdreg/nl_pic10.png"></dt>
+        <dd>
+            <h2><img src="<?=RSRC?>/images/thirdreg/nl_pic11.png"></h2>
+            <p>第三方资金托管</p>
+            <p>投资项目信息真实披露绝无虚假</p>
+            <p>风险拨备金实时查询<a href="http://www.hcjrfw.com/safe/hazard" target="_blank">了解详情>></a></p>
+        </dd>
+    </dl>
+    <div class="clear"></div>
+</div>
+
+<div class="nl_item6">
+    <dl>
+        <dt>
+            <h2><img src="<?=RSRC?>/images/thirdreg/nl_pic12.png"></h2>
+            <p>随时预约实地考察，发现虚假标的立奖20万元现金</p>
+            <p><a href="http://www.hcjrfw.com/news/show/id/637" class="btn" target="_blank">我要考察</a></p>
+        </dt>
+        <dd><img src="<?=RSRC?>/images/thirdreg/nl_pic13.png"></dd>
+    </dl>
+    <div class="clear"></div>
+</div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?12712d10931cf0d50b2b477fa2b6632b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,28 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $webAsset = $asset->url;
+?>
+<?php $this->display('header.html');?>
+<?php $this->display('safe/common/menu.html');?>
+<div class="zhifubox">
+	<ul class="zhifunav clearfix">
+		<li class="ico1"><a href="/safe/payOne"><em></em>江西银行介绍</a></li>
+		<li class="ico2"><a href="/safe/payTwo" class="cur"><em></em>托管流程</a></li>
+		<li class="ico3"><a href="/safe/payThree"><em></em>资金安全</a></li>
+	</ul>
+	<div class="cont2">
+		<h3>江西银行存管流程</h3>
+		<div class="liucheng"><img src="<?php echo $webAsset;?>/images/sftglc.png"/></div>
+		<h3>存管流程示意图</h3>
+		<div class="shiyitu">
+			<ul>
+				<li><img src="<?php echo $webAsset;?>/images/shiyit-1.png"/></li>
+				<li><img src="<?php echo $webAsset;?>/images/shiyit-2.png"/></li>
+				<li><img src="<?php echo $webAsset;?>/images/shiyit-3.png"/></li>
+				<li><img src="<?php echo $webAsset;?>/images/shiyit-4.png"/></li>
+				<li><img src="<?php echo $webAsset;?>/images/shiyit-5.png"/></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

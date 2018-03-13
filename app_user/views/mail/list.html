@@ -1,0 +1,69 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <div class="statictable-wrap full-wrap mb30 pb20">
+            <div class="title">站内信</div>
+           <!--  <h3>
+                邀请记录
+                <a href="#" class="more cBlue no_unl">查看明细</a>
+            </h3> -->
+            <div class="data-search-form">
+                <form action="/mail/list" method="get">
+                    <div class="form-group">
+                        <label>状态</label>
+                        <select name="status" style="width:70px;">
+                            <option value="all" <?php if($queries->status=='all'):?>selected<?php endif;?>>全部</option>
+                            <option value="noread" <?php if($queries->status=='noread'):?>selected<?php endif;?>>未读</option>
+                            <option value="read" <?php if($queries->status=='read'):?>selected<?php endif;?>>已读</option>
+                        </select>
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+                </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0" data-delete="/mail/delete" data-type="邮件">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>状态</th>
+                        <th>类型</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($ums as $um):?>
+                    <tr id="record-<?=$um->id?>" data-id="<?=$um->id?>" data-name="<?=$um->mail->title?>">
+                        <td><?=$um->mail->title?></td>
+                        <td>
+                            <?php if($um->status==0):?>
+                            <span class="status-label status-success">未读</span>
+                            <?php elseif($um->status==1):?>
+                            <span class="status-label status-default">已读</span>
+                            <?php endif;?>
+                        </td>
+                        <td>系统信件</td>
+                        <td><?=$um->mail->addTime?></td>
+                        <td>
+                            <a class="btn-detail btn-small btn-c-blue" target="_blank" >查看</a>
+                            <a class="btn-delete btn-small btn-c-red" target="_blank" >删除</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$ums->render();?>
+            </div>
+            <p class="tc f20 grey-color-6" style="display:none">暂无记录</p>
+        </div>
+    </div>
+</div>
+
+<!-- 隐藏弹窗 -->
+<div id="ajax-showMail-box" class="hide-box box modal">
+    <div class="content-wrap">
+        
+    </div>
+</div>
+<?php $this->display('footer.html');?>

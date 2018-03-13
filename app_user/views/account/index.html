@@ -1,0 +1,132 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <!-- 账户总览头 -->
+            <div class="pandectHead">
+                <div class="pandectHeadTop">
+                    <img data-ref="/user/safe" src="<?=WEB_ASSET?>/web/user/img/userImg.png" alt="" class="userImg link-to">
+                    <dl class="pandectHeadData">
+                        <dt>用户名:<span class="link-to" data-ref="/user/safe"><?=$user->username?></span> 会员等级:<span>暂未开放</span></dt>
+                        <dd class="userState">
+                            <ul class="list-unstyled">
+                                <li class="userState-1 active link-to" data-ref="/user/safe" title="手机号码已认证！"></li>
+                                <?php if($user->cardnum==''):?>
+                                <li class="userState-2 link-to" data-ref="/user/safe" title="身份证未认证！"></li>
+                                <?php else:?>
+                                <li class="userState-2 active link-to" data-ref="/user/safe" title="身份证已认证！"></li>
+                                <?php endif;?>
+                                <?php if($user->custody_id==''):?>
+                                <li class="userState-3">
+                                    <div class="DepositTationHelp">
+                                        <img src="<?=WEB_ASSET?>/web/user/img/qipao.png" alt="">
+                                        投资前需要进行实名认证<br>
+                                        <a href="/account/custody">立即认证>></a>
+                                        <span>&Chi;</span>
+                                    </div>
+                                </li>
+                                <!-- <li class="userState-3">
+                                    <div class="DepositTationHelp">
+                                        <img src="<?=WEB_ASSET?>/web/user/img/qipao.png" alt="">
+                                        投资前需要开通银行存管账户<br>
+                                        <a href="/account/custody">立即开户>></a>
+                                        <span>&Chi;</span>
+                                    </div>
+                                </li> -->
+                                <?php else:?>
+                                <li class="userState-3 active link-to" data-ref="/user/safe" title="已绑定银行卡！"></li>
+                                <?php endif;?>
+                                <?php if($user->email==''):?>
+                                <li class="userState-4 link-to" data-ref="/user/safe" title="邮箱未绑定！"></li>
+                                <?php else:?>
+                                <li class="userState-4 active link-to" data-ref="/user/safe" title="邮箱已绑定！"></li>
+                                <?php endif;?>
+                                <!-- <li class="userState-7">安全等级:<span>低（提升）</span></li> -->
+                                <div class="clearfix"></div>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <ul class="list-unstyled pandectHeadPay">
+                        <li><a href="/account/recharge" class="pandectHeadPay-1 pandectHeadPayLi">充值</a></li>
+                        <li><a href="/account/withdraw" class="pandectHeadPay-2 pandectHeadPayLi">提现</a></li>
+<!--                         <div>
+                            <?php if($user->oldAccountId):?>
+                            <a href="javascript:" class="pandectHeadPay-3 pandectHeadPayLi" title="" id='reload'>资金迁移</a>
+                            <span class="qianYi">可迁移资金：<span><?=$oldMoney?></span>元</span>
+                            <?php endif;?>
+                        </div> -->
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="pandectHeadButton">
+                    <dl>
+                        <dt><span><?=$user->fundMoney?></span>元</dt>
+                        <dd>账户余额</dd>
+                    </dl>
+                    <dl>
+                        <dt><span><?=$tenderInfo['stayAll']?></span>元</dt>
+                        <dd>待收资产总额</dd>
+                    </dl>
+                    <dl>
+                        <dt><span><?=$getInterest?></span>元</dt>
+                        <dd>收益总金额</dd>
+                    </dl>
+                    <dl>
+                        <dt><a class="pandectHeadButton-4" style="font-size: 24px" href="/account/lotteries"><?=$lotteryCount?></a>张</dt>
+                        <dd>可用红包券</dd>
+                    </dl>
+                    <dl>
+                        <dt><span class="pandectHeadButton-4"><?=$user->imiMoney?></span>元</dt>
+                        <dd>可用体验金</dd>
+                    </dl>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- 账户总览中 -->
+            <div class="pandectBody">
+                <div class="pandectBodyTitle">
+                    <h1>资产详情</h1>
+                    <ul class="list-unstyled">
+                        <li class="pandectBodyTitleLi">按项目类型</li>
+                        <li onclick="top.location.href='/user/detail';">资产明细</li>
+                        <li onclick="top.location.href='/account/logs';">交易记录</li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="pandectBodyCenter">
+                    <div id="pandectBodyTable"></div>
+                    <div class="pandectBodyTable">
+                        <div class="pandectBodyTableTitle">
+                            <dl>
+                                <dt>项目类型</dt>
+                                <dd class="oval-1">投资散标</dd>
+                                <dd class="oval-2">承接债权</dd>
+                            </dl>
+                            <dl>
+                                <dt>待收本金</dt>
+                                <dd><?=$investStayCapital?>元</dd>
+                                <dd><?=$creditStayCapital?>元</dd>
+                            </dl>
+                            <dl>
+                                <dt>待收利息</dt>
+                                <dd class="pandectHeadButton-4"><?=$investStayInterest?>元</dd>
+                                <dd class="pandectHeadButton-4"><?=$creditStayInterest?>元</dd>
+                            </dl>
+                            <div class="clearfix"></div>
+                        </div>
+                        <h3>具体收益以实际收益为准</h3>
+                    </div>
+                    <div id="user-amout-detail" class="hide" data-invest="<?=$investStayCapital+$investStayCapital?>" data-credit="<?=$creditStayCapital+$creditStayInterest?>"></div>
+                    <div class="clearfix"></div>        
+                </div>
+            </div>
+            <!-- 账户总览脚 -->
+            <?php $this->display('account/common/calendar.html');?>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

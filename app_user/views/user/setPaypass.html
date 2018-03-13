@@ -1,0 +1,22 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">设置支付密码</div>
+  <form action="/user/setPaypass" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">登录密码</label>
+        <input class="ui-input input-icon" type="password" name="loginpass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">支付密码</label>
+        <input class="ui-input input-icon" type="password" name="paypass" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">重复密码</label>
+        <input class="ui-input input-icon" type="password" name="paypassSure" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

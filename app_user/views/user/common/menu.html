@@ -1,0 +1,18 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $submenu = $asset->params['submenu'];
+?>
+<div class="content-nav">
+	<ul class="clearfix">
+		<li><a href="/account" class="content-nav-a <?php if($submenu=='index'):?>sel<?php endif;?>">账户总览<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/account/custody" class="content-nav-a <?php if($submenu=='account'):?>sel<?php endif;?>">资金账户<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/user/autoInvest" class="content-nav-a <?php if($submenu=='invest'):?>sel<?php endif;?>">投资管理<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/user/loanRecord" class="content-nav-a <?php if($submenu=='loan'):?>sel<?php endif;?>">借款管理<i class="tri">&nbsp;</i></a></li>
+	    <li><a href="/user/info" class="content-nav-a <?php if($submenu=='info'):?>sel<?php endif;?>">个人信息<i class="tri">&nbsp;</i></a></li>
+	    <li>
+	    	<a href="/mail/list" class="content-nav-a <?php if($submenu=='mail'):?>sel<?php endif;?>">站内消息</a>
+	    </li>
+	    <li><a href="/account/lotteries" class="content-nav-a <?php if($submenu=='free'):?>sel<?php endif;?>">活动优惠<i class="tri">&nbsp;</i></a></li>
+	</ul>
+</div>
+<?php //$this->display('account/common/info.html');?>

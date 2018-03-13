@@ -1,0 +1,161 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body" data-issign="<?=$user->issign?>">
+            <div class="userAutoBody">
+                <!-- 头部提示 -->
+                <div class="userAutoTitle">
+                    <div class="pull-left">
+                        <dl class="wxts">
+                            <dt>自动投标规则：</dt>
+                            <dd>
+                                <p>
+                                    1、用户设置并开启自动投标后即进入自动投标排队队列；（即状态为“排队中”）<br>
+                                    2、用户开启自动投标后系统会识别账户余额和投标设置自动匹配发布的项目，依照排名依次循环投标；<br>
+                                    3、“排队中”即为排队等待项目状态，期间用户可随意更改投标设置，不影响自身队列排名；<br>
+                                    4、“投标中”即为队列已排到用户，系统开始为其执行投标任务，用户可查看本次“任务投标金额”和“已完成金额”； <br>
+                                    5、自动投标每轮的“任务投标金额”是依据用户账户余额、投资金额范围和保留金额而定；<br> 
+                                    6、用户关闭自动投标后即退出自动投标队列；<br>
+                                </p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="pull-right paiming">
+                        <h1>当前排名 <!-- <span>2017-10-10更新</span> --></h1>
+                        <h2>我的排名</h2>
+                        <h3><?=$location?></h3>名
+                        <ul class="list-unstyled">
+                            <li>我排名前资金（元）<br><?=$preInfo['allMoney']?></li>
+                            <li>排队资金总额（元）<br><?=$allInfo['allMoney']?></li>
+                            <div class="clearfix"></div>
+                        </ul>
+
+                        <div class="autoState">
+                            <div class="stateBox">
+                                <span>投标任务状态：</span>
+                                <!-- <b style="color: #ff7a11">投标中</b> -->
+                                <b style="color: <?=$status[$autoInvest->status]['color']?>"><?=$status[$autoInvest->status]['name']?></b>
+                                <!-- <b>未开启</b> -->
+                            </div>
+                            <div class="stateShowBox" style="display: none;"> 
+                                <div class="stateCtx">
+                                    <span>任务投标金额：</span>
+                                    <b><?=$total?>元</b>
+                                </div>
+                                <div class="stateCtx">
+                                    <span>已完成金额：</span>
+                                    <b><?=$autoInvest->successMoney?number_format($autoInvest->successMoney,2):'0.00'?>元</b>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- 下面部分 -->
+                <div class="userAutoFoot">
+                    <form action="">
+                        <dl class="pull-left autoFootLeft">
+                            <dd>自动投标设置：</dd>
+                            <dd>账户可用余额：</dd>
+                            <dd><span style="color: #ff7a11">*</span>投资金额范围：</dd>
+                            <dd><span style="color: #ff7a11">*</span>指定投资项目：</dd>
+                            <dd>房优贷　</dd>
+                            <dd>车险优贷　</dd>
+                            <dd>选择优惠卡券：</dd>
+                            <dd data-iSTick="handShow" style="display:<?=($autoInvest->lottery_id>0)?'block':'none'?>;"></dd>
+                            <dd>账户保留金额：</dd>
+                        </dl>
+                        <dl class="pull-left autoFootRight">
+                            <dd class="autoFootRight1 autostatus" style="line-height: 31px;"><span class="yes <?=$autoInvest->autostatus==1?'yesC':''?>" data-iSauto='true' data-autoState="1"></span>是　<span class="yes <?=$autoInvest->autostatus==1?'':'yesC'?>" data-iSauto='false' data-autoState='0'></span>否</dd>
+                            <dd><h1><?=$user->fundMoney?></h1>元</dd>
+                            <dd><input type="text" id="investMoneyLower" value="<?=$autoInvest->investMoneyLower?>" class="form-control">　-　<input type="text" id="investMoneyUper" value="<?=$autoInvest->investMoneyUper?>" class="form-control">　元</dd>
+                            <dd>
+                                <span class="yes <?=$allType==1?'yesC':''?>" data-allCheck='true' ></span>全选
+                            </dd>
+                            <dd class="fangdidai">
+                                <?php foreach($types as $key => $item):?>
+                                <?php if($key>10 && $key <20):?> 
+                                <h2><p><?=$item['name']?></p><div data-period_lower="<?=$item['period']?>" class="autoFootRightImg <?=in_array($key,$typeIds)?'active':''?>" <?=in_array($key,$typeIds)?'style="display:block"':''?> data-type="<?=$key?>"></div></h2>
+                                <?php endif;?>
+                                <?php endforeach;?>
+                            </dd>
+                            <dd class="xiaofeidai">
+                                <?php foreach($types as $key => $item):?>
+                                <?php if($key>20 && $key <30):?> 
+                                <h2><p><?=$item['name']?></p><div data-period_lower="<?=$item['period']?>" class="autoFootRightImg <?=in_array($key,$typeIds)?'active':''?>" <?=in_array($key,$typeIds)?'style="display:block"':''?> data-type="<?=$key?>"></div></h2>
+                                <?php endif;?>
+                                <?php endforeach;?>
+                            </dd>
+                            <dd class="lottery">
+                                <span class="yes <?=($autoInvest->lottery_id>0)?'yesC':''?>" data-iSTick="hand" data-lottery="1" data-message="<?=$user->autoHandMessage?>"></span> 手动　<span class="yes <?=$autoInvest->lottery_id == 0?'yesC':''?>" data-iSTick="auto"  data-lottery="0"></span> 自动　<span class="yes  <?=$autoInvest->lottery_id == -1?'yesC':''?>"  data-iSTick="none" data-lottery="-1"></span> 不使用
+                            </dd>
+                            <dd data-iSTick="handShow"  style="display: <?=($autoInvest->lottery_id>0)?'block':'none'?>;">
+                                <select name="" id="lotteries" class="form-control baoliuje" style="height: 32px;width: 200px">
+                                    <?php foreach($lotteries as $key => $item):?>
+                                    <option value="<?=$item['id']?>" class="useable" data-period_lower="<?=$item['period_lower']?>" data-money_lower="<?=$item['money_lower']?>" <?=$item['id']==$autoInvest->lottery_id?'selected':''?>><?=$item['name']?></option>
+                                    <?php endforeach;?>
+                                    <?php if(!$lotteries):?>
+                                    <option value="-1" >无可用红包</option>
+                                    <?php else:?>
+                                    <option value="-1" id="nouse">不使用红包</option>
+                                    <?php endif;?>
+                                </select>
+                            </dd>
+                            <dd class="retain"><span class="yes <?=($autoInvest->investEgisMoney>0)?'yesC':''?>" data-investEgisMoney="1" data-retain="true"></span>是　<span class="yes <?=($autoInvest->investEgisMoney>0)?'':'yesC'?>" data-investEgisMoney="0" data-retain="false"></span>否</dd>
+                        </dl>   
+                        <div class="clearfix"></div>
+                        <div class="setFoot">
+                            <div class="baoliuje" style="display: <?=($autoInvest->investEgisMoney>0)?'block':'none'?>" data-retain="input"><input  id="investEgisMoney"  name="investEgisMoney" type="text" value="<?=$autoInvest->investEgisMoney?>" class="form-control">元（这部分钱不会加入自动投标）</div>
+
+                            <div class="zdtbtj"><input type="button" id="ajax-autoinvest-btn" value="提交设置"></div>
+                            <div class="zdhetong"><input id="protocol" <?php if($protocol):?>checked<?php endif;?> type="checkbox">点击开启，即视为同意并签署<a href="<?=WEB_MAIN?>/about/borrow" target="_blank"><<借款协议>></a><a href="javascript:" id="fengxian"><<风险揭示书>></a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 签约 -->
+    <div id='issign' style="display: none;">
+        xxxx
+    </div>
+    <!-- 风险揭示书 -->
+    <div class="user-tp-bg" id="fengxian-box">
+        <div class="user-agreement">
+          <h1>风险揭示书</h1>
+          <div class="user-content">
+            <h3 style="text-indent: 0;font-weight: bold;">一、网络借贷风险提示：</h3>
+            <p> 在您通过汇诚普惠平台进行资金出借的过程中，也许会面临以下可能导致您出借资金及收益受损的各种风险，这些风险须由您自行承担。请您在进行资金出借前仔细阅读以下内容，了解借款项目信贷风险，确保自身具备相应的投资风险意识、风险认知能力、风险识别能力和风险承受能力，拥有非保本类金融产品投资的经历并熟悉互联网，并请您根据自身的风险承受能力选择是否出借资金及出借资金的数额。</p>
+            <p>1. 法律及监管风险：因许多法律和法规相对较新且可能发生变化，相关官方解释和执行可能存在较大不确定性等因素引起的风险。有些新制定的法律、法规或修正案的生效可能被延迟；有些新颁布或生效的法律法规可能具有追溯力从而对您的投资利益造成不利影响。</p>
+            <p> 2. 政策风险：因国家宏观政策、财政政策、货币政策、监管导向、行业政策、地区发展政策等因素引起的风险。</p>
+            <p>3. 市场风险：因市场资金面紧张或利率波动、行业不景气、企业效益下滑等因素引起的风险。</p>
+            <p> 4. 借款人信用风险：针对平台上的债权，汇诚普惠仅在债权形成前对借款人的借款需求及相关信息进行必要审核，但是汇诚普惠不对借款人的还款能力做出任何明示或默示的担保或保证，并且如果发生债权转让，汇诚普惠不会在债权转让时再次对借款人进行信用审核，您受让的债权可能在其受让前已经存在逾期情况。当借款人因收入情况、财产状况发生变化、人身出现意外、发生疾病、死亡等情况，短期或者长期丧失还款能力，或者借款人的还款意愿发生变化时，您的出借资金可能无法按时回收甚至无法回收。汇诚普惠会积极配合出借人行使追讨债权的相关权利。</p>
+            <p>5. 资金流动性风险：针对您的出借本金或者回款再出借资金，汇诚普惠会根据网络借贷相关协议约定积极协助您寻找、推荐借款人，以完成资金出借、获取收益之目的，但汇诚普惠寻找、推荐借款人的时间存在一定不确定性。同时，汇诚普惠将根据网络借贷相关协议约定在您提出需要时，努力帮助您寻找、向您推荐愿意受让债权的第三方，以完成您的债权转让，但汇诚普惠不对债权转让的实现以及实现时间做出任何承诺和保证。</p>
+            <p>6. 技术风险：由于无法控制和不可预测的系统故障、设备故障、通讯故障、电力故障、网络故障、黑客或计算机病毒攻击、以及其它因素，可能导致平台出现非正常运行或者瘫痪，由此导致您无法及时进行查询、充值、出借、提现等操作。</p>
+            <p>7. 不可抗力风险：由于战争、动乱、自然灾害等不可抗力因素的出现而可能导致您出借资金损失的风险。</p>
+            <h3 style="text-indent: 0;font-weight: bold;">二、网络借贷禁止性行为提示：</h3>
+            <p>汇诚普惠平台作为网络借贷信息中介平台，将严格依据《网络借贷信息中介机构业务活动管理暂行办法》的规定，不予从事或者接受委托从事下列活动，请您知悉并共同进行监督：</p>
+            <p>1. 为自身或变相为自身融资；</p>
+            <p>2. 直接或间接接受、归集出借人的资金；</p>
+            <p>3. 直接或变相向出借人提供担保或者承诺保本保息；</p>
+            <p>4. 自行或委托、授权第三方在互联网、固定电话、移动电话等电子渠道以外的物理场所进行宣传或推介融资项目；</p>
+            <p>5. 发放贷款，但法律法规另有规定的除外；</p>
+            <p>6. 将融资项目的期限进行拆分；</p>
+            <p>7. 自行发售理财等金融产品募集资金，代销银行理财、券商资管、基金、保险或信托产品等金融产品；</p>
+            <p>8. 开展类资产证券化业务或实现以打包资产、证券化资产、信托资产、基金份额等形式的债权转让行为；</p>
+            <p>9. 除法律法规和网络借贷有关监管规定允许外，与其他机构投资、代理销售、经纪等业务进行任何形式的混合、捆绑、代理；</p>
+            <p>10. 虚构、夸大融资项目的真实性、收益前景，隐瞒融资项目的瑕疵及风险，以歧义性语言或其他欺骗性手段等进行虚假片面宣传或促销等，捏造、散布虚假信息或不完整信息损害他人商业信誉，误导出借人或借款人；</p>
+            <p>11. 向借款用途为投资股票、场外配资、期货合约、结构化产品及其他衍生品等高风险的融资提供信息中介服务；</p>
+            <p>12. 从事股权众筹等业务。</p>
+          </div>
+          <button class="user-x">关闭</button>
+        </div>
+    </div>
+</div>
+<div>
+    
+</div>
+<?php $this->display('footer.html');?>

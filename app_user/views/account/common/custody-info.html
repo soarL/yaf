@@ -1,0 +1,133 @@
+<div class="content-wrap">
+    <div class="custody-info">
+        <h4>江西银行电子存管账户</h4>
+        <p>真实姓名：<em><?=_hide_name($user->name)?></em></p>
+        <p>身份证号：<em><?=_hide_cardnum($user->cardnum)?></em></p>
+        <p>开户行：<em>江西银行</em></p>
+        <p>电子账户：<em><?=$user->custody_id?></em></p>
+
+        <h4 style="margin-top: 20px;">您绑定的银行卡</h4>
+        <?php if($bank):?>
+        <div href="javascript:;" class="bank-box">
+            <div class="bank-name"><span><img src="" alt=""></span><?=$bank->getBin('bank')?></div>
+            <div class="bank-number"><?=_hide_banknum($bank->bankNum);?></div>
+            <div class="bank-user">持卡人: <?=_hide_name($user->name)?></div>
+            <div class="bank-action">
+                <div class="btn refresh-bank-btn">同步信息</div>
+                <div class="btn unbind-bank-btn">解除绑定</div>
+            </div>
+        </div>
+        <form id="unbind-form" action="/account/unbindBankCard" method="post" style="display: none;">
+            <input type="text" name="bankNum" value="<?=$bank->bankNum?>">
+        </form>
+        <?php else:?>
+        <div href="javascript:;" class="bank-box">
+            <form action="/account/bindBankCard" method="post">
+                <p class="warning">您暂未绑定银行卡</p>
+                <div class="form-group">
+                    <label>银行卡号：</label>
+                    <input style="width: 220px;" class="ui-input" type="text" name="bankNum" value="">
+                </div>
+                <div class="form-group">
+                    <input class="btn" type="submit" value="立即绑定">
+                </div>
+                <div class="remark">已绑定银行卡未显示？<a class="refresh-bank-btn" href="javascript:;">同步信息</a></div>
+            </form>
+        </div>
+        <?php endif;?>
+    </div>
+    <div class="remark-box">
+        <div class="remark-title">温馨提醒:</div>
+        <div class="remark-content">
+            <p>如需换卡，请联系汇诚普惠在线客服人员。为保障您的资金安全，汇诚普惠客服人员对您进行相关资料进行验证！</p>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .custody-info h4 {
+        font-size: 16px;
+        margin-bottom: 15px;
+        color: #666;
+    }
+    .custody-info p {
+        line-height: 28px;
+        text-indent: 2em;
+        color: #666;
+    }
+    .custody-info p em {
+        color: #28a7e1;
+    }
+    .bank-box {
+        width: 450px;
+        height: 260px;
+        border: 1px solid #DFDBDC;
+        border-radius: 8px;
+        margin: 0 auto;
+    }
+    .bank-box .bank-name {
+        height: 75px;
+        line-height: 75px;
+        margin-bottom: 15px;
+        font-size: 28px;
+        color: #666;
+        padding-left: 15px;
+    }
+    .bank-box .bank-number {
+        height: 50px;
+        line-height: 50px;
+        background: #28a7e1;
+        color: #fff;
+        text-align: center;
+        font-size: 30px;
+        padding: 5px;
+        margin-bottom: 15px;
+    }
+    .bank-box .bank-user {
+        margin-bottom: 15px;
+        text-align: right;
+        color: #666;
+        padding: 0px 10px;
+    }
+    .bank-box .bank-action {
+        margin-top: 15px;
+        padding: 0px 126px;
+    }
+    .bank-box .btn {
+        display: inline-block;
+        height: 38px;
+        line-height: 38px;
+        text-align: center;
+        font-size: 14px;
+        box-sizing: border-box;
+        background: #28a7e1;
+        color: #fff;
+        padding: 0px 15px;
+        border-radius: 3px;
+        margin: 0px 5px;
+        cursor: pointer;
+        border: none;
+    }
+    .bank-box form {
+        padding: 25px 70px;
+    }
+    .bank-box form .warning {
+        color: #ff5100;
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .bank-box form .form-group {
+        margin: 20px 0px;
+    }
+    .bank-box form .form-group .btn {
+        margin-left: 74px;
+    }
+    .bank-box form .remark {
+        font-size: 12px;
+    }
+    .bank-box form .remark a {
+        font-size: 12px;
+        text-decoration: none;
+        color: #6fa100;
+    }
+</style>

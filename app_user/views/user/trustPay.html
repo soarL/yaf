@@ -1,0 +1,14 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap common-form-big mt50">
+  <div class="title">受托支付申请</div>
+  <form action="/user/trustPay" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">标的号</label>
+        <input class="ui-input input-icon" type="text" name="oddNumber" value="">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

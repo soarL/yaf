@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<?php
+  use Yaf\Registry;
+  $user = Registry::get('user');
+  $asset = Registry::get('asset');
+?>
+<?php $asset->begin();?>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<style>
+.loading{background:#66ceff url(<?=WEB_ASSET?>/web/public/img/loading.gif) 50% 50% no-repeat;height:100%;width:100%;display:block;overflow:hidden;position:fixed;left:0;top:0;z-index:10000}
+</style>
+<!--[if lt IE 9]>
+<script src="<?=WEB_ASSET?>/web/public/js/html5shiv.min.js"></script>
+<script src="<?=WEB_ASSET?>/web/public/js/respond.min.js"></script>
+<![endif]-->
+<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+</head>
+<body>
+<div class="loading"></div>
+<script>
+  var oLoading = document.getElementsByClassName('loading')[0];
+  function ssts(){
+    if(document.readyState=='complete'){
+      var t = setInterval(function(){
+       oLoading.style.display = 'none';
+       clearInterval(t);
+      },500)
+    }
+  }
+  document.onreadystatechange=ssts;
+</script>
+
+<div class="container login-nav">
+  <ul class="list-unstyled">
+    <li><img src="<?=WEB_ASSET?>/src/images/public/logo.png" alt="logo"></li>
+    <li><a href="<?=WEB_MAIN?>">首页</a></li>
+    <div class="clearfix"></div>
+  </ul>
+</div>
+
+<div class="container-fluid login-bg">
+  <div class="container">
+    <div class="login-input">
+
+
+      <ul class="list-unstyled account">
+        <li>注册账号</li>
+        <li>
+          <p class="already" id="tog-enter">已经有账号？点击这里<span >登录</span></p>
+        </li>
+        <div class="clearfix"></div>
+      </ul>
+
+
+      <div class="register">
+        <form action="" id="register">
+
+          <label for="">
+            <input type="text" placeholder="请输入手机号码" title="请输入手机号码" name="strPhone" id="strPhone">
+            <div id="passtrue1"><img src="<?=WEB_ASSET?>/web/index/img/login/passtrue.png" alt=""></div>
+            <div id="passfalse1"><img src="<?=WEB_ASSET?>/web/index/img/login/passfalse.png" alt=""></div>
+            <div id="err1_1"></div>
+            <div id="err1"></div>
+          </label>
+
+          <label for="">
+            <input type="password" placeholder="密码为8~16位数字、字母和符号组合" title="密码为8~16位数字、字母或符号组合" name="strPass" id="strPass">
+            <div id="passtrue3"><img src="<?=WEB_ASSET?>/web/index/img/login/passtrue.png" alt=""></div>
+            <div id="passfalse3"><img src="<?=WEB_ASSET?>/web/index/img/login/passfalse.png" alt=""></div>
+            <div id="err3"></div>
+          </label>
+
+          <label for="" class="duanxin">
+            <input type="text" placeholder="短信验证码" title="短信验证码" name="strdxyz" id="strdxyz">
+            <input class="hq-duanxin" value="点击获取" type="button" id="hqdxyz">
+            <div id="passtrue2"><img src="<?=WEB_ASSET?>/web/index/img/login/passtrue.png" alt=""></div>
+            <div id="passfalse2"><img src="<?=WEB_ASSET?>/web/index/img/login/passfalse.png" alt=""></div>
+            <div id="err2"></div>
+          </label>
+
+
+
+          <dl id="referrer">
+            <dd>
+              <input type="text" placeholder="请输入推荐人手机号码(选填)" title="请输入推荐人手机号码" name="strFriendPhone" id="strFriendPhone">
+              <div id="passtrue4"><img src="<?=WEB_ASSET?>/web/index/img/login/passtrue.png" alt=""></div>
+              <div id="passfalse4"><img src="<?=WEB_ASSET?>/web/index/img/login/passfalse.png" alt=""></div>
+              <div id="err4"></div>
+            </dd>
+          </dl>
+
+          <div id="slider2"></div>
+          <label for="" class="xieyi">
+            <input type="checkbox" id="yhxieyi" name="yhxieyi" checked="checked"><p>我已经阅读并同意<span id="uesr-agreement">《汇诚普惠用户注册协议》</span></p>
+            <div id="err5"></div>
+            <div class="clearfix"></div>
+          </label>
+          <label for="">
+          <input value="注册" type="button" id="affirm" class="zhuce affirm">
+          </label>
+        </form>
+      </div>
+
+
+      <div class="login" id="log_normal" style="margin-top: -32px;">
+        <h1 class="welcome">欢迎登录</h1>
+        <form action="" id="login" class="login">
+          <label for="">
+            <input type="text" placeholder="请输入手机号码" name="loginPhone" id="loginPhone">
+            <div id="loginerr1_1"></div>
+            <div id="loginerr1"></div>
+          </label>
+          <label for="">
+            <input type="password" placeholder="密码为8~16位数字、字母和符号组合" name="loginPass" id="loginPass">
+            <div id="loginerr2_2"></div>
+            <div id="loginerr2"></div>
+          </label>
+
+          <label for="" class="duanxin">
+            <input type="text" placeholder="短信验证码" title="短信验证码" name="strdxyz" id="logSms">
+            <input class="hq-duanxin" value="点击获取" type="button" id="getLogSms">
+          </label>
+
+          <label for="" class="xieyi xieyi-2">
+            <input type="checkbox" id="keepLogin" name="keepLogin"><p>保持登录状态（7天内免登录）忘记密码？&nbsp;&nbsp;&nbsp;<span id="turnPass">找回密码</span></p>
+            <div class="clearfix"></div>
+          </label>
+          <p class="already already-2">还没有账号？点击这里<span class="tog-login">免费注册</span></p>
+          <input value="登录" type="button" id="affirm1" class="affirm">
+        </form>
+      </div>
+      
+<!--       <div class="login" id="log_sms" style="display: none;">
+        <h1 class="welcome">欢迎登录</h1>
+        <form action="" class="login">
+          <label for="">
+            <input type="text" placeholder="请输入手机号码" name="loginPhone" id="loginPhone2">
+          </label>
+
+          <label for="" class="duanxin">
+            <input type="text" placeholder="短信验证码" title="短信验证码" name="strdxyz" id="logSms">
+            <input class="hq-duanxin" value="点击获取" type="button" id="getLogSms">
+          </label>
+
+          <label for="" class="xieyi xieyi-2">
+            <input type="checkbox" name="keepLogin" id="smsKeepLog"><p>保持登录状态（7天内免登录）&nbsp;&nbsp;&nbsp;<span id="log_to_pass">密码登录</span></p>
+            <div class="clearfix"></div>
+          </label>
+          <p class="already already-2">还没有账号？点击这里<span class="tog-login">免费注册</span></p>
+          <input value="登录" type="button" class="affirm" id="affirm2">
+        </form>
+      </div> -->
+
+    </div>
+  </div>
+</div>  
+<footer class="login_footer">© 2017 汇诚普惠 91hc.com&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;福州汇诚金融外包服务有限公司&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;闽ICP备17009379号-1&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;市场有风险，投资需谨慎</footer>
+
+
+
+<div class="user-tp-bg">
+<div class="user-agreement">
+  <h1>注册服务协议</h1>
+  <div class="user-content">
+  <p>欢迎阅读汇诚金服服务条款协议(下称“本协议”)。本协议双方为福州汇诚金融外包服务有限公司（以下简称“汇诚金服”或“本公司”、“我公司”）与汇诚金服用户（包括个人，简称“用户”或“您”），本协议具有合同效力。本协议内容包括协议正文及所有已经发布的或将来可能发布的各类规则。所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。
+在您注册成为本网站用户前请务必仔细阅读以下条款。若您一旦注册，则视为您接受本网站的服务并受以下条款的约束，本协议立即生效。若您不同意或不能完全同意以下条款，请停止注册本网站。</p> 
+
+<p>如您对协议有任何疑问的，应向“汇诚金服”咨询。但无论您事实上是否在使用“汇诚金服”网络金融平台服务之前认真阅读了本协议内容，只要您使用“汇诚金服”网络金融平台服务，则本协议即对您产生约束，届时您不应以未阅读本协议的内容或者未获得“汇诚金服”对您问询的解答等理由，主张本协议无效，或要求撤销本协议。</p> 
+
+<h3>1. 接受条款</h3>
+<p>您在进入“汇诚金服” 网络金融平台并注册成为为本网站用户即表示您同意自己已经与汇诚金服订立本协议，且您将受本协议的条款约束。汇诚金服有权随时变更本协议相关条款。如条款有任何变更，汇诚金服将在其网站上刊载公告，通知予您。如您不同意相关变更，必须停止使用服务。经修订的条款一经在汇诚金服网站的公布后，立即自动生效。您应在第一次登录后仔细阅读修订后的条款，并有权选择停止或继续使用服务；一旦您继续使用服务，则表示您已接受经修订的条款，当您与汇诚金服发生争议时，应以最新的协议为准。除另行明确声明外，任何使服务范围扩大或功能增强的的新内容均受本协议约束。</p>
+<h3>2. 定义</h3>
+<p>2.1 用户及用户注册：用户必须是具备完全民事行为能力的自然人。无民事行为能力人、限制民事行为能力人不应当注册为汇诚金服用户或超过其民事权利或行为能力范围从事信息发布、交易的，其与汇诚金服之间的服务协议自始无效，汇诚金服一经发现，有权立即注销该用户，并追究其使用汇诚金服“服务”的一切法律责任。用户注册是指用户登陆汇诚金服，并按要求填写相关信息并确认同意履行相关用户协议的过程。用户因进行信息发布、交易、获取有偿服务或接触汇诚金服服务器而发生的所有应纳税赋，以及一切硬件、软件、服务及其它方面的费用均由用户负责支付。</p>
+<p>2.2 会员：在汇诚金服平台上注册的用户成为汇诚金服会员。汇诚金服系为有借款需求客户和资金提供方（借出者）的信息对接平台以及获取各类与投融资相关的服务信息的平台。汇诚金服会对注册用户的身份信息真实性进行审核但不能完全控制双方交易所涉及的服务的质量、安全或合法性，信息的真实性或准确性，以及交易方履行其在借款协议项下的各项义务的能力。汇诚金服并不作为接受服务方或是提供服务方的身份参与交易行为的本身。汇诚金服提醒用户应该通过自己的谨慎判断确定服务及相关信息的真实性、合法性和有效性。</p>
+<h3>3. 收费</h3>
+<p>本公司保留在根据第1条通知您后，收取服务费用的权利。</p>
+<p>本公司保留在无须发出书面通知，仅在汇诚金服网站公示的情况下，暂时或永久地更改或停止部分或全部服务的权利。</p>
+<h3>4. 注册义务</h3>
+<p>注册义务。您必须按照申请注册会员的表格，真实、准确、完整的填写您的资料；维持并及时更新资料，使其保持真实、准确、完整和反映当前情况。倘若您提供的资料不真实、准确和完整或我公司有合理理由怀疑该资料不真实、准确、完整的，我公司有权暂停或终止您的注册用户身份，并拒绝您在目前和将来对服务以任何形式使用。
+注册名、密码和保密在登记过程中，您将选择注册名和密码。注册名的选择应遵守法律法规及社会公德。您必须对您的密码保密，您将对您注册名和密码下发生的所有活动承担责任。如发现任何人未经您同意使用您的注册名跟密码，您须立即通知我公司；对该行为造成的损害，我公司不负任何责任。</p>
+<h3>5. 您的权利和义务</h3>
+<p>5.1 您有权利拥有在汇诚金服注册的会员名及登录密码，并有权利使用自己的会员名及密码随时登陆汇诚金服平台。您不得以任何形式擅自转让或授权他人使用自己的汇诚金服会员名及密码；</p>
+<p>5.2 您有权根据本协议的规定以及汇诚金服上发布的相关规则，利用汇诚金服信息发布平台查询服务信息、提交融资信息、参加汇诚金服的有关活动以及有权享受汇诚金服提供的其它的有关服务；</p>
+<p>5.3 您在汇诚金服进行交易的过程中，如与其他用户因交易产生纠纷，可以请求汇诚金服予以协调。您如发现其他用户有违法或违反本协议的行为，可以向汇诚金服进行反馈和要求处理。如您因网上交易与其他用户发生诉讼的，您有权通过司法部门要求汇诚金服提供相关资料；</p>
+<p>5.4 您同意遵守汇诚金服的交易规则，接收来自汇诚金服或汇诚金服合作伙伴发出的邮件或信息。</p>
+<p>5.5 您应当保证在使用汇诚金服平台进行信息发布过程中遵守诚实信用的原则，不得在发布的信息中包含有反动、暴力、淫秽、毒品、赌博、教唆及有损社会公共道德的内容；不得发布各类违法或违规信息；</p>
+<p>5.6 您不应在汇诚金服平台上恶意评价其他用户，或采取不正当手段提高自身的信用度或降低其他用户的信用度；</p>
+<p>5.7 您在汇诚金服平台上不得发布包含有国家禁止或限制发布包含有侵犯他人知识产权或其它合法权益的机密类信息，也不得发布违背社会公共利益或公共道德的、或是汇诚金服认为不适合在汇诚金服上发布的信息。</p>
+<p>5.8 您承诺在使用汇诚金服时实施的所有行为均遵守国家法律、法规和汇诚金服的相关规定以及各种社会公共利益或公共道德。如有违反上述承诺导致任何法律后果的发生，您独立承担所有相应的法律责任；</p>
+<p>5.9 您同意，不对汇诚金服上任何数据作商业性利用，包括但不限于在未经汇诚金服事先书面批准的情况下，以复制、传播等方式使用在汇诚金服网站上展示的任何资料。</p>
+<h3>6. 汇诚金服的权利义务</h3>
+<p>6.1 汇诚金服有权通过自身或委托其认可的第三方机构为您提供除信息发布外的融资比较、“融资体检“和实现一站式融资实现等增值服务；</p>
+<p>6.2 汇诚金服有义务在现有技术上维护整个网上平台的正常运行，并努力提升和改进技术。对与您在注册使用汇诚金服平台中所遇到的与信息发布或注册有关的问题及反映的情况，汇诚金服应及时作出回复；</p>
+<p>6.3 对于您在汇诚金服平台上的不当行为或其它任何汇诚金服认为应当终止服务的情况，汇诚金服有权随时作出删除相关信息、终止服务提供等处理，而无须征得您的同意；</p>
+<p>6.4 因网上平台的特殊性，汇诚金服没有义务对所有会员的注册资料、行为及其他事项进行事先审查；</p>
+<p>6.5 您在汇诚金服进行交易过程中如与其它用户产生纠纷，请求汇诚金服予以协调，经汇诚金服审核后，汇诚金服有权通过电子邮件联系纠纷双方了解情况，并将所了解的情况通过电子邮件互相通知对方；</p>
+<p>6.6 您因在汇诚金服平台上进行借款而与其他借出者发生诉讼的，您通过司法部门或行政部门依照法定程序要求汇诚金服提供相关数据，汇诚金服应积极配合并提供有关资料；</p>
+<p>6.7 汇诚金服有权对您的注册数据及信息发布行为进行查阅，发现注册数据或信息发布行为中存在任何问题或怀疑，均有权向您发出询问及要求改正的通知或者直接作出删除等处理；</p>
+<p>6.8 经国家生效法律文书或行政处罚决定确认您存在违法行为，或者汇诚金服有足够事实依据可以认定您存在违法或违反本协议行为的，汇诚金服有权在汇诚金服平台及所在网站上以网络发布形式公布您的违法行为；</p>
+<p>6.9 在您使用汇诚金服服务时，汇诚金服有权接收并记录您的个人信息，包括但不限于IP地址、网站Cookie中的资料及您要求取用的网页记录等。</p>
+<h3>7. 许可使用权</h3>
+<p>许可使用权。您授予本公司永久的、免费的、完整的许可使用权利（并且有权对该权利进行再授权），使我公司有权使用、复制、修改、发布、翻译、分发您的资料或制作其派生作品，以已知或日后开发的任何形式、媒体或技术，将您的资料纳入其他作品里。</p>
+<h3>8. 隐私权</h3>
+<p>隐私权我公司不公开您选择保密的注册信息及其他个人信息。但在下列情况下，我公司有权全部或部分披露您的保密信息。</p>
+<p>8.1 根据法律规定，或应行政机关、司法机关要求，向第三人或行政机关、司法机关披露；</p>
+<p>8.2 如您系权利人并针对他人在汇诚金服上侵犯您利益的行为提起投诉，应被投诉人要求，向被投诉人披露；</p>
+<p>8.3、权利人认为您在汇诚金服上的行为侵犯其合法权利并提出投诉的，可向权利人披露；</p>
+<p>8.4 您出现违反汇诚金服网站规则，需要向第三方披露的；</p>
+<p>8.5 根据法律和汇诚金服网站规则，其他我公司认为适合披露的。</p>
+<h3>9. 责任范围和责任限制 </h3>
+<p>9.1您明确同意使用“汇诚金服”网络金融服务所存在的风险将完全由自己承担；因使用“汇诚金服”网络金融服务而产生的一切后果也由自己承担，“汇诚金服”对您不承担任何责任。 </p>
+<p>9.2在任何情况下，对由于使用本网站所产生的任何直接、间接或偶然性的损失或破坏，我们不承担任何责任，无论该损失或破坏是否源于疏忽、违约、诽谤、侵权甚至电脑病毒。 </p>
+<p>9.3“汇诚金服”不担保网络服务一定能满足您的要求，也不担保网络服务不会中断，对网络服务的及时性、安全性、准确性也都不作担保。同时，“汇诚金服”不保证能够长期无错误运营，也不保证服务器不受病毒或其他故障的侵扰。如果您在使用本网站时发生数据丢失的情况，与“汇诚金服”无关。 </p>
+<p>9.4您必须独自承担由于使用“汇诚金服”或通过“汇诚金服”登录到其他站点而形成的全部风险，并独立承担与他人交流信息所造成的后果。“汇诚金服”不担保用户发送给另一方用户的资料的真实性、精确性与可靠性。您对所接受的资料的信任纯属个人风险。 </p>
+<p>9.5“汇诚金服”仅为网络金融信息发布平台，任何透过“汇诚金服”发布的信息均系用户自行发布，“汇诚金服”对其合法性概不负责，亦不承担任何法律责任；您在通过“汇诚金服”得到资讯和信息后，与信息发布人所进行的任何交易均系双方自主交易，双方若发生纠纷，皆与“汇诚金服”无关，“汇诚金服”不承担任何法律责任。 </p>
+<h3>10. 证据保存 </h3>
+<p>您不可撤销地同意，与本网站的电话通话，包括但不限于客服电话通话、销售电话通话，均可能会被录音，您没有任何异议。</p>
+<h3>11. 服务的中止或终止 </h3>
+<p>11.1除非本网站终止本协议或者您申请终止本协议及注销相应用户账户且经本网站同意，否则本协议始终有效。在您违反了本协议、相关规则，或在相关法律法规、政府部门的要求下，本网站有权通过电子邮件告知方式终止本协议、关闭您的账户或者限制您使用本网站。但本网站的终止行为不能免除您根据本协议或在本网站生成的其他协议项下的还未履行完毕的义务。 </p>
+<p>11.2发生下列情形之一的，本网站有权随时中止或终止向您提供服务： </p>
+<p>（1）对于网络设备进行必要的保养及施工时； </p>
+<p>（2）出现突发性的网络设备故障时； </p>
+<p>（3）本网站所使用的网络通信设备由于不明原因停止，无法提供服务时； </p>
+<p>（4）由于不可抗力因素致使本网站无法提供线上服务时； </p>
+<p>（5）相关政府机构的要求。 </p>
+<p>11.3发生下列情形之一的，本网站有权随时中止或终止向您提供服务而无需通知您： </p>
+<p>（1）您提供的个人资料不准确，不真实，不合法有效； </p>
+<p>（2）您使用任何第三方程序进行登录或使用服务； </p>
+<p>（3）您滥用所享受的权利； </p>
+<p>（4）您有损害其他用户的行为； </p>
+<p>（5）您有违背社会风俗和社会道德的行为；</p> 
+<p>（6）您有违反本协议中相关规定的行为。 </p>
+<p>11.4如因系统维护或升级的需要而需暂停网络服务，本网站将尽可能事先进行通告。 </p>
+<p>11.5终止用户服务后，您使用本网站服务的权利立即终止。从终止用户服务即刻起，本网站不再对您承担任何责任和义务。 </p>
+<p>11.6您同意，您与“汇诚金服”的协议关系终止后，“汇诚金服”仍享有下列权利： </p>
+<p>（1）继续保存您未及时删除的注册信息及您使用“汇诚金服”网络金融平台服务期间发布的所有信息至法律规定的记录保存期满。 </p>
+<p>（2）您在使用“汇诚金服”网络金融平台服务期间存在违法行为或违反本协议和/或规则的行为的，“汇诚金服”仍可依据本协议向您主张权利。</p> 
+<h3>12. 对应账户 </h3>
+<p>12.1您在本网站注册成功后，将由本网站向您分配一个固定的普通账户并与您的用户名相绑定。您在此特不可撤销地授权本网站按照本协议、附属规则及所有服务产品的具体协议及规则管理和划扣您普通账户余额对应于托管账户中的资金。 </p>
+<p>12.2在您将资金汇入其在本网站平台上的账户但并未使用之前，本网站对于您的资金有保管义务，本网站保证您的资金安全。该普通账户将在您在本网站注册的账户注销后自动关闭。 </p>
+<h3>13. 通知送达</h3> 
+<p>13.1本协议项下“汇诚金服”对于您所有的通知均可通过网页公告、电子邮件、手机短信或常规的信件传送等方式进行；该等通知于发送之日视为已送达收件人。 </p>
+<p>13.2 您对于“汇诚金服”的通知应当通过“汇诚金服”对外正式公布的通信地址、传真号码、电子邮件地址等联系信息进行送达。 </p>
+<h3>14. 其他</h3>
+<p>14.1 免责声明。您将对您发布的信息及其他在汇诚金服上发生的任何行为承担责任，我公司对此不负任何责任。</p>
+<p>14.2 不可抗力。对于因汇诚金服合理控制范围以外的原因，包括但不限于自然灾害、罢工或骚乱、物质短缺或定量配给、暴动、战争行为、政府行为、通讯或其他设施故障或严重伤亡事故等，致使汇诚金服延迟或未能履约的，汇诚金服不对您承担任何责任。</p>
+<p>14.3 转让。汇诚金服转让本协议项下的权利义务无需经您同意。</p>
+<p>14.4本协议的解释权与修改权属于福州汇诚金融外包服务有限公司。 </p>
+<p>14.5 因本协议或本公司服务所引起的相关争议，应向福建省福州市鼓楼区人民法院提起诉讼并适用中华人民共和国法律。</p>
+  </div>
+  <button id="user-x">关闭</button>
+</div>
+</div>
+<div class="success-box">
+  <div class="successs">
+    <span class="success-span"><img src="<?=WEB_ASSET?>/web/index/img/login/loginout.png" alt=""></span>
+    <h1 class="success-h1">注册成功</h1>
+    <h3 class="success-h3">账号:  <b class="success-b"></b></h3>
+    <div class="success-div"></div>
+    <a class="success-a">立即登录</a>
+  </div>
+</div>
+
+<!--   <div class="backPass">
+    <form action="" id="backPass">
+      <label for="">
+        <input type="text" name="backPhone" id="backPhone" placeholder="请输入11位手机号码">
+        <div id="backerr1_1"></div>
+        <div id="backerr1"></div>
+      </label>
+      <label for="">
+        <input type="text" name="backdxyz" id="backdxyz" placeholder="请输入6位数的短信验证码">
+        <input type="button" value="获取短信验证码" id="backNewsPass">
+        <div id="backerr2"></div>
+      </label>
+      <label for="">
+        <input type="text" name="newsPass" id="newsPass" placeholder="请输入你的新密码">
+        <div id="backerr3"></div>
+      </label>
+      <input type="button" value="提交" id="backsubmit">
+    </form>
+    <p class="backSuccess">找回成功</p>
+  </div> -->
+  
+  <!-- 修改密码 -->
+  <div class="backPass-box">
+    <div id="ajax-password-box" class="box modal" style="width: 320px;">
+      <div class="title">找回密码 <span class="back-close">X</span></div>
+        <div class="form-wrap">
+          <div class="backPass">
+            <form action="" id="backPass">
+              <label for="">
+                <span>手机号码：</span>
+                <input type="text" name="backPhone" id="backPhone" placeholder="请输入11位手机号码" class="form-control">
+                <div id="backerr1_1"></div>
+                <div id="backerr1"></div>
+              </label>
+              <label for="">
+                <span>短信验证码：</span>
+                <input type="text" name="backdxyz" id="backdxyz" placeholder="请输入6位数的短信验证码" class="form-control">
+                <input type="button" value="发送" id="backNewsPass" class="btn btn-primary dxyz-btn">
+                <div id="backerr2"></div>
+              </label>
+              <label for="">
+                <span>新密码：</span>
+                <input type="password" name="newsPass" id="newsPass" placeholder="请输入你的新密码" class="form-control">
+                <div id="backerr3"></div>
+              </label>
+              <input type="button" value="提交" id="backsubmit" class="btn btn-primary backSubmit">
+            </form>
+          </div>
+        </div>
+<!--         <div class="box-remark-box mt10" style="width:300px;">
+            <div class="remark-title">温馨提示</div>
+            <div class="remark-content">
+                <p>1、...</p>
+            </div>
+        </div> -->
+    </div>
+  </div>
+
+</body>
+
+<?php tools\Layer::flash();?>
+<?php $asset = Registry::get('asset');?>
+<?php $asset->end();?>
+<?php if(isset($login)){ ?>
+<script type="text/javascript">
+  require(['Index/login/index'],function(){
+    $("#tog-enter").click();
+  })
+</script>
+<?php }?>
+</html>

@@ -1,0 +1,42 @@
+<?php foreach($odds as $odd):?>
+<?php $remain = $odd->getRemain();?>
+<li class="oddItemLarge">
+    <h3>
+        <a target="_blank" href="/odd/<?=$odd->oddNumber?>"><?=$odd->oddTitle?></a>
+        <?=$odd->getBadges()?>
+    </h3>
+    <div class="row">
+        <div class="col-lg-6 oddDescArea">
+            <dl class="col-xs-4">
+                <dd><strong><?=$odd->oddYearRate*100?>%</strong></dd>
+                <?php if($odd->oddReward>0):?>
+                <small>+<?=$odd->oddReward*100;?>%</small>
+                <?php endif;?>
+                <dt>年化利率</dt>
+            </dl>
+            <dl class="col-xs-4">
+                <dd><?=$odd->getPeriod()?></dd>
+                <dt>投资周期</dt>
+            </dl>
+            <dl class="col-xs-4">
+                <dd><?=_cn_number($odd->oddMoney)?>元</dd>
+                <dt>投资金额</dt>
+            </dl>
+        </div>
+        <div class="col-lg-6 oddProcArea">
+            <div class="col-xs-8">
+                <?php $per = $odd->getPercent($remain);?>
+                <div class="pull-right progressNum"><?=$per?>%</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="<?=$per?>" aria-valuemin="0" aria-valuemax="100" style="width: <?=$per?>%;">
+                    </div>
+                </div>
+                <p class="clearfix">剩余可投：<?=$remain?>元</p>
+            </div>
+            <div class="col-xs-4">
+                <?=$odd->getNewButton()?>
+            </div>
+        </div>
+    </div>
+</li>
+<?php endforeach;?>

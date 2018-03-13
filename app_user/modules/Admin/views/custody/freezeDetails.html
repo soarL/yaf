@@ -1,0 +1,92 @@
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">用户资金冻结明细</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                    <i class="fa fa-file-excel-o text-red"></i></a>
+                </div>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">查询</label>
+                                <?php $searchType = $queries->searchType;?>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="searchType">
+                                        <option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+                                        <option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+                                        <option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+                                        <option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+                                        <option value="email" <?php if($searchType=='email'):?>selected<?php endif;?>>邮箱</option>
+                                        <option value="cardnum" <?php if($searchType=='cardnum'):?>selected<?php endif;?>>身份证</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">状态</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="state">
+                                        <option value="0" <?php if($queries->state==0):?>selected<?php endif;?>>所有冻结</option>
+                                        <option value="1" <?php if($queries->state==1):?>selected<?php endif;?>>有效冻结</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label time-label">交易时间</label>
+                                <div class="input-group time-group">
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-sm">至</button>
+                                    </div>
+                                    <input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>时间</th>
+                                <th class="visible-lg">订单</th>
+                                <th>金额</th>
+                                <th>类型</th>
+                                <th>操作</th>
+                            </tr>
+                            <?php foreach ($list as $item):?>
+                            <tr>
+                                <td><?=_date('Y-m-d', $item['buyDate'])?></td>
+                                <td class="visible-lg"><?=$item['orderId']?></td>
+                                <td><?=$item['txAmount']?>元</td>
+                                <td><?=$item['state']==1?'冻结':'解冻'?></td>
+                                <td>
+                                    <a class="btn btn-ssm btn-info" href="/admin/custody/freezeQuery?searchType=<?=$searchType?>&searchContent=<?=$queries->searchContent?>&orderId=<?=$item['orderId']?>" target="_blank"> <i class="fa fa-eye icon-white"></i>
+                                        查询
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endforeach;?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <?php if($status==1):?>
+                <?=$list->render()?>
+                <?php else:?>
+                <div class="text-danger" style="text-align: center;"><?=$msg?></div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

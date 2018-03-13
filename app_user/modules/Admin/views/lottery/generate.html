@@ -1,0 +1,96 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">生成奖券</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/lottery/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="/admin/lottery/generate" class="form-horizontal" method="post">
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">类型</label>
+          <div class="col-sm-11">
+            <select name="type" class="form-control">
+              <option value="">请选择...</option>
+              <?php foreach($types as $key => $type):?>
+              <option value="<?=$key?>"><?=$type['name']?></option>
+              <?php endforeach;?>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">生成数量</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="num" value="" placeholder="输入生成数量">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">奖励额度</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="money_rate" value="" placeholder="输入浮点数，表示利率或金额">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">有效天数</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="useful_day" value="" placeholder="输入有效天数">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">有效期</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control timepicker" data-allow-input="true" name="endtime" value="" placeholder="若有此值，则有效天数无法生效">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">最小金额</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="money_lower" value="" placeholder="输入最小金额">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">最大金额</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="money_uper" value="" placeholder="输入最大金额">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">最小期限</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="period_lower" value="" placeholder="输入最小期限">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">最大期限</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" name="period_uper" value="" placeholder="输入最大期限">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">分配用户</label>
+          <div class="col-sm-11">
+            <textarea name="assign_users" class="form-control" rows="3" placeholder="将用户ID用英文逗号隔开,该值设定后【生成数量】将失效"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">备注</label>
+          <div class="col-sm-11">
+            <textarea name="remark" class="form-control" rows="3" placeholder="奖券备注"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-1">&nbsp;</div>
+          <div class="col-sm-11">
+            <button type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

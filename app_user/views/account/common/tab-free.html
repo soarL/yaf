@@ -1,0 +1,8 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<div class="tab-s">
+	<a href="/account/lotteries" <?php if($mode=='lottery'):?>class="sel"<?php endif;?>>我的卡劵</a>
+	<a href="/spread" <?php if($mode=='spread'):?>class="sel"<?php endif;?>>邀请有奖</a>
+</div>

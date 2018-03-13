@@ -1,0 +1,10 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<div class="tab-s">
+    <a href="/user/ycTenders" <?php if($mode=='ycTenders'):?>class="sel"<?php endif;?>>投资记录</a>
+    <a href="/account/ycWithdraw" <?php if($mode=='ycWithdraw'):?>class="sel"<?php endif;?>>提取</a>
+    <a href="/account/ycWithdrawRecord" <?php if($mode=='ycWithdrawRecord'):?>class="sel"<?php endif;?>>提取记录</a>
+    <a href="/account/ycLogs" <?php if($mode=='ycLogs'):?>class="sel"<?php endif;?>>资金记录</a>
+</div>

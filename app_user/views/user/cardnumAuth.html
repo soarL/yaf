@@ -1,0 +1,25 @@
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">实名认证</div>
+  <form action="/user/cardnumAuth" method="post">
+    <div class="input-wrap mt30">
+      <label class="label">真实姓名</label>
+      <input class="ui-input input-icon" type="text" name="realname" value="">
+      <span class="icon icon-head"></span> </div>
+    <div class="input-wrap mt30">
+      <label class="label">身份证号</label>
+      <input class="ui-input input-icon" type="text" name="cardnum" value="">
+      <span class="icon icon-head"></span> </div>
+    <div class="tc mt30">
+      <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+    </div>
+    <div class="warn-wrap">
+      <div class="warn-title">注意：</div>
+      <div class="warn-content">
+        <p>1. 实名认证关系到您的账户资金安全，请务必填写您的真实信息！</p>
+        <p>2. 实名认证只能填写一次。一旦填写，不可修改！</p>
+      </div>
+    </div>
+  </form>
+</div>
+<?php $this->display('footer.html');?>

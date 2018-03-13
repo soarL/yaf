@@ -1,0 +1,202 @@
+<?php $this->display('header.html');?>
+<div class="middle" style="padding-top:10px;">
+  <div id="pg-loan-invest" class="pg-details main">
+    <div id="loan-basic">
+      <div class="container mt10">
+        <ul class="ui-breadcrumb clearfix">
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-first"> <a href="<?=Url::to('/odd/list');?>">我要投资</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text"> <a href="<?=Url::to('/odd/list');?>">散标投资列表</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-current"> <a>借款投资</a> </li>
+        </ul>
+      </div>
+      <div class="mt10">
+        <div class="mainwithborder clearfix" style="padding-top:0px">
+          <div class="ui-box-title clearfix"> 
+            <?php if($odd->borrow_type=='day'):?>
+            <em class="pledgeico mr10" title="天标">天</em>
+            <?php elseif($odd->borrow_type=='pawn'):?>
+            <em class="guaranteeico mr10" title="质押标">质</em>
+            <?php endif;?>
+            <h3 class="fl fn-text-overflow"><?=$odd->name?></h3>
+            <span class="fl grey-color-6">借款用户：<a href="#" target="_blank" class="pr ui-box-username"><?=$oddUser->username?><i class="ui-creditlevel ui-creditlevel-s HR">HR</i></a></span>
+          </div>
+          <div class="clearfix mt20">
+            <div class="loaninfo fl">
+              <div class="clearfix mb15">
+                <dl class="fl w250 mr15">
+                  <dt>标的总额 （元）</dt>
+                  <dd><em class="text-xxxl grey-color-3">￥<?=$odd->account?></em></dd>
+                </dl>
+                <dl class="fl w150 mr15">
+                  <dt>年利率</dt>
+                  <dd class="text-xxl"><em class="text-xxxl grey-color-3"><?=$odd->borrow_apr?></em>%</dd>
+                </dl>
+                <dl class="fl w120">
+                  <dt>剩余可投（元）</dt>
+                  <dd>
+                  <em class="text-xxxl grey-color-3">
+                  0
+                  </em>
+                  </dd>
+                </dl>
+              </div>
+              <ul>
+                <li class="clearfix"> 
+                  <span class="fl basic-label">还款方式</span> 
+                  <span class="fl basic-value last">
+                    <?php if($odd->borrow_style=='endmonth'):?>
+                    按月付息
+                    <?php elseif($odd->borrow_style=='month'):?>
+                    等额本息
+                    <?php elseif($odd->borrow_style=='endday'):?>
+                    按天付息
+                    <?php endif;?>
+                  </span> 
+                  <span class="fl basic-label">借款用途</span> <span class="fl basic-value num">其他</span> 
+                </li>
+                <li class="clearfix"> <span class="fl basic-label">投标奖励</span> <span class="fl basic-value"><em>0.00</em>%</span> <span class="fl basic-label">发布时间</span> <span class="fl basic-value num last"><?=date('Y-m-d H:i:s',$odd['verify_time']);?></span> </li>
+
+                <li class="clearfix"> 
+                  <span class="fl basic-label">还款期限</span> <span class="fl basic-value">
+                  <?php if($odd->borrow_type=='pawn'):?>
+                    <?=$odd->borrow_period;?>个月
+                  <?php elseif($odd->borrow_type=='day'):?>
+                    <?=$odd->borrow_period;?>天
+                  <?php else:?>
+                    秒标
+                  <?php endif;?>
+                  </span> 
+                  <span class="fl basic-label">车库编号</span> <span class="fl basic-value num last"></span> </li>
+                
+                <li class="clearfix basic-progress pt15"> 
+                  <span class="fl basic-label">投标进度</span> 
+                  <span class="fl basic-progress-bg"> <b class="basic-percent" style="width: 100%"></b> </span> 
+                  <span class="fl basic-progress-value"><em>100%</em></span>
+                  <span id="act-end" style="display:none;">
+                    <?=date('Y/m/d H:i:s',$odd->reverify_time)?>
+                  </span>
+                  <span class="fl basic-progress-time grey-color-6">剩余时间
+                    <em id="act-day" class="value">0</em>天
+                    <em id="act-hour" class="value">00</em>时
+                    <em id="act-minute" class="value">00</em>分
+                    <em id="act-second" class="value">00</em>秒
+                  </span> 
+                </li>
+              </ul>
+            </div>
+            <?php if($user):?>
+            <div class="fr ui-term-box" >
+              <div class="stamp"></div>
+              <div class="ui-term-content">
+                <div class="ui-term-overage pr">
+                  <p><span class="mr10">账户余额（元）</span><br />
+                    <span class="text-xxxl">￥<?=$user->fundMoney?></span></p>
+                  <a class="recharge" href="/account/recharge" target="_blank">充值</a> </div>
+                <div class="btn-wrap">
+                  <a href="javascript:;" class="btn-blue">已结束</a>
+                </div>
+              </div>
+            </div>
+            <?php else:?>
+            <div class="fr ui-term-box" >
+              <div class="user-need-login">
+                <div class="sign-info">
+                  <p><span>50元</span>起投，最高年化收益率<span>22%</span></p>
+                  <P>回报周期快，债权转让更灵活</p>
+                </div>
+                <div class="tc mt20">
+                  <input type="button" value="立即登录" class="btn-blue loginbtn user-login-btn"/>
+                </div>
+              </div>
+            </div>
+            <?php endif;?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt20 ui-tab loandetail">
+      <div class="idTabs">
+        <ul class="clearfix">
+          <li> <a class="selected" href="#info">借款者信息</a> </li>
+          <li> <a href="#carinfo1">车辆信息</a> </li>
+          <li> <a href="#investlist">投资记录</a> </li>
+        </ul>
+      </div>
+      <div class="mainwithborder clearfix" style="border-top:0px;">
+        <div class="info" id="info">
+          <div class="ui-tab-content">
+           <div class="ui-tab-content-title">
+            <h4>用户信息</h4><span class="aside infoID">ID: <?=$oddUser->userId?></span>
+           </div>
+            <ul class="ui-tab-list clearfix">
+              <li> <span class="tab-list-label mr30">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span> <span class="tab-list-value pr"> <em class="fn-text-overflow"><?=$oddUser->username?></em> <em class="ui-icon <?php if($oddUser->sex=='man'):?>ui-icon-gender-male<?php else:?>ui-icon-gender-female<?php endif;?>"></em></span></li>
+              <li> <span class="tab-list-label mr30">年&nbsp;&nbsp;&nbsp;&nbsp;龄</span> <span class="tab-list-value"><?=$oddUser->getAge()?></span> </li>
+              <li> <span class="tab-list-label mr30">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历</span> <span class="tab-list-value"><?=$oddUser->educational?></span> </li>
+              <li> <span class="tab-list-label mr30">婚&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姻</span> 
+                <span class="tab-list-value"><?php if($oddUser->maritalstatus=='y'):?>已婚<?php else:?>未婚<?php endif;?></span> 
+              </li>
+              <li> <span class="tab-list-label mr30">收&nbsp;&nbsp;&nbsp;&nbsp;入</span> 
+                <?php if($oddUser->income):?>
+                <span class="tab-list-value"><?=$oddUser->income?>元/月</span> 
+                <?php else:?>
+                <span class="tab-list-value">未填写</span> 
+                <?php endif;?>
+              </li>
+              <?php if($oddUserCompany):?>
+              <li> <span class="tab-list-label mr30">工作城市</span> <span class="tab-list-value"><?=$oddUserCompany->officecity?></span> </li>
+              <li> <span class="tab-list-label mr30">工作时间</span> <span class="tab-list-value"><?=$oddUserCompany->getOfficeyearName()?></span> </li>
+              <?php endif;?>
+            </ul>
+          </div>
+        </div>
+        <div class="carinfo" id="carinfo1">
+            <div class="ui-tab-content-title">
+              <h4>车辆信息</h4>
+            </div>
+            <div class="content">
+        	   <?=_decode($odd->borrow_contents)?>
+      		  </div>
+        </div>
+        <div class="investlist" id="investlist">
+          <div class="tr color-red-text mb10"> 
+            <span class="mr50">投标次数 <em><?=$count?></em> 次</span> <span class="mr10">投标总额 <em><?=$totalMoney?></em>元</span> 
+          </div>
+         
+            <table id="tender-records" class="ui-table ui-table-blue ui-table-auditoria">
+              <thead>
+                <tr>
+                  <th width="18%"><span class="pl60">序号</span></th>
+                  <th width="19%"><span class="pl25">投标人</span></th>
+                  <th width="19%"><span class="text-right pr70">投标金额</span></th>
+                  <th width="19%"><span class="pl25">投标方式</span></th>
+                  <th><span class="text-right pr90">投标时间</span></th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <div id="tender-records-pager" class="pagination-wrapper dy-pagination" data-action="/invest/tenders" data-table="#tender-records" data-var="#tender-records-var">
+            </div>
+            <div id="tender-records-var" style="display:none;">
+              <div class="item-var" data-var="num"><?=$odd->borrow_nid?></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hide-form" style="display:none;">
+  <form id="third-form" action="" method="POST">
+    <input type="hidden" id="transData" name="transData" value="">
+  </form>
+</div>
+<div class="class1">
+  <div class="class2">
+    
+  </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

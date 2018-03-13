@@ -1,0 +1,48 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt20">
+        <?php $this->display('user/common/tab-ycbao.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">押车宝投资记录</div>
+            <div class="data-search-form">
+	            <form action="/user/ycTenders" method="get">
+                    <div class="form-group">
+                        <label>投标时间</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?php echo $pager->getParam('timeBegin');?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?php echo $pager->getParam('timeEnd');?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+	            </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>投资金额</th>
+                        <th>投标日期</th>
+                        <th>年化利率</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $record):?>
+                    <tr>
+                        <td>押车宝</td>
+                        <td><?php echo $record['money'];?></td>
+                        <td><?php echo $record['create_time'];?></td>
+                        <td>10.8%</td>
+                        <td>
+                            <a class="btn-small btn-c-blue" href="<?php echo WEB_MAIN.Url::to('/odd/ycbao');?>" target="_blank">详情</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?php echo $pager->html();?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

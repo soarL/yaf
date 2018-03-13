@@ -1,0 +1,48 @@
+<?php $this->display('header.html');?>
+<div class="middle linenav-wrap">
+  <?php $this->display('about/common/menu.html');?>
+  <div class="main mt30">
+    <div class="content-wrap">
+      <h3 style="margin-bottom:30px;">车库视频</h3>
+      <div class="ui-tab-v car-video clearfix">
+        <div class="idTabs">
+          <ul class="clearfix">
+            <?php foreach ($areas as $area):?>
+            <li>
+              <a href="/video/list?area=<?=$area->id;?>" <?php if($area['id']==$queries->area):?>class="selected"<?php endif;?>>
+                <?=$area->name?>
+              </a>
+            </li>
+            <?php endforeach;?>
+          </ul>
+        </div>
+        <div class="list-video">
+          <ul class="J_sharelist J_likeAddDel img_list clearfix">
+            <?php foreach ($videos as $video):?>
+             <li>
+              <div class="pr ishover"> 
+                <a id="video-<?=$video->id?>" class="fancybox img_c" rel="video" title="<?=$video->title?>" data-fancybox-group="gallery" href="<?=$video->link?>">
+                  <img src="<?=$video->cover?>" alt="">
+                </a>
+                <div class="img_c_cover"><a class="test-video" data-i="<?=$video->id?>">&nbsp;</a></div>
+              </div>
+              <p class="car_desc"><a target="_blank" href="#"><?=$video->title?></a></p>
+              <div class="J_dataInfo clearfix"> <span class="datatime fl"><?=$video->addtime?></span>
+                <!-- <div class="mlike fr clearfix"> <a class="i fl" href="javascript:void(0);">喜欢</a> <span class="sum">10</span> </div>
+                <div class="mcomment fr clearfix"> <a class="i fl" href="#">评论</a> <span class="sum">0</span> </div>
+                <div class="mshare fr clearfix"> <a class="i fl" href="javascript:void(0);">分享</a> <span class="sum"></span>
+                  <div class="bshares"></div>
+                </div> -->
+              </div>
+            </li>
+          <?php endforeach;?>
+          </ul>
+        </div>
+      </div>
+      <div class="pagination-wrapper">
+        <?=count($videos)>0?$videos->render():''?>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

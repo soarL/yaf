@@ -1,0 +1,71 @@
+<?php use helpers\StringHelper;?>
+<?php $this->display('header.html');?>
+<div class="common-form-wrap mt50">
+  <div class="title">基本资料</div>
+  <form action="/user/infoBasic" method="post">
+      <div class="input-wrap mt30">
+        <label class="label">真实姓名</label>
+        <?php if($user->cardstatus=='y'):?>
+        <div class="static-input"><?=StringHelper::getHideName($user->name)?></div>
+        <?php else:?>
+        <div class="static-input"><a href="/user/cardnumAuth" target="_blank">未填写，前往进行实名认证！</a></div>
+        <?php endif;?>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">身份证号</label>
+        <?php if($user->cardstatus=='y'):?>
+        <div class="static-input"><?=StringHelper::getHideCardnum($user->cardnum)?></div>
+        <?php else:?>
+        <div class="static-input"><a href="/user/cardnumAuth" target="_blank">未填写，前往进行实名认证！</a></div>
+        <?php endif;?>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label label-1">性别</label>
+        <div class="radio-item-list clearfix">
+          <div class="radio-item">
+            <label><input type="radio" name="sex" value="man" <?php if($user->sex=='man'){echo 'checked';}?>>男</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="sex" value="women" <?php if($user->sex=='women'){echo 'checked';}?>>女</label>
+          </div>
+        </div>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">民族</label>
+        <input class="ui-input input-icon" type="text" name="ethnic" value="<?=$user->ethnic?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label label-1">婚姻状况</label>
+        <div class="radio-item-list clearfix">
+          <div class="radio-item">
+            <label><input type="radio" name="maritalstatus" value="n" <?php if($user->maritalstatus=='n'){echo 'checked';}?>>未婚</label>
+          </div>
+          <div class="radio-item">
+            <label><input type="radio" name="maritalstatus" value="y" <?php if($user->maritalstatus=='y'){echo 'checked';}?>>已婚</label>
+          </div>
+        </div>
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">省市</label>
+        <input autocomplete="off" type="text" class="ui-input input-icon city_input  inputFocus proCityQueryAll proCitySelAll" ov="请选择/输入城市名称" name="city"  value="<?=$user->city?>">
+        <span class="icon icon-head"></span>
+      </div>
+      <div class="input-wrap mt30">
+        <label class="label">具体地址</label>
+        <input class="ui-input input-icon" type="text" name="adder" value="<?=$user->adder?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">学历</label>
+        <input class="ui-input input-icon" type="text" name="educational" value="<?=$user->educational?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="input-wrap mt30">
+        <label class="label">月收入</label>
+        <input class="ui-input input-icon" type="text" name="income" value="<?=$user->income?>">
+        <span class="icon icon-head"></span> </div>
+      <div class="tc mt30">
+        <input  type="submit" value="提交" class="btn-blue loginbtn"/>
+      </div>
+  </form>
+</div>
+<?php $this->display('city.html');?>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="v_scrollbar">
+<head>
+<meta name="baidu_ssp_verify" content="871dbcbba6681106a871b9c7f6f41c9e">
+<?php
+  use Yaf\Registry;
+  $user = Registry::get('user');
+  $asset = Registry::get('asset');
+?>
+<?php $asset->begin();?>
+<!-- <script>if(top.location!==self.location){top.location = self.location;}</script> -->
+<script type="text/javascript">
+var _mvq = _mvq || [];
+_mvq.push(['$setAccount', 'm-183173-0']);
+
+_mvq.push(['$logConversion']);
+(function() {
+var mvl = document.createElement('script');
+mvl.type = 'text/javascript'; mvl.async = true;
+mvl.src = ('https:' == document.location.protocol ? 'https://static-ssl.mediav.com/mvl.js' : 'http://static.mediav.com/mvl.js');
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(mvl, s);
+})();
+</script>
+</head>
+<body>
+<div class="head">
+  <div  style=" height:42px;" class="clearfix top-nav">
+    <div style="width:980px; position:relative; margin:0 auto">
+      <div class="top-nav-left clearfix">
+        <div class="welcome">欢迎致电：<strong>400-186-9996</strong>服务时间：9:00-21:00</div>
+        <div class="weibo-wrap">
+          <ul>
+            <li> <a class="follow-wechat popover" id="follow-wechat"> </a>
+              <div style="display:none; "  class="pophover-content-wrap">
+                <div class="pophover-content">
+                  <p style="text-align: center;font-size:12px"><img src="<?=RSRC?>/images/wechat.jpg" alt="" width="125" /></p>
+                </div>
+              </div>
+            </li>
+            <li> <a class="follow-qq popover" id="follow-qq"></a>
+              <div style="display:none; width:153px;"  class="pophover-content-wrap">
+                <div class="pophover-content">
+                  <div class="clearfix">
+                    <div style="float:left;margin-left: 5px;">
+                      <p style="text-align: center;font-size:12px"> ③群：336880049</p>
+                      <p style="text-align: center;font-size:12px"><img src="<?=RSRC?>/images/3qun.jpg" alt="" width="125" /></p>
+                    </div>
+                  </div>
+                  <div style="font-size:12px;">入群条件：待收达2万元（含2万）且注册时间满1个月，最近60内天内需保持有投资记录</div>
+                </div>
+              </div>
+            </li>
+            <li> <a class="follow-android popover" id="follow-android"></a>
+              <div style="display:none; "  class="pophover-content-wrap">
+                <div class="pophover-content">
+                  <p style="text-align: center;font-size:12px"> 汇诚普惠APP安卓版</p>
+                  <p style="text-align: center;font-size:12px">
+                    <img src="<?=RSRC?>/images/android_app.png" alt="" width="125"/>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li> <a class="follow-ios popover" id="follow-ios"></a>
+              <div style="display:none; "  class="pophover-content-wrap">
+                <div class="pophover-content">
+                  <p style="text-align: center;font-size:12px"> 汇诚普惠APP IOS版</p>
+                  <p style="text-align: center;font-size:12px">
+                    <img src="<?=RSRC?>/images/ios_app.png" alt="" width="125"/>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="top-nav-right">
+        <?php if($user):?>
+        <li><a href="<?=WEB_USER?>/account" class="login"><?=$user->username?></a></li>
+        <li><a href="javascript:;" class="ajax-logout-box-btn register">退出</a></li>
+        <?php else:?>
+        <!-- <li><a id="ajax-login-box-btn" href="javascript:;" class="login">登录</a></li> -->
+        <li><a href="<?=WEB_USER?>/login" class="login">登录</a></li>
+        <li><a href="<?=WEB_USER?>/register" class="register">注册</a></li>
+        <?php endif;?>
+        <li><a href="http://bbs.hcjrfw.com" target="_blank">微社区</a></li>
+        <li><a href="<?=WEB_MAIN?>/guide">新手指引</a></li>
+        <li><a href="<?=WEB_MAIN?>/safe">安全保障</a></li>
+        <li><a href="http://old.hcjrfw.com">进入旧版</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="main">
+    <div class="navbar" id="nav-container">
+      <a class="logo-img" href="<?=WEB_MAIN?>"></a>
+        <span class="bank-img">江西银行存管</span>
+      <ul class="clearfix" id="nav" style="padding-left: 120px; width: 660px;">
+        <li <?php if($asset->params['menu']=='index'):?>class="cur"<?php endif;?>><a href="<?=WEB_MAIN?>" class="navmenu-a">首页</a></li>
+        <li <?php if($asset->params['menu']=='odd'):?>class="cur"<?php endif;?>>
+          <a href="<?=WEB_MAIN.Url::to('/odd/list')?>" class="navmenu-a">我要投资
+          </a>
+        </li>
+        <li <?php if($asset->params['menu']=='order'):?>class="cur"<?php endif;?>><a href="<?=WEB_MAIN?>/order" class="navmenu-a">申请车贷</a></li>
+        <li <?php if($asset->params['menu']=='activity'):?>class="cur"<?php endif;?>> <a href="<?=WEB_MAIN?>/activity/list" class="navmenu-a">最新活动</a></li>
+        <!-- <li <?php if($asset->params['menu']=='business'):?>class="cur"<?php endif;?>><a href="<?=WEB_MAIN?>/about/business" class="navmenu-a">融资租赁</a></li> -->
+        <li <?php if($asset->params['menu']=='about'):?>class="cur"<?php endif;?>><a href="<?=WEB_MAIN?>/about" class="navmenu-a">关于我们</a></li>
+        <li <?php if($asset->params['menu']=='account'):?>class="cur"<?php endif;?>><a href="<?=WEB_USER?>/account" class="navmenu-a">我的账户</a></li>
+      </ul>
+      <div id="buoy"></div>
+    </div>
+  </div>
+  <div class="headshadow"> </div>
+</div>

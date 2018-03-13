@@ -1,0 +1,85 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">用户列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">推广人Id</label>
+								<?php $searchType = $queries->searchType;?>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">被推广人Id</label>
+								<?php $searchType = $queries->searchType;?>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>用户ID</th>
+								<th>帐号</th>
+								<th class="visible-lg">账户余额</th>
+								<th class="visible-lg">姓名</th>
+								<th class="visible-lg">手机</th>
+								<th class="visible-lg">邮箱</th>
+								<th class="visible-lg">注册时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($users as $user):?>
+							<tr>
+								<td><?=$user->userId?></td>
+								<td><?=$user->username?></td>
+								<td class="visible-lg"><?=$user->fundMoney?></td>
+								<td class="visible-lg">
+									<?php if($user->cardstatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->name?>
+								</td>
+								<td class="visible-lg">
+									<?php if($user->phonestatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->phone?>
+								</td>
+								<td class="visible-lg">
+									<?php if($user->emailstatus=='y'):?>
+									<span class="label label-success">认证</span>
+									<?php endif;?>
+									<?=$user->email?>
+								</td>
+								<td class="visible-lg"><?=$user->addtime?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="/admin/user/show?userId=<?=$user->userId?>"> <i class="fa fa-eye icon-white"></i>
+										查看
+									</a>
+									<a class="btn btn-ssm btn-success" href="/admin/user/update?userId=<?=$user->userId?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger" href="/admin/user/money?userId=<?=$user->userId?>">
+										资金操作
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$users->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

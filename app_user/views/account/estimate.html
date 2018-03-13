@@ -1,0 +1,144 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <div class="admin_right_body">
+        	<div id="estimate">
+				<div class="inner">
+					<h1>风险承受能力评估</h1>
+					<p>我们将对您进行风险承受能力评估，根据评估结果，您的风险承受能力将属于以下五种类型中的一种：保守型、稳健型、平衡型、积极型、进取型。为了给您提供更好的资产选择，请您认真作答，感谢您的配合。</p>
+					<ol>
+						<li>
+							<span class="num">1、</span><h3>您的年龄是?</h3>
+							<label><input type="radio" name="age" value="-2">18-25岁</label>
+							<label><input type="radio" name="age" value="0">25-50岁</label>
+							<label><input type="radio" name="age" value="-2">51-60岁</label>
+							<label><input type="radio" name="age" value="-3">61-65岁</label>
+							<label><input type="radio" name="age" value="-10">高于65岁</label>
+						</li>
+						<li>
+							<span class="num">2、</span><h3>您的家庭总资产净值为（折合人民币）？不包括自用住宅和私营企业等实业投资，包括储蓄、保险、金融投资、实物投资、并需扣除未结清贷款，信用卡账单等债务/</h3>
+							<label><input type="radio" name="income" value="0">15万元及以下</label>
+							<label><input type="radio" name="income" value="2">15万元（不含）-50万元（含）</label>
+							<label><input type="radio" name="income" value="6">50万元（不含）-100万元（含）</label>
+							<label><input type="radio" name="income" value="8">100万元（不含）-1000万元（含）</label>
+							<label><input type="radio" name="income" value="10">1000万元（不含）以上</label>
+						</li>
+						<li>
+							<span class="num">3、</span><h3>您每年的家庭收入中，可用于作金融投资（储蓄存款除外）的比例为？</h3>
+							<label><input type="radio" name="proportion" value="2">小于10%</label>
+							<label><input type="radio" name="proportion" value="4">10%至25%</label>
+							<label><input type="radio" name="proportion" value="8">25%至50%</label>
+							<label><input type="radio" name="proportion" value="10">大于50%</label>
+						</li>
+						<li>
+							<span class="num">4、</span><h3>以下哪项最能说明您的投资经验？</h3>
+							<label><input type="radio" name="experience" value="0">除存款、国债外，我几乎不投资其他金融产品</label>
+							<label><input type="radio" name="experience" value="2">大部分投资于存款、国债等，较少投资于股票、基金、P2P等风险产品</label>
+							<label><input type="radio" name="experience" value="6">资产均衡地分布于存款、国债、银行投资产品、信托产品、股票、基金、P2P等</label>
+							<label><input type="radio" name="experience" value="10">大部分投资于股票、基金、P2P等风险产品，较少投资于存款、国债</label>
+						</li>
+						<li>
+							<span class="num">5、</span><h3>您有多少年投资股票、基金、外汇，金融衍生产品、P2P等风险投资品的经验？</h3>
+							<label><input type="radio" name="seniority" value="0">没有经验</label>
+							<label><input type="radio" name="seniority" value="2">少于2年</label>
+							<label><input type="radio" name="seniority" value="6">2至5年</label>
+							<label><input type="radio" name="seniority" value="8">5至8年</label>
+							<label><input type="radio" name="seniority" value="10">8年以上</label>
+						</li>
+						<li>
+							<span class="num">6、</span><h3>以下哪项描述最符合您的投资态度？</h3>
+							<label><input type="radio" name="attitude" value="0">厌恶风险，不希望本金损失，希望获得稳定回报</label>
+							<label><input type="radio" name="attitude" value="4">保守投资，不希望本金损失，愿意承担一定幅度的收益波动</label>
+							<label><input type="radio" name="attitude" value="8">寻求资金的较高收益和成长性，愿意为此承担有限本金损失</label>
+							<label><input type="radio" name="attitude" value="10">希望赚取高回报，愿意为此承担较大本金损失</label>
+						</li>
+						<li>
+							<span class="num">7、</span><h3>本金100万元，不提供保本承诺的情况下，您会选择哪一种投资机会？</h3>
+							<label><input type="radio" name="opportunity" value="0">有100%的机会赢取1000元现金，并保证归还</label>
+							<label><input type="radio" name="opportunity" value="4">有50%的机会赢取5万元现金，并有较高可能性归还本金</label>
+							<label><input type="radio" name="opportunity" value="6">有25%的机会赢取50万元现金，并有一定的可能性损失本金</label>
+							<label><input type="radio" name="opportunity" value="10">有10%的机会赢取100万元现金，并有较高可能性损失本金</label>
+						</li>
+						<li>
+							<span class="num">8、</span><h3>投资于股票、基金、P2P等金融投资品（不含存款和国债）时，您可接受的最长借款期限是多久？</h3>
+							<label><input type="radio" name="term" value="4">1年以下</label>
+							<label><input type="radio" name="term" value="6">1—3年</label>
+							<label><input type="radio" name="term" value="8">3—5年</label>
+							<label><input type="radio" name="term" value="10">5年以上</label>
+						</li>
+						<li>
+							<span class="num">9、</span><h3>您的投资目的是？</h3>
+							<label><input type="radio" name="purpose" value="2">资产保值</label>
+							<label><input type="radio" name="purpose" value="6">资产稳健增长</label>
+							<label><input type="radio" name="purpose" value="10">资产迅速增长</label>
+						</li>
+						<li>
+							<span class="num">10、</span><h3>您投资产品的价值出现何种程度的波动时，您会呈现明显的焦虑？</h3>
+							<label><input type="radio" name="anxious" value="-5">本金无损失，但收益未达预期</label>
+							<label><input type="radio" name="anxious" value="5">出现轻微本金损失</label>
+							<label><input type="radio" name="anxious" value="10">本金10%以内的损失</label>
+							<label><input type="radio" name="anxious" value="15">本金20%-50%的损失</label>
+							<label><input type="radio" name="anxious" value="20">本金50%以上的损失</label>
+						</li>
+					</ol>
+					<button class="submitEs" id="SubmitEstimate">提交结果</button>	
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+	.user-form .mt10 {margin-top: 10px;}
+	.user-form .mt30 {margin-top: 30px;}
+
+	.user-form {
+		padding: 30px 50px;
+	}
+	.user-form .input-wrap {
+		margin: 15px 0px;
+	}
+	.user-form .input-wrap .ui-input {
+		width: 180px;
+		height: 25px;
+	    display: inline-block;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.user-form .input-wrap .static-input {
+		color: #03a2ff;
+		float: left;
+	}
+	.user-form .input-wrap .cRed {
+		float: left;
+		color: #f00;
+		width: 30px;
+	}
+	.user-form .input-wrap .label {
+		color: #666;
+		float: left;
+		width: 80px;
+		text-align: right;
+		margin-right: 20px;
+	}
+	.user-form .btn-blue {
+	    color: #fff;
+	    padding: 8px 23px;
+	    border-radius: 4px;
+	    background-color: #03a2ff;
+	    border: none;
+	}
+</style>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,69 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">公司网点</h3>
+				<div class="box-tools pull-right">
+		          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="添加网点" href="/admin/content/addFiliale"> <i class="glyphicon glyphicon-edit"></i>
+		          </a>
+		        </div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0" data-delete="/admin/content/deleteFiliale">
+							<tr>
+								<th class="visible-lg">网点ID</th>
+								<th>名称</th>
+								<th>状态</th>
+								<th>显示类型</th>
+								<th class="visible-lg">电话</th>
+								<th class="visible-lg">邮箱</th>
+								<th class="visible-lg">QQ</th>
+								<th class="visible-lg">添加时间</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($filiales as $filiale):?>
+							<tr data-id="<?=$filiale->id?>">
+								<td class="visible-lg"><?=$filiale->id?></td>
+								<td><?=$filiale->name?></td>
+								<td>
+									<?php if($filiale->status==1):?>
+									<span class="label label-success">正常</span>
+									<?php elseif($filiale->status==0):?>
+									<span class="label label-danger">失效</span>
+									<?php endif;?>
+								</td>
+								<td>
+									<?php if($filiale->type=='contact'):?>
+									联系我们
+									<?php elseif($filiale->type=='branch'):?>
+									全国网点
+									<?php elseif($filiale->type=='both'):?>
+									全部显示
+									<?php endif;?>
+								</td>
+								<td class="visible-lg"><?=$filiale->phone?></td>
+								<td class="visible-lg"><?=$filiale->email?></td>
+								<td class="visible-lg"><?=$filiale->qq?></td>
+								<td class="visible-lg"><?=$filiale->addtime?></td>
+								<td>
+									<a class="btn btn-ssm btn-success" href="/admin/content/updateFiliale?id=<?=$filiale->id?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										编辑
+									</a>
+									<a class="btn btn-ssm btn-danger btn-delete">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+										删除
+									</a>
+								</td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

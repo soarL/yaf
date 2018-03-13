@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+</head>
+<style>
+	.logo img{
+		width: 50%;
+		margin: 80px auto;
+		display: block;
+	}
+	.log{
+		width: 80%;
+		margin: 0 auto;
+	}
+	.log .form-control{
+		height: 48px;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-radius:0;
+		box-shadow: none;
+	}
+	.log input.btn-primary{
+		width: 100%;
+		height: 40px;
+		background-color: #4196e9;
+		border: none;
+	}
+	.log input.btn-primary:active{
+		background-color: #4196e9
+	}
+	.log form p{
+		position: relative;
+	}
+	.log form p span{
+		width: 22px;
+		height: 22px;
+		background-image: url(./img/del.png);
+		position: absolute;
+		top: 50%;
+		margin-top: -11px;
+		right: 10px;
+		display: block;
+		background-size: 100%;
+		display: none;
+		z-index: 11111
+	}
+	.log input[type='button']{
+		margin-top: 20px;
+	}
+	.sms{
+	    bottom: 0px;
+	    font-size: 15px;
+	    border: none;
+	    padding: 9px 17px;
+	    color: #fff;
+	    background-color: #4196e9;
+	    outline: none;
+	    /* border-radius: 6px; */
+	    position: absolute;
+	    right: 0px;
+	}
+</style>
+<body>
+	<div class="logo">
+		<img src="./img/logo.png" alt="logo">
+	</div>
+	<div class="log">
+		<form action="">
+			<p>
+				<input type="text" placeholder="请输入用户名" class="form-control" name="username">
+				<span class="close"></span>
+			</p>
+			<p>
+				<input type="password" placeholder="请输入密码" class="form-control" name="password">
+				<span class="close"></span>
+			</p>
+<!-- 			<p style="position: relative;">
+				<input type="text" placeholder="请输入验证码" class="form-control" name="phoneCode" maxlength="6">
+				<button class="sms" id="ajaxSms">获取验证码</button>
+			</p> -->
+			<p>
+				<input type="button" value="登录" class="btn btn-primary" >
+			</p>
+		</form>
+	</div>
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="./layer/layer.js"></script>
+<script>
+	$(".log input.form-control").on('focus',function(){
+		$(this).next('span').show()
+	})
+	$(".log input.form-control").on("blur",function(){
+		var that = $(this)
+		setTimeout(function(){
+			that.next('span').hide()
+		},10)
+	})
+	$("span.close").on('click',function(){
+		$(this).prev().val("")
+	})
+	$("input[type='button']").click(function(){
+		var origin = window.location.origin
+		var phone = $("input[name='username']").val();
+		var password = $("input[name='password']").val();
+		var phoneCode = $("input[name='phoneCode']").val();
+		if(phone.length==0){
+			layer.msg('请输入用户名')
+			return
+		}
+		if(password.length==0){
+			layer.msg('请输入密码')
+			return
+		}
+		// if(phoneCode.length ==0){
+		// 	layer.msg('请输入验证码')
+		// 	return
+		// }
+		var data = {
+			phone:phone,
+			password:password,
+			// phoneCode:phoneCode
+		}
+
+		$.post('/common/login',data,function(e){
+			e = JSON.parse(e);
+			if(e.status==1){
+				window.location = origin + '/page/accountinfo/index.html';
+			}else{
+				layer.msg(e.info)
+			}
+		})
+	})
+
+	function reduceTime(ele){
+	    var ele = ele || $("#backNewsPass");
+
+	    var timer =60;
+	    function Countdown() {
+	        if (timer >= 1) {
+	            timer -= 1;
+	            setTimeout(function() {
+	                Countdown();
+	            }, 1000);
+	        }
+	        if (timer<60) {
+	           ele.text(timer+"s")
+	           ele.attr("disabled",true); 
+	        }
+	        if(timer==0){
+	          ele.text("发送")
+	          ele.attr("disabled",false); 
+	        }
+	    }
+	    Countdown()
+	}
+
+	$("#ajaxSms").click(function(){
+		$(this).attr("disabled",true);
+		var phone = $("input[name='username']").val();
+		if(phone.length == 0){
+			layer.msg("请输入手机号码！")
+			return
+		}
+		var data = {
+			phone:phone,
+			msgType:"login"
+		}
+		$.post("/common/ajaxSendSms",data,function(e){
+			e = JSON.parse(e);
+			if(e.status==1){
+				reduceTime($("#ajaxSms"))
+			}else{
+				layer.msg(e.info)
+			}
+		})
+	})
+</script>
+</html>

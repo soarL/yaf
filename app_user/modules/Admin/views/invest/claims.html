@@ -1,0 +1,104 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">债权列表</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="oddNumber" <?php if($searchType=='oddNumber'):?>selected<?php endif;?>>订单号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+										<option value="id" <?php if($searchType=='id'):?>selected<?php endif;?>>债转单号</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">债权状态</label>
+								<?php $progress = $queries->progress;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="progress">
+										<option value="all" <?php if($progress=='all'):?>selected<?php endif;?>>全部</option>
+										<option value="start" <?php if($progress=='start'):?>selected<?php endif;?>>筹款中</option>
+										<option value="run" <?php if($progress=='run'):?>selected<?php endif;?>>已完成</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">发布时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>转让编号</th>
+								<th>操作用户</th>
+								<th class="visible-lg">提交时间</th>
+								<th class="visible-lg">原标的</th>
+								<th class="visible-lg">债权本金</th>
+								<th class="visible-lg">状态</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($list as $value):?>
+							<tr>
+								<td><?=$value->id+80000000?></td>
+								<td><?=$value->userId?></td>
+								<td class="visible-lg"><?=$value->addtime?></td>
+								<td class="visible-lg"><?=$value->oddNumber?></td>
+								<td class="visible-lg"><?=$value->money?></td>
+								<td class="visible-lg"><?=$value->progress=='run'?'结束':'筹款中';?></td>
+								<td>
+									<a class="btn btn-ssm btn-info" href="/admin/invest/detail?id=<?=$value->oddmoneyId?>"> <i class="fa fa-eye icon-white"></i>
+										查看
+									</a>
+
+									<a class="btn btn-ssm btn-warning" href="/admin/protocol/acCrtrReview?oddMoneyId=<?=$value->oddmoneyId?>"> <i class="fa fa-money icon-white"></i>
+										安存
+									</a>
+									
+								<?php if($value->successMoney == $value->money and $value->progress == 'start'): ?>
+									<a class="btn btn-ssm btn-danger btn-sub" data-oddMoneyId="<?=$value->oddmoneyId?>"> <i class="glyphicon glyphicon-edit icon-white"></i>
+										复审
+									</a>
+								<?php endif; ?>
+								</td>
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

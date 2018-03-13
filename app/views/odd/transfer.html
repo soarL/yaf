@@ -1,0 +1,308 @@
+<?php $this->display('header.html');?>
+<?php
+  use helpers\NumberHelper;
+  $info = $claim->analysis();
+  $odd = $claim->odd;
+?>
+<div class="middle" style="padding-top:10px;">
+  <div id="pg-loan-invest" class="pg-details main">
+    <div id="loan-basic">
+      <div class="container mt10">
+        <ul class="ui-breadcrumb clearfix">
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-first"> <a href="<?=Url::to('/odd/list')?>">我要投资</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text"> <a href="<?=Url::to('/odd/list')?>">散标投资列表</a> </li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-separator"></li>
+          <li class="fl ui-breadcrumb-item ui-breadcrumb-text ui-breadcrumb-text-current"> <a>债权转让</a> </li>
+        </ul>
+      </div>
+      <div class="mt10">
+        <div class="mainwithborder clearfix" style="padding-top:0px">
+          <div class="ui-box-title clearfix"> 
+            <em class="pledgeico mr10">转</em>
+            <h3 class="fl fn-text-overflow">债权转让<?=$claim->getSN()?>号</h3>
+            <span class="fl grey-color-6">转让用户：<a href="#" target="_blank" class="pr ui-box-username"><?=_hide_username($claim->user->username)?></a></span> 
+            <a class="fr text ui-box-text mr5" href="/protocol/two" target="_blank">债权转让协议（范本）</a> 
+            <a class="mathtool calculate-btn" href="javascript:;">&nbsp;</a>
+          </div>
+          <div class="clearfix mt20">
+            <div class="transferinfo fl">
+              <div class="info-head clearfix mb30">
+                <dl>
+                  <dt>￥<?=$claim->oddMoney->money?></dt>
+                  <dd>债权本金</dd>
+                </dl>
+                <dl>
+                  <dt>￥<?=$claim->claimsMoney;?></dt>
+                  <dd class="text-xxml">转让价格</dd>
+                </dl>
+                <dl id="buy-intro" class="last" title="认购收益=折让金+剩余未结利息+项目奖励-未结利息管理费用">
+                  <dt>￥<?=NumberHelper::format($info['rengou'])?></dt>
+                  <dd class="text-xxml">认购收益</dd>
+                </dl>
+              </div>
+              <div class="info-middle">
+                <div class="middle-content">
+                  <?php if($info['duozhuan']>=0):?>
+                  <span style="color: #6fa100">承接人多赚：<?=NumberHelper::format($info['duozhuan'])?> <em>元</em></span>
+                  <?php else:?>
+                  <span style="color: #ff0000">承接人亏损：<?=NumberHelper::format(0 - $info['duozhuan'])?> <em>元</em></span>
+                  <?php endif;?>
+                </div>
+              </div>
+              <div class="info-detail clearfix">
+                <dl class="detail-item clearfix">
+                  <dt>债权本金</dt>
+                  <dd><?=intval($info['stayPrincipal'])?>元</dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>剩余未结利息</dt>
+                  <dd><?=NumberHelper::format($info['stayInterest'])?>元</dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>折让金</dt>
+                  <dd>
+                    <?php if($info['zherang']>=0):?>
+                      <span><?=$info['zherang']?>元</span>
+                    <?php else:?>
+                      <span class="red"><?=$info['zherang']?>元</span>
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>项目奖励</dt>
+                  <dd><?=$info['reward'];?>元</dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>还款期限</dt>
+                  <dd>
+                    <?php if($odd->oddBorrowStyle=='month'):?>
+                      <?=$odd->oddBorrowPeriod;?>个月
+                    <?php elseif($odd->oddBorrowStyle=='day'):?>
+                      <?=$odd->oddBorrowPeriod;?>天
+                    <?php else:?>
+                      秒标
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>剩余投资天数</dt>
+                  <dd><?=$info['remindDay'];?>天</dd>
+                </dl>
+                <?php
+                  $overs = '';
+                  foreach ($info['repaymentDate']['over'] as $value) {
+                    $overs .= $value . ', ';
+                  }
+                  $overs = rtrim($overs, ', ');
+                ?>
+                <dl class="detail-item clearfix">
+                  <dt>已结息月份</dt>
+                  <dd id="overs-show" title="<?=$overs;?>">
+                    <?php if(isset($info['repaymentDate']['over'][0])):?>
+                      <?=($info['repaymentDate']['over'][0]) . ' ...'?>
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <?php
+                  $repayments = '';
+                  foreach ($info['repaymentDate']['repayment'] as $value) {
+                    $repayments .= $value . ', ';
+                  }
+                  $repayments = rtrim($repayments, ', ');
+                ?>
+                <dl class="detail-item clearfix">
+                  <dt>未结息月份</dt>
+                  <dd id="repayments-show" title="<?=$repayments;?>">
+                    <?php if(isset($info['repaymentDate']['repayment'][0])):?>
+                      <?=($info['repaymentDate']['repayment'][0]) . ' ...'?>
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>还款方式</dt>
+                  <dd>
+                    <?php if($odd->oddRepaymentStyle=='monthpay'):?>
+                    按月付息
+                    <?php elseif($odd->oddRepaymentStyle=='matchpay'):?>
+                    等额本息
+                    <?php endif;?>
+                  </dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>最终还款日</dt>
+                  <dd><?=date('Y-m-d',strtotime($info['endTime']))?></dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>原标年化</dt>
+                  <dd><?=$odd->oddYearRate*100;?>%</dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>发标时间</dt>
+                  <dd><?=date('Y-m-d',strtotime($odd->oddTrialTime))?></dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>转让时间</dt>
+                  <dd><?=date('Y-m-d',strtotime($claim->addtime))?></dd>
+                </dl>
+                <dl class="detail-item clearfix">
+                  <dt>转让成功时间</dt>
+                  <?php if($claim->toClaim):?>
+                  <dd><?=date('Y-m-d',strtotime($claim->toClaim->addtime))?></dd>
+                  <?php else:?>
+                  <dd></dd>
+                  <?php endif;?>
+                </dl>
+              </div>
+              <div class="go-odd-detail">
+              	<a class="btn-blue" href="<?=Url::to('/odd/view', ['num'=>$odd->oddNumber])?>" target="_blank">查看原标</a>
+              </div>
+            </div>
+            <div class="fr ui-term-box" >
+              <?php if($user):?>
+              <?php if($claim->status==1):?>
+              <div class="stamp"></div>
+              <?php endif;?>
+              <div class="ui-term-content">
+                <div class="ui-term-overage pr">
+                  <p><span class="mr10">账户余额（元）</span><br />
+                    <span class="text-xxxl">￥<?=$user->fundMoney?></span></p>
+                  <a class="recharge" href="<?=WEB_USER;?>/account/recharge" target="_blank">充值</a> </div>
+                <div class="btn-wrap"> 
+                  <?php if($claim->status==0):?>
+                  <a id="transfer-btn" href="javascript:;" class="btn-blue">马上购买</a> 
+                  <?php else:?>
+                  <a href="javascript:;" class="btn-blue">已出售</a> 
+                  <?php endif;?>
+                </div>
+              </div>
+              <?php else:?>
+              <div class="user-need-login">
+                <div class="sign-info">
+                  <p><span>50元</span>起投，最高年化收益率<span>22%</span></p>
+                  <P>回报周期快，债权转让更灵活</p>
+                </div>
+                <div class="tc mt20">
+                  <input type="button" value="立即登录" class="btn-blue loginbtn user-login-btn"/>
+                </div>
+              </div>
+              <?php endif;?>
+              <div class="more-money">
+                <div class="money-show">
+                  <?php if($info['duozhuan']>=0):?>
+                    <span style="color: #6fa100">承接人多赚：<?=NumberHelper::format($info['duozhuan'])?> <em>元</em></span>
+                  <?php else:?>
+                    <span style="color: #ff0000">承接人亏损：<?=NumberHelper::format(0 - $info['duozhuan'])?> <em>元</em></span>
+                  <?php endif;?>
+                </div>
+                <div class="money-compute clearfix">
+                  <div class="item-line"></div>
+                  <div class="item-num">
+                    <span class="num"><?=NumberHelper::format($info['duozhuan'])?></span>
+                    <span></span>
+                  </div>
+                  <div class="item-sign">=</div>
+                  <div class="item-num">
+                    <span class="num" style="width:56px;"><?=NumberHelper::format($info['rengou'])?></span>
+                    <span>认购收益</span>
+                  </div>
+                  <div class="item-sign">-</div>
+                  <div class="item-num">
+                    <span class="num"><?=$claim->oddMoney->money?></span>
+                    <span>本金</span>
+                  </div>
+                  <div class="item-sign">&times;</div>
+                  <div class="item-num long">
+                    <span class="num">(<?=$odd->oddYearRate;?>/360)&times;0.9</span>
+                    <span>每日收益率</span>
+                  </div>
+                  <div class="item-sign">&times;</div>
+                  <div class="item-num">
+                    <span class="num"><?=$info['remindDay']?></span>
+                    <span>投资天数</span>
+                  </div>
+                </div>
+                <div class="money-remark">注：以上数据统一使用10%利息管理费用比例计算得出。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hide-form" style="display:none;">
+  <form id="third-form" action="" method="POST">
+    <input type="hidden" id="transData" name="transData" value="">
+  </form>
+</div>
+
+<!-- 隐藏弹窗 -->
+<div id="ajax-transfer-box" class="hide-box box modal">
+  <div class="form-wrap form-huge">
+      <div class="form-group group-s clearfix">
+        <label>项目：</label>
+        <div class="static-input input-blue">债权转让<?=$claim->getSN()?>号</div>
+      </div>
+      <div class="form-group group-s clearfix">
+        <label>最终还款日：</label>
+        <div class="static-input input-blue"><?=date('Y-m-d',strtotime($info['endTime']))?></div>
+      </div>
+      <div class="form-group group-s clearfix">
+        <label>待收本息：</label>
+        <div class="static-input input-blue"><?=$info['stayMoney']?>元</div>
+      </div>
+      <?php if($info['reward']>0):?>
+      <div class="form-group group-s clearfix">
+        <label>奖励：</label>
+        <div class="static-input input-blue"><?=$info['reward']?>元 <span class="red">(投标奖励)</span></div>
+      </div>
+      <?php else:?>
+      <div class="form-group group-s clearfix">
+        <label>奖励：</label>
+        <div class="static-input input-blue">0元</div>
+      </div>
+      <?php endif;?>
+      <div class="form-group group-s clearfix">
+        <label>转让价格：</label>
+        <div class="static-input input-blue"><?=$claim->claimsMoney?>元</div>
+      </div>
+      <div class="form-group group-s clearfix">
+        <label>购买价格：</label>
+        <div class="static-input input-blue"><?=($claim->claimsMoney-$info['reward'])?>元</div>
+      </div>
+      <?php if($info['duozhuan']<0):?>
+      <div class="form-group group-s clearfix">
+        <div class="static-input warn-input" style="width: 326px; font-size: 12px;">该债权转让标承接人亏损 <?=NumberHelper::format(abs($info['duozhuan']))?> 元，您确认购买吗？</div>
+      </div>
+      <?php endif;?>
+      <input type="hidden" id="claimId" value="<?=$claim->id?>">
+      <div class="form-group group-s clearfix">
+        <button id="ajax-transfer-btn" class="btn btn-primary ml110">确认购买</button>
+      </div>
+  </div>
+  <div class="box-remark-box huge-remark">
+      <div class="remark-title">温馨提示</div>
+      <div class="remark-content">
+        <p>1、购买价格 = 转让价格 - 奖励</p>
+      </div>
+  </div>
+</div>
+<div id="ajax-smscode-box" class="hide-box box modal">
+  <div class="form-wrap form-huge">
+    <input id="phone" type="hidden" name="phone" value="<?=$user->phone?>">
+    <div class="form-group group-s clearfix">
+      <label>手机验证码：</label>
+      <input id="smscode" type="text" name="smscode">
+    </div>
+    <div class="form-group group-s clearfix">
+      <div class="smscode-info" style="width: 313px;">验证码已发送至您的手机 <?=_hide_phone($user->phone)?>，若您在1分钟之内未收到验证码，可 <button id="resend-sms-btn" class="btn btn-primary" href="javascript:;">重新发送验证码</button> </div>
+    </div>
+    <div class="form-group group-s clearfix">
+        <button id="ajax-buyclaim-btn" class="btn btn-primary ml110">提交购买</button>
+      </div>
+  </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

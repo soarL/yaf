@@ -1,0 +1,50 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main pt30">
+        <?php $this->display('account/common/tab-free.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">推广奖励记录</div>
+            <div class="data-search-form">
+                <form action="/spread/list" method="get">
+                    <div class="form-group">
+                        <label>好友</label>
+                        <input class="ui-input w180" type="text" name="username" value="<?=$queries->username?>">
+                    </div>
+                    <div class="form-group">
+                        <label>日期</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+                </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>好友</th>
+                        <th>好友级别</th>
+                        <th>待收本金</th>
+                        <th>推广奖励</th>
+                        <th>获取日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $record):?>
+                    <tr>
+                        <td><?=$record->username?></td>
+                        <td><?=$record->grade?>级</td>
+                        <td>￥<?=$record->DueInmoney?></td>
+                        <td>￥<?=$record->money?></td>
+                        <td><?=$record->createDate?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?=$records->render();?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

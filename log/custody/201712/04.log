@@ -1,0 +1,3 @@
+[2017-12-04 10:25:00] custody.INFO: [debtRegisterCancel]接口数据返回： [] []
+[2017-12-04 10:26:55] custody.INFO: 接口请求 {"userNo":"2000000006","serviceName":"CREATE_PROJECT","projectNo":"20171201000008","projectAmount":1000,"projectName":"测试借款标的","projectDesc":"资金周转","projectType":"DELEGATE","projectPeriod":30,"annualRate":0,"repaymentWay":"INTEREST_FIRST","userDevice":"PC","extension[accountType]":"USER_NO","extension[userNo]":"2000000007"} []
+[2017-12-04 10:26:57] custody.INFO: 接口返回:{"respCode":"00000","respMsg":"成功","status":"SUCCESS"} [] []

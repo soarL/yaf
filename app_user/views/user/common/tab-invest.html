@@ -1,0 +1,12 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<div class="tab-s">
+    <a href="/user/autoInvest" <?php if($mode=='autoInvest'):?>class="sel"<?php endif;?>>自动投标</a>
+    <a href="/user/investRecord" <?php if($mode=='investRecord'):?>class="sel"<?php endif;?>>投资记录</a>
+    <a href="/user/assign" <?php if($mode=='assign'):?>class="sel"<?php endif;?>>债权转让</a>
+    <a href="/account/prepays" <?php if($mode=='prepays'):?>class="sel"<?php endif;?>>提前还款</a>
+    <a href="/account/overdues" <?php if($mode=='overdues'):?>class="sel"<?php endif;?>>逾期项目</a>
+    <a href="/account/repaymentRecord" <?php if($mode=='repaymentRecord'):?>class="sel"<?php endif;?>>回款记录</a>
+</div>

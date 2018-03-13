@@ -1,0 +1,81 @@
+<?php use Yaf\Registry;?>
+<div class="pix-footer"></div>
+<div class="foot">
+  <div class="nav">
+    <div style="width:980px; margin:0 auto" class="clearfix"> 
+      <a href="<?=WEB_MAIN?>/about">关于我们</a> 
+      <a href="<?=WEB_MAIN?>/about/contact">联系我们</a> 
+      <a href="<?=WEB_MAIN?>/guide/help">常见问题</a> 
+      <a href="<?=WEB_MAIN?>/link">友情链接</a> 
+      <a href="<?=WEB_MAIN?>/knowledge">财富文库</a> 
+      <a class="calculate-btn" href="javascript:;">网贷工具</a>
+      <a href="<?=WEB_MAIN?>/safe/risk">风险提示</a>
+    </div>
+  </div>
+  <div class="address">
+    <div style="width:980px; margin:0 auto" class="pr">
+      <p>客服热线（工作时间：9:00-21:00）<br />
+        <strong>400-186-9996</strong><br />
+        地址：福州市台江区鳌江路万达广场甲A写字楼5楼</p>
+      <!-- <div class="app-code">
+        <div class="android-app">
+          <div class="title">安卓版APP</div>
+          <img src="<?=RSRC?>/images/android_app.png" alt="小微时代APP安卓版">
+        </div>
+      </div> -->
+      <div class="foot-warn">
+        风险提示：投资有风险 理财需谨慎
+      </div>
+      <div class="foot-link clearfix">
+        <a class="mt15" href="http://webscan.360.cn/index/checkwebsite/url/www.hcjrfw.com"><img height="41" src="<?=RSRC?>/images/webscan.png"/></a>
+        <a href="http://v.pinpaibao.com.cn/authenticate/cert/?site=www.hcjrfw.com&at=business"><img src="<?=RSRC?>/images/hy_124x47-01.png"></a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright"> © 2015 福建汇诚普惠科技发展有限公司 闽ICP备14018647号 </div>
+</div>
+<a class="qq-kf" href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4008659993" target="_blank"></a>
+<?php $this->display('calculator.html');?>
+<?php tools\Layer::flash();?>
+<?php $asset = Registry::get('asset');?>
+<?php $asset->end();?>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?99fca30d7bebcbcdbc6c42dc4d469b04";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<div style="display:none;">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256940562'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1256940562%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+<!-- <script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzkzODAwOTY4Nl8zNjU5NTRfNDAwODY1OTk5M18"></script>
+<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzkzODAwOTY4Nl8zNjYwMTdfNDAwODY1OTk5M18"></script> -->
+<div class="notifyBoxBkg" style="display: none;">
+  <div class="innerBox">
+      <div class="rightTip"></div>
+      <div class="msgBox">
+          <div class="closeBtn"><button class="close-btn" type="button">关闭</button></div>
+          <div class="insidePad">
+          <p>尊敬的用户：</p>
+          <p>小微银行存管正式上线啦！您现在所在的是新系统界面，旧系统中的资金尚未迁移，您可以进入旧系统进行资金查询及操作。</p>
+          <p>福建汇诚普惠一直致力于提供优质的网贷中介服务，我们在此感谢广大小微投资者们的理解和支持！</p>
+          <p>如有任何疑问，请联系客服。客服热线：400-186-9996（工作日值班时间：9:00-21:00，周六、周日值班时间：9:00-12:00,14:00-18:00）</p>
+          <p class="rightText insideMargin">福建汇诚普惠科技发展有限公司</p>
+          <p class="rightText">2017年8月11日</p>
+          </div>
+          <div class="linkBtn"><button class="close-btn" type="button">我已经知道了(10)</button></div>
+      </div>
+  </div>
+</div>
+</body>
+</html>

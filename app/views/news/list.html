@@ -1,0 +1,46 @@
+<?php $this->display('header.html');?>
+<div class="container" ng-controller="newspaper">
+	<ul class="list-inline subnav">
+		<li><a ui-sref="index">首页</a></li>/
+		<li><a>资讯中心</a></li>/
+		<li><a ui-sref="{{url}}" class="subnav-now"><?=$curType->type_name?></a></li>
+	</ul>
+	<div class="advisory-img">
+		<img src="<?=RSRC?>/images/index/advisory/advisory-1.png" alt="资讯中心" class="pull-left">
+		<img src="<?=RSRC?>/images/index/advisory/advisory-2.png" alt="SEO广告图" class="pull-right">
+		<div class="clearfix"></div>
+	</div>
+	<div class="advisory-left pull-left">
+		<dl>
+			<?php foreach($types as $type):?>
+			<dd class="<?php if($curType->type_key==$type->type_key):?>advisory-left-dd<?php endif;?> link-to" data-ref="/news/list?type=<?=$type->type_key?>"><?=$type->type_name?></dd>
+			<?php endforeach;?>
+		</dl>
+	</div>
+	<div class="advisory-right pull-right">
+		<div class="details">
+			<div class="sousuo">
+				<h1 class="pull-left"><?=$curType->type_name?></h1>
+				<!-- <input type="text" placeholder="搜索关键词" class="pull-right"> -->
+				<div class="clearfix"></div>
+				<a id="search"></a>
+			</div>
+			<div class="list">
+				<dl class="consultList">
+					<dt>
+						<?php foreach ($newsList as $news):?>
+						<div class="news-item clearfix">
+							<a href="/news/show/id/<?=$news->id?>" title="<?=$news->news_title?>"><?=_title($news->news_title, 90);?></a>
+							<span class="mg"><?=$news->news_time?></span>
+						</div>
+				        <?php endforeach;?>
+					</dt>
+					<div class="clearfix"></div>
+				</dl>
+				<div id="page" class="page_div"><?=$newsList->render();?></div>	
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+<?php $this->display('footer.html');?>

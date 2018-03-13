@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="renderer" content="webkit">
+        <!--[if lt IE 9]>
+        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <?php
+            use Yaf\Registry;
+            $user = Registry::get('user');
+            $asset = Registry::get('asset');
+        ?>
+        <?php $asset->begin();?>
+        <script type="text/javascript">
+            var _mvq = _mvq || [];
+            _mvq.push(['$setAccount', 'm-183173-0']);
+
+            _mvq.push(['$logConversion']);
+            (function() {
+            var mvl = document.createElement('script');
+            mvl.type = 'text/javascript'; mvl.async = true;
+            mvl.src = ('https:' == document.location.protocol ? 'https://static-ssl.mediav.com/mvl.js' : 'http://static.mediav.com/mvl.js');
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(mvl, s);
+            })();
+        </script>
+    </head>
+    <body class="pageBody">
+        <header>
+            <div class="grayArea">
+                <div class="container page-box">
+                    <div class="row topNavBox">
+                        <ul class="col-md-6 list-inline text-right pull-right topNavLink">
+                            <?php if($user):?>
+                            <li><a href="<?=WEB_USER?>/account" class="topLogin"><?=$user->username?></a></li>
+                            <li><a href="javascript:;" class="ajax-logout-box-btn topRegister">退出</a></li>
+                            <?php else:?>
+                            <li><a href="<?=WEB_USER?>/login" class="topLogin">登录</a></li>
+                            <li><a href="<?=WEB_USER?>/register" class="topRegister">注册</a></li>
+                            <?php endif;?>
+                            <li class="hidden-xs"><a target="_blank" href="http://bbs.hcjrfw.com">社区</a></li>
+                            <li class="hidden-xs"><a href="<?=WEB_MAIN?>/guide/help">帮助中心</a></li>
+                            <li class="hidden-xs"><a href="<?=WEB_MAIN?>/activity/list">活动中心</a></li>
+                            <li class="hidden-xs"><a href="http://old.hcjrfw.com">进入旧版</a></li>
+                        </ul>
+                        <div class="col-md-6">
+                        <p class="icon-phone"><span class="hidden-xs">服务热线：</span>400-186-9996<span class="hidden-xs">（09:00 ~ 21:00）</span></p>
+                        <ul class="list-inline topNavDropdown visible-lg-block visible-md-block">
+                            <li class="dropdown">
+                                <a class="icon icon-qqgroup" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu">
+                                    <h5>③群：336880049</h5>
+                                    <p class="barcode">
+                                        <img src="<?=RSRC?>/images/qqgroup.jpg" alt="官方QQ群③群" />
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a class="icon icon-wechat" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu">
+                                    <h5>汇诚普惠微信号</h5>
+                                    <p class="barcode">
+                                        <img src="<?=RSRC?>/images/wechat.jpg" alt="微信号" />
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a class="icon icon-apple" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu">
+                                    <h5>汇诚普惠APP IOS版</h5>
+                                    <p class="barcode">
+                                        <img src="<?=RSRC?>/images/ios_app.png" alt="苹果IOS" />
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a class="icon icon-android" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu">
+                                    <h5>汇诚普惠APP安卓版</h5>
+                                    <p class="barcode">
+                                        <img src="<?=RSRC?>/images/android_app.png" alt="安卓APP" />
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="headerArea">
+                <div class="container page-box">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h1><a href="<?=WEB_MAIN?>">汇诚普惠</a></h1>
+                            <h2 a href=" ">江西银行存管</h2>
+                            <!-- <dl class="prevueToday col-xs-6">
+                                <dt>今日预告</dt>
+                                <dd class="marquee">
+                                    <ul class="list-unstyled">
+                                        <li>总发标：888.8万元</li>
+                                        <li>已发标：888.8万元</li>
+                                        <li>未发标：888.8万元</li>
+                                    </ul>
+                                </dd>
+                            </dl> -->
+                        </div>
+                        <ul class="col-lg-8 list-inline text-right pull-right mainNavLink">
+                            <li class="hidden-xs <?php if($asset->params['menu']=='index'):?>active<?php endif;?>">
+                                <a href="<?=WEB_MAIN?>">首页</a>
+                            </li>
+                            <li class="dropdown hidden-xs <?php if($asset->params['menu']=='odd'):?>active<?php endif;?>">
+                                <a href="<?=WEB_MAIN?>/odd/list" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    我要投资<span class="icon icon-menuOpen"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?=WEB_MAIN?>/odd/list">投资列表</a></li>
+                                    <li><a href="<?=WEB_MAIN?>/crtr/list">债权转让</a></li>
+                                </ul>
+                            </li>
+                            <li class="visible-lg-inline visible-md-inline <?php if($asset->params['menu']=='order'):?>active<?php endif;?>"><a href="<?=WEB_MAIN?>/order">我要借款</a></li>
+                            <li class="visible-lg-inline visible-md-inline <?php if($asset->params['menu']=='guide'):?>active<?php endif;?>"><a href="<?=WEB_MAIN?>/guide">新手指引</a></li>
+                            <li class="dropdown visible-lg-inline visible-md-inline">
+                                <a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    信息披露<span class="icon icon-menuOpen"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?=WEB_MAIN?>/safe">安全保障</a></li>
+                                    <!-- <li><a href="#">运营报告</a></li> -->
+                                    <li><a href="<?=WEB_MAIN?>/about">关于我们</a></li>
+                                </ul>
+                            </li>
+                            <li class="hidden-xs <?php if($asset->params['menu']=='account'):?>active<?php endif;?>"><a href="<?=WEB_USER?>">我的账户</a></li>
+                            <li class="dropdown visible-xs-inline visible-sm-inline">
+                                <a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    更多<span class="icon icon-menuOpen"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="visible-xs-block"><a href="<?=WEB_MAIN?>">首页</a></li>
+                                    <li class="visible-xs-block"><a href="<?=WEB_USER?>">我的账户</a></li>
+                                    <li class="visible-xs-block"><a href="<?=WEB_MAIN?>/guide/help">帮助中心</a></li>
+                                    <li class="visible-xs-block"><a href="<?=WEB_MAIN?>/activity/list">活动中心</a></li>
+                                    <li class="visible-xs-block"><a href="http://bbs.hcjrfw.com">社区</a></li>
+                                    <li class="visible-xs-block"><a href="http://old.hcjrfw.com">进入旧版</a></li>
+                                    <li role="separator" class="divider visible-xs-block"></li>
+                                    <li class="visible-xs-block"><a href="<?=WEB_MAIN?>/odd/list">投资列表</a></li>
+                                    <li class="visible-xs-block"><a href="<?=WEB_MAIN?>/crtr/list">债权转让</a></li>
+                                    <li role="separator" class="divider visible-xs-block"></li>
+                                    <li><a href="<?=WEB_MAIN?>/order">我要借款</a></li>
+                                    <li><a href="<?=WEB_MAIN?>/guide">新手指引</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="<?=WEB_MAIN?>/safe">安全保障</a></li>
+                                    <li><a href="<?=WEB_MAIN?>/about">关于我们</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>

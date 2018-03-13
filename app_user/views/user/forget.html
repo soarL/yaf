@@ -1,0 +1,57 @@
+<?php $this->display('header.html');?>
+<div class="main">
+    <div class="forget-form-wrap">
+        <div class="title">忘记密码</div>
+        <form action="/login/forget" method="post">
+            <div class="input-wrap mt30">
+              <input class="ui-input input-icon" placeholder="请输入手机号/帐号" type="text" name="username">
+              <span class="icon icon-head"></span> </div>
+            <div class="clearfix mt20">
+              <div class="input-wrap fl" style="width:142px">
+                <input class="ui-input input-icon" placeholder="验证码" type="text" style="width:130px" name="captcha">
+                <span class="icon icon-key"></span> </div>
+              <a href="javascript:;" class="code-wrap fl"><img id="captcha-img" src="<?php echo WEB_CAPTCHA;?>" onclick="this.src+='?'+Math.random()" /></a>
+            </div>
+            <div class="tc mt30">
+              <input  type="submit" value="下一步" class="btn-blue loginbtn"/>
+            </div>
+        </form>
+    </div>
+</div>
+<style type="text/css">
+    .forget-form-wrap  {
+        /*min-height: 100%;*/
+        width: 250px;
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        padding: 10px 25px 30px 25px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    .forget-form-wrap .title  {
+        line-height: 35px;
+        height: 35px;
+        color: #666;
+        font-size: 14px;
+        border-bottom: 1px solid #ccc;
+    }
+    .forget-form-wrap .ui-input {
+        padding: 5px 5px;
+        width: 238px;
+        height: 25px;
+
+    }
+    .forget-form-wrap .btn-blue {
+        height: 35px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .forget-form-wrap .code-wrap {
+        margin-top: 0px;
+        margin-left: 20px;
+    }
+
+</style>
+<?php $this->display('footer.html');?>

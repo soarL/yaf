@@ -1,0 +1,40 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+    <?php $this->display('user/common/menu.html');?>
+    <div class="main">
+        <?php $this->display('account/common/tab-free.html');?>
+    	<div class="statictable-wrap full-wrap mb30 pb20">
+    		<div class="title">推广奖励提取记录</div>
+            <div class="data-search-form">
+                <form action="/spread/extractRecord" method="get">
+                    <div class="form-group">
+                        <label>日期</label>
+                        <input class="ui-input timepicker w180" type="text" name="timeBegin" value="<?=$queries->timeBegin?>">~
+                        <input class="ui-input timepicker w180" type="text" name="timeEnd" value="<?=$queries->timeEnd?>">
+                    </div>
+                    <div class="form-group submit-btn"><input type="submit" class="btn-green-s" value="搜索"></div>
+                </form>
+            </div>
+            <table class="statictable" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>提取金额</th>
+                        <th>提取日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $record):?>
+                    <tr>
+                        <td><?=$record->extract_money?>元</td>
+                        <td><?=$record->created_at?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+            <div class="pagination-wrapper">
+                <?php echo $records->render();?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

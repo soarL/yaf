@@ -1,0 +1,81 @@
+<?php use custody\Type;?>
+<?php $this->display('header.html');?>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">批次发红包明细</h3>
+                <div class="box-tools pull-right">
+                    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+                    <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+                    <i class="fa fa-file-excel-o text-red"></i></a>
+                </div>
+            </div>
+            <div class="box-body pb-0">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">交易日期</label>
+                                <div class="input-wrap">
+                                    <input type="text" class="form-control input-sm" name="batchTxDate" placeholder="交易日期" value="<?=$queries->batchTxDate?>"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">批次号</label>
+                                <div class="input-wrap">
+                                    <input type="text" class="form-control input-sm" name="batchNo" placeholder="批次号" value="<?=$queries->batchNo?>"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">状态</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="type">
+                                        <option value="0" <?php if($queries->type==0):?>selected<?php endif;?>>所有交易</option>
+                                        <option value="1" <?php if($queries->type==1):?>selected<?php endif;?>>成功交易</option>
+                                        <option value="2" <?php if($queries->type==2):?>selected<?php endif;?>>失败交易</option>
+                                        <option value="9" <?php if($queries->type==9):?>selected<?php endif;?>>合法性校验失败交易</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-info">搜索</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover mb-0">
+                            <tr>
+                                <th>订单号</th>
+                                <th>交易金额</th>
+                                <th class="visible-lg">电子账号</th>
+                                <th class="visible-lg">持卡人姓名</th>
+                                <th class="visible-lg">交易描述</th>
+                                <th class="visible-lg">红包类型</th>
+                                <th class="visible-lg">状态</th>
+                                <th class="visible-lg">失败描述</th>
+                            </tr>
+                            <?php foreach ($list as $item):?>
+                            <tr>
+                                <td><?=$item['orderId']?></td>
+                                <td><?=$item['txAmount']?>元</td>
+                                <td class="visible-lg"><?=$item['forAccountId']?></td>
+                                <td class="visible-lg"><?=$item['name']?></td>
+                                <td class="visible-lg"><?=$item['tradeDesc']?></td>
+                                <td class="visible-lg"><?=$item['voucherType']=='002'?'加息券收益发放':'红包发放'?></td>
+                                <td class="visible-lg"><?=Type::getName('txState', $item['txState'])?></td>
+                                <td class="visible-lg"><?=isset($item['failMsg'])?$item['failMsg']:''?></td>
+                            </tr>
+                            <?php endforeach;?></table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <?php if($status==1):?>
+                <?=$list->render()?>
+                <?php else:?>
+                <div class="text-danger" style="text-align: center;"><?=$msg?></div>
+                <?php endif;?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

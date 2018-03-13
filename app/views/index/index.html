@@ -1,0 +1,463 @@
+<?php 
+  use Yaf\Registry;
+  use helpers\StringHelper;
+  use models\Invest;
+  $asset = Registry::get('asset');
+  $user = Registry::get('user');
+?>
+<?php $this->display('header.html');?>
+<div class="banner-box">
+    <div class="banner">
+        <div class="login-div">
+            <div class="no-login">
+                <?php if(!$user):?>
+                <h2>年化利率</h2>
+                <h3>
+                    7
+                    <span>%</span> - 15<span>%</span>
+                </h3>
+                <a href="<?=WEB_USER?>/login" class="red-packet">注册送888元红包</a>
+                <h4>
+                    <span class="pull-left">已有账户？</span>
+                    <a href="<?=WEB_LOGIN?>" class="pull-right">立即登录</a>
+                    <div class="clearfix"></div>
+                </h4>
+                <?php elseif($user->lotterys):?>
+                <div class="lotterys">
+                    <h2>您有<?=$user->lotterys->count()?>张优惠券还未使用</h2>
+                    <img src="<?=RSRC?>/images/index/discount.png" alt="">
+
+                    <a href="<?=WEB_USER?>/account/lotteries" class="red-packet">立即查看</a>
+                </div>
+
+                <?php else:?>
+                <div class="login-none">
+                    <h2>欢迎来到汇诚普惠！</h2>
+                    <ul class="list-unstyled">
+                        <li>账户余额：￥<?=$user->fundMoney + $user->frozenMoney?></li>
+                        <li>可用余额：￥<?=$user->fundMoney?></li>
+                        <li>出借收益：￥<?=Invest::getTotalInterestByUser($user->userId)?></li>
+                    </ul>
+                    <a href="<?=WEB_USER?>" class="red-packet">进入我的账户</a>
+                </div>
+
+                <?php endif;?>
+
+                <!-- <p>　投资资金全程由上海银行存管</p> -->
+            </div>
+        </div>
+    </div>
+    <div class="banner_box">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <?php foreach($bannerList as $v){ ?>
+            <div class="swiper-slide"><a href="<?=$v->link?>"><img src="<?=$v->banner?>" alt="123"></a></div>
+            <?php }?>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 新闻滚动条 -->
+<div class="news-roll">
+    <div class="container">
+        <h4 class="pull-left"><img src="<?=RSRC?>/images/index/bugle.png" alt="bugle"></h4>
+        <div class="notifications pull-left">
+            <ul class="list-unstyled" id="notifications">
+            <?php foreach ($notices as $notice):?>
+            <li>
+                <a href="/news/show/id/<?=$notice->id?>" title="<?=$notice->news_title?>" target="_blank" ><?=$notice->news_title?></a>
+            </li>
+            <?php endforeach;?>
+            </ul>
+        </div>
+        <a href="<?=WEB_MAIN?>/news/list?type=notice" class="pull-right" target="_blank">更多<img src="<?=RSRC?>/images/index/left.png" alt="left"></a>
+    </div>
+</div>
+<!-- 数据统计 -->
+<div class="information" ng-controller="chengjiao" style="border:1px">
+    <div class="container">
+        <div class="col-md-3">
+            <dl>
+                <dt><?=$totalVolume + 15869000?></dt>
+                <dd>累计成交金额（元）</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <dl>
+                <dt><?=$allInterest + 828232.51?></dt>
+                <dd>累计为投资人赚取（元）</dd>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <dl>
+                <dt><?=$stayMoney?></dt>
+                <dd>总待收金额（元）</dd>
+            </dl>
+        </div>
+        <div class="col-md-3 infor-border">
+            <dl>
+                <dt><?=$yestodayVolume?></dt>
+                <dd>昨日成交（元）</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<!--小广告 -->
+<div class="container new-center">
+    <div class="col-md-3">
+        <img src="<?=RSRC?>/images/index/new-center-2.png">
+        <dl>
+            <dt>公司实力</dt>
+            <dd>公司5000万注册资本，2000万实缴资本</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <img src="<?=RSRC?>/images/index/new-center-1.png">
+        <dl>
+            <dt>风险把控</dt>
+            <dd>专业风控流程，为您出借款项保驾护航</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <img src="<?=RSRC?>/images/index/new-center-3.png">
+        <dl>
+            <dt>资金安全</dt>
+            <dd>借款项目真实，纯P2P模式，资金安全有保障</dd>
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <img src="<?=RSRC?>/images/index/erweima.png">
+        <dl>
+            <dt>合同存证</dt>
+            <dd>电子合同均有存证，投资项目合法合规</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="main-body">
+<!-- 活动路口 -->
+    <!--<div class="container info-active">
+        <a href="javascript:"><img src="<?=RSRC?>/images/index/active-1.jpg" alt="active"></a>
+        <a href="javascript:" class="active-ct"><img src="<?=RSRC?>/images/index/active-2.jpg" alt="active"></a>
+        <a href="javascript:"><img src="<?=RSRC?>/images/index/active-3.jpg" alt="active"></a>
+    </div>-->
+<!-- 标的信息 -->
+<!-- 新手标 -->
+    <div class="container project-box" ng-controller="xinshoulicai">
+        <div class="stance stance1">
+            <span class="stance_s1"><a href="http://www.91hc.com/page/spread/index.html" target="_blank">新手福利</a></span>
+            <span class="stance_s2"><a href="/help" target="_blank">新手指南</a></span>
+        </div>
+        <div class="news-details">
+            <?php foreach ($newHandOdds as $odd):?>
+            <div class="news-project">
+                <a target="_blank"  href="<?=WEB_MAIN?>/odd/<?=$odd->oddNumber?>"><h1><b><?=$odd->oddTitle?></b><span>  (起投100元，限额20000元)</span></h1></a>
+                <ul class="list-unstyled biaozhu">
+<!--                     <li class="biaozhu-1"></li>
+                    <li class="biaozhu-2"></li> -->
+                    <div class="clearfix"></div>
+                </ul>
+                <ul class="list-unstyled rate">
+                    <li class="rate_r1"><b><?=$odd->oddYearRate*100?></b> <?php if($odd->oddReward>0):?>+ <span><?=$odd->oddReward*100?></span><?php endif;?>%<h3>年化利率</h3></li>
+                    <li class="rate_r2"><?=$odd->getPeriod('b')?><br>投资期限</li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="invest_now">
+                    <div class="pull-left">
+                        
+                     <div class="progress-bar orange shine">
+
+                         <span style="width:<?=$odd->getPercent()?>%;"></span>
+                                            
+                     </div>
+                        <p>剩余可投资金额: <span><?=$odd->getRemain()?></span></p>
+                    </div>
+                    <?=$odd->getButton()?>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<!-- 金融计划 -->
+<!--    <div class="container financial">
+        <div class="stance stance2">
+            <span class="stance_s1"><a href="javascript:">计划说明</a></span>
+        </div>
+        <div class="news-details">
+            <?php /*foreach ($hotOdds as $odd):?>
+            <div class="news-project">
+                <h1><b><?=$odd->oddTitle?></b><span>  (起投100元，限额20000元)</span><a href="javascript:" class="pull-right">更多</a></h1>
+                <ul class="list-unstyled biaozhu">
+                    <li class="biaozhu-1"></li>
+                    <li class="biaozhu-2"></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <ul class="list-unstyled rate">
+                    <li class="rate_r1"><b><?=$odd->oddYearRate*100?></b> <?php if($odd->oddReward>0):?>+ <span><?=$odd->oddReward*100?></span><?php endif;?>%<h3>年化利率</h3></li>
+                    <li class="rate_r2"><?=$odd->getPeriod('b')?><br>投资期限</li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="invest_now">
+                    <div class="pull-left">
+                        <div class="progress"></div>
+                        <p>剩余可投资金额: <span><?=$odd->getRemain()?></span></p>
+                    </div>
+                    <a ui-sref="biaodiLB" href="<?=WEB_MAIN?>/odd/<?=$odd->oddNumber?>">立即投资</a>
+                    <a ui-sref="biaodiLB" href="javascript:;">立即投资</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <?php endforeach;*/?>
+        </div>
+    </div> -->
+<!-- 整合金融计划 -->
+    <div class="container fuse">
+        <div class="stance3">
+            <dl class="zhenghe-duoxuan" id="fuse">
+                <dd class="zhenghe-duoxuan-active" data-ref="#house-loan">房优贷 <span><?=$houseCount?></span></dd>
+                <dd data-ref="#ins-loan">车险优贷 <span><?=$insCount?></span></dd>
+                <dd data-ref="#crtr-list">债权转让 <span><?=$crtrCount?></span></dd>
+            </dl>
+            <a href="/odds" class="fuse-more">查看更多</a>
+        </div>
+        <div class="news-details" id="odd-list">
+
+            <dl class="house-loan" id="house-loan">
+                <?php foreach ($houseOdds as $odd):?>
+                <dd>
+                    <ul class="list-unstyled detail">
+                        <li><a target="_blank"  href="<?=WEB_MAIN?>/odd/<?=$odd->oddNumber?>"><h3><?=$odd->oddTitle?></h3></a><span class="detail-1"></span>
+                            <a class="detail-<?=$odd->user->userType==3?'3':'2'?>"></a>
+                            <!-- <a class="detail-2"></a> -->
+                            
+                            <!--<a class="detail-3"></a><a class="detail-4"></a>--></li>
+                        <li>
+                            <div class="pull-left nianhua-1"><b><?=$odd->oddYearRate*100?></b> <?php if($odd->oddReward>0):?>+ <span><?=$odd->oddReward*100?></span><?php endif;?>%<h3>年化利率</h3></div>
+                            <div class="pull-left nianhua-2"><?=$odd->getPeriod('b')?><br>投资期限</div>
+                        </li>
+                        <li class="jindu">
+                            <div class="project_item_process">
+                                 <div class="project_item_table" id="p1">
+                                     <label><?=$odd->getPercent()?>%</label>
+                                 </div>
+                            </div>
+                        </li>
+                        <li class="touzi"><?=$odd->getButton()?>剩余可投：<span><?=$odd->getRemain()?></span> 元</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </dd>
+                <?php endforeach;?>
+            </dl>
+
+            <dl class="house-loan hide" id="ins-loan">
+                <?php foreach ($insOdds as $odd):?>
+                <dd>
+                    <ul class="list-unstyled detail">
+                        <li><a target="_blank"  href="<?=WEB_MAIN?>/odd/<?=$odd->oddNumber?>"><h3><?=$odd->oddTitle?></h3></a><span class="detail-1c"></span>
+                            <a class="detail-<?=$odd->user->userType==3?'3':'2'?>"></a>
+                            <!-- <a class="detail-2"></a> -->
+
+                            <!--<a class="detail-3"></a><a class="detail-4"></a>--></li>
+                        <li>
+                            <div class="pull-left nianhua-1"><b><?=$odd->oddYearRate*100?></b> <?php if($odd->oddReward>0):?>+ <span><?=$odd->oddReward*100?></span><?php endif;?>%<h3>年化利率</h3></div>
+                            <div class="pull-left nianhua-2"><?=$odd->getPeriod('b')?><br>投资期限</div>
+                        </li>
+                        <li class="jindu">
+                            <div class="project_item_process">
+                                 <div class="project_item_table" id="p1">
+                                     <label><?=$odd->getPercent()?>%</label>
+                                 </div>
+                            </div>
+                        </li>
+                        <li class="touzi"><?=$odd->getButton()?>剩余可投：<span><?=$odd->getRemain()?></span> 元</li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </dd>
+                <?php endforeach;?>
+            </dl>
+
+            <dl class="house-loan hide" id="crtr-list">
+                <?php foreach ($crtrs as $crtr):?>
+                <?php $remain = $crtr->getRemain()?>
+                <dd>
+                    <ul class="list-unstyled detail">
+                        <li><a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>"><h3><?='债权转让'.$crtr->getSN().'号'?></h3></a><!--<span class="detail-1"></span>-->
+
+                             <a class="detail-<?=$odd->user->userType==3?'3':'2'?>"></a>
+
+                            <!-- <a class="detail-3"></a><a class="detail-4"></a> --></li>
+                        <li>
+                            <div class="pull-left nianhua-1"><b><?=$crtr->odd->oddYearRate*100?></b> <?php if($crtr->odd->oddReward>0):?>+ <span><?=$crtr->odd->oddReward*100?></span><?php endif;?>%<h3>年化利率</h3></div>
+                            <div class="pull-left nianhua-2"><b><?=$crtr->getRemainDay()?></b>天<br>剩余天数</div>
+                        </li>
+                        <li class="jindu">
+                            <div class="project_item_process">
+                                 <div class="project_item_table" id="p1">
+                                     <label><?=$crtr->getPercent()?>%</label>
+                                 </div>
+                            </div>
+                        </li>
+                        <li class="touzi">
+                            <?php if($crtr->progress=='start'&&$remain>0):?>
+                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="blue-button">认购</a>
+                            <?php elseif($crtr->progress=='start'&&$remain==0):?>
+                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="oran-button">复审中</a>
+                            <?php else:?>
+                            <a href="<?=Url::to('/crtr/view', ['num'=>$crtr->getSN()])?>" class="oran-button">已出售</a>
+                            <?php endif;?>
+                            剩余可投：<span><?=$remain?></span> 元
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </dd>
+                <?php endforeach;?>
+            </dl>
+        </div>
+
+    </div>
+<!-- 首页新闻信息等-->
+    <div class="container page-news" ng-controller="indexNews">
+        <div class="page-news-1">
+            <div class="page-news-1-top">
+                <div class="title">
+                    <h1>发标预告</h1>
+                    <span><?php if(isset($expect->expectOdd)){echo date('m-d',strtotime($expect->news_time));}?></span> 
+                    <a href="/news/show/id/<?=$expect->id?>" target = "_blank">详情</a>
+                    <div class="clearfix"></div>
+                    <div class="aaa"></div>
+                </div>
+                <dl class="pull-left">
+                    <dd>新手标专区:</dd>
+                    <dd>手动标专区:</dd>
+                    <dd>自动标专区:</dd>
+                </dl>
+                <dl class="pull-left news-right">
+                    <?php $a = $b = $c = 0; if(isset($expect->expectOdd)){ foreach($expect->expectOdd as $v){ 
+                        if($v->type == '2'){
+                            $a = round($v->tmoney/10000,2);
+                        }
+                        if($v->type == '1'){
+                            $b = round($v->tmoney/10000,2);
+                        }
+                        if($v->type == '3'){
+                            $c = round($v->tmoney/10000,2);
+                        }
+                    }}?>
+                    <dd><span><?=$a?></span>万元</dd>
+                    <dd><span><?=$b?></span>万元</dd>
+                    <dd><span><?=$c?></span>万元</dd>
+                </dl>
+                <div class="clearfix"></div>
+            </div>
+            <div class="page-news-1-bottom">
+                <dl class="pull-left">
+                    <dd>今日已发总额:</dd>
+                    <dd>今日已发总数:</dd>
+                </dl>
+                <dl class="pull-left news-right">
+                    <dd><span><?=$dayOpenMoney?></span>万元</dd>
+                    <dd><span><?=$dayOpenCount?></span>个</dd>
+                </dl>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="page-news-2">
+            <div class="title">
+                <ul class="list-unstyled" id="terracejs">
+                    <li class="pager-news-2-center-li-active">平台公告</li>
+                    <li class="pager-news-2-center-li">提前/逾期</li>
+                    <li>网贷教育</li>
+                </ul>
+                <a href="/news/list?type=notice" target="_blank" id="more">更多</a>
+                <div class="clearfix"></div>
+            </div>
+            <ul id="page-news-2-1" class='news-list list-unstyled' >
+                <?php foreach($notices as $notice): ?>
+                <li>
+                    <a title="<?=$notice->news_title?>" href="<?=WEB_MAIN?>/news/show/id/<?=$notice->id?>" target="_blank"><?=StringHelper::newsTitle($notice->news_title)?></a>
+               	    <span><?=_date('Y-m-d', $notice->news_time)?> </span>
+	            </li>
+                <?php endforeach ?>
+                <div class="clearfix"></div>
+            </ul>
+            <ul id="page-news-2-2" class='news-list list-unstyled' >
+                <?php foreach($pdList as $item): ?>
+                <li>
+                    <a title="<?=$item->news_title?>" href="<?=WEB_MAIN?>/news/show/id/<?=$item->id?>" target="_blank"><?=StringHelper::newsTitle($item->news_title)?></a>
+		            <span> <?=_date('Y-m-d', $item->news_time)?> <span>
+                </li>
+                <?php endforeach ?>
+		        <div class="clearfix"></div>
+            </ul>
+            <ul id="page-news-2-3" class='news-list list-unstyled'>
+                <?php foreach($eduList as $item): ?>
+                <li>
+                    <a title="<?=$item->news_title?>" href="<?=WEB_MAIN?>/news/show/id/<?=$item->id?>" target="_blank"><?=StringHelper::newsTitle($item->news_title)?></a>
+		            <span><?=_date('Y-m-d', $item->news_time)?> </span>
+                </li>
+                <?php endforeach ?>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="page-news-3">
+            <div class="title">
+                <h1>新闻资讯</h1>
+                <a href="/news/list?type=news" target="_blank">更多</a>
+                <div class="clearfix"></div>
+            </div>
+	    <dl class="tdw-news-box">
+    		<dt class="pull-left">
+    		    <a href="<?=WEB_MAIN?>/news/show/id/<?=$news[0]->id?>" target="_blank"><img src="<?=WEB_ASSET?>/uploads/images/<?=$news[0]->news_image?>" style="max-height:100px;width:138px;height:100px;" alt=""></a>
+    		</dt>
+    	 	<dd class="pull-left">
+    		    <a href="<?=WEB_MAIN?>/news/show/id/<?=$news[0]->id?>" target="_blank"><?=$news[0]->news_title?><!-- </br>
+                    <?=$news[0]->news_abstract?> --></a>
+    		    <span><?=_date('Y-m-d', $news[0]->news_time)?></span>
+    		</dd>
+    		<div class="clearfix"></div>
+	    </dl>
+            <ul class="list-unstyled tdw-news-list">
+                <?php unset($news[0]); foreach($news as $item): ?>
+                <li>
+                    <a title="<?=$item->news_title?>" href="<?=WEB_MAIN?>/news/show/id/<?=$item->id?>" target="_blank"><?=StringHelper::newsTitle($item->news_title)?></a>
+                    <span><?=_date('Y-m-d', $item->news_time)?> </span>
+                </li>
+                <?php endforeach ?>
+               	<div class="clearfix"></div>
+    	    </ul>
+        </div>
+    </div>
+    <!-- 合作伙伴 -->
+    <div class="partner">
+        <div class="container">
+            <h4>合作伙伴</h4>
+            <a href="https://www.aliyun.com" class="link0" target="_blank"></a>
+            <a href="https://cloud.tencent.com" class="link1" target="_blank"></a>
+            <a href="http://www.baofu.com/static/index.html" class="link2" target="_blank"></a>
+            <a href="http://www.ancun.com" class="link3" target="_blank"></a>
+        </div>
+    </div>
+    <div class="footer-friendship">
+        <div class="container">
+            <ul class="list-unstyled friendship">
+                <h2 class="pull-left">友情链接:</h2>
+                <?php foreach ($links as $link):?>
+                <li><a target="_blank" href="<?=$link->link_url?>"><?=$link->link_name?></a></li>
+                <?php endforeach;?>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 风险提示悬浮窗 -->
+<div class="float_wd" id="float_wd">
+    <span onclick="document.getElementById('float_wd').style.display='none'"></span>
+    <a href="<?=WEB_MAIN?>/about/risk">
+        <img src="<?=WEB_ASSET?>/src/images/index/float_wd.png" alt="">
+    </a>
+</div>
+<?php $this->display('footer.html');?>

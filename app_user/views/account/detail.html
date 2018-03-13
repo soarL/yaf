@@ -1,0 +1,393 @@
+<?php $this->display('header.html');?>
+<div id="user-app">
+    <?php $this->display('position.html');?>
+    <!-- 主体 的右边-->
+    <div class="container admin_body">
+        <?php $this->display('menu.html');?>
+        <div class="admin_right_body">
+            <ul class="list-unstyled userDetaiTopNav">
+                <li class="userDetaiTopNav-2" ui-sref="userDetail.userDetaiTopNav-1">投资散标</li>
+                <li ui-sref="userDetail.userDetaiTopNav-2">承接债权</li>
+                <div class="clearfix"></div>
+            </ul>
+            <div>
+                <div class="touzisanbiao">
+                    <div class="userDetailHead">
+                        <ul class="list-unstyled userDetaiTJ">
+                            <li>总待收本金: <span>￥500.00</span>元</li>
+                            <li>总待收利息: <span>￥500.00</span>元</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <ul class="list-unstyled userDetaiTable">
+                            <li>
+                                <div id="userDetaiTable-1"></div>
+                                <dl class="userDetaiTable-1">
+                                    <dd class="userDetaiTable-1-1">房抵贷待收本金:￥500.00元</dd>
+                                    <dd class="userDetaiTable-1-2">消费贷待收本金:￥500.00元</dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <div id="userDetaiTable-2"></div>
+                                <dl  class="userDetaiTable-2">
+                                    <dd class="userDetaiTable-1-1">待收利息:￥500.00元</dd>
+                                    <dd class="userDetaiTable-1-2">待收利息:￥500.00元</dd>
+                                </dl>
+                            </li>
+                            <div class="clearfix"></div>
+                        </ul>
+                    </div>
+                    <div  class="userDetailBody">
+                        <ul class="list-unstyled">
+                            <li ui-sref="userDetail.userDetail-1" class="userDetailBodyUlLi">投标中</li>
+                            <li ui-sref="userDetail.userDetail-2">还款中</li>
+                            <li ui-sref="userDetail.userDetail-3">逾期中</li>
+                            <li ui-sref="userDetail.userDetail-4">已结清</li>
+                            <div class="clearfix"></div>
+                        </ul>
+                        <div class="userDetail1">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资日期</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化比率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>2010000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>2004000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="userDetail2">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资日期</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化比率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵4贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="userDetail3">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资日期</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化比率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房12抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="userDetail4">
+                            <table class="table userDetail-1">
+                                <thead>
+                                    <tr>
+                                        <th>投资日期</th>
+                                        <th>借款编号</th>
+                                        <th>项目类型</th>
+                                        <th>借款金额（元）</th>
+                                        <th>投资金额（元）</th>
+                                        <th>年化比率</th>
+                                        <th>借款期限</th>
+                                        <th>投资方式</th>
+                                        <th width="10%">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵53贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2017-6-10</td>
+                                        <td>20154645</td>
+                                        <td>房抵贷款</td>
+                                        <td>200000</td>
+                                        <td>100000</td>
+                                        <td>12%</td>
+                                        <td>12月</td>
+                                        <td>手动投标</td>
+                                        <td>未满标</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,158 @@
+<?php $this->display('header.html');?>
+<style type="text/css">.ilbl {display: inline-block!important;}</style>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">运营部</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-1">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>编号</th>
+								<th class="visible-lg">日期<?=$queries->sort('time')?></th>
+								<th class="visible-lg">
+									<a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="指投资人注册量"><i class="fa fa-question"></i></a>注册量<?=$queries->sort('registrations')?>
+								</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第一次在平台进行充值行为的，和注册时间无关"><i class="fa fa-question"></i></a>新用户充值</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第二次在平台进行充值行为的，算老用户充值"><i class="fa fa-question"></i></a>老用户充值</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天网页和APP端用户的充值总额"><i class="fa fa-question"></i></a>充值总额<?=$queries->sort('rechargeMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天网页总支付额"><i class="fa fa-question"></i></a>PC端支付额<?=$queries->sort('pcRechargeMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天APP端总支付额"><i class="fa fa-question"></i></a>APP端支付额<?=$queries->sort('appRechargeMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天发标总额（包括约标的金额）"><i class="fa fa-question"></i></a>发标总额<?=$queries->sort('oddMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第一次在平台进行投资行为的"><i class="fa fa-question"></i></a>新用户投资</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第二次在平台进行投资行为的，算老用户投资"><i class="fa fa-question"></i></a>老用户投资</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天网页和APP端用户的投资总额"><i class="fa fa-question"></i></a>投资总额<?=$queries->sort('investMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天用户的提现次数"><i class="fa fa-question"></i></a>提现数量</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天网页和APP端用户的提现总额"><i class="fa fa-question"></i></a>提现总额<?=$queries->sort('withdrawMoney')?></th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第一次在平台进行借款行为的"><i class="fa fa-question"></i></a>新用户借款</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="用户第二次在平台进行借款行为的，算老用户借款"><i class="fa fa-question"></i></a>老用户借款</th>
+								<th class="visible-lg"><a class="visible-lg btn-box-tool ilbl" data-toggle="tooltip" data-original-title="当天网页和APP端用户的借款总额"><i class="fa fa-question"></i></a>借款总额<?=$queries->sort('loanMoney')?></th>
+							</tr>
+							<?php foreach ($data as $key => $value):?>
+							<tr>
+								<td><?=$value->id?></td>
+								<td><?=$value->time?></td>
+								<td><?=$value->registrations?></td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/recharge?date=<?=$value->time?>&searchType=userType&searchContent=新">
+										<?=$value->newRechargeUserNum?>
+									</a>
+								</td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/recharge?date=<?=$value->time?>&searchType=userType&searchContent=旧">
+										<?=$value->oldRechargeUserNum?>
+									</a>
+								</td>
+								<td><?=number_format($value->rechargeMoney, 2)?></td>
+								<td><?=number_format($value->pcRechargeMoney, 2)?></td>
+								<td><?=number_format($value->appRechargeMoney, 2)?></td>
+								<td><?=number_format($value->oddMoney, 2)?></td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/invest?date=<?=$value->time?>&searchType=userType&searchContent=新">
+										<?=$value->newInvestUserNum?>
+									</a>
+								</td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/invest?date=<?=$value->time?>&searchType=userType&searchContent=旧">
+										<?=$value->oldInvestUserNum?>
+									</a>
+								</td>
+								<td><?=number_format($value->investMoney, 2)?></td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/withdraw?date=<?=$value->time?>">
+										<?=$value->withdrawNum?>
+									</a>
+								</td>
+								<td><?=number_format($value->withdrawMoney, 2)?></td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/loan?date=<?=$value->time?>&searchType=userType&searchContent=新">
+										<?=$value->newLoanUserNum?>
+									</a>
+								</td>
+								<td>
+									<a class="label label-primary" href="/admin/statistics/loan?date=<?=$value->time?>&searchType=userType&searchContent=旧">
+										<?=$value->oldLoanUserNum?>
+									</a>
+								</td>
+								<td><?=number_format($value->loanMoney, 2)?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$data->render()?><br/><br/>
+				<h5 class="box-title">搜索结果总计：</h5>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th></th>
+								<th class="visible-lg">注册量</th>
+								<th class="visible-lg">新用户充值</th>
+								<th class="visible-lg">老用户充值</th>
+								<th class="visible-lg">充值总额</th>
+								<th class="visible-lg">PC端支付额</th>
+								<th class="visible-lg">APP端支付额</th>
+								<th class="visible-lg">发标总额</th>
+								<th class="visible-lg">新用户投资</th>
+								<th class="visible-lg">老用户投资</th>
+								<th class="visible-lg">投资总额</th>
+								<th class="visible-lg">提现数量</th>
+								<th class="visible-lg">提现总额</th>
+								<th class="visible-lg">新用户借款</th>
+								<th class="visible-lg">老用户借款</th>
+								<th class="visible-lg">借款总额</th>
+							</tr>
+							<tr>
+								<td>总计</td>
+								<td><?=$sum->sum_registrations?$sum->sum_registrations:0;?></td>
+								<td><?=$sum->sum_newRechargeUserNum?$sum->sum_newRechargeUserNum:0;?></td>
+								<td><?=$sum->sum_oldRechargeUserNum?$sum->sum_oldRechargeUserNum:0;?></td>
+								<td><?=number_format($sum->sum_rechargeMoney?$sum->sum_rechargeMoney:0, 2);?></td>
+								<td><?=number_format($sum->sum_pcRechargeMoney?$sum->sum_pcRechargeMoney:0, 2);?></td>
+								<td><?=number_format($sum->sum_appRechargeMoney?$sum->sum_appRechargeMoney:0, 2);?></td>
+								<td><?=number_format($sum->sum_oddMoney?$sum->sum_oddMoney:0, 2);?></td>
+								<td><?=$sum->sum_newInvestUserNum?$sum->sum_newInvestUserNum:0;?></td>
+								<td><?=$sum->sum_oldInvestUserNum?$sum->sum_oldInvestUserNum:0;?></td>
+								<td><?=number_format($sum->sum_investMoney?$sum->sum_investMoney:0, 2);?></td>
+								<td><?=$sum->sum_withdrawNum?$sum->sum_withdrawNum:0;?></td>
+								<td><?=number_format($sum->sum_withdrawMoney?$sum->sum_withdrawMoney:0, 2);?></td>
+								<td><?=$sum->sum_newLoanUserNum?$sum->sum_newLoanUserNum:0;?></td>
+								<td><?=$sum->sum_oldLoanUserNum?$sum->sum_oldLoanUserNum:0;?></td>
+								<td><?=number_format($sum->sum_loanMoney?$sum->sum_loanMoney:0, 2);?></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

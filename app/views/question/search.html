@@ -1,0 +1,75 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('question/common/search.html');?>
+  <div class="main mb30 clearfix">
+    <div class="fl"  style="width:730px;">
+      <div class="ui-tab ui-tab-s">
+        <div class="search-result">
+          检索到 <strong><?=$total;?></strong> 条与“<?=$pager->getParam('keyword', '');?>”相关的问题
+        </div>
+        <div class="Qwrap pt15" id="allQ">
+          <ul class="q-list">
+          <?php if($total>0):?>
+            <?php foreach ($questions as $question):?>
+            <li>
+              <a href="/question/view?id=<?=$question['aid'];?>" class="title">
+                <?php if($question['type']=='ceo'):?>
+                <em class="ceo-ico">CEO</em>
+                <?php endif;?>
+                <?=$question['title'];?>
+              </a>
+              <p class="q-list-content">
+                <?=$question['content'];?>
+              </p>
+              <p class="mb10">
+                <span class="ask-cl-grey">
+                  发表：
+                  <a class="ask-cl-blue"><?=_hide_username($question['username']);?></a>
+                  <strong class="f13 ml15"></strong>
+                </span>
+                <span class="ask-cl-grey ml50">
+                  最后回复：
+                  <a class="ask-cl-blue">
+                    <?php if($question['lastansweruser']!=''):?>
+                      <?php if($question['type']=='ceo'):?>
+                        CEO
+                      <?php elseif($question['lastansweruser']=='平台客服'):?>
+                        平台客服
+                      <?php elseif($question['lastansweruser']=='汇诚普惠平台'):?>
+                        汇诚普惠平台
+                      <?php else:?>
+                        <?=_hide_username($question['lastansweruser']);?>
+                      <?php endif;?>
+                    <?php endif;?>
+                  </a>
+                  <strong class="f13 ml15">
+                    <?php if($question['lastanswertime']!=null):?><?=date('Y-m-d',strtotime($question['lastanswertime']));?><?php endif;?>
+                  </strong>
+                </span>
+                <span class="ask-cl-grey ml50">已阅读：<a class="ask-cl-blue"><?=$question['hitcount'];?></a></span>
+              </p>
+              <a class="answernum" href="/question/view?id=<?=$question['aid'];?>"><?=$question['answercount'];?>个回复</a>
+            </li>
+            <?php endforeach;?>
+          <?php endif;?>
+          </ul>
+
+          <!--分页-->
+          <div class="pagination-wrapper pt30">
+            <?=$pager->html();?>
+          </div>
+        </div>
+        <div class="Qwrap" id="hotQ"></div>
+
+      </div>
+    </div>
+    <div class="fr" style="width:210px">
+      <?php $this->display('question/common/ceo.html');?>
+      <?php $this->display('question/common/sign.html', ['user'=>$user, 'signCount'=>$signCount, 'isUserSign'=>$isUserSign]);?>
+      <?php //$this->display('question/common/block.html');?>
+      <?php $this->display('question/common/ranking.html', ['rankingList'=>$rankingList]);?>
+    </div>
+  </div>
+</div>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

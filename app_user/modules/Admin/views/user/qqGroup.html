@@ -1,0 +1,132 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">用户列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+                            <div class="form-group">
+                                <label class="control-label">Q群状态</label>
+                                <div class="select-wrap">
+                                    <select class="form-control input-sm" name="qqGroup">
+                                        <option value="">全部</option>
+                                        <option value="1" <?php if($queries->qqGroup=='1'):?>selected<?php endif;?>>普通群</option>
+                                        <option value="2" <?php if($queries->qqGroup=='2'):?>selected<?php endif;?>>大V群</option>
+                                        <option value="3" <?php if($queries->qqGroup=='3'):?>selected<?php endif;?>>不入群</option>
+                                    </select>
+                                </div>
+                            </div>
+							<div class="form-group">
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="status">
+										<option value="">全部</option>
+										<option value="vip" <?php if($queries->qqGroup=='1'):?>selected<?php endif;?>>可进大V</option>
+										<option value="normal" <?php if($queries->qqGroup=='2'):?>selected<?php endif;?>>可进普通</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>编号</th>
+								<th>用户名</th>
+								<th>注册时间</th>
+								<th class="visible-lg">VIP等级</th>
+								<th class="visible-lg">电话号码</th>
+								<th class="visible-lg">QQ号码</th>
+								<th class="visible-lg">待收本金</th>
+								<th class="visible-lg">最近投资时间</th>
+								<th class="visible-lg">投资记录</th>
+								<th class="visible-lg">未投资天数</th>
+								<th class="visible-lg">Q群状态</th>
+								<th class="visible-lg">Q群变更</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($list as $value):?>
+							<tr data-id="<?=$value->id?>">
+								<td><?=$value->id?> </td>
+								<td><?=$value->username?></td>
+								<td><?=$value->addtime?></td>
+								<td class="visible-lg">V<?=$value->getTenderGrade()['grade']?></td>
+								<td class="visible-lg"><?=$value->phone?></td>
+								<td class="visible-lg"><?=$value->qq?></td>
+								<td class="visible-lg"><?=empty($stayMoney[$value->userId])?'0':$stayMoney[$value->userId];?>元</td>
+								<td class="visible-lg"><?=isset($value->oddMoney[0]) ? $value->oddMoney[0]['time'] : '暂无' ?></td>
+								<td class="visible-lg">
+                                    <a href="/admin/loan/invests?searchType=userId&searchContent=<?=$value->userId ?>&startTime=&endTime=" target="_blank">点击查看</a></td>
+								<td class="visible-lg">
+                                    <?= isset($value->oddMoney[0]) ? ceil((time()-strtotime($value->oddMoney[0]['time']))/86400) .'天' : ceil((time()-strtotime($value->addtime))/86400) .'天' ?>
+                                </td>
+								<td class="visible-lg">
+                                    <?php if($value->qqGroup=='0'):?>
+                                    <span class="label label-success">未标识</span>
+                                    <?php elseif($value->qqGroup=='1'):?>
+                                    <span class="label label-success">普通群</span>
+                                    <?php elseif($value->qqGroup=='2'):?>
+                                    <span class="label label-success">大V群</span>
+                                    <?php elseif($value->qqGroup=='3'):?>
+                                    <span class="label label-success">不入群</span>
+                                    <?php endif;?>
+                                </td>
+								<td class="visible-lg">
+                                    <?php if((isset($stayMoney[$value->userId]) && $stayMoney[$value->userId]>200000) || $value->getTenderGrade()['grade'] > 5 ):?>
+                                    <span >可进大V</span>
+                                    <?php elseif((isset($stayMoney[$value->userId]) && $stayMoney[$value->userId] <= 200000 && $stayMoney[$value->userId] >= 20000) ):?>
+                                    <span >可进普通</span>
+                                    <?php endif;?>
+                                </td>
+								<td>
+									<a class="btn btn-ssm btn-success group-handle" href="javascript:;">
+										<i class="fa  icon-white"></i>
+										换群
+									</a>
+								</td>
+
+							</tr>
+							<?php endforeach;?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="change-group-modal" tabindex="-1" role="dialog" aria-labelledby="remark-bespokes-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h5 class="modal-title" id="change-group-label">请选择要切换的群</h5>
+			</div>
+			<div class="modal-body">
+				<div id="change-group-from" class="form-horizontal">
+					<div class="form-group hidden-vars hide">
+						<input type="hidden" name="id" value="">
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">QQ群</label>
+                            <input type="radio" name="qqGroup" value="1">普通群
+                            <input type="radio" name="qqGroup" value="2">大V群
+                            <input type="radio" name="qqGroup" value="3">不入群
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary btn-sm" id="change-group-btn">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

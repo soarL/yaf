@@ -1,0 +1,36 @@
+<?php
+  use helpers\DateHelper;
+?>
+<div class="q-module mt15">
+  <?php if($user):?>
+  <div class="tc grey-color-6 p15">
+    <?php echo $user['username'];?>
+    <a href="javascript:;" class="ajax-logout-box-btn ask-blue-btn btn-sm pr">退出登录</a>
+  </div>
+  <?php else:?>
+  <div class="tc grey-color-6 p15">
+    您还未登录
+    <a href="javascript:;" class="user-login-btn ask-blue-btn pr">立即登录</a>
+  </div>
+  <div class="ask-bg-grey tc grey-color-6 f12 pt10 pb10">
+    新用户?
+    <a href="/register" class="ask-cl-orange no_unl f12">免费注册</a>
+  </div>
+  <?php endif;?>
+</div>
+<div class="q-module mt15">
+  <div class="tc grey-color-6 p15 pr pr100">
+    <span class="week"><?php echo DateHelper::getWeekByTime(time());?></span>
+    <br />
+    <span class="date"><?php echo date('m-d', time());?></span>
+    <?php if($isUserSign):?>
+    <a href="javascript:;" class="pa ask-blue-btn sign-btn had-sign">已签到</a>
+    <?php else:?>
+    <a id="sign-btn" href="javascript:;" class="pa ask-blue-btn sign-btn">签到</a>
+    <?php endif;?>
+  </div>
+  <div class="ask-bg-grey tc grey-color-6 f12 pt10 pb10">
+    已签到 <strong id="sign-count-show" class="ask-cl-orange no_unl f12 ml5 mr5"><?php echo $signCount;?></strong>
+    人
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="pandectFooter">
+    <div class="pandectFooterTitle">
+        <h1>回款日历</h1>
+        <ul class="list-unstyled">
+            <li class="oval-3">已回款</li>
+            <li class="oval-4">待回款</li>
+            <li class="oval-5">逾期还款</li>
+            <li class="oval-6">提前还款</li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 回款日历 -->
+    <div class="pandectBody-3">
+        <div class="account-box pull-left">
+            <h2 class="account-title">
+                <a href="javascript:" class="f-btn-fhby pull-right">返回本月</a>
+                <div class="clearfix pull-right">
+                    <div class="f-btn-jian pull-left">&lt;</div><div class="pull-left f-riqi"><span class="f-year">2017</span>年<span class="f-month">1</span>月</div><div class="f-btn-jia pull-left">&gt;</div><!-- 一定不能换行-->
+                </div>
+            </h2>
+            <div class="f-rili-table">
+                <div class="f-rili-head celarfix">
+                    <div class="f-rili-th">周日</div>
+                    <div class="f-rili-th">周一</div>
+                    <div class="f-rili-th">周二</div>
+                    <div class="f-rili-th">周三</div>
+                    <div class="f-rili-th">周四</div>
+                    <div class="f-rili-th">周五</div>
+                    <div class="f-rili-th">周六</div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="f-tbody clearfix"></div>
+            </div>
+        <!-- 当月回款情况 -->
+            <dl class="monthRturne">
+                <dd>本月计划回款(元): <span id="month-plan-amount" class="monthRturne-1">￥1000.00 <a title="" class="monthPlanAmount"></a></span></dd>
+                <dd>逾期还款项目(个): <span id="delay-count">0</span></dd>
+            </dl>
+            <dl class="monthRturne">
+                <dd>本月实际回款(元): <span id="month-real-amount" class="monthRturne-1">￥1000.00 <a title="" class="monthRealAmount"></a></span></dd>
+                <dd>提前还款项目(个): <span id="advance-count">0</span></dd>
+            </dl>
+            <div class="clearfix"></div>
+        </div>
+    <!-- 回款计划详细的表格 -->
+        <div class="rtureTable">
+            <dl class="rtureTable-1">
+                <dt>计划回款项目（个）</dt>
+                <dt>计划回款金额（元）</dt>
+                <dd><a class="rtureTable-1-1 pageUp">&lt;</a><span id="repayment-day-count">0</span></dd>
+                <dd><span id="repayment-day-money">￥0.00</span><a  class="rtureTable-1-2 pageDown">&gt;</a></dd>
+                <div class="clearfix"></div>
+            </dl>
+            <div class="rtureTable-2">  
+                <!-- state-1代表待回款 state-2代表已回款 state-3代表逾期中 -->
+                <dl id="project-list" style="display: none;">
+                </dl>
+                <!-- 无信息显示该div-->
+                <div class="default"  style="display: block;">
+                    <img src="<?=RSRC?>/images/user/default.png" alt="">
+                    <input type="text" style="display: none;" value="" id="nextTime">
+                    <button class="default-btn">下个还款日</button>
+                </div>
+            </div>
+            <ul class="fanye list-unstyled" style="display: none;">
+                <li class="pageUp">&lt;</li>
+                <li class="pageUp">上一页</li>
+                <li class="pageDown">下一页</li>
+                <li class="pageDown">&gt;</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>   
+        <div class="clearfix"></div>    
+    </div>
+</div>

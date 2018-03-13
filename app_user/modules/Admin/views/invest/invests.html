@@ -1,0 +1,90 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">债权列表</h3>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<div class="form-group">
+								<label class="control-label">查询</label>
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option value="username" <?php if($searchType=='username'):?>selected<?php endif;?>>帐号</option>
+										<option value="oddNumber" <?php if($searchType=='oddNumber'):?>selected<?php endif;?>>订单号</option>
+										<option value="userId" <?php if($searchType=='userId'):?>selected<?php endif;?>>用户ID</option>
+										<option value="phone" <?php if($searchType=='phone'):?>selected<?php endif;?>>手机</option>
+										<option value="name" <?php if($searchType=='name'):?>selected<?php endif;?>>姓名</option>
+									</select>
+								</div>
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group">
+								<label class="control-label">投资类型</label>
+								<?php $type = $queries->type;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="type">
+										<option value="all" <?php if($type=='all'):?>selected<?php endif;?>>全部</option>
+										<option value="credit" <?php if($type=='credit'):?>selected<?php endif;?>>债权转让</option>
+										<option value="invest" <?php if($type=='invest'):?>selected<?php endif;?>>普通标的</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label time-label">投资时间</label>
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-0">
+							<tr>
+								<th>标的号</th>
+								<th>用户</th>
+								<th class="visible-lg">投资时间</th>
+								<th class="visible-lg">金额</th>
+								<th class="visible-lg">合同</th>
+								<th class="visible-lg">状态</th>
+								<th>操作</th>
+							</tr>
+							<?php foreach ($list as $value){ $id = $value->pcrtr?($value->pcrtr->id +80000000):'';?>
+							<tr>
+								<td><?=$value->oddNumber?></td>
+								<td><?=$value->userId?></td>
+								<td class="visible-lg"><?=$value->time?></td>
+								<td class="visible-lg"><?=$value->money?></td>
+								<td class="visible-lg"><?=$value->ancun?$value->ancun->recordNo:'';?></td>
+								<td class="visible-lg"><?=$value->type=='invest'?'普通':'债转';?></td>
+								<td>
+									<?php if($id){?>
+									<a class="btn btn-ssm btn-info" href="/admin/invest/claims?searchType=id&progress=all&searchContent=<?=$id?>"> <i class="fa fa-eye icon-white"></i>
+										查看
+									</a>
+									<?php }?>
+								</td>
+							</tr>
+							<?php }?></table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$list->render()?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

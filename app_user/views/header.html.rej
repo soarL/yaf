@@ -1,0 +1,19 @@
+diff a/app_user/views/header.html b/app_user/views/header.html	(rejected hunks)
+@@ -68,7 +68,7 @@
+ 	<div class="container">
+ 		<ul class="pull-left list-inline">
+ 			<li><img src="<?=WEB_ASSET?>/web/public/img/phoneico.png" alt="phoneico"> 全国热线：<span> 400-080-8885 </span>(9:00-21:00)</li>
+-			<li class="weixinBox">关注我们：<a href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4000808885" target="_blank"><img src="<?=RSRC?>/images/public/qqico.png" alt="qq"></a> <img src="<?=RSRC?>/images/public/wxico.png" alt="weixin" id='weixin'><div style="display: none;" class="weixin"></div></li>
++			<li>关注我们：<img src="<?=WEB_ASSET?>/web/public/img/qqico.png" alt="qq"> <img src="<?=WEB_ASSET?>/web/public/img/wxico.png" alt="weixin"></li>
+ 		</ul>
+ 		<ul class="pull-right list-inline">
+ 			<?php if($user):?>
+@@ -76,7 +76,7 @@
+ 			<li class="ls">|</li>
+ 			<li><a href="javascript:;" class="login ajax-logout-box-btn">退出</a></li>
+ 			<?php else:?>
+-			<li><a href="<?=WEB_LOGIN?>" class="enter">登录</a></li>
++			<li><a href="<?=WEB_LOGIN?>" class="enter">登录</a></li>
+ 			<li class="ls">|</li>
+ 			<li><a href="<?=WEB_LOGIN?>" class="login">注册</a></li>
+ 			<?php endif;?>

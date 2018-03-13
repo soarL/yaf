@@ -1,0 +1,99 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+  <?php $this->display('user/common/menu.html');?>
+  <div class="main pt20 mb20">
+    <?php $this->display('user/common/tab-invest.html');?>
+    <div class="content-wrap clearfix mb20">
+        <?php $this->display('user/common/queue-info.html', ['preInfo'=>$preInfo, 'location'=>$location, 'validPer'=>$validPer, 'invalidPer'=>$invalidPer,  'inQueue'=>$inQueue]);?>
+        <div class="auto-setting clearfix">
+            <div class="auto-box box-left clearfix">
+                <div class="auto-link" style="margin-bottom: 15px;">
+                    <input type="hidden" name="mode" value="<?=$mode?>">
+                    <a style="color: #2ea7e0;" target="_blank" href="http://bbs.hcjrfw.com/forum.php?mod=viewthread&tid=61573&fromuid=1">
+                        新版自动投标规则【攻略】
+                    </a>
+                    <a style="color: #2ea7e0; float: right; display: block;" href="/user/autoInvest?mode=0">
+                        自动投标高级版
+                    </a>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="label layer-tip" data-position="1" data-content="您当前账户的余额">账户金额</label>
+                    <div class="group-wrap">
+                        <span id="user-money" data-money="<?=$user->fundMoney?>" class="static-input"><?=$user->fundMoney?>元</span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="label layer-tip" data-position="1" data-content="自动投标功能开关">自动投标</label>
+                    <div class="group-wrap">
+                        <div id="auto-select" class="elf-select clearfix">
+                            <a class="btn-group btn-left <?php if($autoInvest->autostatus==1):?>on<?php endif;?>" 
+                                href="javascript:;" data-value="1">开启
+                            </a>
+                            <a class="btn-group btn-right <?php if($autoInvest->autostatus==0):?>on<?php endif;?>" 
+                                href="javascript:;" data-value="0">关闭
+                            </a>
+                            <input class="value" type="hidden" value="<?=$autoInvest->autostatus?>" name="autostatus">
+                        </div>
+                    </div>
+                </div>
+                <div id="range-input" class="form-group clearfix">
+                    <label class="label layer-tip" data-position="1" data-content="设置每笔自动投标投出的金额范围">投资范围</label>
+                    <div class="group-wrap">
+                        <input type="text" class="input" name="rangeBegin" value="<?=$autoInvest->investMoneyLower?>" placeholder="请输入50的倍数">
+                        <span>-</span>
+                        <input type="text" class="input" name="rangeEnd" value="<?=$autoInvest->investMoneyUper?>" placeholder="请输入50的倍数">
+                        <span style="color: #2ea7e0; padding-left: 8px;">金额请输入50的倍数</span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="label layer-tip" data-position="1" data-content="选定后，自动投标只会选择该类型标投出">借款期限</label>
+                    <div id="auto-periods" class="list-item clearfix">
+                        <ul class="clearfix">
+                            <?php foreach($allPeriods as $p):?> 
+                            <li data-value="<?=$p?>" <?php if(in_array($p, $periods)):?>class="on"<?php endif;?>>
+                                <?=str_replace(['month', 'week'], ['个月', '周'], $p)?><i class="rt"></i>
+                            </li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="label poshytip" title="可以使用的奖券">可用奖券</label>
+                    <div class="group-wrap">
+                        <select id="lottery-list" name="lotteryID" class="select">
+                            <option value="0">不使用</option>
+                            <?php foreach($lotteries as $lottery):?> 
+                            <option value="<?=$lottery['id']?>" <?php if($lottery['id']==$autoInvest->lottery_id):?>selected<?php endif;?>>
+                                <?=$lottery['name']?> <?php if($lottery['id']==$autoInvest->lottery_id):?>[正在使用]<?php endif;?>      
+                            </option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <button id="auto-submit" type="button" class="btn btn-blue">提交</button>
+                    <button id="default-set" type="button" class="btn btn-blue" style="margin-left:10px;">默认设置</button>
+                </div>
+            </div>
+            <div class="auto-intro box-right clearfix">
+                <h2 style="margin-top:0px">投标金额上限</h2>
+                <p>若发标金额≤3万元，自动投出上限为发标金额的50%；3万元<发标金额≤10万元，自动投出上限为标的金额的25%；发标金额>10万元，自动投出上限为标的金额的20%。</p>
+                
+                <h2>相关名词解释</h2>
+                <p><em>排队资金：</em>系统仅会识别排队账户实际余额计入排队资金中，设置的金额不会被计入。</p>
+                <p><em>有效排名：</em>系统将投标设置正确且账户余额符合设置的待投用户计入有效排名中。</p>
+                <p><em>无效排名：</em>系统将投标设置“排队不投”、“关闭自动投标”、“不选择任一投资类型”或账户余额不符合投资金额设置、保留金额设置的用户计入无效排名。</p>
+                <p><em>排队不投：</em>不进行投资，只排队占位(不退出排名，且排名会前移)。</p>
+
+                <h2>投标规则说明：</h2>
+                <p>1、自动投标设置提交后即进入投标队列；</p>
+                <p>2、起投金额：大于等于50的倍数；</p>
+                <p>3、排队过程中可自由修改设置，任意设置皆不影响其排队位置；</p>
+                <p>4、关闭自动投标或用户自动投标成功后，都会重新开始排队；</p>
+                <p>5、关闭第三方资金托管授权则退出自动投标队列。</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

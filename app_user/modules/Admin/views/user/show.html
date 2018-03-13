@@ -1,0 +1,309 @@
+<?php $this->display('header.html');?>
+<div class="row">
+  <div class="col-xs-6">
+    <div id="xwsd-box" class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">用户信息</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/user/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="" class="form-horizontal" method="get">
+      <div class="box-body">
+        <input id="show-user-id" type="hidden" name="userId" value="<?=$user->userId?>">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">用户名</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <span class="label label-primary"><?=$user->userId?></span>
+              <?=$user->username?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">手机</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->phone?>
+              <?php if($user->phonestatus=='y'):?>
+              <span class="label label-success">认证</span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">姓名</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->name?>
+              <?php if($user->sex=='man'):?>
+              <span class="label bg-blue">
+              <i class="fa fa-mars"></i>
+              </span>
+              <?php else:?>
+              <span class="label bg-fuchsia">
+              <i class="fa fa-venus"></i>
+              </span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">身份证号</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->cardnum?>
+              <?php if($user->cardstatus=='y'):?>
+              <span class="label label-success">认证</span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">账户余额</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->fundMoney?>元 
+              <?php if($cAccount):?>
+              <span class="text-success">[<?=$cAccount['availableAmount']?>元]</span>
+              <?php else:?>
+              <span class="text-danger">[查询失败]</span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">冻结金额</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->frozenMoney?>元
+              <?php if($cAccount):?>
+              <span class="text-success">[<?=$cAccount['freezeAmount']?>元]</span>
+              <?php else:?>
+              <span class="text-danger">[查询失败]</span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">邮箱</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->email?>
+              <?php if($user->emailstatus=='y'):?>
+              <span class="label label-success">认证</span>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">总投资</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=$tenderMoney?>元</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">注册时间</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=$user->addtime?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">推荐人</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <a target="_blank" href="/admin/user/show?username=<?=$user->tuijian?>">
+                <?=$user->tuijian?>
+              </a>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">推荐奖励</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=$user->gradeSum?>元</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">积分</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=intval($user->integral/100)?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">活动金额</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=intval($user->imiMoney)?></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">备注</label>
+          <div class="col-sm-10">
+            <p class="form-control-static"><?=$user->comments?></p>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div id="custody-box" class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">存管信息</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/user/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <form action="" class="form-horizontal" method="get">
+      <div class="box-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">账号类型</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?php if($user->custody_id):?>
+                <?php if($cAccount['userRole']=='GUARANTEE'):?>
+                  <span class="text-danger" style="font-weight: bold;">担保人/机构</span>
+                <?php elseif($cAccount['userRole']=='INVESTOR'):?>
+                  <span class="text-success" style="font-weight: bold;">投资人</span>
+                <?php elseif($cAccount['userRole']=='BORROWERS'):?>
+                  <span class="text-warning" style="font-weight: bold;">借款人</span>
+                <?php else:?>
+                  <span class="text-warning" style="font-weight: bold;">未知</span>
+                <?php endif;?>
+              <?php endif;?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">存管账号</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->custody_id?$user->custody_id:'<span class="label label-warning">未开通</span>'?>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">自动投标签约号</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->auto_bid_auth?$user->auto_bid_auth:'<span class="label label-warning">未签约</span>'?> 
+              <a class="btn btn-ssm btn-info sync-info" data-type="auto_bid" href="javascript:;">同步</a>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">自动债转签约号</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$user->auto_credit_auth?$user->auto_credit_auth:'<span class="label label-warning">未签约</span>'?> 
+              <a class="btn btn-ssm btn-info sync-info" data-type="auto_credit" href="javascript:;">同步</a>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">绑定银行卡</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?=$bank?$bank->bankNum:'<span class="label label-warning">未绑定</span>'?> 
+              <a class="btn btn-ssm btn-info sync-info" data-type="bank_card" href="javascript:;">同步</a>
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">存管密码</label>
+          <div class="col-sm-10">
+            <p class="form-control-static">
+              <?php if($user->is_custody_pwd):?>
+              <span class="label label-success">已设置</span> 
+              <?php else:?>
+              <span class="label label-warning">未设置</span> 
+              <?php endif;?>
+              <a class="btn btn-ssm btn-info sync-info" data-type="password" href="javascript:;">同步</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">其他信息</h3>
+        <div class="box-tools pull-right">
+          <a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="返回列表" href="/admin/user/list">
+          <i class="fa fa-list"></i></a>
+        </div>
+      </div>
+      <div class="box-body">
+        <div class="col-xs-12">
+          <p style="margin-top: 10px">信息查询:</p>
+          <a class="btn btn-app" href="/admin/user/loginLog?userId=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-angellist"></i> 登录日志
+          </a>
+          <a class="btn btn-app" href="/admin/auto/index?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-pagelines"></i> 自动投标详情
+          </a>
+          <a class="btn btn-app" href="/admin/recharge/list?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-money"></i> 充值记录
+          </a>
+          <a class="btn btn-app" href="/admin/loan/invests?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-opencart"></i> 投标记录
+          </a>
+          <a class="btn btn-app" href="/admin/withdraw/list?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-dot-circle-o"></i> 提现记录
+          </a>
+          <a class="btn btn-app" href="/admin/invest/claims?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa fa-chain-broken"></i> 债券转让记录
+          </a>
+          <a class="btn btn-app" href="/admin/log/money?searchType=userId&searchContent=<?=$user->userId?>" target="_blank">
+            <i class="fa  fa-file-text-o"></i> 资金日志
+          </a>
+        </div>
+        <div class="col-xs-12">
+          <p style="margin-top: 10px">账户操作:</p>
+          <button id="update-phone" class="btn btn-app" type="button"><i class="glyphicon glyphicon-edit"></i> 修改手机号</button>
+          <button id="delete-account" class="btn btn-app" type="button"><i class="glyphicon glyphicon-trash"></i> 删除账户</button>
+        </div>
+        <?php if(count($frozenOdds)):?>
+        <div class="col-xs-12">
+          <p style="margin-top: 10px">冻结投标:</p>
+          <?php foreach($frozenOdds as $frozenOdd):?>
+          <span class="label label-success" style="display: inline-block; padding: 5px 8px;"><?=$frozenOdd->oddNumber?></span>
+          <?php endforeach;?>
+        </div>
+        <?php endif;?>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="update-phone-modal" tabindex="-1" role="dialog" aria-labelledby="update-phone-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h5 class="modal-title" id="update-phone-label">修改手机号</h5>
+      </div>
+      <div class="modal-body">
+        <div id="update-phone-from" class="form-horizontal">
+          <div class="form-group hidden-vars hide">
+            <input type="hidden" name="userId" value="<?=$user->userId?>">
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">新手机号</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" name="phone" value="" placeholder="输入新手机号">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary btn-sm" id="update-phone-btn">提交</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,237 @@
+<?php $this->display('header.html');?>
+<div id="event20161229">
+  <div class="header">
+    <h3 class="hidden">欢庆元旦3重好礼</h3>
+    <p class="hidden">活动时间：2017年1月1日 - 2017年1月31日</p>
+  </div>
+  <div class="body">
+    <div class="event event01">
+      <p class="desc">
+        活动期间，投资24月标即可获得同面值的小微币（APP显示为现金劵），小微币可在平台兑换专区兑换各类礼品。
+        <small>（每个帐户仅限兑换3次，同一档次礼品仅能兑换1次，同档礼品间兑换次数互通，兑完即止）</small>
+      </p>
+      <?php if($user):?>
+      <div class="eventInfo left infoItem redFont">
+        <dl class="clearfix">
+          <dt>您的账户</dt>
+          <dd><?=$user->username?></dd>
+        </dl>
+        <dl class="clearfix">
+          <dt>小微币数量</dt>
+          <dd><strong><?=$user->imiMoney?></strong></dd>
+        </dl>
+        <dl class="tableItem clearfix">
+          <dt>收货地址</dt>
+          <dd>
+            <table>
+              <thead>
+                <tr>
+                  <th width="50">收货人</th>
+                  <th width="80">所在地区</th>
+                  <th>详细地址</th>
+                  <th width="50">邮编</th>
+                  <th width="70">手机/电话</th>
+                  <th width="30">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if($address):?>
+                <tr data-id="<?php echo $address['id'];?>">
+                  <td><?=$address->name?></td>
+                  <td><?=$address->address?></td>
+                  <td><?=$address->addressDetail?></td>
+                  <td><?=$address->zipcode?></td>
+                  <td><?=$address->phone?></td>
+                  <td>
+                    <a href="javascript:;" class="edit-btn" id="address-update">修改</a>
+                  </td>
+                </tr>
+                <?php else:?>
+                <tr>
+                  <td colspan="6">
+                    尚未填写收货地址！<a href="javascript:;"  id="address-edit" class="edit-btn">填写收货地址</a>
+                  </td>
+                </tr>
+                <?php endif;?>
+              </tbody>
+            </table>
+          </dd>
+        </dl>
+        <dl class="tableItem clearfix">
+          <dt>我的兑换</dt>
+          <dd>
+            <table>
+              <thead>
+                <tr>
+                  <th width="26">序号</th>
+                  <th>兑换奖品</th>
+                  <th width="50">审核状态</th>
+                  <th width="120">兑换时间</th>
+                  <!-- <th width="30">操作</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <?php if(count($records)>0):?>
+                <?php foreach($records as $record):?>
+                <tr>
+                  <td>1</td>
+                  <td><?=$record->prize->prizeName?></td>
+                  <td>
+                    <?php if($record->status==0):?>
+                    审核中
+                    <?php elseif($record->status==1):?>
+                    投递中
+                    <?php elseif($record->status==2):?>
+                    已投递
+                    <?php elseif($record->status==-1):?>
+                    审核失败
+                    <?php endif;?>
+                  </td>
+                  <td><?=_date('Y年n月j日', $record->addtime)?></td>
+                  <!-- <td>
+                    <a href="javascript:;" class="delete-prize" data-name="<?=$record->prize->prizeName?>" data-id="<?=$record->id?>">
+                    取消
+                    </a>
+                  </td> -->
+                </tr>
+                <?php endforeach;?>
+                <?php else:?>
+                <tr>
+                  <td colspan="5">尚未兑换奖品！</td>
+                </tr>
+                <?php endif;?>
+              </tbody>
+            </table>
+          </dd>
+        </dl>
+        <div class="buttonLine">
+          <a id="scroll-ex" href="javascript:;" type="button">进入兑换专区</a>
+        </div>
+      </div>
+      <?php else:?>
+      <div class="eventInfo left noLogin">
+        <button class="user-login-btn" type="button">登录</button>
+      </div>
+      <?php endif;?>
+      <div id="listAnimate" class="eventInfo right"  style="overflow:hidden; height:390px;">
+        <ul class="giftList redFont" style="height:390px">
+          <?php foreach($exchangePrizes as $item):?>
+          <li style="height: 30px; line-height: 30px;">
+            <strong><?=_hide_username($item->user->username)?></strong>
+            <span><?=$item->prize->prizeName?></span>
+          </li>
+          <?php endforeach;?>
+        </ul>
+      </div>
+    </div>
+    <div class="event event02">
+      <p class="desc">
+        活动期间，投资24月标单笔达3000以上（重复投资同一标的项目只计1张）即可获得刮刮卡一张，就有机会刮得现金红包。
+      </p>
+      <p class="redFont lotteryTime">
+        您还有<span id="packet-time"> <?=$num?> </span>次机会
+      </p>
+      <p class="redFont lotteryMoney">
+        您已获得红包<strong id="packet-money"><?=$packetMoney?></strong>元
+        <small>（中奖后平台将在3个工作日内安排打款）</small>
+      </p>
+      <div class="lotteryArea" id="page_lotteryArea">
+        <button type="button">点击刮开此图层</button>
+        <img src="<?=RSRC?>/images/newyear2017/lottery_f.png" alt="点击刮开此图层" class="hidden" />
+        <p class="redFont hidden"><a href="#">再玩一次</a></p>
+      </div>
+    </div>
+    <div class="event event03">
+      <p class="desc">
+        活动期间，投资24月标单笔达5000以上（重复投资同一标的项目只计1张）即可获得提现劵一张（使用期限：1年）。
+      </p>
+    </div>
+    <div id="elf" class="event event04">
+      <ul class="giftArea">
+        <?php if(isset($prizes[0])):?>
+        <li class="gift01 clearfix" data-id="<?=$prizes[0]['id']?>">
+          <div class="giftItem">
+            <h4 class="redFont"><?=$prizes[0]['prizeName']?></h4>
+            <p class="redFont"><?=$prizes[0]['prizeCash']?> 小微币 &nbsp; &nbsp; 剩余 <?=$levels[$prizes[0]['level']]?> 份</p>
+            <button data-id="<?=$prizes[0]['id']?>" class="exchange-btn" type="button">立即兑换</button>
+          </div>
+        </li>
+        <?php unset($prizes[0]);?>
+        <?php endif;?>
+        <?php $i=0;?>
+        <?php $j=2;?>
+        <?php foreach($prizes as $prize):?>
+        <?php if($i%3==0):?>
+        <li class="gift0<?=$j?> clearfix">
+          <ul class="giftItem clearfix">
+        <?php $j++;?>
+        <?php endif;?>
+            <li data-id="<?=$prize['id']?>">
+              <h4 class="redFont"><?=$prize['prizeName']?></h4>
+              <p class="redFont"><?=$prize['prizeCash']?> 小微币 &nbsp; &nbsp; 剩余 <?=$levels[$prize['level']]?> 份</p>
+              <button data-id="<?=$prize['id']?>" class="exchange-btn" type="button">立即兑换</button>
+            </li>
+        <?php if(($i+1)%3==0):?>
+          </ul>
+        </li>
+        <?php endif;?>
+        <?php $i++;?>
+        <?php endforeach;?>
+      </ul>
+    </div>
+    <div class="event event05">
+      <ol class="desc">
+        <li>本次活动时间：2017年1月1日-2017年1月31日(延期至2017年2月5日)</li>
+        <li>活动礼品平台将于每周的周一进行统计发货，礼品发货后投资人会收到短信通知，如遇法定节假日则将顺延至下个工作日统计发货。（实际到货时间需考虑物流情况）</li>
+        <li>2017年2月1日起小微币和刮刮卡抽奖次数即判定失效(延期至2017年2月5日)。</li>
+        <li>承接债权转让项目不计入本次活动中。</li>
+        <li>若非正常投资行为所获取的礼品，平台有权不予兑换。（包括但不仅限于利用非法程序、漏洞获取礼品的行为）。</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div id="ajax-exchange-box" class="hide-box box modal">
+  <div class="exchange-content">
+    <p>您确定要使用 <em id="prize-cash"></em> 小微币兑换奖品 <em id="prize-name"></em> ?</p>
+    <p>您当前还有小微币 <em id="now-cash"></em> </p>
+    <div class="none" id="prize-id"></div>
+    <button class="btn-purse" id="ajax-exchange-btn">确定</button>
+  </div>
+</div>
+<div id="ajax-delete-prize-box" class="hide-box box modal">
+  <div class="exchange-content">
+    <p>您确定要取消兑换 <em id="delete-prize-name"></em> ?</p>
+    <p>如果取消成功，您的小微币将被返还。</p>
+    <div class="none" id="delete-prize-id"></div>
+    <button class="btn-purse" id="delete-prize-btn">确定</button>
+  </div>
+</div>
+<div id="ajax-address-box" class="hide-box box modal">
+  <?php if($address):?>
+  <table class="edit-table">
+      <tr><td>收货人</td><td><input id="address-name" type="text" value="<?php echo $address['name'];?>" class="ui-input"/></td></tr>
+        <tr><td>所在地区</td><td><input id="address-address" type="text" value="<?php echo $address['address'];?>" class="ui-input" style="width:350px;"/></td></tr>
+        <tr><td>详细地址</td><td><input id="address-detail" type="text" value="<?php echo $address['addressDetail'];?>" class="ui-input" style="width:350px;"/></td></tr>
+        <tr><td>邮编</td><td><input id="address-zipcode" type="text"  value="<?php echo $address['zipcode'];?>" class="ui-input"/></td></tr>
+        <tr><td>电话\手机</td><td><input id="address-phone" type="text" value="<?php echo $address['phone'];?>" class="ui-input"/></td></tr>
+    </table>
+  <?php else:?>
+  <table class="edit-table">
+      <tr><td>收货人</td><td><input id="address-name" type="text" value="" class="ui-input"/></td></tr>
+        <tr><td>所在地区</td><td><input id="address-address" type="text" value="" class="ui-input" style="width:350px;"/></td></tr>
+        <tr><td>详细地址</td><td><input id="address-detail" type="text" value="" class="ui-input" style="width:350px;"/></td></tr>
+        <tr><td>邮编</td><td><input id="address-zipcode" type="text"  value="" class="ui-input"/></td></tr>
+        <tr><td>电话\手机</td><td><input id="address-phone" type="text" value="" class="ui-input"/></td></tr>
+    </table>
+  <?php endif;?>
+    <p class="tc mt20"><input id="set-address-btn" type="button" value="确定" class="mr20 btn-blue"/>
+    <!-- <input  type="button" value="取消" class="btn-blue"/> --></p>
+</div>
+<style type="text/css">
+  .box .exchange-content {width: 500px; }
+  .box .exchange-content p {color: #555;text-align: center; line-height: 30px;}
+  .box .exchange-content em {color: #ff5848; font-weight: bold;}
+  .btn-purse {color: #fff; font-size: 16px; text-decoration: none; display: block; height: 36px; line-height: 36px; width: 100px;background: #6633CC;border: none; margin: 0 auto; margin-top: 15px; margin-bottom: 10px;}
+</style>
+<?php $this->display('login.html');?>
+<?php $this->display('footer.html');?>

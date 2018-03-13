@@ -1,0 +1,70 @@
+<?php
+	$url = $_SERVER['REQUEST_URI'];
+	$showUrl;
+	$showTwo;
+	$urlTwo;
+	switch ($url) {
+		case '/about':
+			$showUrl="公司简介";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/info':
+			$showUrl="公司信息";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/develop':
+			$showUrl="发展历程";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/contact':
+			$showUrl="联系我们";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/cz':
+			$showUrl="电子合同";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/opendata':
+			$showUrl="运营数据";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/rates':
+			$showUrl="收费标准";
+			$showTwo ="关于我们";
+			$urlTwo="/about";
+			break;
+		case '/about/supervise':
+			$showUrl="监管法规";
+			$showTwo ="法律法规";
+			$urlTwo="/about/supervise";
+			break;	
+		case '/about/clause':
+			$showUrl="法律条款";
+			$showTwo ="法律法规";
+			$urlTwo="/about/supervise";
+			break;
+		case '/about/risk':
+			$showUrl="风险提示";
+			$showTwo ="法律法规";
+			$urlTwo="/about/supervise";
+			break;
+		default:
+			$showUrl="关于我们";
+			$showTwo ="法律法规";
+			$urlTwo="/about";
+			break;
+	}
+?>
+<div class="container">
+    <ul class="list-inline subnav">
+        <li><a href="<?=WEB_MAIN?>">首页</a></li>/
+        <li><a href="<?=WEB_MAIN?><?=$urlTwo?>"><?=$showTwo?></a></li>/
+        <li><a class="subnav-now" href="<?=WEB_MAIN?><?=$url?>"><?=$showUrl?></a></li>
+    </ul>
+</div>

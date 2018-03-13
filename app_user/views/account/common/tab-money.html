@@ -1,0 +1,19 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+    $user = Yaf\Registry::get('user');
+?>
+<div class="tab-s">
+	<a href="/account/custody" <?php if($mode=='custody'):?>class="sel"<?php endif;?>>银行存管</a>
+	<a href="/account/recharge" <?php if($mode=='recharge'):?>class="sel"<?php endif;?>>充值</a>
+	<a href="/account/withdraw" <?php if($mode=='withdraw'):?>class="sel"<?php endif;?>>提现</a>
+	<a href="/account/logs" <?php if($mode=='logs'):?>class="sel"<?php endif;?>>资金记录</a>
+	<a href="/account/rechargeRecord" <?php if($mode=='rechargeRecord'):?>class="sel"<?php endif;?>>充值记录</a>
+	<a href="/account/withdrawRecord" <?php if($mode=='withdrawRecord'):?>class="sel"<?php endif;?>>提现记录</a>
+	<?php
+		$openList = ['10347', '11769', '11922', '1000002110', '1000002169', '1000002509', '1000003573', '1000004169', '1000004199', '1000004261', '1000004487', '1000005193', '1000005373', '1000006386', '1000006559', '1000007347', '1000007361', '1000007554', '1000007709', '1000008498', '1000008635', '1000008922', '1000009651', '1000009974', '1000010345', '1000011115', '1000011304', '1000011897', '1000012367', '1000012747', '10689', '1000005308', '1000008450', '1000010391', '1000011421', '1000012617', '1000006964'];
+	?>
+	<?php if(in_array($user->userId, $openList)):?>
+	<a href="/account/integration" <?php if($mode=='integration'):?>class="sel"<?php endif;?>>积分记录</a>
+	<?php endif;?>
+</div>

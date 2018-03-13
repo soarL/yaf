@@ -1,0 +1,165 @@
+<?php $this->display('header.html');?>
+<?php $this->display('position.html');?>
+<div class="container disclosureBody openData">
+    <?php $this->display('about/common/menu.html');?>
+    <!-- 右边视图 -->
+    <div class="pull-right">
+    	<div class="riskBody faguiBody">
+    		<img src="<?=RSRC?>/images/index/disclosure/opendata.png" alt="">
+    	</div>
+    	<div class="companyInfoMain share-Info">
+    	    <h1 class="share-title">平台运营情况<span>(截止<?=date('Y年m月d日')?>)</span></h1>
+			<ul class="list-unstyled openDataList">
+				<li>
+					<h2><?=$data['total'] + 1586.9?>万</h2>
+					<h3>累计</h3>
+					<h4>交易总额</h4>
+				</li>
+				<li>
+					<h2><?=$data['count'] + 47?></h2>
+					<h3>累计</h3>
+					<h4>交易笔数</h4>
+				</li>
+				<li>
+					<h2><?=$data['totalZoneEr']?>万</h2>
+					<h3>累计</h3>
+					<h4>借款总余额</h4>
+				</li>
+				<li>
+					<h2><?=$data['totalBlack']?>万</h2>
+					<h3>关联</h3>
+					<h4>关系借款余额</h4>
+				</li>
+				<div class="clearfix"></div>
+			</ul>
+    	</div>
+    	<div class="companyInfoMain share-Info">
+    	    <h1 class="share-title">借款人情况</h1>
+			<ul class="list-unstyled openDataList">
+				<li>
+					<h2><?=$data['loanerCount'] + 42?></h2>
+					<h4>累计借款人数量</h4>
+				</li>
+				<li>
+					<h2><?=$data['nLoanerCount']?></h2>
+					<h4>当前借款人数量</h4>
+				</li>
+				<li>
+					<h2><?=$data['tenLoaner']?>%</h2>
+					<h4>前十大借款人待还金额占比</h4>
+				</li>
+				<li>
+					<h2><?=$data['firstLoaner']?>%</h2>
+					<h4>最大单一借款人待还金额占比</h4>
+				</li>
+				<div class="clearfix"></div>
+			</ul>
+    	</div>
+    	<div class="companyInfoMain share-Info">
+    	    <h1 class="share-title">出借人情况</h1>
+    	    <ul class="list-unstyled openDataList">
+    	    	<li>
+    	    		<h2><?=$data['investerCount'] + 37?></h2>
+    	    		<h4>累计出借人数量</h4>
+    	    	</li>
+    	    	<li>
+    	    		<h2><?=$data['nInvesterCount']?></h2>
+    	    		<h4>当前出借人数量</h4>
+    	    	</li>
+    	    	<div class="clearfix"></div>
+    	    </ul>
+    	    <div class="openDataLend">
+    	    	<div class="pull-left">
+    	    		<h3 class="title">性别分布</h3>
+	  				<div id="openDataSex"></div>
+	  				<ul class="list-unstyled" id="sex">
+	  					<li>
+							<i>女</i>
+							<em><?=$data['investerManRate']?>%</em>
+							<span style="background-color: #eaac7b"></span>
+	  					</li>
+	  					<li>
+							<i>男</i>
+							<em><?=$data['investerWomenRate']?>%</em>
+							<span style="background-color: #dbdbdb"></span>
+	  					</li>
+	  				</ul>
+    	    	</div>
+    	    	<div class="pull-left">
+    	    		<h3 class="title">年龄分布</h3>
+	  				<div id="openDataAge"></div>
+	  				<ul class="list-unstyled " id="age">
+	  					<li>
+							<i>25岁以下</i>
+							<em><?=$data['invester18']?>%</em>
+							<span style="background-color: #e8d47d"></span>
+	  					</li>
+	  					<li>
+							<i>26~30岁</i>
+							<em><?=$data['invester26']?>%</em>
+							<span style="background-color: #a1cf87"></span>
+	  					</li>
+	  					<li>
+							<i>31~35岁</i>
+							<em><?=$data['invester31']?>%</em>
+							<span style="background-color: #eaac7b"></span>
+	  					</li>
+	  					<li>
+							<i>36~40岁</i>
+							<em><?=$data['invester36']?>%</em>
+							<span style="background-color: #78aefa"></span>
+	  					</li>
+	  					<li>
+							<i>41~45岁</i>
+							<em><?=$data['invester41']?>%</em>
+							<span style="background-color: #c2c7d6"></span>
+	  					</li>
+	  					<li>
+							<i>46~50岁</i>
+							<em><?=$data['invester46']?>%</em>
+							<span style="background-color: #dbdbdb"></span>
+	  					</li>
+	  				</ul>
+    	    	</div>
+    	    	<div class="clearfix"></div>
+    	    </div>
+    	</div>
+    	<div class="companyInfoMain share-Info">
+    	    <h1 class="share-title">逾期情况</h1>
+    	    <ul class="list-unstyled openDataList">
+    	    	<li>
+    	    		<h2><?=$data['delayTotal']?>万</h2>
+    	    		<h4>逾期金额</h4>
+    	    	</li>
+    	    	<li>
+    	    		<h2><?=$data['delay']?></h2>
+    	    		<h4>逾期笔数</h4>
+    	    	</li>
+    	    	<li>
+    	    		<h2>0.00万</h2>
+    	    		<h4>逾期90天以上金额</h4>
+    	    	</li>
+    	    	<li>
+    	    		<h2>0</h2>
+    	    		<h4>逾期90天以上笔数</h4>
+    	    	</li>
+    	    	<div class="clearfix"></div>
+    	    </ul>
+    	</div>
+    	<div class="companyInfoMain share-Info">
+    	    <h1 class="share-title">代偿情况</h1>
+			<ul class="list-unstyled openDataList">
+				<li>
+					<h2>0.00万</h2>
+					<h4>代偿金额</h4>
+				</li>
+				<li>
+					<h2>0</h2>
+					<h4>代偿笔数</h4>
+				</li>
+				<div class="clearfix"></div>
+			</ul>
+    	</div>
+    </div>
+</div>
+<?php $this->display('footer.html');?>

@@ -1,0 +1,24 @@
+<?php $this->display('header.html');?>
+<div class="middle">
+   	<?php $this->display('knowledge/common/menu.html', ['types'=>$types]);?>
+   	<div class="main">
+		<div class="knowledge-position">当前位置：<a href="/">汇诚普惠</a> &gt;&gt; <a href="#">财富文库</a></div>
+		<div class="knowledge-list-wrap clearfix">
+			<div class="knowledge-list">
+				<div class="knowledge-title">
+					<?=$article->title?>
+				</div>
+				<div class="knowledge-content">
+					<?php if($article->image!=''):?>
+						<div style="text-align:center;margin-top:30px; margin-bottom:20px;">
+						<img src="<?=$article->image?>" alt="<?=$article-title?>">
+						</div>
+					<?php endif;?>
+					<?=$article->body?>
+				</div>
+			</div>
+			<?php $this->display('knowledge/common/block.html', ['odds'=>$odds]);?>
+		</div>
+   	</div>
+</div>
+<?php $this->display('footer.html');?>

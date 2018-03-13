@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php
+	use helpers\StringHelper;
+	use helpers\FileHelper;
+	use Yaf\Registry;
+	$asset = Registry::get('asset');
+	$asset->begin();
+?>
+<style>
+	p {
+		line-height: 35px;
+	    text-indent: 2em;
+	    color: #999;
+	    font-size: 14px;
+	}
+	h4 {
+		font-weight: 700;
+    	color: #666;
+    	margin-bottom: 10px;
+    	font-size: 14px;
+	}
+</style>
+</head>
+<body>
+	<div class="main">
+		<div class="header clearfix">
+			<div class="logo"></div>
+			<div class="title">汇诚普惠电子借款合同</div>
+		</div>
+		<div class="main-content">
+			<?php FileHelper::txt2html('protocols/crtr.txt', $params);?>
+		</div>
+		<?php if(isset($params['buyTime'])):?>
+		<div class="date-footer">
+			<?=_date('Y年n月j日', $params['buyTime'])?>
+		</div>
+		<div class="logo-footer"></div>
+		<?php endif;?>
+	</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<?php 
+    $asset = Yaf\Registry::get('asset');
+    $mode = $asset->params['mode'];
+?>
+<div class="tab-s">
+    <a href="/look" <?php if($mode=='index'):?>class="sel"<?php endif;?>>查标首页</a>
+    <a href="/look/history" <?php if($mode=='history'):?>class="sel"<?php endif;?>>历史查标</a>
+</div>

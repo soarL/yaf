@@ -1,0 +1,100 @@
+<?php $this->display('header.html');?>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"><?=$queries->date?$queries->date:'';?>&nbsp;&nbsp;&nbsp;提现详情</h3>
+				<div class="box-tools pull-right">
+				    <?php $excelUrl = $queries->getUrl(['excel'=>1]);?>
+					<a class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Excel下载" href="<?=$excelUrl;?>">
+					<i class="fa fa-file-excel-o text-red"></i></a>
+				</div>
+			</div>
+			<div class="box-body pb-0">
+				<div class="row">
+					<div class="col-sm-12">
+						<form action="" class="table-search-form clearfix">
+							<input type="hidden" name="date" value="<?=$queries->date?>" />
+							<div class="form-group">
+								<?php $searchType = $queries->searchType;?>
+								<div class="select-wrap">
+									<select class="form-control input-sm" name="searchType">
+										<option>全部</option>
+										<option value="username" data-type="text" <?php if($searchType=='username'):?>selected<?php endif;?>>用户名</option>
+										<option value="outMoney" data-type="area" <?php if($searchType=='outMoney'):?>selected<?php endif;?>>提现金额</option>
+										<option value="fee" data-type="area" <?php if($searchType=='fee'):?>selected<?php endif;?>>手续费</option>
+										<option value="outMoney-fee" data-type="area" <?php if($searchType=='outMoney-fee'):?>selected<?php endif;?>>实到金额</option>
+										<option value="isLottery" data-type="text" <?php if($searchType=='isLottery'):?>selected<?php endif;?>>使用提现卷</option>
+										<option value="bank" data-type="text" <?php if($searchType=='bank'):?>selected<?php endif;?>>提现到</option>
+									</select>
+								</div>
+							</div>
+							<?php $text = ['username', 'isLottery', 'bank'];$time = ['addtime'];$area = ['outMoney', 'fee', 'outMoney-fee'];?>
+							<div class="form-group <?php if(!in_array($searchType,$text)):?>hidden<?php endif;?> data-text">
+								<input type="text" class="form-control input-sm inline-input" name="searchContent" placeholder="查询内容" value="<?=$queries->searchContent?>">
+							</div>
+							<div class="form-group <?php if(!in_array($searchType,$time)):?>hidden<?php endif;?> data-time">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="beginTime" value="<?=$queries->beginTime?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm timepicker" data-allow-input="true" name="endTime" value="<?=$queries->endTime?>">
+								</div>
+							</div>
+							<div class="form-group <?php if(!in_array($searchType,$area)):?>hidden<?php endif;?> data-area">
+								<div class="input-group time-group">
+									<input type="text" class="form-control input-sm" name="begin" value="<?=$queries->begin?>">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-sm">至</button>
+									</div>
+									<input type="text" class="form-control input-sm" name="end" value="<?=$queries->end?>">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-info">搜索</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table table-hover mb-1">
+							<tr>
+								<?php $queries->getUrl(['excel'=>0]);?>
+								<th>编号</th>
+								<th class="visible-lg">用户名</th>
+								<th class="visible-lg">提现时间<?=$queries->sort('addtime')?></th>
+								<th class="visible-lg">提现金额<?=$queries->sort('outMoney')?></th>
+								<th class="visible-lg">手续费</th>
+								<th class="visible-lg">实到金额</th>
+								<th class="visible-lg">使用提现卷</th>
+								<th class="visible-lg">提现到</th>
+							</tr>
+							<?php foreach ($withdraw as $key => $value):?>
+							<tr>
+								<td><?=$value->id?></td>
+								<td><?=$value->user->username?></td>
+								<td><?=$value->addTime?></td>
+								<td><?=number_format($value->outMoney, 2)?></td>
+								<td><?=number_format($value->fee, 2)?></td>
+								<td><?=number_format($value->outMoney-$value->fee, 2)?></td>
+								<td>
+									<?php if($value->lotteryid == 0){?>
+									<span class="label label-default">否</span>
+									<?php }else{?>
+									<span class="label label-success">是</span>
+									<?php }?>
+								</td>
+								<td><?=$value->bank?></td>
+							</tr>
+							<?php endforeach;?>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="box-footer clearfix">
+				<?=$withdraw->render()?><br/><br/>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->display('footer.html');?>

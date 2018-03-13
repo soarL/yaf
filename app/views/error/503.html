@@ -1,0 +1,30 @@
+<?php 
+use Yaf\Registry;
+$serverClose = Registry::get('serverClose');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title>服务器正在维护-汇诚普惠</title>
+<link href="<?=WEB_ASSET?>/common/css/error.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 代码 开始 -->
+<div id="container">
+	<div class="error-msg" style="margin-top: 120px;">:( 服务器正在维护，由此给您带来的不便，我们深感抱歉！</div>
+	<?php if($serverClose['reason']):?>
+	<div class="item close-reason"><?=$serverClose['reason'];?></div>
+	<?php endif;?>
+	<?php if($serverClose['closeTime']&&$serverClose['openTime']):?>
+	<div class="item close-time"><em>维护时间：</em><?=$serverClose['closeTime'];?> 至 <?=$serverClose['openTime'];?></div>
+	<?php endif;?>
+	<div class="item service-phone"><em>客服电话：</em>400-186-9996</div>
+	<div class="item service-qq"><em>客服 Q Q：</em><a target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=2&uin=4008659993">4008659993</a></div>
+</div>
+<div id="cloud" class="png"></div>
+<!-- 代码 结束 -->
+</body>
+</html>
