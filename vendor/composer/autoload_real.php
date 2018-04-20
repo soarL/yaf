@@ -52,6 +52,7 @@ class ComposerAutoloaderInitc016bd15114812b23646a329936e6e14
         } else {
             $includeFiles = require __DIR__ . '/autoload_files.php';
         }
+        
         foreach ($includeFiles as $fileIdentifier => $file) {
             composerRequirec016bd15114812b23646a329936e6e14($fileIdentifier, $file);
         }
