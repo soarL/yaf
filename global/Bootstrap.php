@@ -14,7 +14,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Bootstrap extends Yaf\Bootstrap_Abstract{
 	
 	public function _initLoader() {
-
+		var_dump(file_exists(APP_PATH . "../../vendor/autoload.php"));exit;
         $data = Loader::import(APP_PATH . "../../vendor/autoload.php");
         var_dump($data) ;
     }
