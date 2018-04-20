@@ -339,6 +339,7 @@ class ClassLoader
         }
 
         return $file;
+
     }
 
     private function findFileWithExtension($class, $ext)
@@ -380,6 +381,7 @@ class ClassLoader
             foreach ($this->prefixesPsr0[$first] as $prefix => $dirs) {
                 if (0 === strpos($class, $prefix)) {
                     foreach ($dirs as $dir) {
+                            echo $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0;exit;
                         if (file_exists($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
                             return $file;
                         }
