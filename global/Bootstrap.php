@@ -14,7 +14,9 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Bootstrap extends Yaf\Bootstrap_Abstract{
 	
 	public function _initLoader() {
-        Loader::import(APP_PATH . "../../vendor/autoload.php");
+
+        $data = Loader::import(APP_PATH . "../../vendor/autoload.php");
+        var_dump($data) ;
     }
 	
 	public function _initConfig() {
@@ -35,10 +37,8 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 	//数据库初始化操作
 	public function _initDatabaseEloquent() {
         $config = Application::app()->getConfig()->database->toArray();
-        phpinfo();
-        _dd(spl_autoload_functions());exit;
-		$capsule = new Capsule();
-	
+        $capsule = new Capsule();
+
         // 创建链接
         $capsule->addConnection($config);
 
