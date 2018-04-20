@@ -25,7 +25,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 	}
 
 	public function _initDefine(){
-		define('WEB_MAIN',$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']);
+		define('WEB_MAIN',$_SERVER['SERVER_NAME']);
 	}
 	
 	public function _initDefaultName(Dispatcher $dispatcher) {
