@@ -15,7 +15,6 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 	
 	public function _initLoader() {
         $data = Loader::import(APP_PATH . "/../vendor/autoload.php");
-        var_dump($data) ;
     }
 	
 	public function _initConfig() {
