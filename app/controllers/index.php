@@ -1,4 +1,6 @@
 <?php
+phpinfo();
+return;
 use models\User;
 use Illuminate\Database\Capsule\Manager as DB;
 
