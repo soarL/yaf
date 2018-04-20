@@ -45,6 +45,5 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 
         // 启动Eloquent
         $capsule->bootEloquent();
-
     }
 }
