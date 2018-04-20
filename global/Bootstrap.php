@@ -36,7 +36,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
 	public function _initDatabaseEloquent() {
         $config = Application::app()->getConfig()->database->toArray();
         phpinfo();
-	$capsule = new Capsule();
+		$capsule = new Capsule();
 	
         // 创建链接
         $capsule->addConnection($config);
