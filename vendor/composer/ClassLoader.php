@@ -278,9 +278,8 @@ class ClassLoader
      */
     public function register($prepend = false)
     {
-        _dd(spl_autoload_functions());
         spl_autoload_register(array($this, 'loadClass'), true, $prepend);
-        _dd(spl_autoload_functions());exit;
+        _dd(spl_autoload_functions());
     }
 
     /**
