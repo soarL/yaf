@@ -114,5 +114,5 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5"
   },
-  "proxy": "http://wap.yaf.com/index.php"
+  "proxy": "http://m.yaf.com/index.php"
 }
