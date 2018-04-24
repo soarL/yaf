@@ -1,2 +1,4 @@
 /log/
 /conf/app.ini
+/app/react-ant-cli/node_modules
+/app_wap/react-ant-cli/node_modules

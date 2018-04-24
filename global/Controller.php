@@ -32,4 +32,12 @@ abstract class Controller extends Controller_Abstract {
         parent::redirect($url);
         exit();
     }
+
+    public function backJson($array) {
+        if(empty($array['data']['version'])){
+            $array['data']['version'] = '0.1.0';
+            $array['data']['time'] = time();
+        }
+        echo json_encode($array);exit(0);
+    }
 }
