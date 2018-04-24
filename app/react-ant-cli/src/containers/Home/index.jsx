@@ -10,7 +10,7 @@ class Home extends Component{
 	render(){
 		return(
 			<div>
-				react home 
+				这是首页咯！
 			</div>
 		)
 	}

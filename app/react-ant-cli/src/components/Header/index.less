@@ -1,0 +1,37 @@
+.header-box{
+	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 1001;
+	background-color: #fff;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+	.title{
+		padding: 10px;
+		.logo{
+			 img{
+			 	height:40px;
+			 }
+		}
+		.menu{
+			line-height: 40px;
+			button{
+				font-size: 12px;
+				margin-left: 10px;
+			}
+		}
+	}
+	.menu-box{
+		position: fixed;
+		right: 0;
+		top: 0;
+		height: 100%;
+		box-shadow: -1px 0px 6px 0px rgba(0, 0, 0, 0.25);
+		background-color: #fff;
+		animation:menus 0.3s ease-in-out both;transform-origin: 50% 50%;
+		-webkit-animation:menus 0.3s ease-in-out both;-webkit-transform-origin: 50% 50%; 
+	}
+	@keyframes menus{
+		0%{width: 0px}
+		100%{width: 300px}
+	}
+}
