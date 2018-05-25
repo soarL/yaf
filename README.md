@@ -7,4 +7,3 @@ yaf.use_namespace=1
 yaf.use_spl_autoload = on
 
 systemctl restart php-fpm
-ssssasdasd
