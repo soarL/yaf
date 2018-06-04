@@ -159,3 +159,107 @@ if(! function_exists('_cn_number')) {
         }
     }
 }
+
+
+if(! function_exists('_post')){
+    function _post($url, $data, $header = array(), $cmd = '1'){
+       $curl = curl_init(); // 启动一个CURL会话
+       curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址
+       if (!empty($header)) {
+           curl_setopt($curl, CURLOPT_HTTPHEADER, $header); //设置header
+       }
+       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0); // 对认证证书来源的检查
+       curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0); // 从证书中检查SSL加密算法是否存在
+       if ($cmd) {
+           curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
+       }
+       curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // 使用自动跳转
+       curl_setopt($curl,CURLOPT_AUTOREFERER, 1); // 自动设置Referer
+       curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
+       curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+       curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
+       curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
+       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
+       $response = curl_exec($curl); // 执行操作
+       if (curl_errno($curl)) {
+           echo 'Errno' . curl_error($curl); //捕抓异常
+       }
+       curl_close($curl); // 关闭CURL会话
+       return $response; // 返回数据
+    }
+}
+
+if(! function_exists('_get')){
+
+    function _get($url){
+         //初始化
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        // 执行后不直接打印出来
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        // 跳过证书检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // 不从证书中检查SSL加密算法是否存在
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+        //执行并获取HTML文档内容
+        $output = curl_exec($ch);
+
+        //释放curl句柄
+        curl_close($ch);
+        
+        return json_decode($output);
+    }
+}
+
+
+
+if(! function_exists('_randomkeys')){
+    function _randomkeys($length){
+       $returnStr='';
+        $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for($i = 0; $i < $length; $i ++) {
+            $returnStr .= $pattern {mt_rand ( 0, 61 )};
+        }
+        return $returnStr;
+    }
+}
+
+if(! function_exists('_paramsSort')){
+    function _paramsSort($params,$isDelEmpty=false){
+        ksort($params);
+        reset($params);
+        if($isDelEmpty) {
+            foreach ($params as $key => $value) {
+                if($value===''||$value===null) {
+                    unset($params[$key]);
+                }
+            }
+        }
+        return $params;
+    }
+}
+
+
+if(! function_exists('_createLinkString')){
+    function _createLinkString($params){
+        $arg  = "";
+         while (list ($key, $val) = each ($params)) {
+             if(is_array($val)) {
+                 $val = implode(',', $val);
+             }
+             $arg.=$key."=".$val."&";
+         }
+         //去掉最后一个&字符
+         $arg = substr($arg,0,count($arg)-2);
+         //如果存在转义字符，那么去掉转义
+         if(get_magic_quotes_gpc()){
+             $arg = stripslashes($arg);
+         }
+         return $arg;
+    }
+}
+
+
+ 
