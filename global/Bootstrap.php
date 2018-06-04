@@ -13,6 +13,32 @@ use Illuminate\Database\Capsule\Manager as Capsule;
  */
 class Bootstrap extends Yaf\Bootstrap_Abstract{
 	
+	public function _initWeixin(){
+        if(isset($_GET['echostr'])){
+            $echoStr = $_GET["echostr"];
+            if($this->checkSignature()){
+                echo $echoStr;
+            }
+        }
+	}
+	public function checkSignature(){
+		$signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = '79faf82271944fe38c4f1d99be71bc9c';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+
+        if ($tmpStr == $signature) {
+            return true;
+        } else {
+            return false;
+        }
+	}
+
 	public function _initLoader() {
         $data = Loader::import(APP_PATH . "/../vendor/autoload.php");
     }
