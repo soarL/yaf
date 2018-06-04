@@ -2,4 +2,4 @@
 /conf/app.ini
 /app/react-ant-cli/node_modules
 /app_wap/react-ant-cli/node_modules
-/conf/weixin.ini
+/conf/wx.ini
