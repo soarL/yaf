@@ -18,9 +18,11 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
             $echoStr = $_GET["echostr"];
             if($this->checkSignature()){
                 echo $echoStr;
+                exit;
             }
         }
 	}
+
 	public function checkSignature(){
 		$signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
