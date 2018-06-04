@@ -5,7 +5,7 @@ use Yaf\Registry;
 use Yaf\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
-
+use tools\Log;
 /**
  * 所有在Bootstrap类中, 以_init开头的方法, 都会被Yaf调用,
  * 这些方法, 都接受一个参数:Yaf_Dispatcher $dispatcher
@@ -14,6 +14,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Bootstrap extends Yaf\Bootstrap_Abstract{
 	
 	public function _initWeixin(){
+        Log::writeFileLog('weixin',"asdasd");
         if(isset($_GET['echostr'])){
             $echoStr = $_GET["echostr"];
             if($this->checkSignature()){
@@ -28,7 +29,7 @@ class Bootstrap extends Yaf\Bootstrap_Abstract{
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $token = '79faf82271944fe38c4f1d99be71bc9c';
+        $token = _wxini()->token;
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr, SORT_STRING);
         $tmpStr = implode($tmpArr);

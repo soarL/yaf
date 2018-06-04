@@ -261,5 +261,9 @@ if(! function_exists('_createLinkString')){
     }
 }
 
-
- 
+if(!function_exists("_wxini")){
+    function _wxini(){
+        $config = parse_ini_file(APP_PATH . '/../conf/wx.ini',TRUE);
+        return json_decode(json_encode($config));
+    }
+}
